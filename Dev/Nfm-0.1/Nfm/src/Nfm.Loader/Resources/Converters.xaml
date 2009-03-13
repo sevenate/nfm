@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:convert="clr-namespace:Nfm.Core.Converters;assembly=Nfm.Core"
+					mc:Ignorable="d">
+
+	<convert:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+	<convert:BoolToVisibilityConverter x:Key="BoolToVisibilityHiddenConverter"
+									   HiddenOnly="True" />
+	<convert:FileSizeToStringConverter x:Key="FileSizeToStringConverter" />
+	<convert:FileSizeToStringConverter x:Key="FileSizeToStringSpecificConverter"
+									   KByteUnit="KiloByte"
+									   MByteUnit="MegaByte"
+									   GByteUnit="GigaByte"
+									   TByteUnit="TeraByte"
+									   GBytePrecision="OneDecimalPlaces"
+									   TBytePrecision="TwoDecimalPlaces" />
+	<convert:FileSizeToBrushConverter x:Key="FileSizeToBrushConverter"
+									  ByteBrush="{StaticResource FileSizeByteBrush}"
+									  KByteBrush="{StaticResource FileSizeKByteBrush}"
+									  MByteBrush="{StaticResource FileSizeMByteBrush}"
+									  GByteBrush="{StaticResource FileSizeGByteBrush}"
+									  TByteBrush="{StaticResource FileSizeTByteBrush}" />
+	<convert:FileExtensionToBrushConverter x:Key="FileExtensionToBrushConverter"
+										   ExecutableBrush="#FF00FF00"
+										   LibraryBrush="#FF007B00"
+										   VideoBrush="#FFFF7BFF"
+										   AudioBrush="#FF7B7BFF"
+										   ImageBrush="#FFFF007B"
+										   ArchiveBrush="#FF007BC0"
+										   TemporaryBrush="#FF7B7B00"
+										   SourceBrush="#FF00FFFF"
+										   WebBrush="#FFFF7B00"
+										   NormalBrush="#FFFFFFFF" />
+	<convert:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
+	<convert:DateTimeToBrushConverter x:Key="DateTimeToBrushConverter" />
+
+</ResourceDictionary>

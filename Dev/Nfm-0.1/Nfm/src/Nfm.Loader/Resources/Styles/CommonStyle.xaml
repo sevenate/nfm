@@ -1,0 +1,109 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- #Brushes: Main window -->
+	<SolidColorBrush x:Key="WindowBackgroundBrush"
+					 Color="#77505050" />
+	<SolidColorBrush x:Key="WindowBorderBrush"
+					 Color="#77505050" />
+	
+	<!-- #Brushes: General -->
+	<SolidColorBrush x:Key="ForegroundBrush"
+					 Color="White" />
+	<SolidColorBrush x:Key="BackgroundBrush"
+					 Color="#FF333333" />
+	<SolidColorBrush x:Key="ListBackgroundBrush"
+					 Color="#FF333333" />
+	<SolidColorBrush x:Key="ListItemBackgroundBrush"
+					 Color="#FF595959" />
+	<SolidColorBrush x:Key="HoverBackgroundBrush"
+					 Color="#FF424242" />
+	<SolidColorBrush x:Key="BorderBrush"
+					 Color="#FF595959" />
+	
+	<!-- #Brushes: Selected -->
+	<SolidColorBrush x:Key="SelectedForegroundBrush"
+					 Color="Black" />
+	<SolidColorBrush x:Key="SelectedBackgroundBrush"
+					 Color="Yellow" />
+	<SolidColorBrush x:Key="SelectedBorderBrush"
+					 Color="Yellow" />
+
+	<!-- #Brushes: Disabled -->
+	<SolidColorBrush x:Key="DisabledForegroundBrush"
+					 Color="Gray" />
+	<SolidColorBrush x:Key="DisabledBackgroundBrush"
+					 Color="DarkGray" />
+	<SolidColorBrush x:Key="DisabledBorderBrush"
+					 Color="DarkGray" />
+
+	<!-- #Brushes: Forsed control -->
+	<SolidColorBrush x:Key="FocusedBorderBrush"
+					 Color="Red" />
+
+	<!-- #Brushes: File size -->
+	<SolidColorBrush x:Key="FileSizeByteBrush"
+					 Color="White" />
+	<SolidColorBrush x:Key="FileSizeKByteBrush"
+					 Color="LightGreen" />
+	<SolidColorBrush x:Key="FileSizeMByteBrush"
+					 Color="Orange" />
+	<SolidColorBrush x:Key="FileSizeGByteBrush"
+					 Color="#FFFF4F4F" />
+	<SolidColorBrush x:Key="FileSizeTByteBrush"
+					 Color="LightSeaGreen" />
+
+	<!-- #Styles: General -->
+	<Style x:Key="GeneralFont">
+		<Setter Property="Control.FontFamily"
+				Value="Verdana" />
+		<Setter Property="Control.FontSize"
+				Value="12" />
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="12" />
+	</Style>
+	
+	<!-- #Styles: File extension -->
+	<Style x:Key="FileExtension">
+		<Setter Property="Control.FontFamily"
+				Value="Verdana" />
+		<Setter Property="Control.FontSize"
+				Value="12" />
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="12" />
+	</Style>
+	
+	<!-- #Styles: File modification date -->
+	<Style x:Key="FileDateModified">
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="10" />
+	</Style>
+	
+	<!-- #Styles: File attributes -->
+	<Style x:Key="FileAttribute">
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="10" />
+		<Setter Property="TextBlock.Margin"
+				Value="2,1,2,1" />
+		<Setter Property="TextBlock.Padding"
+				Value="0" />
+	</Style>
+
+	<SolidColorBrush x:Key="FileAttributeSystemBrush"
+					 Color="#FF8B0000" />
+	<SolidColorBrush x:Key="FileAttributeHiddenBrush"
+					 Color="Gray" />
+	<SolidColorBrush x:Key="FileAttributeArchiveBrush"
+					 Color="DarkKhaki" />
+	<SolidColorBrush x:Key="FileAttributeReadOnlyBrush"
+					 Color="DarkOrange" />
+
+</ResourceDictionary>

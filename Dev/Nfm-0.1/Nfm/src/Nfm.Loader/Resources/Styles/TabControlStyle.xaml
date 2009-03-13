@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- #TabControl Style -->
+	<Style x:Key="TabControlStyle"
+		   TargetType="{x:Type TabControl}">
+		<Setter Property="Background"
+				Value="{DynamicResource BorderBrush}" />
+		<Setter Property="BorderBrush"
+				Value="{DynamicResource BorderBrush}" />
+		<Setter Property="BorderThickness"
+				Value="0" />
+		<Setter Property="Padding"
+				Value="2" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type TabControl}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<TabPanel Grid.Row="0"
+								  Grid.Column="0"
+								  Panel.ZIndex="1"
+								  Margin="0,0,4,-1"
+								  IsItemsHost="True"
+								  Background="Transparent" />
+						<!---->
+						<Border Grid.Row="1"
+								Grid.Column="0"
+								Grid.ColumnSpan="2"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="{TemplateBinding BorderThickness}"
+								CornerRadius="0,5,5,5">
+							<ContentPresenter x:Name="InnerTabPresenter" ContentSource="SelectedContent"
+											  Margin="{TemplateBinding Padding}" />
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>
