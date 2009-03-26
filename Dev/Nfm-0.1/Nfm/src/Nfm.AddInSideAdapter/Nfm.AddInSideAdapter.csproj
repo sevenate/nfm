@@ -68,4 +68,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties StartDate="20090312" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
