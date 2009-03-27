@@ -11,14 +11,10 @@
 				Value="true" />
 		<Setter Property="Foreground"
 				Value="{DynamicResource ForegroundBrush}" />
-		<Setter Property="Background"
-				Value="{DynamicResource ListItemBackgroundBrush}" />
-		<Setter Property="BorderThickness"
-				Value="0" />
 		<Setter Property="Padding"
-				Value="3,1,3,1" />
+				Value="0" />
 		<Setter Property="Margin"
-				Value="1" />
+				Value="0" />
 		<Setter Property="HorizontalContentAlignment"
 				Value="Stretch" />
 		<Setter Property="VerticalContentAlignment"
@@ -46,46 +42,48 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ListBoxItem">
-					<Border x:Name="Border"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							CornerRadius="3"
-							SnapsToDevicePixels="true">
+					<Grid>
+						<Rectangle
+							RadiusX="5"
+							RadiusY="5"
+							Stroke="Yellow"
+							StrokeThickness="1"
+							StrokeDashArray="4 4"
+							SnapsToDevicePixels="True" />
 						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 										  Margin="{TemplateBinding Padding}" />
-					</Border>
+					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected"
 								 Value="true">
 							<Setter Property="Foreground"
 									Value="{DynamicResource SelectedForegroundBrush}" />
-							<Setter TargetName="Border"
-									Property="Background"
-									Value="{DynamicResource SelectedBackgroundBrush}" />
-							<Setter TargetName="Border"
-									Property="BorderBrush"
-									Value="{DynamicResource SelectedBorderBrush}" />
+<!--							<Setter TargetName="Border"-->
+<!--									Property="Background"-->
+<!--									Value="{DynamicResource SelectedBackgroundBrush}" />-->
+<!--							<Setter TargetName="Border"-->
+<!--									Property="BorderBrush"-->
+<!--									Value="{DynamicResource SelectedBorderBrush}" />-->
 						</Trigger>
 						<Trigger Property="IsEnabled"
 								 Value="false">
 							<Setter Property="Foreground"
 									Value="{StaticResource DisabledForegroundBrush}" />
 						</Trigger>
-						<MultiTrigger>
-							<MultiTrigger.Conditions>
-								<Condition Property="IsMouseOver"
-										   Value="True" />
-								<Condition Property="IsSelected"
-										   Value="False" />
-							</MultiTrigger.Conditions>
-							<MultiTrigger.Setters>
-								<Setter TargetName="Border"
-										Property="Background"
-										Value="{DynamicResource HoverBackgroundBrush}" />
-							</MultiTrigger.Setters>
-						</MultiTrigger>
+<!--						<MultiTrigger>-->
+<!--							<MultiTrigger.Conditions>-->
+<!--								<Condition Property="IsMouseOver"-->
+<!--										   Value="True" />-->
+<!--								<Condition Property="IsSelected"-->
+<!--										   Value="False" />-->
+<!--							</MultiTrigger.Conditions>-->
+<!--							<MultiTrigger.Setters>-->
+<!--								<Setter TargetName="Border"-->
+<!--										Property="Background"-->
+<!--										Value="#66338833" />-->
+<!--							</MultiTrigger.Setters>-->
+<!--						</MultiTrigger>-->
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

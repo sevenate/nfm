@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="AddInManager.cs" />
     <Compile Include="Controls\UniformStack.cs" />
+    <Compile Include="Converters\BoolToCornerRadiusConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DebugConvertor.cs" />
     <Compile Include="Converters\FileExtensionToBrushConverter.cs" />

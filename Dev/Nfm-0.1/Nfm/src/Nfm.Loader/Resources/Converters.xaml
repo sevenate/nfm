@@ -5,6 +5,7 @@
 					xmlns:convert="clr-namespace:Nfm.Core.Converters;assembly=Nfm.Core"
 					mc:Ignorable="d">
 
+	<convert:BoolToCornerRadiusConverter x:Key="BoolToCornerRadiusConverter" />
 	<convert:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 	<convert:BoolToVisibilityConverter x:Key="BoolToVisibilityHiddenConverter"
 									   HiddenOnly="True" />
@@ -33,6 +34,28 @@
 										   SourceBrush="#FF00FFFF"
 										   WebBrush="#FFFF7B00"
 										   NormalBrush="#FFFFFFFF" />
+	<convert:FileExtensionToBrushConverter x:Key="FileExtensionToBackgroundBrushConverter"
+										   ExecutableBrush="#2200FF00"
+										   LibraryBrush="#22007B00"
+										   VideoBrush="#22FF7BFF"
+										   AudioBrush="#227B7BFF"
+										   ImageBrush="#22FF007B"
+										   ArchiveBrush="#22007BC0"
+										   TemporaryBrush="#227B7B00"
+										   SourceBrush="#2200FFFF"
+										   WebBrush="#22FF7B00"
+										   NormalBrush="{StaticResource ListItemBackgroundBrush}" />
+	<convert:FileExtensionToBrushConverter x:Key="FileExtensionToBackgroundHoverBrushConverter"
+										   ExecutableBrush="#6600FF00"
+										   LibraryBrush="#66007B00"
+										   VideoBrush="#66FF7BFF"
+										   AudioBrush="#667B7BFF"
+										   ImageBrush="#66FF007B"
+										   ArchiveBrush="#66007BC0"
+										   TemporaryBrush="#667B7B00"
+										   SourceBrush="#6600FFFF"
+										   WebBrush="#66FF7B00"
+										   NormalBrush="{StaticResource HoverBackgroundBrush}" />
 	<convert:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
 	<convert:DateTimeToBrushConverter x:Key="DateTimeToBrushConverter" />
 
