@@ -25,7 +25,7 @@
 	<SolidColorBrush x:Key="SelectedForegroundBrush"
 					 Color="Black" />
 	<SolidColorBrush x:Key="SelectedBackgroundBrush"
-					 Color="Yellow" />
+					 Color="#33FFFF00" />
 	<SolidColorBrush x:Key="SelectedBorderBrush"
 					 Color="Yellow" />
 
