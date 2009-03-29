@@ -22,6 +22,10 @@
 				Value="true" />
 		<Setter Property="VerticalContentAlignment"
 				Value="Center" />
+		<Setter Property="IsSynchronizedWithCurrentItem"
+				Value="True" />
+		<Setter Property="SelectionMode"
+				Value="Extended" />
 <!--
 		<Setter Property="VirtualizingStackPanel.VirtualizationMode"
 				Value="Recycling" />
