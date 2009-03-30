@@ -20,9 +20,10 @@
 			<TabControl.ContentTemplate>
 				<DataTemplate>
 					<ContentControl x:Name="TabContent777"
-									Content="{Binding Converter={converters:DebugBinding}
-												, NotifyOnTargetUpdated=True
+									Content="{Binding
+												  NotifyOnTargetUpdated=True
 												, NotifyOnSourceUpdated=True
+												, Converter={converters:DebugBinding}
 												, diagnostics:PresentationTraceSources.TraceLevel=High}"
 									IsTabStop="False" />
 				</DataTemplate>

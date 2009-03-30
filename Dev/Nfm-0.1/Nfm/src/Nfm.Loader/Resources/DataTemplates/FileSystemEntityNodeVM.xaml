@@ -13,7 +13,7 @@
 		<!-- Border BorderBrush was: #FF338833 -->
 		<!-- Border Background was: #22338833 -->
 		<!-- Border Background "hover" was: #66338833 -->
-		
+
 		<Border x:Name="Border"
 				Margin="1"
 				Padding="3,1,3,1"
@@ -24,97 +24,97 @@
 				SnapsToDevicePixels="true">
 			<DockPanel LastChildFill="False">
 				<Image x:Name="Icon"
-				   Width="32"
-				   Height="32"
-				   Source="../Images/cpma-trans.png"
-				   DockPanel.Dock="Left"
-				   VerticalAlignment="Top" />
+					   Width="32"
+					   Height="32"
+					   Source="../Images/cpma-trans.png"
+					   DockPanel.Dock="Left"
+					   VerticalAlignment="Top" />
 				<DockPanel x:Name="BottomLine"
-					   LastChildFill="False"
-					   DockPanel.Dock="Bottom">
+						   LastChildFill="False"
+						   DockPanel.Dock="Bottom">
 					<Grid DockPanel.Dock="Right"
-					  VerticalAlignment="Bottom">
+						  VerticalAlignment="Bottom">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"
-										  SharedSizeGroup="Size" />
+											  SharedSizeGroup="Size" />
 						</Grid.ColumnDefinitions>
 						<TextBlock x:Name="Size"
-							   Visibility="{Binding Path=IsFile, Converter={StaticResource BoolToVisibilityConverter}}"
-							   Foreground="{Binding Path=Size, Converter={StaticResource FileSizeToBrushConverter}}"
-							   Text="{Binding Path=Size, Converter={StaticResource FileSizeToStringSpecificConverter}}"
-							   Padding="5,1,5,1"
-							   TextAlignment="Right">
+								   Visibility="{Binding Path=IsFile, Converter={StaticResource BoolToVisibilityConverter}}"
+								   Foreground="{Binding Path=Size, Converter={StaticResource FileSizeToBrushConverter}}"
+								   Text="{Binding Path=Size, Converter={StaticResource FileSizeToStringSpecificConverter}}"
+								   Padding="5,1,5,1"
+								   TextAlignment="Right">
 						<TextBlock.ToolTip>
 							<ToolTip Content="{Binding Path=Size, Converter={StaticResource FileSizeToStringConverter}}" />
 						</TextBlock.ToolTip>
 						</TextBlock>
 					</Grid>
 					<Grid DockPanel.Dock="Right"
-					  VerticalAlignment="Bottom">
+						  VerticalAlignment="Bottom">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"
-										  SharedSizeGroup="Extension" />
+											  SharedSizeGroup="Extension" />
 						</Grid.ColumnDefinitions>
 						<Border Background="Black"
-							BorderThickness="0"
-							CornerRadius="3"
-							Padding="8,1,8,1"
-							Visibility="{Binding Path=HasExtension, Converter={StaticResource BoolToVisibilityConverter}}"
-							HorizontalAlignment="Left">
+								BorderThickness="0"
+								CornerRadius="3"
+								Padding="8,1,8,1"
+								Visibility="{Binding Path=HasExtension, Converter={StaticResource BoolToVisibilityConverter}}"
+								HorizontalAlignment="Left">
 							<TextBlock x:Name="Extension"
-								   Text="{Binding Path=Extension}"
-								   Foreground="{Binding Path=Extension, Converter={StaticResource FileExtensionToBrushConverter}}"
-								   Style="{StaticResource FileExtension}" />
+									   Text="{Binding Path=Extension}"
+									   Foreground="{Binding Path=Extension, Converter={StaticResource FileExtensionToBrushConverter}}"
+									   Style="{StaticResource FileExtension}" />
 						</Border>
 					</Grid>
 
 					<StackPanel DockPanel.Dock="Right"
-							VerticalAlignment="Bottom"
-							Orientation="Horizontal">
+								VerticalAlignment="Bottom"
+								Orientation="Horizontal">
 						<TextBlock x:Name="AttributeSystem"
-							   Visibility="{Binding Path=IsSystem, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
-							   Foreground="{StaticResource FileAttributeSystemBrush}"
-							   Text="S"
-							   ToolTip="System"
-							   Style="{DynamicResource FileAttribute}"
-							   HorizontalAlignment="Right"
-							   VerticalAlignment="Center" />
+								   Visibility="{Binding Path=IsSystem, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
+								   Foreground="{StaticResource FileAttributeSystemBrush}"
+								   Text="S"
+								   ToolTip="System"
+								   Style="{DynamicResource FileAttribute}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
 						<TextBlock x:Name="AttributeHidden"
-							   Visibility="{Binding Path=IsHidden, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
-							   Foreground="{StaticResource FileAttributeHiddenBrush}"
-							   Text="H"
-							   ToolTip="Hidden"
-							   Style="{DynamicResource FileAttribute}"
-							   HorizontalAlignment="Right"
-							   VerticalAlignment="Center" />
+								   Visibility="{Binding Path=IsHidden, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
+								   Foreground="{StaticResource FileAttributeHiddenBrush}"
+								   Text="H"
+								   ToolTip="Hidden"
+								   Style="{DynamicResource FileAttribute}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
 						<TextBlock x:Name="AttributeArchive"
-							   Visibility="{Binding Path=IsArchive, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
-							   Foreground="{StaticResource FileAttributeArchiveBrush}"
-							   Text="A"
-							   ToolTip="Archive"
-							   Style="{DynamicResource FileAttribute}"
-							   HorizontalAlignment="Right"
-							   VerticalAlignment="Center" />
+								   Visibility="{Binding Path=IsArchive, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
+								   Foreground="{StaticResource FileAttributeArchiveBrush}"
+								   Text="A"
+								   ToolTip="Archive"
+								   Style="{DynamicResource FileAttribute}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
 						<TextBlock x:Name="AttributeReadOnly"
-							   Visibility="{Binding Path=IsReadOnly, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
-							   Foreground="{StaticResource FileAttributeReadOnlyBrush}"
-							   Text="R"
-							   ToolTip="Read Only"
-							   Style="{DynamicResource FileAttribute}"
-							   HorizontalAlignment="Right"
-							   VerticalAlignment="Center" />
+								   Visibility="{Binding Path=IsReadOnly, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
+								   Foreground="{StaticResource FileAttributeReadOnlyBrush}"
+								   Text="R"
+								   ToolTip="Read Only"
+								   Style="{DynamicResource FileAttribute}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
 					</StackPanel>
 
 					<TextBlock x:Name="DateModified"
-						   Text="{Binding Path=DateModified, Converter={StaticResource DateTimeToStringConverter}}"
-						   ToolTip="{Binding Path=DateModified}"
-						   Foreground="{Binding Path=DateModified, Converter={StaticResource DateTimeToBrushConverter}}"
-						   Padding="5,1,5,1"
-						   MinWidth="160"
-						   Style="{DynamicResource FileDateModified}"
-						   TextAlignment="Right"
-						   DockPanel.Dock="Right"
-						   VerticalAlignment="Bottom" />
+							   Text="{Binding Path=DateModified, Converter={StaticResource DateTimeToStringConverter}}"
+							   ToolTip="{Binding Path=DateModified}"
+							   Foreground="{Binding Path=DateModified, Converter={StaticResource DateTimeToBrushConverter}}"
+							   Padding="5,1,5,1"
+							   MinWidth="160"
+							   Style="{DynamicResource FileDateModified}"
+							   TextAlignment="Right"
+							   DockPanel.Dock="Right"
+							   VerticalAlignment="Bottom" />
 					<!--
 				<StackPanel x:Name="Date"
 							Orientation="Horizontal"
@@ -130,10 +130,10 @@
 				-->
 				</DockPanel>
 				<TextBlock x:Name="Name"
-					   Text="{Binding Path=Name}"
-					   TextWrapping="Wrap"
-					   Padding="5,1,5,1"
-					   DockPanel.Dock="Top" />
+						   Text="{Binding Path=Name}"
+						   TextWrapping="Wrap"
+						   Padding="5,1,5,1"
+						   DockPanel.Dock="Top" />
 				<!--
 			<Message.Triggers>
 				<RoutedMessageTriggerCollection>
@@ -160,28 +160,31 @@
 			<MultiTrigger>
 				<MultiTrigger.Conditions>
 					<Condition Property="IsMouseOver"
-										   Value="True" />
+							   Value="True" />
 					<!--					<Condition Property="IsSelected"-->
 					<!--										   Value="False" />-->
 				</MultiTrigger.Conditions>
 				<MultiTrigger.Setters>
 					<Setter TargetName="Border"
-										Property="Background"
-										Value="{Binding Path=Extension, Converter={StaticResource FileExtensionToBackgroundHoverBrushConverter}}" />
+							Property="Background"
+							Value="{Binding Path=Extension, Converter={StaticResource FileExtensionToBackgroundHoverBrushConverter}}" />
 				</MultiTrigger.Setters>
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>
 
+<!--	Action.Target="{Binding}"-->
+
 	<DataTemplate DataType="{x:Type fs:FileSystemEntityNodeVM}">
-		<ListBox ItemsSource="{Binding Path=Childs
-									, Converter={converters:DebugBinding}
-									, diagnostics:PresentationTraceSources.TraceLevel=High}"
+		<ListBox x:Name="FilesListBox"
+				 ItemsSource="{Binding Path=Childs
+							 , NotifyOnTargetUpdated=True
+							 , NotifyOnSourceUpdated=True
+							 , Converter={converters:DebugBinding}
+							 , diagnostics:PresentationTraceSources.TraceLevel=High}"
 				 ItemTemplate="{StaticResource NodeBriefDataTemplate}"
 				 Style="{StaticResource ListBoxStyle}"
-				 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-				 SelectionMode="Extended"
-				 Action.Target="{Binding}">
+				 ItemContainerStyle="{StaticResource ListBoxItemStyle}">
 			<Message.Triggers>
 				<RoutedMessageTriggerCollection>
 					<GestureMessageTrigger Key="{Binding Path=RefreshChildsHotKey}"
