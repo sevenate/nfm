@@ -21,8 +21,22 @@ namespace Nfm.Core.ViewModels
 	public class StackContainer : PanelContainerBase
 	{
 		/// <summary>
+		/// Orientation for stacked panels.
+		/// </summary>
+		private Orientation orientation;
+
+		/// <summary>
 		/// Gets or sets orientation for stacked panels.
 		/// </summary>
-		public Orientation Orientation { get; set; }
+		public Orientation Orientation
+		{
+			get { return orientation; }
+			set
+			{
+				OnPropertyChanging("Orientation");
+				orientation = value;
+				OnPropertyChanged("Orientation");
+			}
+		}
 	}
 }
