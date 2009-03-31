@@ -11,8 +11,6 @@
 // </editor>
 // <summary>TabControl-based <see cref="IPanel"/> container.</summary>
 
-using System.Diagnostics;
-
 namespace Nfm.Core.ViewModels
 {
 	/// <summary>
@@ -20,34 +18,5 @@ namespace Nfm.Core.ViewModels
 	/// </summary>
 	public class TabContainer : PanelContainerBase
 	{
-		private IPanel selectedTab;
-
-		/// <summary>
-		/// Gets or sets selected tab panel.
-		/// </summary>
-		public IPanel SelectedTab
-		{
-			get { return selectedTab; }
-			set
-			{
-//				OnPropertyChanging("SelectedTab");
-
-//				var tabHeader = (selectedTab != null && selectedTab.Header != null)
-//									? selectedTab.Header
-//									: "null.";
-				
-//				Debug.WriteLine(Header + ", old selected: " + tabHeader);
-				
-				selectedTab = value;
-
-//				tabHeader = (selectedTab != null && selectedTab.Header != null)
-//									? selectedTab.Header
-//									: "null.";
-
-//				Debug.WriteLine(Header + ", new selected: " + tabHeader);
-
-//				OnPropertyChanged("SelectedTab");
-			}
-		}
 	}
 }

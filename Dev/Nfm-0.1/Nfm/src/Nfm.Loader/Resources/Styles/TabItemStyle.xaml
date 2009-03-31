@@ -20,6 +20,8 @@
 				Value="0" />
 		<Setter Property="IsTabStop"
 				Value="False" />
+		<Setter Property="IsSelected"
+				Value="{Binding IsSelected}" />
 		<Setter Property="FocusVisualStyle"
 				Value="{x:Null}" />
 		<Setter Property="Action.Target"

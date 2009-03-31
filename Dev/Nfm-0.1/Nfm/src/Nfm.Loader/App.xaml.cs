@@ -182,6 +182,7 @@ namespace Nfm.Loader
 				{
 					AbsoluteName = @"C:\",
 				});
+			driveCPanel.IsSelected = true;
 			driveCPanel.RefreshDetails();
 			driveCPanel.RefreshChilds();
 
@@ -284,6 +285,7 @@ namespace Nfm.Loader
 				{
 					AbsoluteName = @"D:\Images",
 				});
+			enterPanel.IsSelected = true;
 			enterPanel.RefreshDetails();
 			enterPanel.RefreshChilds();
 
@@ -304,6 +306,7 @@ namespace Nfm.Loader
 				{
 					AbsoluteName = @"D:\Music",
 				});
+			topMusicPanel.IsSelected = true;
 			topMusicPanel.RefreshDetails();
 			topMusicPanel.RefreshChilds();
 
@@ -313,7 +316,6 @@ namespace Nfm.Loader
 			};
 			subTabContainer1.Childs.Add(topGamesPanel);
 			subTabContainer1.Childs.Add(topMusicPanel);
-			subTabContainer1.SelectedTab = topMusicPanel;
 
 			var topDriveCpanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
@@ -328,25 +330,25 @@ namespace Nfm.Loader
 				{
 					AbsoluteName = @"D:\",
 				});
+			topDriveDpanel.IsSelected = true;
 			topDriveDpanel.RefreshDetails();
 			topDriveDpanel.RefreshChilds();
 
 			var subTabContainer2 = new TabContainer
 			{
-				Header = "DisksContainer"
+				Header = "DisksContainer",
+				IsSelected = true
 			};
 
 			subTabContainer2.Childs.Add(topDriveCpanel);
 			subTabContainer2.Childs.Add(topDriveDpanel);
-			subTabContainer2.SelectedTab = topDriveDpanel;
 
 			var topTabContainer = new TabContainer
 			{
-				Header = "Top Tab Container"
+				Header = "Top Tab Container",
 			};
 			topTabContainer.Childs.Add(subTabContainer1);
 			topTabContainer.Childs.Add(subTabContainer2);
-			topTabContainer.SelectedTab = subTabContainer1;
 
 			#endregion
 
@@ -354,12 +356,11 @@ namespace Nfm.Loader
 
 			var mainTabContainer = new TabContainer
 			{
-				Header = "Main Window"
+				Header = "Main Window",
 			};
 			mainTabContainer.Childs.Add(workStackContainer);
 			mainTabContainer.Childs.Add(enterPanel);
 			mainTabContainer.Childs.Add(topTabContainer);
-			mainTabContainer.SelectedTab = enterPanel;
 
 			#endregion
 

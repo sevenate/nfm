@@ -5,9 +5,6 @@
 					xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase">
 
 	<DataTemplate DataType="{x:Type vm:TabContainer}">
-<!--
-					SelectedItem="{Binding Path=SelectedTab}"
-		-->
 		<TabControl ItemsSource="{Binding Path=Childs}"
 					Style="{StaticResource TabControlStyle}"
 					ItemContainerStyle="{StaticResource TabItemStyle}">

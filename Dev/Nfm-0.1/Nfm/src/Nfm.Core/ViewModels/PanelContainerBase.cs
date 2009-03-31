@@ -81,9 +81,23 @@ namespace Nfm.Core.ViewModels
 		}
 
 		/// <summary>
+		/// Indicating whether a panel is selected.
+		/// </summary>
+		private bool isSelected;
+
+		/// <summary>
 		/// Gets or sets a value indicating whether a panel is selected.
 		/// </summary>
-		public bool IsSelected { get; set; }
+		public bool IsSelected
+		{
+			get { return isSelected; }
+			set
+			{
+				OnPropertyChanging("IsSelected");
+				isSelected = value;
+				OnPropertyChanged("IsSelected");
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets parent <see cref="IPanel"/>.
