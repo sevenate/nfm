@@ -20,7 +20,7 @@
 				Background="{Binding Path=Extension, Converter={StaticResource FileExtensionToBackgroundBrushConverter}}"
 				BorderBrush="{Binding Path=Extension, Converter={StaticResource FileExtensionToBrushConverter}}"
 				BorderThickness="2"
-				CornerRadius="{Binding Path=IsReadOnly, Converter={StaticResource BoolToCornerRadiusConverter}}"
+				CornerRadius="{Binding Path=IsDirectory, Converter={StaticResource BoolToCornerRadiusConverter}}"
 				SnapsToDevicePixels="true">
 			<DockPanel LastChildFill="False">
 				<Image x:Name="Icon"
