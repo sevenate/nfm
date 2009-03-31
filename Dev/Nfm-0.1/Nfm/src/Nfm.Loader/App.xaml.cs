@@ -283,7 +283,7 @@ namespace Nfm.Loader
 			var enterPanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\Images",
+					AbsoluteName = @"D:\Videos",
 				});
 			enterPanel.IsSelected = true;
 			enterPanel.RefreshDetails();
