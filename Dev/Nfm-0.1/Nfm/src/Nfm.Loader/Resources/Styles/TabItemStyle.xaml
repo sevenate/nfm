@@ -24,8 +24,6 @@
 				Value="{Binding IsSelected}" />
 		<Setter Property="FocusVisualStyle"
 				Value="{x:Null}" />
-		<Setter Property="Action.Target"
-				Value="{Binding}" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TabItem}">
@@ -44,9 +42,9 @@
 								<Message.Triggers>
 									<RoutedMessageTriggerCollection>
 										<EventMessageTrigger EventName="Click">
-											<EventMessageTrigger.Message>
-												<ActionMessage MethodName="RequestClose" />
-											</EventMessageTrigger.Message>
+											<CommandMessage Command="{Resolve Key=ClosePanel}">
+												<Parameter Value="{Binding Mode=OneWay}" />
+											</CommandMessage>
 										</EventMessageTrigger>
 									</RoutedMessageTriggerCollection>
 								</Message.Triggers>

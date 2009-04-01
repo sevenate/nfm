@@ -20,6 +20,7 @@ using Caliburn.Actions;
 using Caliburn.Commands;
 using Caliburn.Core;
 using Caliburn.RoutedUIMessaging;
+using Nfm.Core.Commands;
 using Nfm.Core.Models.FileSystem;
 using Nfm.Core.ViewModels;
 using Nfm.Core.ViewModels.FileSystem;
@@ -41,32 +42,19 @@ namespace Nfm.Loader
 		/// </exception>
 		public App()
 		{
-			//Note: Using an external container via adapter.  The usage pattern is the same for all supported containers.
-
-//			var adapter = new StructureMapAdapter();
+			var container = new SimpleContainer();
 
 			CaliburnApplication
-				.ConfigureCore( /*adapter*/)
+				.ConfigureCore(container)
 				.WithRoutedUIMessaging()
 				.WithActions()
 				.WithCommands()
 				.StartApplication();
 
-//			adapter.Register(typeof(INode), typeof(FileSystemEntityNode));
-
-			//Note: Retrieve one of Caliburn's services.
-
-//			var controller = adapter.Resolve<IRoutedMessageController>();
-
-			//Note: Customize the default behavior of button elements.
-
-//			controller.SetupDefaults(
-//				new GenericInteractionDefaults<Button>(
-//					"MouseEnter",
-//					(b, v) => b.DataContext = v,
-//					b => b.DataContext
-//					)
-//				);
+			container.RegisterSingleton<ClosePanelCommand>("ClosePanel");
+			container.RegisterSingleton<NavigateToCurrentNodeCommand>("NavigateToCurrentNode");
+			container.RegisterSingleton<NavigateToParentNodeCommand>("NavigateToParentNode");
+			container.RegisterSingleton<RefreshChildNodesCommand>("RefreshChildNodes");
 		}
 
 		#region Overrides of Application

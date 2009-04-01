@@ -101,6 +101,18 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public IPanel Parent { get; set; }
 
+		#region RequestClose
+
+		/// <summary>
+		/// Gets hotkey for "RequestClose" action.
+		/// </summary>
+		public Key RequestCloseHotKey { get { return Key.W; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "RequestClose" action.
+		/// </summary>
+		public ModifierKeys RequestCloseHotKeyModifiers { get { return ModifierKeys.Control; } }
+
 		/// <summary>
 		/// Request close action for panel.
 		/// </summary>
@@ -115,6 +127,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 			//Dispose(true);
 			OnEvent(Closed, this);
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Fire when panel is intended to close.

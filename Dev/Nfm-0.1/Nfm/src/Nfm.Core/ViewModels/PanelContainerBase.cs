@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace Nfm.Core.ViewModels
 {
@@ -104,6 +105,18 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		public IPanel Parent { get; set; }
 
+		#region RequestClose
+
+		/// <summary>
+		/// Gets hotkey for "RequestClose" action.
+		/// </summary>
+		public Key RequestCloseHotKey { get { return Key.W; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "RequestClose" action.
+		/// </summary>
+		public ModifierKeys RequestCloseHotKeyModifiers { get { return ModifierKeys.Control; } }
+
 		/// <summary>
 		/// Request close action for panel.
 		/// </summary>
@@ -127,6 +140,8 @@ namespace Nfm.Core.ViewModels
 				throw new Exception("Some child panels can not be closed.");
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Fire when panel is closed.

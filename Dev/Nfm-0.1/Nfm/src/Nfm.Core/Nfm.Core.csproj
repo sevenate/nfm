@@ -32,6 +32,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Actions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Caliburn.Actions.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Caliburn.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.RoutedUIMessaging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Caliburn.RoutedUIMessaging.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -51,6 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddInManager.cs" />
+    <Compile Include="Commands\ClosePanelCommand.cs" />
+    <Compile Include="Commands\NavigateToCurrentNodeCommand.cs" />
+    <Compile Include="Commands\NavigateToParentNodeCommand.cs" />
+    <Compile Include="Commands\RefreshChildNodesCommand.cs" />
     <Compile Include="Controls\UniformStack.cs" />
     <Compile Include="Converters\BoolToCornerRadiusConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />

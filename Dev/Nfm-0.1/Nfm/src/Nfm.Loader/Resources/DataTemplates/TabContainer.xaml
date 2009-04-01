@@ -25,6 +25,16 @@
 									IsTabStop="False" />
 				</DataTemplate>
 			</TabControl.ContentTemplate>
+			<Message.Triggers>
+				<RoutedMessageTriggerCollection>
+					<GestureMessageTrigger Key="{Binding Path=RequestCloseHotKey}"
+										   Modifiers="{Binding Path=RequestCloseHotKeyModifiers}">
+						<CommandMessage Command="{Resolve Key=ClosePanel}">
+							<Parameter Value="{Binding Mode=OneWay}" />
+						</CommandMessage>
+					</GestureMessageTrigger>
+				</RoutedMessageTriggerCollection>
+			</Message.Triggers>
 		</TabControl>
 	</DataTemplate>
 

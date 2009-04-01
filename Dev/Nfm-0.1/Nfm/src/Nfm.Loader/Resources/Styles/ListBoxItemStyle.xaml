@@ -26,16 +26,18 @@
 				<RoutedMessageTriggerCollection>
 					<EventMessageTrigger EventName="MouseDoubleClick">
 						<EventMessageTrigger.Message>
-							<ActionMessage MethodName="ChangeNode">
+							<CommandMessage Command="{Resolve Key=NavigateToCurrentNode}">
+								<Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
 								<Parameter Value="{Binding Mode=OneWay}" />
-							</ActionMessage>
+							</CommandMessage>
 						</EventMessageTrigger.Message>
 					</EventMessageTrigger>
 					<GestureMessageTrigger Key="Enter">
 						<GestureMessageTrigger.Message>
-							<ActionMessage MethodName="ChangeNode">
+							<CommandMessage Command="{Resolve Key=NavigateToCurrentNode}">
+								<Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
 								<Parameter Value="{Binding Mode=OneWay}" />
-							</ActionMessage>
+							</CommandMessage>
 						</GestureMessageTrigger.Message>
 					</GestureMessageTrigger>
 				</RoutedMessageTriggerCollection>

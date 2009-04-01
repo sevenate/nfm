@@ -190,14 +190,24 @@
 					<GestureMessageTrigger Key="{Binding Path=RefreshChildsHotKey}"
 										   Modifiers="{Binding Path=RefreshChildsHotKeyModifiers}">
 						<GestureMessageTrigger.Message>
-							<ActionMessage MethodName="RefreshChilds" />
+							<CommandMessage Command="{Resolve Key=RefreshChildNodes}">
+								<Parameter Value="{Binding Mode=OneWay}" />
+							</CommandMessage>
 						</GestureMessageTrigger.Message>
 					</GestureMessageTrigger>
 					<GestureMessageTrigger Key="{Binding Path=NavigateToParentHotKey}"
 										   Modifiers="{Binding Path=NavigateToParentHotKeyModifiers}">
 						<GestureMessageTrigger.Message>
-							<ActionMessage MethodName="NavigateToParent" />
+							<CommandMessage Command="{Resolve Key=NavigateToParentNode}">
+								<Parameter Value="{Binding Mode=OneWay}" />
+							</CommandMessage>
 						</GestureMessageTrigger.Message>
+					</GestureMessageTrigger>
+					<GestureMessageTrigger Key="{Binding Path=RequestCloseHotKey}"
+										   Modifiers="{Binding Path=RequestCloseHotKeyModifiers}">
+						<CommandMessage Command="{Resolve Key=ClosePanel}">
+							<Parameter Value="{Binding Mode=OneWay}" />
+						</CommandMessage>
 					</GestureMessageTrigger>
 				</RoutedMessageTriggerCollection>
 			</Message.Triggers>
