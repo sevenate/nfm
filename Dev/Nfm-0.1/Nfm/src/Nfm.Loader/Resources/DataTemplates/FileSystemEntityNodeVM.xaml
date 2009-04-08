@@ -3,8 +3,6 @@
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:fs="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core"
-					xmlns:converters="clr-namespace:Nfm.Core.Converters;assembly=Nfm.Core"
-					xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 					mc:Ignorable="d">
 
 	<DataTemplate x:Key="NodeBriefDataTemplate"
@@ -134,26 +132,6 @@
 						   TextWrapping="Wrap"
 						   Padding="5,1,5,1"
 						   DockPanel.Dock="Top" />
-				<!--
-			<Message.Triggers>
-				<RoutedMessageTriggerCollection>
-					<GestureMessageTrigger MouseAction="LeftDoubleClick">
-						<GestureMessageTrigger.Message>
-							<ActionMessage MethodName="ChangeNode">
-								<Parameter Value="{Binding Mode=OneWay}" />
-							</ActionMessage>
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-					<GestureMessageTrigger Key="Enter">
-						<GestureMessageTrigger.Message>
-							<ActionMessage MethodName="ChangeNode">
-								<Parameter Value="{Binding Mode=OneWay}" />
-							</ActionMessage>
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-				</RoutedMessageTriggerCollection>
-			</Message.Triggers>
-			-->
 			</DockPanel>
 		</Border>
 		<DataTemplate.Triggers>
@@ -161,8 +139,8 @@
 				<MultiTrigger.Conditions>
 					<Condition Property="IsMouseOver"
 							   Value="True" />
-					<!--					<Condition Property="IsSelected"-->
-					<!--										   Value="False" />-->
+<!--					<Condition Property="IsSelected"-->
+<!--										   Value="False" />-->
 				</MultiTrigger.Conditions>
 				<MultiTrigger.Setters>
 					<Setter TargetName="Border"
@@ -173,15 +151,8 @@
 		</DataTemplate.Triggers>
 	</DataTemplate>
 
-<!--	Action.Target="{Binding}"-->
-
 	<DataTemplate DataType="{x:Type fs:FileSystemEntityNodeVM}">
-		<ListBox x:Name="FilesListBox"
-				 ItemsSource="{Binding Path=Childs
-							 , NotifyOnTargetUpdated=True
-							 , NotifyOnSourceUpdated=True
-							 , Converter={converters:DebugBinding}
-							 , diagnostics:PresentationTraceSources.TraceLevel=High}"
+		<ListBox ItemsSource="{Binding Path=Childs}"
 				 ItemTemplate="{StaticResource NodeBriefDataTemplate}"
 				 Style="{StaticResource ListBoxStyle}"
 				 ItemContainerStyle="{StaticResource ListBoxItemStyle}">

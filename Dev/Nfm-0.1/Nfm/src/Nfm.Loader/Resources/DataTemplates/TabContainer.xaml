@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:vm="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core"
-					xmlns:converters="clr-namespace:Nfm.Core.Converters;assembly=Nfm.Core"
-					xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase">
+					xmlns:vm="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core">
 
 	<DataTemplate DataType="{x:Type vm:TabContainer}">
 		<TabControl ItemsSource="{Binding Path=Childs}"
@@ -14,17 +12,6 @@
 									IsTabStop="False" />
 				</DataTemplate>
 			</TabControl.ItemTemplate>
-			<TabControl.ContentTemplate>
-				<DataTemplate>
-					<ContentControl x:Name="TabContent777"
-									Content="{Binding
-												  NotifyOnTargetUpdated=True
-												, NotifyOnSourceUpdated=True
-												, Converter={converters:DebugBinding}
-												, diagnostics:PresentationTraceSources.TraceLevel=High}"
-									IsTabStop="False" />
-				</DataTemplate>
-			</TabControl.ContentTemplate>
 			<Message.Triggers>
 				<RoutedMessageTriggerCollection>
 					<GestureMessageTrigger Key="{Binding Path=RequestCloseHotKey}"

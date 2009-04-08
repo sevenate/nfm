@@ -40,7 +40,7 @@
 								BorderBrush="{TemplateBinding BorderBrush}"
 								BorderThickness="{TemplateBinding BorderThickness}"
 								CornerRadius="0,5,5,5">
-							<ContentPresenter x:Name="InnerTabPresenter" ContentSource="SelectedContent"
+							<ContentPresenter ContentSource="SelectedContent"
 											  Margin="{TemplateBinding Padding}" />
 						</Border>
 					</Grid>
