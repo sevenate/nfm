@@ -660,7 +660,7 @@
             <param name="actualArgumentCount">The number of arguments specified at call time (for Params-type delegates) or at
             CreateDelegate time (for Explicit-type delegates)</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Caliburn.Core.MemoryManagement.BaseDictionary`2" -->
+        <!-- Некорректный комментарий в формате XML для члена "T:Caliburn.Core.MemoryManagement.BaseDictionary`2" проигнорирован -->
         <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.Clear">
             <summary>
             Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
@@ -919,7 +919,7 @@
             <returns>null if the object referenced by the current <see cref="T:System.WeakReference"/> object has been garbage collected; otherwise, a reference to the object referenced by the current <see cref="T:System.WeakReference"/> object.</returns>
             <exception cref="T:System.InvalidOperationException">The reference to the target object is invalid. This exception can be thrown while setting this property if the value is a null reference or if the object has been finalized during the set operation.</exception>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Caliburn.Core.MemoryManagement.WeakKeyComparer`1" -->
+        <!-- Некорректный комментарий в формате XML для члена "T:Caliburn.Core.MemoryManagement.WeakKeyComparer`1" проигнорирован -->
         <member name="M:Caliburn.Core.MemoryManagement.WeakKeyComparer`1.GetHashCode(System.Object)">
             <summary>
             Returns a hash code for the specified object.
