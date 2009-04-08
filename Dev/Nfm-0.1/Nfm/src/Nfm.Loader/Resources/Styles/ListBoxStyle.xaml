@@ -26,16 +26,13 @@
 				Value="True" />
 		<Setter Property="SelectionMode"
 				Value="Extended" />
-<!--
+
+<!--		<Setter Property="ScrollViewer.IsDeferredScrollingEnabled"-->
+<!--				Value="True">-->
+<!--		</Setter>-->
+
 		<Setter Property="VirtualizingStackPanel.VirtualizationMode"
 				Value="Recycling" />
-		<Setter Property="ScrollViewer.IsDeferredScrollingEnabled"
-				Value="True">
-		</Setter>
--->
-		<Setter Property="VirtualizingStackPanel.VirtualizationMode"
-				Value="Standard">
-		</Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ListBox}">
