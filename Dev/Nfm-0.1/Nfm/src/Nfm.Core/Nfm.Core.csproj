@@ -67,6 +67,7 @@
     <Compile Include="Commands\NavigateToCurrentNodeCommand.cs" />
     <Compile Include="Commands\NavigateToParentNodeCommand.cs" />
     <Compile Include="Commands\RefreshChildNodesCommand.cs" />
+    <Compile Include="Controls\FirstFocusedElementExtension.cs" />
     <Compile Include="Controls\UniformStack.cs" />
     <Compile Include="Converters\BoolToCornerRadiusConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />

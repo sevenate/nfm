@@ -1,6 +1,8 @@
 ﻿<Window x:Class="Nfm.Loader.Views.MainWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:ctrl="clr-namespace:Nfm.Core.Controls;assembly=Nfm.Core"
 		Content="{Binding}"
-		Style="{StaticResource MainWindowStyle}">
+		Style="{StaticResource MainWindowStyle}"
+		FocusManager.FocusedElement="{ctrl:FirstFocusedElement}">
 </Window>
