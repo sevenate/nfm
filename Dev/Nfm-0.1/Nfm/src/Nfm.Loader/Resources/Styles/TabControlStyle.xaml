@@ -40,8 +40,10 @@
 								BorderBrush="{TemplateBinding BorderBrush}"
 								BorderThickness="{TemplateBinding BorderThickness}"
 								CornerRadius="0,5,5,5">
-							<ContentPresenter ContentSource="SelectedContent"
-											  Margin="{TemplateBinding Padding}" />
+							<ContentPresenter x:Name="PART_SelectedContentHost"
+											  ContentSource="SelectedContent"
+											  Margin="{TemplateBinding Padding}"
+											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 						</Border>
 					</Grid>
 				</ControlTemplate>
