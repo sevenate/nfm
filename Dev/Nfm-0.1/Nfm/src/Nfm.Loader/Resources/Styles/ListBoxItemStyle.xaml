@@ -19,8 +19,8 @@
 				Value="Stretch" />
 		<Setter Property="VerticalContentAlignment"
 				Value="Stretch" />
-		<Setter Property="FocusVisualStyle"
-				Value="{x:Null}" />
+<!--		<Setter Property="FocusVisualStyle"-->
+<!--				Value="{x:Null}" />-->
 		<Setter Property="Message.Triggers">
 			<Setter.Value>
 				<RoutedMessageTriggerCollection>

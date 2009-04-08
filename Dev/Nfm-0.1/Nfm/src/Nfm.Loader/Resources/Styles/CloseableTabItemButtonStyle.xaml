@@ -35,8 +35,8 @@
 			<SolidColorBrush x:Key="ButtonNormalBorder"
 							 Color="#FF969696" />
 		</Style.Resources>
-		<Setter Property="FocusVisualStyle"
-				Value="{x:Null}" />
+<!--		<Setter Property="FocusVisualStyle"-->
+<!--				Value="{x:Null}" />-->
 		<Setter Property="Background"
 				Value="{StaticResource ButtonNormalBackground}" />
 		<Setter Property="BorderBrush"
