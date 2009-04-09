@@ -26,7 +26,20 @@
 					   Height="32"
 					   Source="../Images/cpma-trans.png"
 					   DockPanel.Dock="Left"
-					   VerticalAlignment="Top" />
+					   VerticalAlignment="Top">
+					<Message.Triggers>
+						<RoutedMessageTriggerCollection>
+							<EventMessageTrigger EventName="MouseLeftButtonDown">
+								<EventMessageTrigger.Message>
+									<CommandMessage Command="{Resolve Key=NavigateToCurrentNode}">
+										<Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+										<Parameter Value="{Binding Mode=OneWay}" />
+									</CommandMessage>
+								</EventMessageTrigger.Message>
+							</EventMessageTrigger>
+						</RoutedMessageTriggerCollection>
+					</Message.Triggers>
+				</Image>
 				<DockPanel x:Name="BottomLine"
 						   LastChildFill="False"
 						   DockPanel.Dock="Bottom">
