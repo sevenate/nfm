@@ -17,6 +17,7 @@
 				<ResourceDictionary Source="Resources/Converters.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/StackContainer.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/TabContainer.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/NodeBriefDataTemplate.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/FileSystemEntityNodeVM.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
