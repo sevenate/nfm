@@ -18,8 +18,12 @@
 				Value="Disabled" />
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility"
 				Value="Auto" />
+
+		<!-- Set to "False" on small, but "fat" items to enable scroll to arbitrary per-pixel position -->
+		<!-- Warning: "False" value has impact on memory usage, cause VirtualizingStackPanel will be NOT used -->
 		<Setter Property="ScrollViewer.CanContentScroll"
-				Value="true" />
+				Value="True" />
+
 		<Setter Property="VerticalContentAlignment"
 				Value="Center" />
 		<Setter Property="IsSynchronizedWithCurrentItem"
