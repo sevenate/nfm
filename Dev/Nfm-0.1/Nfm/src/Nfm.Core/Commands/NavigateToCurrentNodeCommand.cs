@@ -49,7 +49,7 @@ namespace Nfm.Core.Commands
 			}
 			
 			currentNode.RefreshChilds();
-			return currentNode.Childs.Count > 0;
+			return currentNode.Childs.Count > 1;
 		}
 	}
 }
