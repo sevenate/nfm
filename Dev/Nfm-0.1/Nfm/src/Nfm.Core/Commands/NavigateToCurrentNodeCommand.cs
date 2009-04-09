@@ -11,6 +11,8 @@
 // </editor>
 // <summary>Change node in panel to current node command.</summary>
 
+using System;
+using System.Windows;
 using Caliburn.Actions.Filters;
 using Nfm.Core.ViewModels.FileSystem;
 
@@ -19,6 +21,7 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Change node in panel to current node command.
 	/// </summary>
+	[Rescue("GeneralRescue")]
 	public class NavigateToCurrentNodeCommand
 	{
 		/// <summary>
@@ -47,9 +50,26 @@ namespace Nfm.Core.Commands
 			{
 				return false;
 			}
-			
-			currentNode.RefreshChilds();
-			return currentNode.Childs.Count > 1;
+
+			try
+			{
+				currentNode.RefreshChilds();
+				return currentNode.Childs.Count > 1;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Defaul exception handler for <see cref="Execute"/> method.
+		/// </summary>
+		/// <param name="ex">Unhandled exception.</param>
+		public void GeneralRescue(Exception ex)
+		{
+			//TODO: Change this temporary error handling to common custom error window.
+			MessageBox.Show(ex.Message);
 		}
 	}
 }
