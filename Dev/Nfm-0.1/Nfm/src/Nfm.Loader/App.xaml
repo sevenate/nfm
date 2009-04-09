@@ -5,17 +5,17 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Resources/Styles/CommonStyle.xaml" />
-				<ResourceDictionary Source="Resources/Styles/CloseableTabItemButtonStyle.xaml" />
-				<ResourceDictionary Source="Resources/Styles/ListBoxItemStyle.xaml" />
-				<ResourceDictionary Source="Resources/Styles/ListBoxStyle.xaml" />
-				<ResourceDictionary Source="Resources/Styles/TabItemStyle.xaml" />
-				<ResourceDictionary Source="Resources/Styles/TabControlStyle.xaml" />
-				<ResourceDictionary Source="Resources/Styles/MainWindowDictionary.xaml" />
-				<ResourceDictionary Source="Resources/Converters.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/StackContainer.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/TabContainer.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/FileSystemEntityNodeVM.xaml" />
+				<SharedResourceDictionary Source="Resources/Styles/CommonStyle.xaml" />
+				<SharedResourceDictionary Source="Resources/Styles/CloseableTabItemButtonStyle.xaml" />
+				<SharedResourceDictionary Source="Resources/Styles/ListBoxItemStyle.xaml" />
+				<SharedResourceDictionary Source="Resources/Styles/ListBoxStyle.xaml" />
+				<SharedResourceDictionary Source="Resources/Styles/TabItemStyle.xaml" />
+				<SharedResourceDictionary Source="Resources/Styles/TabControlStyle.xaml" />
+				<SharedResourceDictionary Source="Resources/Styles/MainWindowDictionary.xaml" />
+				<SharedResourceDictionary Source="Resources/Converters.xaml" />
+				<SharedResourceDictionary Source="Resources/DataTemplates/StackContainer.xaml" />
+				<SharedResourceDictionary Source="Resources/DataTemplates/TabContainer.xaml" />
+				<SharedResourceDictionary Source="Resources/DataTemplates/FileSystemEntityNodeVM.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
