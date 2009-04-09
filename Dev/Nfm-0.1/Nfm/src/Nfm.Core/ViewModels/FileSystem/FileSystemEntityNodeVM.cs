@@ -173,6 +173,11 @@ namespace Nfm.Core.ViewModels.FileSystem
 		#region Binding Properties
 
 		/// <summary>
+		/// Gets or sets a full path.
+		/// </summary>
+		public string FullName { get; set; }
+
+		/// <summary>
 		/// Gets or sets a name.
 		/// </summary>
 		public string Name { get; set; }
@@ -293,6 +298,11 @@ namespace Nfm.Core.ViewModels.FileSystem
 		public void RefreshDetails()
 		{
 			NodeModel.RefreshDetails();
+
+			OnPropertyChanging("FullName");
+			FullName = NodeModel.DetailsInfo.FullName;
+			OnPropertyChanged("FullName");
+
 
 			if (!DateCreated.HasValue || DateCreated != NodeModel.DetailsInfo.CreationTime)
 			{

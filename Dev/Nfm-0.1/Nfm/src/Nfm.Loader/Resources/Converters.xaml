@@ -3,6 +3,7 @@
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:convert="clr-namespace:Nfm.Core.Converters;assembly=Nfm.Core"
+					xmlns:fs="clr-namespace:Nfm.Core.ViewModels.FileSystem.Icons;assembly=Nfm.Core"
 					mc:Ignorable="d">
 
 	<convert:BoolToCornerRadiusConverter x:Key="BoolToCornerRadiusConverter" />
@@ -58,5 +59,7 @@
 										   NormalBrush="{StaticResource HoverBackgroundBrush}" />
 	<convert:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
 	<convert:DateTimeToBrushConverter x:Key="DateTimeToBrushConverter" />
+	<fs:FileToIconConverter x:Key="FileToIconConverter" DefaultSize="32" />
+	
 
 </ResourceDictionary>
