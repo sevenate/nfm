@@ -1,9 +1,42 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					mc:Ignorable="d">
 
 	<DataTemplate x:Key="NodeBriefDataTemplate"
 				  DataType="{x:Type FileSystem:FileSystemEntityNodeVM}">
+		<DataTemplate.Resources>
+			<Storyboard x:Key="IconStoryboard">
+				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+											   Storyboard.TargetName="Icon"
+											   Storyboard.TargetProperty="(FrameworkElement.Width)">
+					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										  Value="32" />
+				</DoubleAnimationUsingKeyFrames>
+				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+											   Storyboard.TargetName="Icon"
+											   Storyboard.TargetProperty="(FrameworkElement.Height)">
+					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										  Value="32" />
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
+			<Storyboard x:Key="IconStoryboard2">
+				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+											   Storyboard.TargetName="Icon"
+											   Storyboard.TargetProperty="(FrameworkElement.Width)">
+					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										  Value="24" />
+				</DoubleAnimationUsingKeyFrames>
+				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+											   Storyboard.TargetName="Icon"
+											   Storyboard.TargetProperty="(FrameworkElement.Height)">
+					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										  Value="24" />
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
+		</DataTemplate.Resources>
 
 		<!-- Border BorderBrush was: #FF338833 -->
 		<!-- Border Background was: #22338833 -->
@@ -18,12 +51,17 @@
 				CornerRadius="{Binding Path=IsDirectory, Converter={StaticResource BoolToCornerRadiusConverter}}"
 				SnapsToDevicePixels="true">
 			<DockPanel LastChildFill="False">
-				<Image x:Name="Icon"
-					   Width="32"
-					   Height="32"
-					   Source="../Images/cpma-trans.png"
-					   DockPanel.Dock="Left"
-					   VerticalAlignment="Top">
+				<Border Width="32"
+						Height="32"
+						DockPanel.Dock="Left"
+						VerticalAlignment="Top">
+					<Image x:Name="Icon"
+						   Width="24"
+						   Height="24"
+						   Source="../Images/cpma-trans.png"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Center">
+					</Image>
 					<Message.Triggers>
 						<RoutedMessageTriggerCollection>
 							<EventMessageTrigger EventName="MouseLeftButtonDown">
@@ -36,7 +74,7 @@
 							</EventMessageTrigger>
 						</RoutedMessageTriggerCollection>
 					</Message.Triggers>
-				</Image>
+				</Border>
 				<DockPanel x:Name="BottomLine"
 						   LastChildFill="False"
 						   DockPanel.Dock="Bottom">
@@ -145,18 +183,26 @@
 			</DockPanel>
 		</Border>
 		<DataTemplate.Triggers>
+			<EventTrigger RoutedEvent="Mouse.MouseEnter"
+						  SourceName="Icon">
+				<BeginStoryboard x:Name="IconStoryboard_BeginStoryboard1"
+								 Storyboard="{StaticResource IconStoryboard}" />
+			</EventTrigger>
+			<EventTrigger RoutedEvent="Mouse.MouseLeave"
+						  SourceName="Icon">
+				<BeginStoryboard x:Name="IconStoryboard2_BeginStoryboard"
+								 Storyboard="{StaticResource IconStoryboard2}" />
+			</EventTrigger>
 			<MultiTrigger>
 				<MultiTrigger.Conditions>
 					<Condition Property="IsMouseOver"
 							   Value="True" />
-<!--					<Condition Property="IsSelected"-->
-<!--										   Value="False" />-->
+					<!--					<Condition Property="IsSelected"-->
+					<!--										   Value="False" />-->
 				</MultiTrigger.Conditions>
-				<MultiTrigger.Setters>
-					<Setter TargetName="Border"
-							Property="Background"
-							Value="{Binding Path=Extension, Converter={StaticResource FileExtensionToBackgroundHoverBrushConverter}}" />
-				</MultiTrigger.Setters>
+				<Setter TargetName="Border"
+						Property="Background"
+						Value="{Binding Path=Extension, Converter={StaticResource FileExtensionToBackgroundHoverBrushConverter}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>
