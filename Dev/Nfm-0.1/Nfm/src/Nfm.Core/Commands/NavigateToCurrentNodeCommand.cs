@@ -54,7 +54,7 @@ namespace Nfm.Core.Commands
 			try
 			{
 				currentNode.RefreshChilds();
-				return currentNode.Childs.Count > 1;
+				return (currentNode.IsDirectory.HasValue && currentNode.IsDirectory.Value) || currentNode.Childs.Count > 1;
 			}
 			catch
 			{
