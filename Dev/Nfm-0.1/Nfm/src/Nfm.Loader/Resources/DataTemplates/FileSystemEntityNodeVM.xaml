@@ -6,37 +6,43 @@
 					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type FileSystem:FileSystemEntityNodeVM}">
-		<ListBox ItemsSource="{Binding Path=Childs}"
-				 ItemTemplate="{StaticResource NodeBriefDataTemplate}"
-				 Style="{StaticResource ListBoxStyle}"
-				 ItemContainerStyle="{StaticResource ListBoxItemStyle}">
-			<Message.Triggers>
-				<RoutedMessageTriggerCollection>
-					<GestureMessageTrigger Key="{Binding Path=RefreshChildsHotKey}"
-										   Modifiers="{Binding Path=RefreshChildsHotKeyModifiers}">
-						<GestureMessageTrigger.Message>
-							<CommandMessage Command="{Resolve Key=RefreshChildNodes}">
+		<DockPanel>
+			<TextBlock Text="{Binding Path=FullName}"
+					   Foreground="{StaticResource ForegroundBrush}"
+					   Margin="3"
+					   DockPanel.Dock="Top" />
+			<ListBox ItemsSource="{Binding Path=Childs}"
+					 ItemTemplate="{StaticResource NodeBriefDataTemplate}"
+					 Style="{StaticResource ListBoxStyle}"
+					 ItemContainerStyle="{StaticResource ListBoxItemStyle}">
+				<Message.Triggers>
+					<RoutedMessageTriggerCollection>
+						<GestureMessageTrigger Key="{Binding Path=RefreshChildsHotKey}"
+											   Modifiers="{Binding Path=RefreshChildsHotKeyModifiers}">
+							<GestureMessageTrigger.Message>
+								<CommandMessage Command="{Resolve Key=RefreshChildNodes}">
+									<Parameter Value="{Binding Mode=OneWay}" />
+								</CommandMessage>
+							</GestureMessageTrigger.Message>
+						</GestureMessageTrigger>
+						<GestureMessageTrigger Key="{Binding Path=NavigateToParentHotKey}"
+											   Modifiers="{Binding Path=NavigateToParentHotKeyModifiers}">
+							<GestureMessageTrigger.Message>
+								<CommandMessage Command="{Resolve Key=NavigateToParentNode}">
+									<Parameter Value="{Binding Mode=OneWay}" />
+								</CommandMessage>
+							</GestureMessageTrigger.Message>
+						</GestureMessageTrigger>
+						<GestureMessageTrigger Key="{Binding Path=RequestCloseHotKey}"
+											   Modifiers="{Binding Path=RequestCloseHotKeyModifiers}">
+							<CommandMessage Command="{Resolve Key=ClosePanel}">
 								<Parameter Value="{Binding Mode=OneWay}" />
 							</CommandMessage>
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-					<GestureMessageTrigger Key="{Binding Path=NavigateToParentHotKey}"
-										   Modifiers="{Binding Path=NavigateToParentHotKeyModifiers}">
-						<GestureMessageTrigger.Message>
-							<CommandMessage Command="{Resolve Key=NavigateToParentNode}">
-								<Parameter Value="{Binding Mode=OneWay}" />
-							</CommandMessage>
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-					<GestureMessageTrigger Key="{Binding Path=RequestCloseHotKey}"
-										   Modifiers="{Binding Path=RequestCloseHotKeyModifiers}">
-						<CommandMessage Command="{Resolve Key=ClosePanel}">
-							<Parameter Value="{Binding Mode=OneWay}" />
-						</CommandMessage>
-					</GestureMessageTrigger>
-				</RoutedMessageTriggerCollection>
-			</Message.Triggers>
-		</ListBox>
+						</GestureMessageTrigger>
+					</RoutedMessageTriggerCollection>
+				</Message.Triggers>
+			</ListBox>
+		</DockPanel>
 	</DataTemplate>
 
 </ResourceDictionary>
