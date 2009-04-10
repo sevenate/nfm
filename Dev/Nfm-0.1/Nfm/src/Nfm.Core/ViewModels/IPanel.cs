@@ -54,5 +54,17 @@ namespace Nfm.Core.ViewModels
 		/// Fire when panel is closed.
 		/// </summary>
 		event EventHandler<EventArgs> Closed;
+
+		/// <summary>
+		/// Creates a new object that is a deep copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a deep copy of this instance.</returns>
+		IPanel CloneDeep();
+
+		/// <summary>
+		/// Creates a new object that is a shallow copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a shallow copy of this instance.</returns>
+		IPanel CloneShallow();
 	}
 }

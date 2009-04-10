@@ -27,7 +27,7 @@ namespace Nfm.Core.ViewModels
 			@"Header = {Header}"
 		+ @", Type = {GetType()}"
 		+ @", Childs = {Childs.Count}")]
-	public abstract class PanelContainerBase : NotificationBase, IPanelContainer
+	public class PanelContainerBase : NotificationBase, IPanelContainer
 	{
 		#region Implementation of IDisposable
 
@@ -152,6 +152,49 @@ namespace Nfm.Core.ViewModels
 		/// Fire when panel is intended to close.
 		/// </summary>
 		public virtual event EventHandler<EventArgs> Closing;
+
+		#region Cloning
+
+		/// <summary>
+		/// Creates a new object that is a deep copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a deep copy of this instance.</returns>
+		public PanelContainerBase CloneDeep()
+		{
+			PanelContainerBase result = CloneShallow();
+
+			var childsCopy = new ObservableCollection<IPanel>();
+
+			foreach (var child in childs)
+			{
+				childsCopy.Add(child.CloneDeep());
+			}
+
+			result.childs = childsCopy;
+
+			return result;
+		}
+
+		/// <summary>
+		/// Creates a new object that is a shallow copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a shallow copy of this instance.</returns>
+		public PanelContainerBase CloneShallow()
+		{
+			return (PanelContainerBase) MemberwiseClone();
+		}
+
+		IPanel IPanel.CloneDeep()
+		{
+			return CloneDeep();
+		}
+
+		IPanel IPanel.CloneShallow()
+		{
+			return CloneShallow();
+		}
+
+		#endregion
 
 		#endregion
 

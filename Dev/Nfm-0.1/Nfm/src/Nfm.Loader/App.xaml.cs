@@ -55,6 +55,7 @@ namespace Nfm.Loader
 			container.RegisterSingleton<NavigateToCurrentNodeCommand>("NavigateToCurrentNode");
 			container.RegisterSingleton<NavigateToParentNodeCommand>("NavigateToParentNode");
 			container.RegisterSingleton<RefreshChildNodesCommand>("RefreshChildNodes");
+			container.RegisterSingleton<DublicateSelectedPanelCommand>("DublicateSelectedPanel");
 		}
 
 		#region Overrides of Application

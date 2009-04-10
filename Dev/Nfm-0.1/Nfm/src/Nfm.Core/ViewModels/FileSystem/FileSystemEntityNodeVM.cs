@@ -140,6 +140,49 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public event EventHandler<EventArgs> Closed;
 
+		#region Cloning
+
+		// <summary>
+		/// Creates a new object that is a deep copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a deep copy of this instance.</returns>
+		public FileSystemEntityNodeVM CloneDeep()
+		{
+			FileSystemEntityNodeVM result = CloneShallow();
+
+			var childsCopy = new ObservableCollection<FileSystemEntityNodeVM>();
+
+			foreach (var child in childs)
+			{
+				childsCopy.Add(child.CloneDeep());
+			}
+
+			result.childs = childsCopy;
+
+			return result;
+		}
+
+		/// <summary>
+		/// Creates a new object that is a shallow copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a shallow copy of this instance.</returns>
+		public FileSystemEntityNodeVM CloneShallow()
+		{
+			return (FileSystemEntityNodeVM)MemberwiseClone();
+		}
+
+		IPanel IPanel.CloneDeep()
+		{
+			return CloneDeep();
+		}
+
+		IPanel IPanel.CloneShallow()
+		{
+			return CloneShallow();
+		}
+
+		#endregion
+
 		#endregion
 
 		#region Private
