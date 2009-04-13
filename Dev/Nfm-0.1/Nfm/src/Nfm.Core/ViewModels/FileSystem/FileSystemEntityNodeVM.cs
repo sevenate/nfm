@@ -17,7 +17,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows.Input;
 using Nfm.Core.Models.FileSystem;
 
 namespace Nfm.Core.ViewModels.FileSystem
@@ -513,50 +512,6 @@ namespace Nfm.Core.ViewModels.FileSystem
 			childs = new ObservableCollection<FileSystemEntityNodeVM>(resultList);
 			OnPropertyChanged("Childs");
 		}
-
-		#endregion
-
-		#region Hot Keys
-
-		/// <summary>
-		/// Gets hotkey for "NavigateToParent" action.
-		/// </summary>
-		public Key NavigateToParentHotKey { get { return Key.Back; } }
-
-		/// <summary>
-		/// Gets hotkey modifiers for "NavigateToParent" action.
-		/// </summary>
-		public ModifierKeys NavigateToParentHotKeyModifiers { get { return ModifierKeys.None; } }
-
-		/// <summary>
-		/// Gets hotkey for "RefreshChilds" action.
-		/// </summary>
-		public Key RefreshChildsHotKey { get { return Key.R; } }
-
-		/// <summary>
-		/// Gets hotkey modifiers for "RefreshChilds" action.
-		/// </summary>
-		public ModifierKeys RefreshChildsHotKeyModifiers { get { return ModifierKeys.Control; } }
-
-		/// <summary>
-		/// Gets hotkey for "RequestClose" action.
-		/// </summary>
-		public Key RequestCloseHotKey { get { return Key.W; } }
-
-		/// <summary>
-		/// Gets hotkey modifiers for "RequestClose" action.
-		/// </summary>
-		public ModifierKeys RequestCloseHotKeyModifiers { get { return ModifierKeys.Control; } }
-
-		/// <summary>
-		/// Gets hotkey for "DublicateSelectedPanel" command.
-		/// </summary>
-		public Key DuplicateHotKey { get { return Key.T; } }
-
-		/// <summary>
-		/// Gets hotkey modifiers for "DublicateSelectedPanel" command.
-		/// </summary>
-		public ModifierKeys DuplicateHotKeyModifiers { get { return ModifierKeys.Control; } }
 
 		#endregion
 	}

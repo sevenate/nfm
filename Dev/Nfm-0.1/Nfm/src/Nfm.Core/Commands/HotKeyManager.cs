@@ -20,49 +20,63 @@ namespace Nfm.Core.Commands
 	/// </summary>
 	public static class HotKeyManager
 	{
+		#region Navigate To Current (Enter)
+
+		/// <summary>
+		/// Gets hotkey for "NavigateToCurrentNode" command.
+		/// </summary>
+		public static Key NavigateToCurrentNodeHotKey { get { return Key.Enter; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "NavigateToCurrentNode" command.
+		/// </summary>
+		public static ModifierKeys NavigateToCurrentNodeHotKeyModifiers { get { return ModifierKeys.None; } }
+
+		#endregion
+
 		#region Navigate To Parent (Backspace)
 
 		/// <summary>
-		/// Gets hotkey for "NavigateToParent" action.
+		/// Gets hotkey for "NavigateToParentNode" command.
 		/// </summary>
 		public static Key NavigateToParentHotKey { get { return Key.Back; } }
 
 		/// <summary>
-		/// Gets hotkey modifiers for "NavigateToParent" action.
+		/// Gets hotkey modifiers for "NavigateToParentNode" command.
 		/// </summary>
 		public static ModifierKeys NavigateToParentHotKeyModifiers { get { return ModifierKeys.None; } }
 
 		#endregion
 
-		#region Refresh (Ctrl+R)
+		#region Refresh (Ctrl + R)
 
 		/// <summary>
-		/// Gets hotkey for "RefreshChilds" action.
+		/// Gets hotkey for "RefreshChildNodes" command.
 		/// </summary>
 		public static Key RefreshChildsHotKey { get { return Key.R; } }
 
 		/// <summary>
-		/// Gets hotkey modifiers for "RefreshChilds" action.
+		/// Gets hotkey modifiers for "RefreshChildNodes" command.
 		/// </summary>
 		public static ModifierKeys RefreshChildsHotKeyModifiers { get { return ModifierKeys.Control; } }
 
 		#endregion
 
-		#region Close Tab (Ctrl+W)
+		#region Close Tab (Ctrl + W)
 
 		/// <summary>
-		/// Gets hotkey for "RequestClose" action.
+		/// Gets hotkey for "ClosePanel" command.
 		/// </summary>
 		public static Key RequestCloseHotKey { get { return Key.W; } }
 
 		/// <summary>
-		/// Gets hotkey modifiers for "RequestClose" action.
+		/// Gets hotkey modifiers for "ClosePanel" command.
 		/// </summary>
 		public static ModifierKeys RequestCloseHotKeyModifiers { get { return ModifierKeys.Control; } }
 
 		#endregion
 
-		#region Duplicate Tab (Ctrl+T)
+		#region Duplicate Tab (Ctrl + T)
 
 		/// <summary>
 		/// Gets hotkey for "DublicateSelectedPanel" command.

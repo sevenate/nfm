@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Windows.Input;
 
 namespace Nfm.Core.ViewModels
 {
@@ -282,42 +281,6 @@ namespace Nfm.Core.ViewModels
 			{
 				RequestClose();
 			}
-		}
-
-		#endregion
-
-		#region Hot Keys
-
-		/// <summary>
-		/// Gets hotkey for "RequestClose" action.
-		/// </summary>
-		public Key RequestCloseHotKey
-		{
-			get { return Key.W; }
-		}
-
-		/// <summary>
-		/// Gets hotkey modifiers for "RequestClose" action.
-		/// </summary>
-		public ModifierKeys RequestCloseHotKeyModifiers
-		{
-			get { return ModifierKeys.Control; }
-		}
-
-		/// <summary>
-		/// Gets hotkey for "DublicateSelectedPanel" command.
-		/// </summary>
-		public Key DuplicateHotKey
-		{
-			get { return Key.T; }
-		}
-
-		/// <summary>
-		/// Gets hotkey modifiers for "DublicateSelectedPanel" command.
-		/// </summary>
-		public ModifierKeys DuplicateHotKeyModifiers
-		{
-			get { return ModifierKeys.Control; }
 		}
 
 		#endregion

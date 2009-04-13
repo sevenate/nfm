@@ -3,6 +3,7 @@
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core"
+					xmlns:Commands="clr-namespace:Nfm.Core.Commands;assembly=Nfm.Core"
 					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type FileSystem:FileSystemEntityNodeVM}">
@@ -17,30 +18,30 @@
 					 ItemContainerStyle="{StaticResource ListBoxItemStyle}">
 				<Message.Triggers>
 					<RoutedMessageTriggerCollection>
-						<GestureMessageTrigger Key="{Binding Path=RefreshChildsHotKey}"
-											   Modifiers="{Binding Path=RefreshChildsHotKeyModifiers}">
+						<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKey}}"
+											   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKeyModifiers}}">
 							<GestureMessageTrigger.Message>
 								<CommandMessage Command="{Resolve Key=RefreshChildNodes}">
 									<Parameter Value="{Binding Mode=OneWay}" />
 								</CommandMessage>
 							</GestureMessageTrigger.Message>
 						</GestureMessageTrigger>
-						<GestureMessageTrigger Key="{Binding Path=NavigateToParentHotKey}"
-											   Modifiers="{Binding Path=NavigateToParentHotKeyModifiers}">
+						<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKey}}"
+											   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKeyModifiers}}">
 							<GestureMessageTrigger.Message>
 								<CommandMessage Command="{Resolve Key=NavigateToParentNode}">
 									<Parameter Value="{Binding Mode=OneWay}" />
 								</CommandMessage>
 							</GestureMessageTrigger.Message>
 						</GestureMessageTrigger>
-						<GestureMessageTrigger Key="{Binding Path=RequestCloseHotKey}"
-											   Modifiers="{Binding Path=RequestCloseHotKeyModifiers}">
+						<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RequestCloseHotKey}}"
+											   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RequestCloseHotKeyModifiers}}">
 							<CommandMessage Command="{Resolve Key=ClosePanel}">
 								<Parameter Value="{Binding Mode=OneWay}" />
 							</CommandMessage>
 						</GestureMessageTrigger>
-<!--						<GestureMessageTrigger Key="{Binding Path=DuplicateHotKey}"-->
-<!--											   Modifiers="{Binding Path=DuplicateHotKeyModifiers}">-->
+<!--						<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKey}}"-->
+<!--											   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKeyModifiers}}">-->
 <!--							<CommandMessage Command="{Resolve Key=DublicateSelectedPanel}">-->
 <!--								<Parameter Value="{Binding Mode=OneWay}" />-->
 <!--							</CommandMessage>-->
