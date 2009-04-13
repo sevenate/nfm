@@ -487,7 +487,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 			}
 
 			// Sorting by file extenshion and, then, by file name.
-			// TODO: make it configurable!
+			// TODO: make it configurable
 			IOrderedEnumerable<FileSystemEntityNodeVM> sortedList =
 				list.OrderBy(vm => vm.IsFile)
 				.ThenBy(vm => vm.Extension.ToLowerInvariant())
@@ -498,10 +498,14 @@ namespace Nfm.Core.ViewModels.FileSystem
 			// and make it separate in UI and code, but navigatable like always.
 			IEnumerable<FileSystemEntityNodeVM> resultList = Enumerable.Empty<FileSystemEntityNodeVM>();
 
+			NodeModel.RefreshParent();
+			
 			if (NodeModel.Parent != null)
 			{
-				var parentVm = new FileSystemEntityNodeVM((FileSystemEntityNode) NodeModel.Parent);
+				var parentVm = new FileSystemEntityNodeVM((FileSystemEntityNode)NodeModel.Parent);
 				resultList = Enumerable.Repeat(parentVm, 1);
+
+				Parent = parentVm;
 			}
 
 			resultList = resultList.Concat(sortedList);

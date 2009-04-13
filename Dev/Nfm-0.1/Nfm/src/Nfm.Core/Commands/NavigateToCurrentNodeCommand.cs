@@ -12,6 +12,7 @@
 // <summary>Change node in panel to current node command.</summary>
 
 using System;
+using System.Diagnostics;
 using System.Windows;
 using Caliburn.Actions.Filters;
 using Nfm.Core.ViewModels.FileSystem;
@@ -32,9 +33,29 @@ namespace Nfm.Core.Commands
 		[Preview("CanExecute", AffectsTriggers = false)]
 		public void Execute(FileSystemEntityNodeVM panel, FileSystemEntityNodeVM currentNode)
 		{
-			if (panel != null)
+			if (currentNode.IsDirectory.HasValue && currentNode.IsDirectory.Value)
 			{
 				panel.ChangeNode(currentNode);
+			}
+			else
+			{
+				// TODO: add parameter support
+				var processStartInfo = new ProcessStartInfo(currentNode.FullName)
+				                       {
+				                       	WorkingDirectory =
+				                       		panel != null
+				                       			? panel.FullName
+				                       			: Environment.CurrentDirectory
+				                       };
+
+				Process process = Process.Start(processStartInfo);
+
+				if (process == null)
+				{
+					return;
+				}
+
+				process.Start();
 			}
 		}
 
@@ -46,20 +67,7 @@ namespace Nfm.Core.Commands
 		/// <returns>True, if the node have one or more child nodes.</returns>
 		public bool CanExecute(FileSystemEntityNodeVM panel, FileSystemEntityNodeVM currentNode)
 		{
-			if (currentNode == null)
-			{
-				return false;
-			}
-
-			try
-			{
-				currentNode.RefreshChilds();
-				return (currentNode.IsDirectory.HasValue && currentNode.IsDirectory.Value) || currentNode.Childs.Count > 1;
-			}
-			catch
-			{
-				return false;
-			}
+			return panel != null && currentNode != null;
 		}
 
 		/// <summary>
