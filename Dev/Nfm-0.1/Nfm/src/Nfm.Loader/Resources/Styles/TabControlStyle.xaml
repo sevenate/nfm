@@ -56,7 +56,7 @@
 									VerticalAlignment="Center"
 									Width="16"
 									Height="16"
-									Style="{DynamicResource CloseableTabItemButtonStyle}">
+									Style="{DynamicResource DuplicateTabItemButtonStyle}">
 								<Message.Triggers>
 									<RoutedMessageTriggerCollection>
 										<EventMessageTrigger EventName="Click">
