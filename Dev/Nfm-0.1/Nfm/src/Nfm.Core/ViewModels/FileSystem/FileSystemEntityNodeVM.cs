@@ -126,7 +126,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public event EventHandler<EventArgs> Closed;
 
-		// <summary>
+		/// <summary>
 		/// Creates a new object that is a deep copy of the current instance.
 		/// </summary>
 		/// <returns>A new object that is a deep copy of this instance.</returns>
@@ -136,8 +136,6 @@ namespace Nfm.Core.ViewModels.FileSystem
 
 			// Detach from parent panel
 			result.Parent = null;
-
-			result.Header = Header + " (Copy)";
 
 			// Remove original subscribiters
 			result.Closing -= Closing;
@@ -159,6 +157,10 @@ namespace Nfm.Core.ViewModels.FileSystem
 			return result;
 		}
 
+		/// <summary>
+		/// Creates a new object that is a deep copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a deep copy of this instance.</returns>
 		IPanel IPanel.CloneDeep()
 		{
 			return CloneDeep();
@@ -327,7 +329,6 @@ namespace Nfm.Core.ViewModels.FileSystem
 			FullName = NodeModel.DetailsInfo.FullName;
 			OnPropertyChanged("FullName");
 
-
 			if (!DateCreated.HasValue || DateCreated != NodeModel.DetailsInfo.CreationTime)
 			{
 				OnPropertyChanging("DateCreated");
@@ -440,7 +441,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		}
 
 		/// <summary>
-		/// Change current node model to new value.
+		/// Change current node vide model to new value.
 		/// </summary>
 		/// <param name="newFileSystemEntityNodeVm">New node view model.</param>
 		public void ChangeNode(FileSystemEntityNodeVM newFileSystemEntityNodeVm)
@@ -449,6 +450,10 @@ namespace Nfm.Core.ViewModels.FileSystem
 			ChangeNode2(newFileSystemEntityNodeVm.NodeModel);
 		}
 
+		/// <summary>
+		/// Change current node model to new value.
+		/// </summary>
+		/// <param name="newFileSystemEntityNode">New node  model.</param>
 		public void ChangeNode2(FileSystemEntityNode newFileSystemEntityNode)
 		{
 			if (newFileSystemEntityNode != null)
