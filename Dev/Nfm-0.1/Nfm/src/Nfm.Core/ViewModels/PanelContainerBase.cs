@@ -105,18 +105,6 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		public IPanel Parent { get; set; }
 
-		#region RequestClose
-
-		/// <summary>
-		/// Gets hotkey for "RequestClose" action.
-		/// </summary>
-		public Key RequestCloseHotKey { get { return Key.W; } }
-
-		/// <summary>
-		/// Gets hotkey modifiers for "RequestClose" action.
-		/// </summary>
-		public ModifierKeys RequestCloseHotKeyModifiers { get { return ModifierKeys.Control; } }
-
 		/// <summary>
 		/// Request close action for panel.
 		/// </summary>
@@ -131,6 +119,7 @@ namespace Nfm.Core.ViewModels
 			}
 
 			isClosing = false;
+
 			if (Childs.Count == 0)
 			{
 				OnEvent(Closed, this);
@@ -140,8 +129,6 @@ namespace Nfm.Core.ViewModels
 				throw new Exception("Some child panels can not be closed.");
 			}
 		}
-
-		#endregion
 
 		/// <summary>
 		/// Fire when panel is closed.
@@ -153,21 +140,37 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		public virtual event EventHandler<EventArgs> Closing;
 
-		#region Cloning
-
 		/// <summary>
 		/// Creates a new object that is a deep copy of the current instance.
 		/// </summary>
 		/// <returns>A new object that is a deep copy of this instance.</returns>
 		public PanelContainerBase CloneDeep()
 		{
-			PanelContainerBase result = CloneShallow();
+			var result = (PanelContainerBase)MemberwiseClone();
 
+			// Detach from parent panel
+			result.Parent = null;
+			
+			result.Header = Header + " (Copy)";
+
+			// Remove original subscribiters
+			result.Closing -= Closing;
+			result.Closed -= Closed;
+
+			// Deep copy all childs
 			var childsCopy = new ObservableCollection<IPanel>();
+			childsCopy.CollectionChanged += result.OnChildsChanged;
 
 			foreach (var child in childs)
 			{
-				childsCopy.Add(child.CloneDeep());
+				IPanel newChild = child.CloneDeep();
+
+				// TODO: consider to remove this two lines: both "Closed" and "Closing" are null right after cloning
+				result.Closing -= Closing;
+				result.Closed -= Closed;
+				// ----
+				
+				childsCopy.Add(newChild);
 			}
 
 			result.childs = childsCopy;
@@ -175,26 +178,10 @@ namespace Nfm.Core.ViewModels
 			return result;
 		}
 
-		/// <summary>
-		/// Creates a new object that is a shallow copy of the current instance.
-		/// </summary>
-		/// <returns>A new object that is a shallow copy of this instance.</returns>
-		public PanelContainerBase CloneShallow()
-		{
-			return (PanelContainerBase) MemberwiseClone();
-		}
-
 		IPanel IPanel.CloneDeep()
 		{
 			return CloneDeep();
 		}
-
-		IPanel IPanel.CloneShallow()
-		{
-			return CloneShallow();
-		}
-
-		#endregion
 
 		#endregion
 
@@ -253,12 +240,13 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		/// <param name="sender">Event sender.</param>
 		/// <param name="e">Event params.</param>
-		private void OnChildsChanged(object sender, NotifyCollectionChangedEventArgs e)
+		public void OnChildsChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (e.NewItems != null && e.NewItems.Count != 0)
 			{
 				foreach (IPanel panel in e.NewItems)
 				{
+					panel.Parent = this;
 					panel.Closed += OnChildClose;
 				}
 			}
@@ -267,6 +255,7 @@ namespace Nfm.Core.ViewModels
 			{
 				foreach (IPanel panel in e.OldItems)
 				{
+					panel.Parent = null;
 					panel.Closed -= OnChildClose;
 				}
 			}
@@ -279,13 +268,40 @@ namespace Nfm.Core.ViewModels
 		/// <param name="e">Event params.</param>
 		private void OnChildClose(object sender, EventArgs e)
 		{
-			Childs.Remove(sender as IPanel);
+			if (Childs.Contains(sender as IPanel))
+			{
+				Childs.Remove(sender as IPanel);
+			}
 
 			if (Childs.Count == 0 && !isClosing)
 			{
 				RequestClose();
 			}
 		}
+
+		#endregion
+
+		#region Hot Keys
+
+		/// <summary>
+		/// Gets hotkey for "RequestClose" action.
+		/// </summary>
+		public Key RequestCloseHotKey { get { return Key.W; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "RequestClose" action.
+		/// </summary>
+		public ModifierKeys RequestCloseHotKeyModifiers { get { return ModifierKeys.Control; } }
+
+		/// <summary>
+		/// Gets hotkey for "DublicateSelectedPanel" command.
+		/// </summary>
+		public Key DuplicateHotKey { get { return Key.T; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "DublicateSelectedPanel" command.
+		/// </summary>
+		public ModifierKeys DuplicateHotKeyModifiers { get { return ModifierKeys.Control; } }
 
 		#endregion
 	}

@@ -101,18 +101,6 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public IPanel Parent { get; set; }
 
-		#region RequestClose
-
-		/// <summary>
-		/// Gets hotkey for "RequestClose" action.
-		/// </summary>
-		public Key RequestCloseHotKey { get { return Key.W; } }
-
-		/// <summary>
-		/// Gets hotkey modifiers for "RequestClose" action.
-		/// </summary>
-		public ModifierKeys RequestCloseHotKeyModifiers { get { return ModifierKeys.Control; } }
-
 		/// <summary>
 		/// Request close action for panel.
 		/// </summary>
@@ -128,8 +116,6 @@ namespace Nfm.Core.ViewModels.FileSystem
 			OnEvent(Closed, this);
 		}
 
-		#endregion
-
 		/// <summary>
 		/// Fire when panel is intended to close.
 		/// </summary>
@@ -140,48 +126,43 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public event EventHandler<EventArgs> Closed;
 
-		#region Cloning
-
 		// <summary>
 		/// Creates a new object that is a deep copy of the current instance.
 		/// </summary>
 		/// <returns>A new object that is a deep copy of this instance.</returns>
 		public FileSystemEntityNodeVM CloneDeep()
 		{
-			FileSystemEntityNodeVM result = CloneShallow();
+			var result = (FileSystemEntityNodeVM) MemberwiseClone();
 
+			// Detach from parent panel
+			result.Parent = null;
+
+			result.Header = Header + " (Copy)";
+
+			// Remove original subscribiters
+			result.Closing -= Closing;
+			result.Closed -= Closed;
+
+			// Deep copy all childs
 			var childsCopy = new ObservableCollection<FileSystemEntityNodeVM>();
 
 			foreach (var child in childs)
 			{
-				childsCopy.Add(child.CloneDeep());
+				FileSystemEntityNodeVM newChild = child.CloneDeep();
+				childsCopy.Add(newChild);
 			}
 
 			result.childs = childsCopy;
 
-			return result;
-		}
+			// Note: Model stay the same as original
 
-		/// <summary>
-		/// Creates a new object that is a shallow copy of the current instance.
-		/// </summary>
-		/// <returns>A new object that is a shallow copy of this instance.</returns>
-		public FileSystemEntityNodeVM CloneShallow()
-		{
-			return (FileSystemEntityNodeVM)MemberwiseClone();
+			return result;
 		}
 
 		IPanel IPanel.CloneDeep()
 		{
 			return CloneDeep();
 		}
-
-		IPanel IPanel.CloneShallow()
-		{
-			return CloneShallow();
-		}
-
-		#endregion
 
 		#endregion
 
@@ -478,18 +459,6 @@ namespace Nfm.Core.ViewModels.FileSystem
 			}
 		}
 
-		#region NavigateToParent
-
-		/// <summary>
-		/// Gets hotkey for "NavigateToParent" action.
-		/// </summary>
-		public Key NavigateToParentHotKey { get { return Key.Back; } }
-
-		/// <summary>
-		/// Gets hotkey modifiers for "NavigateToParent" action.
-		/// </summary>
-		public ModifierKeys NavigateToParentHotKeyModifiers { get { return ModifierKeys.None; } }
-
 		/// <summary>
 		/// Change current node model to it parent value if available.
 		/// </summary>
@@ -500,20 +469,6 @@ namespace Nfm.Core.ViewModels.FileSystem
 				ChangeNode2((FileSystemEntityNode)NodeModel.Parent);
 			}
 		}
-
-		#endregion
-
-		#region RefreshChilds
-
-		/// <summary>
-		/// Gets hotkey for "RefreshChilds" action.
-		/// </summary>
-		public Key RefreshChildsHotKey { get { return Key.R; } }
-
-		/// <summary>
-		/// Gets hotkey modifiers for "RefreshChilds" action.
-		/// </summary>
-		public ModifierKeys RefreshChildsHotKeyModifiers { get { return ModifierKeys.Control; } }
 
 		/// <summary>
 		/// Refresh childs view models.
@@ -555,6 +510,48 @@ namespace Nfm.Core.ViewModels.FileSystem
 		}
 
 		#endregion
+
+		#region Hot Keys
+
+		/// <summary>
+		/// Gets hotkey for "NavigateToParent" action.
+		/// </summary>
+		public Key NavigateToParentHotKey { get { return Key.Back; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "NavigateToParent" action.
+		/// </summary>
+		public ModifierKeys NavigateToParentHotKeyModifiers { get { return ModifierKeys.None; } }
+
+		/// <summary>
+		/// Gets hotkey for "RefreshChilds" action.
+		/// </summary>
+		public Key RefreshChildsHotKey { get { return Key.R; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "RefreshChilds" action.
+		/// </summary>
+		public ModifierKeys RefreshChildsHotKeyModifiers { get { return ModifierKeys.Control; } }
+
+		/// <summary>
+		/// Gets hotkey for "RequestClose" action.
+		/// </summary>
+		public Key RequestCloseHotKey { get { return Key.W; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "RequestClose" action.
+		/// </summary>
+		public ModifierKeys RequestCloseHotKeyModifiers { get { return ModifierKeys.Control; } }
+
+		/// <summary>
+		/// Gets hotkey for "DublicateSelectedPanel" command.
+		/// </summary>
+		public Key DuplicateHotKey { get { return Key.T; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "DublicateSelectedPanel" command.
+		/// </summary>
+		public ModifierKeys DuplicateHotKeyModifiers { get { return ModifierKeys.Control; } }
 
 		#endregion
 	}

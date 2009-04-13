@@ -39,6 +39,12 @@
 								<Parameter Value="{Binding Mode=OneWay}" />
 							</CommandMessage>
 						</GestureMessageTrigger>
+<!--						<GestureMessageTrigger Key="{Binding Path=DuplicateHotKey}"-->
+<!--											   Modifiers="{Binding Path=DuplicateHotKeyModifiers}">-->
+<!--							<CommandMessage Command="{Resolve Key=DublicateSelectedPanel}">-->
+<!--								<Parameter Value="{Binding Mode=OneWay}" />-->
+<!--							</CommandMessage>-->
+<!--						</GestureMessageTrigger>-->
 					</RoutedMessageTriggerCollection>
 				</Message.Triggers>
 			</ListBox>
