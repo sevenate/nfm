@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:vm="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core">
+					xmlns:vm="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core"
+					xmlns:Commands="clr-namespace:Nfm.Core.Commands;assembly=Nfm.Core">
 
 	<DataTemplate DataType="{x:Type vm:TabContainer}">
 		<TabControl ItemsSource="{Binding Path=Childs}"
@@ -17,6 +18,12 @@
 					<GestureMessageTrigger Key="{Binding Path=RequestCloseHotKey}"
 										   Modifiers="{Binding Path=RequestCloseHotKeyModifiers}">
 						<CommandMessage Command="{Resolve Key=ClosePanel}">
+							<Parameter Value="{Binding Mode=OneWay}" />
+						</CommandMessage>
+					</GestureMessageTrigger>
+					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKey}}"
+										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKeyModifiers}}">
+						<CommandMessage Command="{Resolve Key=DublicateSelectedPanel}">
 							<Parameter Value="{Binding Mode=OneWay}" />
 						</CommandMessage>
 					</GestureMessageTrigger>

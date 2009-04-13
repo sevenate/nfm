@@ -51,6 +51,7 @@ namespace Nfm.Loader
 				.WithCommands()
 				.StartApplication();
 
+			// All application commands
 			container.RegisterSingleton<ClosePanelCommand>("ClosePanel");
 			container.RegisterSingleton<NavigateToCurrentNodeCommand>("NavigateToCurrentNode");
 			container.RegisterSingleton<NavigateToParentNodeCommand>("NavigateToParentNode");

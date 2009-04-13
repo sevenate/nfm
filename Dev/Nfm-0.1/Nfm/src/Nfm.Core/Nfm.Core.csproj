@@ -68,6 +68,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\DublicateSelectedPanelCommand.cs" />
+    <Compile Include="Commands\HotKeyManager.cs" />
     <Compile Include="Commands\NavigateToCurrentNodeCommand.cs" />
     <Compile Include="Commands\NavigateToParentNodeCommand.cs" />
     <Compile Include="Commands\RefreshChildNodesCommand.cs" />
