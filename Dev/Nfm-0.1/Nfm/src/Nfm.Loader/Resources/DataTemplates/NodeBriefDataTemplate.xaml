@@ -97,6 +97,8 @@
 								   Padding="5,1,5,1"
 								   TextAlignment="Right">
 						<TextBlock.ToolTip>
+							<!-- TODO: Investigate strange memory consumption with using MarkupExtension solution (more expensive then static resource) -->
+							<!-- <ToolTip Content="{Binding Path=Size, Converter={FileSizeToStringConverter}}" /> -->
 							<ToolTip Content="{Binding Path=Size, Converter={StaticResource FileSizeToStringConverter}}" />
 						</TextBlock.ToolTip>
 						</TextBlock>

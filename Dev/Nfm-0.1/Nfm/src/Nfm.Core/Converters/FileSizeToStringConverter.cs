@@ -14,6 +14,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace Nfm.Core.Converters
 {
@@ -21,8 +22,12 @@ namespace Nfm.Core.Converters
 	/// Convert long file size value to readable string.
 	/// </summary>
 	[ValueConversion(typeof (long), typeof (string))]
-	public class FileSizeToStringConverter : IValueConverter
+	[MarkupExtensionReturnType(typeof(IValueConverter))]
+	public class FileSizeToStringConverterExtension : MarkupExtension, IValueConverter
 	{
+		private static FileSizeToStringConverterExtension singletonInstance;
+
+
 		#region Public Properties
 
 		/// <summary>
@@ -130,6 +135,25 @@ namespace Nfm.Core.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotSupportedException();
+		}
+
+		#endregion
+
+		#region Overrides of MarkupExtension
+
+		/// <summary>
+		/// When implemented in a derived class, returns an object that is set as the value of the target property for this markup extension.
+		/// </summary>
+		/// <param name="serviceProvider">Object that can provide services for the markup extension.</param>
+		/// <returns>The object value to set on the property where the extension is applied.</returns>
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			if (singletonInstance == null)
+			{
+				singletonInstance = new FileSizeToStringConverterExtension();
+			}
+
+			return singletonInstance;
 		}
 
 		#endregion
