@@ -85,6 +85,8 @@
     <Compile Include="Converters\DateTimeToBrushConverter.cs" />
     <Compile Include="Converters\DateTimeToStringConverter.cs" />
     <Compile Include="Converters\FileSizeToStringConverter.cs" />
+    <Compile Include="Models\FileSystem\LocalFileSystemModule.cs" />
+    <Compile Include="Models\FileSystem\LogicalDriveNode.cs" />
     <Compile Include="ViewModels\FileSystem\Icons\FileToIconConverter.cs" />
     <Compile Include="Localization\TranslateExtension.cs" />
     <Compile Include="Localization\Translator.cs" />
@@ -96,6 +98,8 @@
     <Compile Include="Models\FileSystem\NodeAttributeValueType.cs" />
     <Compile Include="Resources\SharedResourceDictionary.cs" />
     <Compile Include="ViewModels\FileSystem\Icons\SysImageList.cs" />
+    <Compile Include="ViewModels\FileSystem\LocalFileSystemModuleVM.cs" />
+    <Compile Include="ViewModels\FileSystem\LogicalDriveNodeVM.cs" />
     <Compile Include="ViewModels\IPanel.cs" />
     <Compile Include="ViewModels\IPanelContainer.cs" />
     <Compile Include="ViewModels\TabContainer.cs" />

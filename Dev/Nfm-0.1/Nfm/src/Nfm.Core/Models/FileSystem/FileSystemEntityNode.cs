@@ -38,7 +38,7 @@ namespace Nfm.Core.Models.FileSystem
 		/// <summary>
 		/// Gets parent node.
 		/// </summary>
-		public INode Parent { get; private set; }
+		public INode Parent { get; set; }
 
 		/// <summary>
 		/// Gets the enumerator, which supports a simple iteratetion over all child nodes.
@@ -67,7 +67,11 @@ namespace Nfm.Core.Models.FileSystem
 		/// </summary>
 		public IEnumerable<INodeAttribute> Attributes
 		{
-			get { yield break; }
+			get
+			{
+				// TODO: add support of INodeAttribute
+				yield break;
+			}
 		}
 
 		#endregion
@@ -95,6 +99,29 @@ namespace Nfm.Core.Models.FileSystem
 		/// Gets a value indicating whether file system element is directory.
 		/// </summary>
 		public FileSystemEntityType? EntityType { get; private set; }
+
+		#region .Ctors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FileSystemEntityNode"/> class.
+		/// </summary>
+		public FileSystemEntityNode()
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FileSystemEntityNode"/> class.
+		/// </summary>
+		/// <param name="parent">Parent node.</param>
+		/// <param name="detailsInfo">Information about specific file or folder.</param>
+		public FileSystemEntityNode(INode parent, FileSystemInfo detailsInfo)
+		{
+			DetailsInfo = detailsInfo;
+			Parent = parent;
+			AbsoluteName = DetailsInfo.FullName;
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Fetch updated details info about file system entity.
@@ -148,6 +175,7 @@ namespace Nfm.Core.Models.FileSystem
 				yield break;
 			}
 
+			// All folders
 			var list = new List<string>();
 			list.AddRange(Directory.GetDirectories(AbsoluteName, "*.*", SearchOption.TopDirectoryOnly));
 
@@ -165,6 +193,7 @@ namespace Nfm.Core.Models.FileSystem
 				};
 			}
 
+			// All files
 			list.Clear();
 			list.AddRange(Directory.GetFiles(AbsoluteName, "*.*", SearchOption.TopDirectoryOnly));
 
