@@ -153,7 +153,8 @@ namespace Nfm.Core.ViewModels.FileSystem.Icons
 				                                              	}
 				                                              	catch (Exception e)
 				                                              	{
-				                                              		System.Diagnostics.Debugger.Break();
+																	Debug.WriteLine(e);
+				                                              		Debugger.Break();
 				                                              	}
 				                                              }));
 			}
@@ -169,7 +170,8 @@ namespace Nfm.Core.ViewModels.FileSystem.Icons
 				}
 				catch (Exception e)
 				{
-					System.Diagnostics.Debugger.Break();
+					Debug.WriteLine(e);
+					Debugger.Break();
 				}
 			}
 		}
