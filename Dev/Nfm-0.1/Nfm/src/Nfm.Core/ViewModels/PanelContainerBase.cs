@@ -246,7 +246,11 @@ namespace Nfm.Core.ViewModels
 		/// <param name="e">Event params.</param>
 		protected void OnChildsChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (e.NewItems != null && e.NewItems.Count != 0)
+			if (e.NewItems != null
+				&& e.NewItems.Count != 0
+				&& (e.Action == NotifyCollectionChangedAction.Add
+					|| e.Action == NotifyCollectionChangedAction.Replace
+					|| e.Action == NotifyCollectionChangedAction.Reset))
 			{
 				foreach (IPanel panel in e.NewItems)
 				{
@@ -255,7 +259,11 @@ namespace Nfm.Core.ViewModels
 				}
 			}
 
-			if (e.OldItems != null && e.OldItems.Count != 0)
+			if (e.OldItems != null
+				&& e.OldItems.Count != 0
+				&& (e.Action == NotifyCollectionChangedAction.Remove
+					|| e.Action == NotifyCollectionChangedAction.Replace
+					|| e.Action == NotifyCollectionChangedAction.Reset))
 			{
 				foreach (IPanel panel in e.OldItems)
 				{

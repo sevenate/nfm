@@ -2,7 +2,10 @@
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:ctrl="clr-namespace:Nfm.Core.Controls;assembly=Nfm.Core"
-		Content="{Binding}"
 		Style="{StaticResource MainWindowStyle}"
 		FocusManager.FocusedElement="{ctrl:FirstFocusedElement}">
+	<!-- Grid used as default adorner layer -->
+	<Grid>
+		<ContentControl Content="{Binding}" />
+	</Grid>
 </Window>

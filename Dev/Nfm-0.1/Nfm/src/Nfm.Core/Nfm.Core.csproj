@@ -58,6 +58,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.XML" />
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -72,6 +73,12 @@
     <Compile Include="Commands\NavigateToCurrentNodeCommand.cs" />
     <Compile Include="Commands\NavigateToParentNodeCommand.cs" />
     <Compile Include="Commands\RefreshChildNodesCommand.cs" />
+    <Compile Include="Controls\DragDrop\PanelDragSourceAdvisor.cs" />
+    <Compile Include="Controls\DragDrop\PanelContainerDropTargetAdvisor.cs" />
+    <Compile Include="Controls\DragDrop\DragDropManager.cs" />
+    <Compile Include="Controls\DragDrop\DropPreviewAdorner.cs" />
+    <Compile Include="Controls\DragDrop\IDragSourceAdvisor.cs" />
+    <Compile Include="Controls\DragDrop\IDropTargetAdvisor.cs" />
     <Compile Include="Controls\FirstFocusedElementExtension.cs" />
     <Compile Include="Controls\UniformStack.cs" />
     <Compile Include="Converters\BoolToCornerRadiusConverter.cs" />
