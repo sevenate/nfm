@@ -1,4 +1,4 @@
-// <copyright file="FirstFocusedElementExtension.cs" company="HD">
+// <copyright file="UniformStack.cs" company="HD">
 // 	Copyright (c) 2009 HD. All rights reserved.
 // </copyright>
 // <author name="Filipe Fortes">
