@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:DnD="clr-namespace:Nfm.Core.Controls.DragDrop;assembly=Nfm.Core">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<!-- #TabControl Style -->
 	<Style x:Key="TabControlStyle"
@@ -33,9 +32,9 @@
 								  Margin="0,0,4,-1"
 								  IsItemsHost="True"
 								  Background="Transparent">
-							<DnD:DragDropManager.DropTargetAdvisor>
-								<DnD:PanelContainerDropTargetAdvisor />
-							</DnD:DragDropManager.DropTargetAdvisor>
+							<DragDropManager.DropTargetAdvisor>
+								<PanelContainerDropTargetAdvisor />
+							</DragDropManager.DropTargetAdvisor>
 						</TabPanel>
 						<DockPanel Grid.Row="0"
 								   Grid.Column="1">

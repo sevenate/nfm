@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:DnD="clr-namespace:Nfm.Core.Controls.DragDrop;assembly=Nfm.Core">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<!-- #TabItem Style -->
 	<Style x:Key="TabItemStyle"
@@ -57,9 +56,9 @@
 											  ContentSource="Header"
 											  Margin="{TemplateBinding Padding}" />
 						</DockPanel>
-						<DnD:DragDropManager.DragSourceAdvisor>
-							<DnD:PanelDragSourceAdvisor />
-						</DnD:DragDropManager.DragSourceAdvisor>
+						<DragDropManager.DragSourceAdvisor>
+							<PanelDragSourceAdvisor />
+						</DragDropManager.DragSourceAdvisor>
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected"

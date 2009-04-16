@@ -33,10 +33,11 @@ using System.Windows.Markup;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.102.1304")]
-[assembly: AssemblyFileVersion("1.0.102.1304")]
+[assembly: AssemblyVersion("1.0.104.1936")]
+[assembly: AssemblyFileVersion("1.0.104.1936")]
 
 // Additional Custom Attributes
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "Nfm.Core.Resources")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "Nfm.Core.Localization")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "Nfm.Core.Converters")]
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "Nfm.Core.Controls.DragDrop")]
