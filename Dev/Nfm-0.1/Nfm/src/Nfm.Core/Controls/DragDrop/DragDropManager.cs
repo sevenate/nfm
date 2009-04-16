@@ -12,7 +12,6 @@
 // <summary>Drag-and-drop manager with attached properties.</summary>
 
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -65,7 +64,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <summary>
 		/// DragSourceAdvisor attached property.
 		/// </summary>
-		public static readonly DependencyProperty DragSourceAdvisorProperty =
+		private static readonly DependencyProperty DragSourceAdvisorProperty =
 			DependencyProperty.RegisterAttached(
 				"DragSourceAdvisor",
 				typeof (IDragSourceAdvisor),
@@ -88,7 +87,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// </summary>
 		/// <param name="depObj">Detattach target.</param>
 		/// <returns>Returns the current effective value.</returns>
-		public static IDragSourceAdvisor GetDragSourceAdvisor(DependencyObject depObj)
+		private static IDragSourceAdvisor GetDragSourceAdvisor(DependencyObject depObj)
 		{
 			return depObj.GetValue(DragSourceAdvisorProperty) as IDragSourceAdvisor;
 		}
@@ -129,7 +128,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <summary>
 		/// DropTargetAdvisor attached property.
 		/// </summary>
-		public static readonly DependencyProperty DropTargetAdvisorProperty =
+		private static readonly DependencyProperty DropTargetAdvisorProperty =
 			DependencyProperty.RegisterAttached(
 				"DropTargetAdvisor",
 				typeof (IDropTargetAdvisor),
@@ -152,7 +151,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// </summary>
 		/// <param name="depObj">Detattach target.</param>
 		/// <returns>Returns the current effective value.</returns>
-		public static IDropTargetAdvisor GetDropTargetAdvisor(DependencyObject depObj)
+		private static IDropTargetAdvisor GetDropTargetAdvisor(DependencyObject depObj)
 		{
 			return depObj.GetValue(DropTargetAdvisorProperty) as IDropTargetAdvisor;
 		}
@@ -270,9 +269,6 @@ namespace Nfm.Core.Controls.DragDrop
 			Mouse.Capture(dragElement);
 
 			DataObject data = currentSourceAdvisor.GetDataObject(dragElement);
-
-			Debug.Assert(data != null, "CurrentSourceAdvisor does not carry any data.");
-
 			DragDropEffects supportedEffects = currentSourceAdvisor.SupportedEffects;
 
 			// Perform DragDrop

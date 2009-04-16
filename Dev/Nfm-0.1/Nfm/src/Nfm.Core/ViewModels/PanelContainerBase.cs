@@ -267,7 +267,15 @@ namespace Nfm.Core.ViewModels
 			{
 				foreach (IPanel panel in e.OldItems)
 				{
-					panel.Parent = null;
+					if (panel.Parent == this)
+					{
+						panel.Parent = null;
+					}
+//					else
+//					{
+//						Debugger.Break();
+//					}
+
 					panel.Closed -= OnChildClose;
 				}
 			}

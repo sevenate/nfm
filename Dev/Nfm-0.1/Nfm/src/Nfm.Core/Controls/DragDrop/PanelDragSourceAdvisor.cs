@@ -12,6 +12,7 @@
 // <summary><see cref="IPanel"/> draggable source item advisor.</summary>
 
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -31,9 +32,9 @@ namespace Nfm.Core.Controls.DragDrop
 		private static readonly DataFormat SupportedFormat = DataFormats.GetDataFormat("IPanel");
 
 		/// <summary>
-		/// Source <see cref="IPanelContainer"/>.
+		/// Source parent <see cref="IPanelContainer"/>.
 		/// </summary>
-		private IPanelContainer sourceParent;
+		private IPanelContainer sourceParentContainer;
 
 		#region IDragSourceAdvisor Members
 
@@ -57,20 +58,23 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <returns>Format-independent data transfer.</returns>
 		public DataObject GetDataObject(UIElement dragElement)
 		{
-			var serializedObject = dragElement as FrameworkElement;
+			//Note: consider to replace this method with strong type vertion for FrameworkElement (i.e. "for elements with DataContext only")
+			var sourcePanel = (IPanel) (((FrameworkElement) dragElement).DataContext);
 
-			if (serializedObject != null)
+			Debug.Assert(sourcePanel.Parent != null, string.Format("sourcePanel ({0}) has NO Parent.", sourcePanel.Header));
+
+			if (sourcePanel.Parent is IPanelContainer)
 			{
-				var sourcePanel = serializedObject.DataContext as IPanel;
-
-				if (sourcePanel != null && sourcePanel.Parent is IPanelContainer)
-				{
-					sourceParent = (IPanelContainer) sourcePanel.Parent;
-					return new DataObject(SupportedFormat.Name, sourcePanel);
-				}
+				sourceParentContainer = (IPanelContainer) sourcePanel.Parent;
+			}
+			else
+			{
+				Debug.Assert(
+					sourcePanel.Parent is IPanelContainer,
+					string.Format("sourcePanel.Parent ({0}) is NOT IPanelContainer.", sourcePanel.Parent.Header));
 			}
 
-			return null;
+			return new DataObject(SupportedFormat.Name, sourcePanel);
 		}
 
 		/// <summary>
@@ -115,16 +119,21 @@ namespace Nfm.Core.Controls.DragDrop
 				return;
 			}
 
-			if (sourceParent == null)
+			if (sourceParentContainer == null)
 			{
 				return;
 			}
 
-			var panel = ((FrameworkElement) dragElement).DataContext as IPanel;
+			var panel = (IPanel)(((FrameworkElement) dragElement).DataContext);
 
-			if (panel != null && sourceParent.Childs.Contains(panel) && panel.Parent != sourceParent)
+			if (sourceParentContainer.Childs.Contains(panel) && panel.Parent != sourceParentContainer)
 			{
-				sourceParent.Childs.Remove(panel);
+				sourceParentContainer.Childs.Remove(panel);
+				
+				if (sourceParentContainer.Childs.Count == 0)
+				{
+					sourceParentContainer.RequestClose();
+				}
 			}
 		}
 
