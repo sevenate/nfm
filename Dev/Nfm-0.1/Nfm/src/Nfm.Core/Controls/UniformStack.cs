@@ -1,13 +1,42 @@
+// <copyright file="FirstFocusedElementExtension.cs" company="HD">
+// 	Copyright (c) 2009 HD. All rights reserved.
+// </copyright>
+// <author name="Filipe Fortes">
+//	<url>http://fortes.com/2007/05/uniformpanel/</url>
+// 	<date>2007-05-07</date>
+// </author>
+// <editor name="Andrew Levshoff">
+// 	<email>alevshoff@hd.com</email>
+// 	<date>2009-03-14</date>
+// </editor>
+// <summary>Layout panel which is a cross beween <see cref="UniformGrid"/> and <see cref="StackPanel"/>.</summary>
+
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace Nfm.Core.Controls
 {
+	//TODO: add comments and make refactoring
+
+	/// <summary>
+	/// Layout panel which is a cross beween <see cref="UniformGrid"/> and <see cref="StackPanel"/>.
+	/// </summary>
 	public class UniformStack : Panel
 	{
+		#region Fields
+
+		private readonly List<UIElement> fixedChildren = new List<UIElement>();
+		private readonly List<UIElement> stretchyChildren = new List<UIElement>();
+		private double fixedVHeight;
+		private DependencyProperty vHeightProperty = HeightProperty;
+		private DependencyProperty vWidthProperty = WidthProperty;
+
+		#endregion
+
 		#region Dependency Properties
 
 		public static readonly DependencyProperty IsExpanderDetectionEnabledProperty =
@@ -41,13 +70,13 @@ namespace Nfm.Core.Controls
 		private static void OnOrientationPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			var current = d as UniformStack;
-			
+
 			if (d == null)
 			{
 				return; // Shouldn't happen
 			}
 
-			var isVertical = ((Orientation) e.NewValue == Orientation.Vertical);
+			bool isVertical = ((Orientation) e.NewValue == Orientation.Vertical);
 
 			current.vWidthProperty = (isVertical) ? WidthProperty : HeightProperty;
 			current.vHeightProperty = (isVertical) ? HeightProperty : WidthProperty;
@@ -61,7 +90,7 @@ namespace Nfm.Core.Controls
 		{
 			double maxVWidth = 0;
 			double totalVHeight = 0;
-			var vAvailableSize = VirtualSize(availableSize);
+			Size vAvailableSize = VirtualSize(availableSize);
 			fixedVHeight = 0;
 
 			stretchyChildren.Clear();
@@ -92,8 +121,8 @@ namespace Nfm.Core.Controls
 			{
 				// Measure the stretchy children now 
 				vAvailableSize.Height = Math.Max(0, vAvailableSize.Height - fixedVHeight); // Don't want to give negative numbers
-				var UniformMeasureSize = VirtualSize(new Size(vAvailableSize.Width, vAvailableSize.Height/stretchyChildren.Count));
-				
+				Size UniformMeasureSize = VirtualSize(new Size(vAvailableSize.Width, vAvailableSize.Height/stretchyChildren.Count));
+
 				foreach (UIElement child in stretchyChildren)
 				{
 					child.Measure(UniformMeasureSize);
@@ -107,7 +136,7 @@ namespace Nfm.Core.Controls
 
 		protected override Size ArrangeOverride(Size finalSize)
 		{
-			var stretchyVHeight = Math.Max(0, (VirtualSize(finalSize).Height - fixedVHeight)/stretchyChildren.Count);
+			double stretchyVHeight = Math.Max(0, (VirtualSize(finalSize).Height - fixedVHeight)/stretchyChildren.Count);
 			// No negative numbers
 			var stretchyArrangeVSize = new Size(VirtualSize(finalSize).Width, stretchyVHeight);
 
@@ -135,11 +164,6 @@ namespace Nfm.Core.Controls
 		#endregion
 
 		/* In order to share code paths, we use the notion of "virtual" widths and heights */
-		private readonly List<UIElement> fixedChildren = new List<UIElement>();
-		private readonly List<UIElement> stretchyChildren = new List<UIElement>();
-		private double fixedVHeight;
-		private DependencyProperty vHeightProperty = HeightProperty;
-		private DependencyProperty vWidthProperty = WidthProperty;
 
 		#region Private Helpers
 
@@ -173,7 +197,7 @@ namespace Nfm.Core.Controls
 			{
 				return true;
 			}
-			
+
 			if (IsExpanderDetectionEnabled && !IsExpanded(child))
 			{
 				return true;
@@ -184,7 +208,7 @@ namespace Nfm.Core.Controls
 
 		private bool IsExpanded(UIElement child)
 		{
-			var exp = FindExpander(child);
+			Expander exp = FindExpander(child);
 
 			if (exp == null)
 			{

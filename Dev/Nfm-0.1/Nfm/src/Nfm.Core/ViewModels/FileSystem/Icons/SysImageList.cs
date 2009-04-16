@@ -1,9 +1,25 @@
+// <copyright file="FirstFocusedElementExtension.cs" company="HD">
+// 	Copyright (c) 2009 HD. All rights reserved.
+// </copyright>
+// <author name="Leung Yat Chun">
+//	<url>http://www.codeproject.com/KB/WPF/filetoiconconverter.aspx</url>
+//	<url>http://sites.google.com/a/quickzip.org/code/Home/articles-1/filetoiconconverter</url>
+// 	<date>2009-01-31</date>
+// </author>
+// <editor name="Andrew Levshoff">
+// 	<email>alevshoff@hd.com</email>
+// 	<date>2009-04-10</date>
+// </editor>
+// <summary>Helper stuff for <see cref="FileToIconConverter"/>.</summary>
+
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace Nfm.Core.ViewModels.FileSystem.Icons
 {
+	//TODO: add comments and make refactoring
+
 	/// <summary>
 	/// Available system image list sizes
 	/// </summary>

@@ -1,4 +1,18 @@
-﻿using System;
+﻿// <copyright file="FirstFocusedElementExtension.cs" company="HD">
+// 	Copyright (c) 2009 HD. All rights reserved.
+// </copyright>
+// <author name="Leung Yat Chun">
+//	<url>http://www.codeproject.com/KB/WPF/filetoiconconverter.aspx</url>
+//	<url>http://sites.google.com/a/quickzip.org/code/Home/articles-1/filetoiconconverter</url>
+// 	<date>2009-01-31</date>
+// </author>
+// <editor name="Andrew Levshoff">
+// 	<email>alevshoff@hd.com</email>
+// 	<date>2009-04-10</date>
+// </editor>
+// <summary>MultiBinding Converter that can retrieve an Icon from system based on a filename (exist or not) and size.</summary>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +30,11 @@ using System.Windows.Threading;
 
 namespace Nfm.Core.ViewModels.FileSystem.Icons
 {
+	//TODO: add comments and make refactoring
+
+	/// <summary>
+	/// MultiBinding Converter that can retrieve an Icon from system based on a filename (exist or not) and size.
+	/// </summary>
 	[ValueConversion(typeof(string), typeof(ImageSource))]
 	public class FileToIconConverter : IMultiValueConverter
 	{

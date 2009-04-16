@@ -25,6 +25,9 @@ namespace Nfm.Core.Localization
 	/// </summary>
 	public static class Translator
 	{
+		/// <summary>
+		/// Gets or sets current application culture.
+		/// </summary>
 		public static CultureInfo Culture
 		{
 			get { return Thread.CurrentThread.CurrentUICulture; }
@@ -38,6 +41,9 @@ namespace Nfm.Core.Localization
 			}
 		}
 
+		/// <summary>
+		/// Raised when current application culture was changed.
+		/// </summary>
 		internal static event EventHandler CultureChanged;
 	}
 }
