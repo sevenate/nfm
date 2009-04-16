@@ -1,8 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:vm="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core"
-					xmlns:Commands="clr-namespace:Nfm.Core.Commands;assembly=Nfm.Core"
-					xmlns:DnD="clr-namespace:Nfm.Core.Controls.DragDrop;assembly=Nfm.Core">
+					xmlns:Commands="clr-namespace:Nfm.Core.Commands;assembly=Nfm.Core">
 
 	<DataTemplate DataType="{x:Type vm:TabContainer}">
 		<TabControl ItemsSource="{Binding Path=Childs}"
