@@ -48,14 +48,7 @@ namespace Nfm.Core.Commands
 				                       			: Environment.CurrentDirectory
 				                       };
 
-				Process process = Process.Start(processStartInfo);
-
-				if (process == null)
-				{
-					return;
-				}
-
-				process.Start();
+				Process.Start(processStartInfo);
 			}
 		}
 
