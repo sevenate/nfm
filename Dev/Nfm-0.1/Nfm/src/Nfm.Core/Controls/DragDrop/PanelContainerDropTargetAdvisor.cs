@@ -40,32 +40,68 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <returns>"True" if the data is in and valid; otherwise, "False".</returns>
 		public bool IsValidDataObject(IDataObject obj)
 		{
-			return obj.GetDataPresent(SupportedFormat.Name);
+			if (!obj.GetDataPresent(SupportedFormat.Name))
+			{
+				return false;
+			}
+
+			var droppedPanel = (IPanel) obj.GetData(SupportedFormat.Name);
+			var targetPanelContaiger = (IPanelContainer) ((FrameworkElement) TargetUI).DataContext;
+
+			return ! CheckIsTargetPanelIsInsideOfSourcePanel(droppedPanel, targetPanelContaiger);
 		}
 
 		/// <summary>
 		/// Accept transfered data object on target side.
 		/// </summary>
 		/// <param name="obj">Format-independent mechanism for transferring data.</param>
+		/// <param name="finalEffects">Final effects of a drag-and-drop operation.</param>
 		/// <param name="dropPoint">Specific coordinates where object was dropped.</param>
-		public void OnDropCompleted(IDataObject obj, Point dropPoint)
+		public void OnDropAccepted(IDataObject obj, DragDropEffects finalEffects, Point dropPoint)
 		{
-			var droppedPanel = obj.GetData(SupportedFormat.Name) as IPanel;
+			// Todo: take into account dropPoint coordinates to specify correct order in childs collection
+			var droppedPanel = (IPanel) obj.GetData(SupportedFormat.Name);
 			var targetPanelContaiger = (IPanelContainer) ((FrameworkElement) TargetUI).DataContext;
 
-			if (!targetPanelContaiger.Childs.Contains(droppedPanel))
+			if ((finalEffects & DragDropEffects.Move) == DragDropEffects.Move)
 			{
-				// Bug: NOT Thread safe operation!
-				// Simultaneously add item to it and data binding UI enumerate it.
-				targetPanelContaiger.Childs.Add(droppedPanel);
+				if (!targetPanelContaiger.Childs.Contains(droppedPanel))
+				{
+					// Bug: Not thread safe operation!
+					// Simultaneously add new item while data binding UI enumerate collection.
+					targetPanelContaiger.Childs.Add(droppedPanel);
+				}
+				else
+				{
+					int oldIndex = targetPanelContaiger.Childs.IndexOf(droppedPanel);
+					targetPanelContaiger.Childs.Move(oldIndex, targetPanelContaiger.Childs.Count - 1);
+				}
 			}
-			else
+			else if ((finalEffects & DragDropEffects.Copy) == DragDropEffects.Copy)
 			{
-				var oldIndex = targetPanelContaiger.Childs.IndexOf(droppedPanel);
-				targetPanelContaiger.Childs.Move(oldIndex, targetPanelContaiger.Childs.Count - 1);
+				// Bug: Not thread safe operation!
+				// Simultaneously add new item while data binding UI enumerate collection.
+				targetPanelContaiger.Childs.Add(droppedPanel.CloneDeep());
 			}
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Prevent from copy/move outer source panel to inner target panel
+		/// if they linked through parental hierarchy.
+		/// </summary>
+		/// <param name="source">Source <see cref="IPanel"/>.</param>
+		/// <param name="target">Target <see cref="IPanel"/>.</param>
+		/// <returns>"True", if target panel contains in source panel.</returns>
+		private static bool CheckIsTargetPanelIsInsideOfSourcePanel(IPanel source, IPanel target)
+		{
+			if (target.Parent != null)
+			{
+				return target.Parent == source || CheckIsTargetPanelIsInsideOfSourcePanel(target.Parent, source);
+			}
+
+			return false;
+		}
 	}
 }

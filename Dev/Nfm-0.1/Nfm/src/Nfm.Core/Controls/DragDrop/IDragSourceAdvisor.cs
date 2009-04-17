@@ -35,7 +35,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// </summary>
 		/// <param name="dragElement">Drag element.</param>
 		/// <returns>Format-independent data transfer.</returns>
-		DataObject GetDataObject(UIElement dragElement);
+		IDataObject GetDataObject(UIElement dragElement);
 
 		/// <summary>
 		/// Get additional visual element,
@@ -44,19 +44,19 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <param name="dragElement">Main drag element.</param>
 		/// <returns>Additional visual feedback element.</returns>
 		UIElement GetVisualFeedback(UIElement dragElement);
-		
-		/// <summary>
-		/// Reject transfered data object on source side.
-		/// </summary>
-		/// <param name="dragElement">Drag element.</param>
-		/// <param name="finalEffects">Final effects of a drag-and-drop operation.</param>
-		void OnDropStarted(UIElement dragElement, DragDropEffects finalEffects);
-		
+
 		/// <summary>
 		/// Check, if draggable element has specific data to drag.
 		/// </summary>
 		/// <param name="element">Specific draggable element.</param>
 		/// <returns>"True" if element could be drag; otherwise, "False".</returns>
 		bool IsDraggable(UIElement element);
+
+		/// <summary>
+		/// Confirm acceptance of successfully drop transfered data object to target area on source side.
+		/// </summary>
+		/// <param name="dragElement">Drag element.</param>
+		/// <param name="finalEffects">Final effects of a drag-and-drop operation.</param>
+		void OnDropConfirmed(UIElement dragElement, DragDropEffects finalEffects);
 	}
 }

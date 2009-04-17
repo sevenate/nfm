@@ -12,7 +12,6 @@
 // <summary><see cref="IPanel"/> draggable source item advisor.</summary>
 
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -34,7 +33,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <summary>
 		/// Source parent <see cref="IPanelContainer"/>.
 		/// </summary>
-		private IPanelContainer sourceParentContainer;
+		private IPanelContainer parentContainer;
 
 		#region IDragSourceAdvisor Members
 
@@ -56,23 +55,19 @@ namespace Nfm.Core.Controls.DragDrop
 		/// </summary>
 		/// <param name="dragElement">Drag element.</param>
 		/// <returns>Format-independent data transfer.</returns>
-		public DataObject GetDataObject(UIElement dragElement)
+		public IDataObject GetDataObject(UIElement dragElement)
 		{
-			//Note: consider to replace this method with strong type vertion for FrameworkElement (i.e. "for elements with DataContext only")
-			var sourcePanel = (IPanel) (((FrameworkElement) dragElement).DataContext);
+			// Note: consider to replace this method with strong type vertion for FrameworkElement
+			// (i.e. "drag'n'drop for elements with DataContext only")
+			var sourcePanel = (IPanel) ((FrameworkElement) dragElement).DataContext;
 
-			Debug.Assert(sourcePanel.Parent != null, string.Format("sourcePanel ({0}) has NO Parent.", sourcePanel.Header));
-
-			if (sourcePanel.Parent is IPanelContainer)
-			{
-				sourceParentContainer = (IPanelContainer) sourcePanel.Parent;
-			}
-			else
-			{
-				Debug.Assert(
-					sourcePanel.Parent is IPanelContainer,
-					string.Format("sourcePanel.Parent ({0}) is NOT IPanelContainer.", sourcePanel.Parent.Header));
-			}
+			// In case when source panel has parent panel container,
+			// it may be required to remove it (later, after drop) from parent panel container childs collection
+			// if "drop move" operation will be used.
+			// For "drop copy" operation cloning will be used.
+			parentContainer = sourcePanel.Parent is IPanelContainer
+			                        	? (IPanelContainer) sourcePanel.Parent
+			                        	: null;
 
 			return new DataObject(SupportedFormat.Name, sourcePanel);
 		}
@@ -90,14 +85,14 @@ namespace Nfm.Core.Controls.DragDrop
 			           	Width = dragElement.RenderSize.Width,
 			           	Height = dragElement.RenderSize.Height,
 			           	Fill = new VisualBrush(dragElement),
-			           	Opacity = 0.5,
+			           	Opacity = 0.75,
 			           	IsHitTestVisible = false
 			           };
 
 			// Optional animation for drag element
-			var anim = new DoubleAnimation(0.75, new Duration(TimeSpan.FromMilliseconds(500)))
+			var anim = new DoubleAnimation(1.00, new Duration(TimeSpan.FromMilliseconds(500)))
 			           {
-			           	From = 0.25,
+			           	From = 0.75,
 			           	AutoReverse = true,
 			           	RepeatBehavior = RepeatBehavior.Forever
 			           };
@@ -108,43 +103,47 @@ namespace Nfm.Core.Controls.DragDrop
 		}
 
 		/// <summary>
-		/// Reject transfered data object on source side.
-		/// </summary>
-		/// <param name="dragElement">Drag element.</param>
-		/// <param name="finalEffects">Final effects of a drag-and-drop operation.</param>
-		public void OnDropStarted(UIElement dragElement, DragDropEffects finalEffects)
-		{
-			if ((finalEffects & DragDropEffects.Move) != DragDropEffects.Move)
-			{
-				return;
-			}
-
-			if (sourceParentContainer == null)
-			{
-				return;
-			}
-
-			var panel = (IPanel)(((FrameworkElement) dragElement).DataContext);
-
-			if (sourceParentContainer.Childs.Contains(panel) && panel.Parent != sourceParentContainer)
-			{
-				sourceParentContainer.Childs.Remove(panel);
-				
-				if (sourceParentContainer.Childs.Count == 0)
-				{
-					sourceParentContainer.RequestClose();
-				}
-			}
-		}
-
-		/// <summary>
 		/// Check, if draggable element has specific data to drag.
 		/// </summary>
 		/// <param name="element">Specific draggable element.</param>
 		/// <returns>"True" if element could be drag; otherwise, "False".</returns>
 		public bool IsDraggable(UIElement element)
 		{
+			// Todo: consider to pass FrameworkElement.DataContext directly instead if UIElement
 			return element is FrameworkElement && ((FrameworkElement) element).DataContext is IPanel;
+		}
+
+		/// <summary>
+		/// Confirm acceptance of successfully drop transfered data object to target area on source side.
+		/// </summary>
+		/// <param name="dragElement">Drag element.</param>
+		/// <param name="finalEffects">Final effects of a drag-and-drop operation.</param>
+		public void OnDropConfirmed(UIElement dragElement, DragDropEffects finalEffects)
+		{
+			if ((finalEffects & DragDropEffects.Move) != DragDropEffects.Move)
+			{
+				return;
+			}
+
+			// For IPanel (instead of IPanelContainer) parent there is no need anything to do.
+			if (parentContainer == null)
+			{
+				return;
+			}
+
+			var panel = (IPanel) ((FrameworkElement) dragElement).DataContext;
+
+			if (parentContainer.Childs.Contains(panel) && panel.Parent != parentContainer)
+			{
+				// This will also remove handlers from old parent panel container "Closing/Closed" events.
+				parentContainer.Childs.Remove(panel);
+
+				// Todo: consider to use empty panel containers and make it configurable.
+				if (parentContainer.Childs.Count == 0)
+				{
+					parentContainer.RequestClose();
+				}
+			}
 		}
 
 		#endregion

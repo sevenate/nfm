@@ -64,7 +64,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <summary>
 		/// DragSourceAdvisor attached property.
 		/// </summary>
-		private static readonly DependencyProperty DragSourceAdvisorProperty =
+		public static readonly DependencyProperty DragSourceAdvisorProperty =
 			DependencyProperty.RegisterAttached(
 				"DragSourceAdvisor",
 				typeof (IDragSourceAdvisor),
@@ -87,7 +87,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// </summary>
 		/// <param name="depObj">Detattach target.</param>
 		/// <returns>Returns the current effective value.</returns>
-		private static IDragSourceAdvisor GetDragSourceAdvisor(DependencyObject depObj)
+		public static IDragSourceAdvisor GetDragSourceAdvisor(DependencyObject depObj)
 		{
 			return depObj.GetValue(DragSourceAdvisorProperty) as IDragSourceAdvisor;
 		}
@@ -128,7 +128,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <summary>
 		/// DropTargetAdvisor attached property.
 		/// </summary>
-		private static readonly DependencyProperty DropTargetAdvisorProperty =
+		public static readonly DependencyProperty DropTargetAdvisorProperty =
 			DependencyProperty.RegisterAttached(
 				"DropTargetAdvisor",
 				typeof (IDropTargetAdvisor),
@@ -151,7 +151,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// </summary>
 		/// <param name="depObj">Detattach target.</param>
 		/// <returns>Returns the current effective value.</returns>
-		private static IDropTargetAdvisor GetDropTargetAdvisor(DependencyObject depObj)
+		public static IDropTargetAdvisor GetDropTargetAdvisor(DependencyObject depObj)
 		{
 			return depObj.GetValue(DropTargetAdvisorProperty) as IDropTargetAdvisor;
 		}
@@ -203,6 +203,7 @@ namespace Nfm.Core.Controls.DragDrop
 			// Make this the new drag source
 			currentSourceAdvisor = GetDragSourceAdvisor(sender as DependencyObject);
 
+			// Todo: consider to pass FrameworkElement.DataContext directly instead if UIElement
 			if (currentSourceAdvisor.IsDraggable(e.Source as UIElement) == false)
 			{
 				return;
@@ -268,12 +269,12 @@ namespace Nfm.Core.Controls.DragDrop
 			isMouseDown = false;
 			Mouse.Capture(dragElement);
 
-			DataObject data = currentSourceAdvisor.GetDataObject(dragElement);
+			var data = currentSourceAdvisor.GetDataObject(dragElement);
 			DragDropEffects supportedEffects = currentSourceAdvisor.SupportedEffects;
 
 			// Perform DragDrop
 			DragDropEffects effects = System.Windows.DragDrop.DoDragDrop(dragElement, data, supportedEffects);
-			currentSourceAdvisor.OnDropStarted(dragElement, effects);
+			currentSourceAdvisor.OnDropConfirmed(dragElement, effects);
 
 			// Clean up
 			EndDragDrop();
@@ -367,7 +368,7 @@ namespace Nfm.Core.Controls.DragDrop
 			dropPoint.X = dropPoint.X - offset.X;
 			dropPoint.Y = dropPoint.Y - offset.Y;
 
-			currentTargetAdvisor.OnDropCompleted(e.Data, dropPoint);
+			currentTargetAdvisor.OnDropAccepted(e.Data, e.Effects, dropPoint);
 		}
 
 		/// <summary>

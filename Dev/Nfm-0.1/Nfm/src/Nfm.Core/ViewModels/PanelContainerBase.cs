@@ -246,36 +246,47 @@ namespace Nfm.Core.ViewModels
 		/// <param name="e">Event params.</param>
 		protected void OnChildsChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			// Note: NotifyCollectionChangedAction.Reset
+			//    and NotifyCollectionChangedAction.Replace
+			//    change types should not occur for ObservableCollection<IPanel>.
+
+			if (e.Action == NotifyCollectionChangedAction.Replace)
+			{
+				Debug.Fail("NotifyCollectionChangedAction.Reset");
+			}
+
+			if (e.Action == NotifyCollectionChangedAction.Reset)
+			{
+				Debug.Fail("NotifyCollectionChangedAction.Reset");
+			}
+
 			if (e.NewItems != null
-				&& e.NewItems.Count != 0
-				&& (e.Action == NotifyCollectionChangedAction.Add
-					|| e.Action == NotifyCollectionChangedAction.Replace
-					|| e.Action == NotifyCollectionChangedAction.Reset))
+				&& e.NewItems.Count > 0
+				&& e.Action == NotifyCollectionChangedAction.Add)
 			{
 				foreach (IPanel panel in e.NewItems)
 				{
+					// Take ownership of this child.
 					panel.Parent = this;
 					panel.Closed += OnChildClose;
 				}
 			}
 
 			if (e.OldItems != null
-				&& e.OldItems.Count != 0
-				&& (e.Action == NotifyCollectionChangedAction.Remove
-					|| e.Action == NotifyCollectionChangedAction.Replace
-					|| e.Action == NotifyCollectionChangedAction.Reset))
+				&& e.OldItems.Count > 0
+				&& e.Action == NotifyCollectionChangedAction.Remove)
 			{
 				foreach (IPanel panel in e.OldItems)
 				{
+					// Important: do NOT remove parent from NOT owned childs!
+					// When child will be added at the same time to other collection,
+					// that new collection will take ownership on this child.
 					if (panel.Parent == this)
 					{
 						panel.Parent = null;
 					}
-//					else
-//					{
-//						Debugger.Break();
-//					}
 
+					// But event handler still need to be removed.
 					panel.Closed -= OnChildClose;
 				}
 			}

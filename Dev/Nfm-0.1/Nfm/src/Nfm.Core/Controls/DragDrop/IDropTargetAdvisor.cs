@@ -36,7 +36,8 @@ namespace Nfm.Core.Controls.DragDrop
 		/// Accept transfered data object on target side.
 		/// </summary>
 		/// <param name="obj">Format-independent mechanism for transferring data.</param>
+		/// <param name="finalEffects">Final effects of a drag-and-drop operation.</param>
 		/// <param name="dropPoint">Specific coordinates where object was dropped.</param>
-		void OnDropCompleted(IDataObject obj, Point dropPoint);
+		void OnDropAccepted(IDataObject obj, DragDropEffects finalEffects, Point dropPoint);
 	}
 }
