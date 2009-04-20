@@ -230,7 +230,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <param name="e">Provides data for mouse button.</param>
 		private static void DragSourcePreviewMouseMove(object sender, MouseEventArgs e)
 		{
-			if (isMouseDown && IsDragGesture(e.GetPosition(GetTopContainer())))
+			if (isMouseDown && IsDragGesture(e.GetPosition((UIElement)e.Source)))
 			{
 				DragStarted();
 			}
