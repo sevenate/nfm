@@ -55,7 +55,7 @@
 		<Setter Property="Padding"
 				Value="4" />
 		<Setter Property="ToolTip"
-				Value="Close" />
+				Value="Duplicate selected tab" />
 		<Setter Property="IsTabStop"
 				Value="False" />
 		<Setter Property="Template">
