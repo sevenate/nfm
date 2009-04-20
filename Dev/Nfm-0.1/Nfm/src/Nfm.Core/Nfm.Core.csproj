@@ -73,6 +73,7 @@
     <Compile Include="Commands\NavigateToCurrentNodeCommand.cs" />
     <Compile Include="Commands\NavigateToParentNodeCommand.cs" />
     <Compile Include="Commands\RefreshChildNodesCommand.cs" />
+    <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Controls\DragDrop\PanelDragSourceAdvisor.cs" />
     <Compile Include="Controls\DragDrop\DragDropManager.cs" />
     <Compile Include="Controls\DragDrop\DropPreviewAdorner.cs" />
