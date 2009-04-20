@@ -11,6 +11,8 @@
 // </editor>
 // <summary>Drag item preview adorner.</summary>
 
+using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -41,14 +43,9 @@ namespace Nfm.Core.Controls.DragDrop
 		private readonly ContentPresenter presenter;
 
 		/// <summary>
-		/// Offset from adorder layer left edge.
+		/// Adorner element position at adorner layer.
 		/// </summary>
-		private double left;
-		
-		/// <summary>
-		/// Offset from adorder layer top edge.
-		/// </summary>
-		private double top;
+		private Point position;
 
 		#endregion
 
@@ -60,7 +57,14 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <param name="adornedElement">The element to bind the adorner to.</param>
 		/// <param name="feedbackUIElement">Additional drag item visual feedback element.</param>
 		/// <param name="adornerLayer">A surface for rendering adorners.</param>
-		public DropPreviewAdorner(UIElement adornedElement, UIElement feedbackUIElement, AdornerLayer adornerLayer)
+		/// <param name="left">Offset from left in adorner layer.</param>
+		/// <param name="top">Offset from top in adorner layer.</param>
+		public DropPreviewAdorner(
+			UIElement adornedElement,
+			UIElement feedbackUIElement,
+			AdornerLayer adornerLayer,
+			double left,
+			double top)
 			: base(adornedElement)
 		{
 			this.adornedElement = adornedElement;
@@ -71,51 +75,41 @@ namespace Nfm.Core.Controls.DragDrop
 			            	Content = feedbackUIElement,
 			            	IsHitTestVisible = false
 			            };
+
+			position.X = left;
+			position.Y = top;
 		}
 
 		#endregion
 
-		#region Properties
-
-		/// <summary>
-		/// Gets or sets offset from adorder layer left edge.
-		/// </summary>
-		public double Left
-		{
-			private get { return left; }
-			set
-			{
-				left = value;
-				UpdatePosition();
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets offset from adorder layer top edge.
-		/// </summary>
-		public double Top
-		{
-			private get { return top; }
-			set
-			{
-				top = value;
-				UpdatePosition();
-			}
-		}
-
-		#endregion
+		#region Public Methods
 
 		/// <summary>
 		/// Updates the layout and redraws all of the adorners in the adorner layer
 		/// that are bound to the specified <see cref="System.Windows.UIElement"/>.
 		/// </summary>
-		private void UpdatePosition()
+		/// <param name="left">Offset from left in adorner layer.</param>
+		/// <param name="top">Offset from top in adorner layer.</param>
+		public void UpdatePosition(double left, double top)
 		{
+			position.X = left;
+			position.Y = top;
+
 			if (adornerLayer != null)
 			{
-				adornerLayer.Update(adornedElement);
+				try
+				{
+					adornerLayer.Update(adornedElement);
+				}
+				catch (Exception e)
+				{
+					// Todo: remove debug fail.
+					Debug.Fail(e.ToString());
+				}
 			}
 		}
+
+		#endregion
 
 		#region Adorner Overrides
 
@@ -179,12 +173,12 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <returns>A transform to apply to the adorner.</returns>
 		public override GeneralTransform GetDesiredTransform(GeneralTransform transform)
 		{
-			var result = new GeneralTransformGroup();
+			var generalTransformGroup = new GeneralTransformGroup();
 
-			result.Children.Add(new TranslateTransform(Left, Top));
-			result.Children.Add(base.GetDesiredTransform(transform));
+			generalTransformGroup.Children.Add(new TranslateTransform(position.X, position.Y));
+			generalTransformGroup.Children.Add(base.GetDesiredTransform(transform));
 
-			return result;
+			return generalTransformGroup;
 		}
 
 		#endregion

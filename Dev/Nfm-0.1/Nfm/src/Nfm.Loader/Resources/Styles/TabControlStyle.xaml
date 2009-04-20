@@ -31,11 +31,7 @@
 								  Panel.ZIndex="1"
 								  Margin="0,0,4,-1"
 								  IsItemsHost="True"
-								  Background="Transparent">
-							<DragDropManager.DropTargetAdvisor>
-								<PanelContainerDropTargetAdvisor />
-							</DragDropManager.DropTargetAdvisor>
-						</TabPanel>
+								  Background="Transparent" />
 						<DockPanel Grid.Row="0"
 								   Grid.Column="1">
 							<Button DockPanel.Dock="Right"

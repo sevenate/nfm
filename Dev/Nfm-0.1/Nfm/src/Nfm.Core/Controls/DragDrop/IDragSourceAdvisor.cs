@@ -9,22 +9,17 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2009-04-16</date>
 // </editor>
-// <summary>Provide common interface to draggable source item.</summary>
+// <summary>Provide common interface to drag item.</summary>
 
 using System.Windows;
 
 namespace Nfm.Core.Controls.DragDrop
 {
 	/// <summary>
-	/// Provide common interface to draggable source item.
+	/// Provide common interface to drag item.
 	/// </summary>
 	public interface IDragSourceAdvisor
 	{
-		/// <summary>
-		/// Gets or sets draggable source item element.
-		/// </summary>
-		UIElement SourceUI { get; set; }
-
 		/// <summary>
 		/// Gets the effects of a drag-and-drop operation.
 		/// </summary>
@@ -39,16 +34,16 @@ namespace Nfm.Core.Controls.DragDrop
 
 		/// <summary>
 		/// Get additional visual element,
-		/// placed over draggable source item element to make drag-and-drop operation distinct.
+		/// placed over drag item element to make drag-and-drop operation distinct.
 		/// </summary>
-		/// <param name="dragElement">Main drag element.</param>
+		/// <param name="dragElement">Drag element.</param>
 		/// <returns>Additional visual feedback element.</returns>
 		UIElement GetVisualFeedback(UIElement dragElement);
 
 		/// <summary>
-		/// Check, if draggable element has specific data to drag.
+		/// Check, if element has specific data to drag.
 		/// </summary>
-		/// <param name="element">Specific draggable element.</param>
+		/// <param name="element">Candidate to drag.</param>
 		/// <returns>"True" if element could be drag; otherwise, "False".</returns>
 		bool IsDraggable(UIElement element);
 

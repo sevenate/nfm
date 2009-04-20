@@ -13,6 +13,7 @@
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 
@@ -107,10 +108,6 @@ namespace Nfm.Core.Controls.DragDrop
 				sourceUI.PreviewMouseMove += DragSourcePreviewMouseMove;
 				sourceUI.PreviewMouseLeftButtonUp += DragSourcePreviewMouseLeftButtonUp;
 				sourceUI.PreviewGiveFeedback += DragSourcePreviewGiveFeedback;
-
-				// Set the Drag source UI
-				var advisor = (IDragSourceAdvisor) args.NewValue;
-				advisor.SourceUI = sourceUI;
 			}
 			else if (args.NewValue == null && args.OldValue != null)
 			{
@@ -172,10 +169,6 @@ namespace Nfm.Core.Controls.DragDrop
 				targetUI.PreviewDragLeave += DropTargetPreviewDragLeave;
 				targetUI.PreviewDrop += DropTargetPreviewDrop;
 				targetUI.AllowDrop = true;
-
-				// Set the Drag source UI
-				var advisor = (IDropTargetAdvisor) args.NewValue;
-				advisor.TargetUI = targetUI;
 			}
 			else if (args.NewValue == null && args.OldValue != null)
 			{
@@ -210,7 +203,13 @@ namespace Nfm.Core.Controls.DragDrop
 			}
 
 			dragElement = e.Source as UIElement;
-			startPoint = e.GetPosition(GetTopContainer());
+
+			// Important: for global (i.e. "window root grid") adorner layer use local (to element) mouse position as start point.
+			startPoint = e.GetPosition((UIElement) e.Source);
+
+			// For local (to element) adorner layer use global mouse position as start point instead.
+			//startPoint = e.GetPosition(GetTopContainer());
+
 			isMouseDown = true;
 		}
 
@@ -245,6 +244,10 @@ namespace Nfm.Core.Controls.DragDrop
 		private static void DragSourcePreviewGiveFeedback(object sender, GiveFeedbackEventArgs e)
 		{
 			// Can be used to set custom cursors
+			// Note: uncomment to hide default drag'n'drop cursors.
+
+			//e.UseDefaultCursors = false;
+			//e.Handled = true;
 		}
 
 		/// <summary>
@@ -269,7 +272,7 @@ namespace Nfm.Core.Controls.DragDrop
 			isMouseDown = false;
 			Mouse.Capture(dragElement);
 
-			var data = currentSourceAdvisor.GetDataObject(dragElement);
+			IDataObject data = currentSourceAdvisor.GetDataObject(dragElement);
 			DragDropEffects supportedEffects = currentSourceAdvisor.SupportedEffects;
 
 			// Perform DragDrop
@@ -302,12 +305,13 @@ namespace Nfm.Core.Controls.DragDrop
 		{
 			currentTargetAdvisor = GetDropTargetAdvisor(sender as DependencyObject);
 
-			if (UpdateEffects(e) == false)
+			if (UpdateEffects((UIElement) sender, e) == false)
 			{
 				return;
 			}
 
-			CreatePreviewAdorner();
+			Point point = CalculateAdornerOffset(e);
+			CreatePreviewAdorner(point.X, point.Y);
 
 			e.Handled = true;
 		}
@@ -319,15 +323,13 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <param name="e">Contains arguments relevant to all drag-and-drop events.</param>
 		private static void DropTargetPreviewDragOver(object sender, DragEventArgs e)
 		{
-			if (UpdateEffects(e) == false)
+			if (UpdateEffects((UIElement) sender, e) == false)
 			{
 				return;
 			}
 
-			Point position = e.GetPosition(GetTopContainer());
-
-			overlayElement.Left = position.X - startPoint.X;
-			overlayElement.Top = position.Y - startPoint.Y;
+			Point point = CalculateAdornerOffset(e);
+			overlayElement.UpdatePosition(point.X, point.Y);
 
 			e.Handled = true;
 		}
@@ -339,7 +341,7 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <param name="e">Contains arguments relevant to all drag-and-drop events.</param>
 		private static void DropTargetPreviewDragLeave(object sender, DragEventArgs e)
 		{
-			if (UpdateEffects(e) == false)
+			if (UpdateEffects((UIElement) sender, e) == false)
 			{
 				return;
 			}
@@ -356,29 +358,24 @@ namespace Nfm.Core.Controls.DragDrop
 		/// <param name="e">Contains arguments relevant to all drag-and-drop events.</param>
 		private static void DropTargetPreviewDrop(object sender, DragEventArgs e)
 		{
-			if (UpdateEffects(e) == false)
+			if (UpdateEffects((UIElement) sender, e) == false)
 			{
 				return;
 			}
 
 			Point dropPoint = e.GetPosition((UIElement) sender);
-
-			// Calculate displacement for (Left, Top)
-			Point offset = e.GetPosition(overlayElement);
-			dropPoint.X = dropPoint.X - offset.X;
-			dropPoint.Y = dropPoint.Y - offset.Y;
-
-			currentTargetAdvisor.OnDropAccepted(e.Data, e.Effects, dropPoint);
+			currentTargetAdvisor.OnDropAccepted((UIElement) sender, e.Data, e.Effects, dropPoint);
 		}
 
 		/// <summary>
 		/// Check if drag data is valid and update drag item preview with copy or move effects.
 		/// </summary>
+		/// <param name="sender">Drop area element.</param>
 		/// <param name="e">Contains arguments relevant to all drag-and-drop events.</param>
 		/// <returns>"True", if data is valid and copy or move effects are allowed.</returns>
-		private static bool UpdateEffects(DragEventArgs e)
+		private static bool UpdateEffects(UIElement sender, DragEventArgs e)
 		{
-			if (currentTargetAdvisor.IsValidDataObject(e.Data) == false)
+			if (currentTargetAdvisor.IsValidDataObject(sender, e.Data) == false)
 			{
 				return false;
 			}
@@ -409,25 +406,44 @@ namespace Nfm.Core.Controls.DragDrop
 		#region Utility
 
 		/// <summary>
-		/// Get the top (root) <see cref="UIElement"/> wich provide adorner layer.
+		/// Get the top (root) <see cref="UIElement"/> with adorner layer (for example - <see cref="Grid"/>).
 		/// </summary>
 		/// <returns>Element with adorner layer for drag item preview.</returns>
 		private static UIElement GetTopContainer()
 		{
+			// Todo: determine multiple windows for drag'n'drop adorner layer.
+			// Also recalculate start drag position for new window.
 			return Application.Current.MainWindow.Content as UIElement;
+		}
+
+		/// <summary>
+		/// Calculate adorner offset in adorner layer according 
+		/// to current mouse drag position versus drag start mouse position.
+		/// </summary>
+		/// <param name="e">Contains arguments relevant to all drag-and-drop events.</param>
+		/// <returns>Adorner offset position in adorner layer.</returns>
+		private static Point CalculateAdornerOffset(DragEventArgs e)
+		{
+			Point position = e.GetPosition(GetTopContainer());
+			return new Point(position.X - startPoint.X, position.Y - startPoint.Y);
 		}
 
 		/// <summary>
 		/// Create drag-and-drop item preview adorner.
 		/// </summary>
-		private static void CreatePreviewAdorner()
+		/// <param name="left">Left offset of adorner in the adorner layer.</param>
+		/// <param name="top">Top offset of adorner in the adorner layer.</param>
+		private static void CreatePreviewAdorner(double left, double top)
 		{
 			// Clear if there is an existing adorner
 			RemovePreviewAdorner();
 
 			AdornerLayer layer = AdornerLayer.GetAdornerLayer(GetTopContainer());
 			UIElement feedbackUI = currentSourceAdvisor.GetVisualFeedback(dragElement);
-			overlayElement = new DropPreviewAdorner(dragElement, feedbackUI, layer);
+
+			// It is important to specify correct start position of adorner in the adorner layer
+			// BEFORE adding it to the layer to prevent blinking when mouse leave/over different drop area elements.
+			overlayElement = new DropPreviewAdorner(GetTopContainer(), feedbackUI, layer, left, top);
 			layer.Add(overlayElement);
 		}
 

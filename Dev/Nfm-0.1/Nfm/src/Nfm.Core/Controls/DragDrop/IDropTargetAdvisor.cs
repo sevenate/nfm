@@ -21,23 +21,20 @@ namespace Nfm.Core.Controls.DragDrop
 	public interface IDropTargetAdvisor
 	{
 		/// <summary>
-		/// Gets or sets target drop area element.
-		/// </summary>
-		UIElement TargetUI { get; set; }
-
-		/// <summary>
 		/// Checks to see whether the data is available and valid.
 		/// </summary>
+		/// <param name="dropAreaElement">Drop area element.</param>
 		/// <param name="obj">Format-independent mechanism for transferring data.</param>
 		/// <returns>"True" if the data is in and valid; otherwise, "False".</returns>
-		bool IsValidDataObject(IDataObject obj);
+		bool IsValidDataObject(UIElement dropAreaElement, IDataObject obj);
 
 		/// <summary>
 		/// Accept transfered data object on target side.
 		/// </summary>
+		/// <param name="dropAreaElement">Drop area element.</param>
 		/// <param name="obj">Format-independent mechanism for transferring data.</param>
 		/// <param name="finalEffects">Final effects of a drag-and-drop operation.</param>
 		/// <param name="dropPoint">Specific coordinates where object was dropped.</param>
-		void OnDropAccepted(IDataObject obj, DragDropEffects finalEffects, Point dropPoint);
+		void OnDropAccepted(UIElement dropAreaElement, IDataObject obj, DragDropEffects finalEffects, Point dropPoint);
 	}
 }

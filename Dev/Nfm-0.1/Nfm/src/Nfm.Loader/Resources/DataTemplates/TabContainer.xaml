@@ -5,12 +5,13 @@
 
 	<DataTemplate DataType="{x:Type vm:TabContainer}">
 		<TabControl ItemsSource="{Binding Path=Childs}"
-					Style="{StaticResource TabControlStyle}"
-					ItemContainerStyle="{StaticResource TabItemStyle}">
+					Style="{DynamicResource TabControlStyle}"
+					ItemContainerStyle="{DynamicResource TabItemStyle}">
 			<TabControl.ItemTemplate>
 				<DataTemplate>
 					<ContentControl Content="{Binding Path=Header}"
-									IsTabStop="False" />
+									IsTabStop="False">
+					</ContentControl>
 				</DataTemplate>
 			</TabControl.ItemTemplate>
 			<Message.Triggers>

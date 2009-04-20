@@ -252,11 +252,13 @@ namespace Nfm.Core.ViewModels
 
 			if (e.Action == NotifyCollectionChangedAction.Replace)
 			{
+				// Todo: remove debug fail.
 				Debug.Fail("NotifyCollectionChangedAction.Reset");
 			}
 
 			if (e.Action == NotifyCollectionChangedAction.Reset)
 			{
+				// Todo: remove debug fail.
 				Debug.Fail("NotifyCollectionChangedAction.Reset");
 			}
 

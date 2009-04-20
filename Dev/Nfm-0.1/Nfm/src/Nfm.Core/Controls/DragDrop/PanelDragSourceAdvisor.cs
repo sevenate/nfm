@@ -9,7 +9,7 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2009-04-16</date>
 // </editor>
-// <summary><see cref="IPanel"/> draggable source item advisor.</summary>
+// <summary><see cref="IPanel"/> drag advisor.</summary>
 
 using System;
 using System.Windows;
@@ -21,7 +21,7 @@ using Nfm.Core.ViewModels;
 namespace Nfm.Core.Controls.DragDrop
 {
 	/// <summary>
-	/// <see cref="IPanel"/> draggable source item advisor.
+	/// <see cref="IPanel"/> drag advisor.
 	/// </summary>
 	public class PanelDragSourceAdvisor : IDragSourceAdvisor
 	{
@@ -32,15 +32,12 @@ namespace Nfm.Core.Controls.DragDrop
 
 		/// <summary>
 		/// Source parent <see cref="IPanelContainer"/>.
+		/// Note: in fact that only one element could be drag,
+		/// this only instance field would always have correct value, specific to current drag element.
 		/// </summary>
 		private IPanelContainer parentContainer;
 
 		#region IDragSourceAdvisor Members
-
-		/// <summary>
-		/// Gets or sets draggable source item element.
-		/// </summary>
-		public UIElement SourceUI { get; set; }
 
 		/// <summary>
 		/// Gets the effects of a drag-and-drop operation.
@@ -62,21 +59,21 @@ namespace Nfm.Core.Controls.DragDrop
 			var sourcePanel = (IPanel) ((FrameworkElement) dragElement).DataContext;
 
 			// In case when source panel has parent panel container,
-			// it may be required to remove it (later, after drop) from parent panel container childs collection
+			// it is required to remove it (later, after drop) from parent panel container childs collection
 			// if "drop move" operation will be used.
-			// For "drop copy" operation cloning will be used.
+			// For "drop copy" operation cloning of this panel is sufficient.
 			parentContainer = sourcePanel.Parent is IPanelContainer
-			                        	? (IPanelContainer) sourcePanel.Parent
-			                        	: null;
+			                  	? (IPanelContainer) sourcePanel.Parent
+			                  	: null;
 
 			return new DataObject(SupportedFormat.Name, sourcePanel);
 		}
 
 		/// <summary>
 		/// Get additional visual element,
-		/// placed over draggable source item element to make drag-and-drop operation distinct.
+		/// placed over drag item element to make drag-and-drop operation distinct.
 		/// </summary>
-		/// <param name="dragElement">Main drag element.</param>
+		/// <param name="dragElement">Drag element.</param>
 		/// <returns>Additional visual feedback element.</returns>
 		public UIElement GetVisualFeedback(UIElement dragElement)
 		{
@@ -103,9 +100,9 @@ namespace Nfm.Core.Controls.DragDrop
 		}
 
 		/// <summary>
-		/// Check, if draggable element has specific data to drag.
+		/// Check, if element has specific data to drag.
 		/// </summary>
-		/// <param name="element">Specific draggable element.</param>
+		/// <param name="element">Candidate to drag.</param>
 		/// <returns>"True" if element could be drag; otherwise, "False".</returns>
 		public bool IsDraggable(UIElement element)
 		{

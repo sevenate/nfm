@@ -1,4 +1,4 @@
-// <copyright file="PanelContainerDropTargetAdvisor.cs" company="HD">
+// <copyright file="PanelDropTargetAdvisor.cs" company="HD">
 // 	Copyright (c) 2009 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff">
@@ -9,7 +9,7 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2009-04-16</date>
 // </editor>
-// <summary><see cref="IPanelContainer"/> target drop area advisor.</summary>
+// <summary><see cref="IPanel"/> target drop area advisor.</summary>
 
 using System.Windows;
 using Nfm.Core.ViewModels;
@@ -17,9 +17,9 @@ using Nfm.Core.ViewModels;
 namespace Nfm.Core.Controls.DragDrop
 {
 	/// <summary>
-	/// <see cref="IPanelContainer"/> target drop area advisor.
+	/// <see cref="IPanel"/> target drop area advisor.
 	/// </summary>
-	public class PanelContainerDropTargetAdvisor : IDropTargetAdvisor
+	public class PanelDropTargetAdvisor : IDropTargetAdvisor
 	{
 		/// <summary>
 		/// Specify <see cref="IPanel"/> as drag data format.
@@ -29,59 +29,113 @@ namespace Nfm.Core.Controls.DragDrop
 		#region IDropTargetAdvisor Members
 
 		/// <summary>
-		/// Gets or sets target drop area element.
-		/// </summary>
-		public UIElement TargetUI { get; set; }
-
-		/// <summary>
 		/// Checks to see whether the data is available and valid.
 		/// </summary>
+		/// <param name="dropAreaElement">Drop area element.</param>
 		/// <param name="obj">Format-independent mechanism for transferring data.</param>
 		/// <returns>"True" if the data is in and valid; otherwise, "False".</returns>
-		public bool IsValidDataObject(IDataObject obj)
+		public bool IsValidDataObject(UIElement dropAreaElement, IDataObject obj)
 		{
 			if (!obj.GetDataPresent(SupportedFormat.Name))
 			{
 				return false;
 			}
 
-			var droppedPanel = (IPanel) obj.GetData(SupportedFormat.Name);
-			var targetPanelContaiger = (IPanelContainer) ((FrameworkElement) TargetUI).DataContext;
+			var sourcePanel = (IPanel) obj.GetData(SupportedFormat.Name);
+			var targetPanel = (IPanel) ((FrameworkElement) dropAreaElement).DataContext;
 
-			return ! CheckIsTargetPanelIsInsideOfSourcePanel(droppedPanel, targetPanelContaiger);
+			// Make panel under mouse cursor selected to be able to drop inside it child panels.
+			if (!targetPanel.IsSelected && targetPanel.Parent is IPanelContainer)
+			{
+//				var dispatcherTimer = new DispatcherTimer
+//				                      {
+//				                      	Interval = TimeSpan.FromSeconds(1.25),
+////				                      	IsEnabled = true,
+//				                      };
+//
+//				dispatcherTimer.Tick += delegate
+//				                        {
+				foreach (IPanel panel in ((IPanelContainer) targetPanel.Parent).Childs)
+				{
+					if (panel.IsSelected)
+					{
+						panel.IsSelected = false;
+					}
+				}
+
+				targetPanel.IsSelected = true;
+//											dispatcherTimer.Stop();
+//				                        };
+//
+//				dispatcherTimer.Start();
+			}
+
+			return ! CheckIsTargetPanelIsInsideOfSourcePanel(sourcePanel, targetPanel);
 		}
 
 		/// <summary>
 		/// Accept transfered data object on target side.
 		/// </summary>
+		/// <param name="dropAreaElement">Drop area element.</param>
 		/// <param name="obj">Format-independent mechanism for transferring data.</param>
 		/// <param name="finalEffects">Final effects of a drag-and-drop operation.</param>
 		/// <param name="dropPoint">Specific coordinates where object was dropped.</param>
-		public void OnDropAccepted(IDataObject obj, DragDropEffects finalEffects, Point dropPoint)
+		public void OnDropAccepted(UIElement dropAreaElement, IDataObject obj, DragDropEffects finalEffects, Point dropPoint)
 		{
-			// Todo: take into account dropPoint coordinates to specify correct order in childs collection
-			var droppedPanel = (IPanel) obj.GetData(SupportedFormat.Name);
-			var targetPanelContaiger = (IPanelContainer) ((FrameworkElement) TargetUI).DataContext;
+			var targetPanel = (IPanel) ((FrameworkElement) dropAreaElement).DataContext;
 
-			if ((finalEffects & DragDropEffects.Move) == DragDropEffects.Move)
+			// If drop target area has
+			if (targetPanel.Parent is IPanelContainer)
 			{
-				if (!targetPanelContaiger.Childs.Contains(droppedPanel))
+				var sourcePanel = (IPanel) obj.GetData(SupportedFormat.Name);
+				double actualDropAreaWidth = ((FrameworkElement) dropAreaElement).ActualWidth;
+				var targetParentContainer = (IPanelContainer) targetPanel.Parent;
+				int targetIndex = targetParentContainer.Childs.IndexOf(targetPanel);
+				bool insertBeforeTarget = dropPoint.X < actualDropAreaWidth/2;
+
+				if ((finalEffects & DragDropEffects.Move) == DragDropEffects.Move)
+				{
+					if (!targetParentContainer.Childs.Contains(sourcePanel))
+					{
+						// Bug: Not thread safe operation!
+						// Simultaneously add new item while data binding UI enumerate collection.
+						if (insertBeforeTarget)
+						{
+							targetParentContainer.Childs.Insert(targetIndex, sourcePanel);
+						}
+						else
+						{
+							targetParentContainer.Childs.Insert(targetIndex + 1, sourcePanel);
+						}
+					}
+					else
+					{
+						int oldIndex = targetParentContainer.Childs.IndexOf(sourcePanel);
+
+						if (insertBeforeTarget)
+						{
+							targetParentContainer.Childs.Move(oldIndex, targetIndex);
+						}
+						else
+						{
+							targetParentContainer.Childs.Move(oldIndex, targetIndex + 1);
+						}
+					}
+				}
+				else if ((finalEffects & DragDropEffects.Copy) == DragDropEffects.Copy)
 				{
 					// Bug: Not thread safe operation!
 					// Simultaneously add new item while data binding UI enumerate collection.
-					targetPanelContaiger.Childs.Add(droppedPanel);
+
+					if (insertBeforeTarget)
+					{
+						targetParentContainer.Childs.Insert(targetIndex, sourcePanel.CloneDeep());
+					}
+					else
+					{
+						targetParentContainer.Childs.Insert(targetIndex + 1, sourcePanel.CloneDeep());
+					}
 				}
-				else
-				{
-					int oldIndex = targetPanelContaiger.Childs.IndexOf(droppedPanel);
-					targetPanelContaiger.Childs.Move(oldIndex, targetPanelContaiger.Childs.Count - 1);
-				}
-			}
-			else if ((finalEffects & DragDropEffects.Copy) == DragDropEffects.Copy)
-			{
-				// Bug: Not thread safe operation!
-				// Simultaneously add new item while data binding UI enumerate collection.
-				targetPanelContaiger.Childs.Add(droppedPanel.CloneDeep());
 			}
 		}
 
@@ -98,7 +152,7 @@ namespace Nfm.Core.Controls.DragDrop
 		{
 			if (target.Parent != null)
 			{
-				return target.Parent == source || CheckIsTargetPanelIsInsideOfSourcePanel(target.Parent, source);
+				return target.Parent == source || CheckIsTargetPanelIsInsideOfSourcePanel(source, target.Parent);
 			}
 
 			return false;

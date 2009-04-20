@@ -4,6 +4,10 @@
 	<!-- #TabItem Style -->
 	<Style x:Key="TabItemStyle"
 		   TargetType="{x:Type TabItem}">
+		<Style.Resources>
+			<PanelDragSourceAdvisor x:Key="PanelDragSourceAdvisor" />
+			<PanelDropTargetAdvisor x:Key="PanelDropTargetAdvisor" />
+		</Style.Resources>
 		<Setter Property="BorderBrush"
 				Value="Black" />
 		<Setter Property="BorderThickness"
@@ -24,11 +28,10 @@
 				Value="{Binding IsSelected}" />
 <!--		<Setter Property="FocusVisualStyle"-->
 <!--				Value="{x:Null}" />-->
-		<Setter Property="DragDropManager.DragSourceAdvisor">
-			<Setter.Value>
-				<PanelDragSourceAdvisor />
-			</Setter.Value>
-		</Setter>
+		<Setter Property="DragDropManager.DragSourceAdvisor"
+				Value="{DynamicResource PanelDragSourceAdvisor}"/>
+		<Setter Property="DragDropManager.DropTargetAdvisor"
+				Value="{DynamicResource PanelDropTargetAdvisor}" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TabItem}">
