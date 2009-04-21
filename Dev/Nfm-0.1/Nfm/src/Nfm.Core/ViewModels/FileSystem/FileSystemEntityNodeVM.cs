@@ -475,6 +475,15 @@ namespace Nfm.Core.ViewModels.FileSystem
 		}
 
 		/// <summary>
+		/// Execute specific file (or launch default application for it extension).
+		/// </summary>
+		/// <param name="startupFolder">Application start up folder.</param>
+		public void Execute(string startupFolder)
+		{
+			NodeModel.Execute(startupFolder);
+		}
+
+		/// <summary>
 		/// Refresh childs view models.
 		/// </summary>
 		public void RefreshChilds()

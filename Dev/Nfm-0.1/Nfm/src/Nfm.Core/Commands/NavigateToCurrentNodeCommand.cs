@@ -12,7 +12,6 @@
 // <summary>Change node in panel to current node command.</summary>
 
 using System;
-using System.Diagnostics;
 using System.Windows;
 using Caliburn.Actions.Filters;
 using Nfm.Core.ViewModels.FileSystem;
@@ -39,16 +38,7 @@ namespace Nfm.Core.Commands
 			}
 			else
 			{
-				// TODO: add parameter support
-				var processStartInfo = new ProcessStartInfo(currentNode.FullName)
-				                       {
-				                       	WorkingDirectory =
-				                       		panel != null
-				                       			? panel.FullName
-				                       			: Environment.CurrentDirectory
-				                       };
-
-				Process.Start(processStartInfo);
+				currentNode.Execute(panel.FullName);
 			}
 		}
 

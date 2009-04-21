@@ -22,7 +22,7 @@ namespace Nfm.Core.Models.FileSystem
 	/// Represent file in the local file system.
 	/// </summary>
 	[DebuggerDisplay(
-			@"Display = {DisplayName}"
+		@"Display = {DisplayName}"
 		+ @", Absolute = {AbsoluteName}"
 		+ @", Parent = {Parent.DisplayName}"
 		)]
@@ -36,7 +36,7 @@ namespace Nfm.Core.Models.FileSystem
 		public string DisplayName { get; private set; }
 
 		/// <summary>
-		/// Gets parent node.
+		/// Gets or sets parent node.
 		/// </summary>
 		public INode Parent { get; set; }
 
@@ -152,16 +152,36 @@ namespace Nfm.Core.Models.FileSystem
 		/// </summary>
 		public void RefreshParent()
 		{
-			if (DetailsInfo != null && EntityType == FileSystemEntityType.Directory && ((DirectoryInfo) DetailsInfo).Parent != null)
+			if (DetailsInfo != null && EntityType == FileSystemEntityType.Directory
+			    && ((DirectoryInfo) DetailsInfo).Parent != null)
 			{
 				Parent = new FileSystemEntityNode
-				{
-					EntityType = FileSystemEntityType.Directory,
-					DetailsInfo = ((DirectoryInfo) DetailsInfo).Parent,
-					AbsoluteName = ((DirectoryInfo) DetailsInfo).Parent.FullName,
-					DisplayName = ((DirectoryInfo) DetailsInfo).Parent.Name,
-				};
+				         {
+				         	EntityType = FileSystemEntityType.Directory,
+				         	DetailsInfo = ((DirectoryInfo) DetailsInfo).Parent,
+				         	AbsoluteName = ((DirectoryInfo) DetailsInfo).Parent.FullName,
+				         	DisplayName = ((DirectoryInfo) DetailsInfo).Parent.Name,
+				         };
 			}
+		}
+
+		/// <summary>
+		/// Execute specific file (or launch default application for it extension).
+		/// </summary>
+		/// <param name="startupFolder">Application start up folder.</param>
+		public void Execute(string startupFolder)
+		{
+			// TODO: add parameter support
+			var processStartInfo = new ProcessStartInfo(AbsoluteName)
+			                       {
+			                       	WorkingDirectory = !string.IsNullOrEmpty(startupFolder)
+									? startupFolder
+									: Parent == null || !(Parent is FileSystemEntityNode)
+			                       			? Environment.CurrentDirectory
+			                       			: ((FileSystemEntityNode) Parent).AbsoluteName
+			                       };
+
+			Process.Start(processStartInfo);
 		}
 
 		/// <summary>
@@ -184,13 +204,13 @@ namespace Nfm.Core.Models.FileSystem
 				var directoryInfo = new DirectoryInfo(path);
 
 				yield return new FileSystemEntityNode
-				{
-					EntityType = FileSystemEntityType.Directory,
-					DetailsInfo = directoryInfo,
-					AbsoluteName = directoryInfo.FullName,
-					DisplayName = directoryInfo.Name,
-					Parent = this
-				};
+				             {
+				             	EntityType = FileSystemEntityType.Directory,
+				             	DetailsInfo = directoryInfo,
+				             	AbsoluteName = directoryInfo.FullName,
+				             	DisplayName = directoryInfo.Name,
+				             	Parent = this
+				             };
 			}
 
 			// All files
@@ -202,13 +222,13 @@ namespace Nfm.Core.Models.FileSystem
 				var fileInfo = new FileInfo(fileName);
 
 				yield return new FileSystemEntityNode
-				{
-					EntityType = FileSystemEntityType.File,
-					DetailsInfo = fileInfo,
-					AbsoluteName = fileInfo.FullName,
-					DisplayName = fileInfo.Name,
-					Parent = this
-				};
+				             {
+				             	EntityType = FileSystemEntityType.File,
+				             	DetailsInfo = fileInfo,
+				             	AbsoluteName = fileInfo.FullName,
+				             	DisplayName = fileInfo.Name,
+				             	Parent = this
+				             };
 			}
 		}
 	}
