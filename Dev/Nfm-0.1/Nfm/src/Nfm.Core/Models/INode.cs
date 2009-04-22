@@ -39,5 +39,10 @@ namespace Nfm.Core.Models
 		/// Gets the enumerator, which supports a simple iteratetion over node attributes.
 		/// </summary>
 		IEnumerable<INodeAttribute> Attributes { get; }
+
+		/// <summary>
+		/// Gets or sets unique node identification key.
+		/// </summary>
+		string Key { get; set; }
 	}
 }

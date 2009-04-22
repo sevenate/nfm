@@ -129,11 +129,11 @@ namespace Nfm.Core.Controls.DragDrop
 
 					if (insertBeforeTarget)
 					{
-						targetParentContainer.Childs.Insert(targetIndex, sourcePanel.CloneDeep());
+						targetParentContainer.Childs.Insert(targetIndex, (IPanel) sourcePanel.Clone());
 					}
 					else
 					{
-						targetParentContainer.Childs.Insert(targetIndex + 1, sourcePanel.CloneDeep());
+						targetParentContainer.Childs.Insert(targetIndex + 1, (IPanel) sourcePanel.Clone());
 					}
 				}
 			}

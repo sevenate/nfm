@@ -11,11 +11,9 @@
 // </editor>
 // <summary>Local file system module view model.</summary>
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
+using Nfm.Core.Models;
 using Nfm.Core.Models.FileSystem;
 
 namespace Nfm.Core.ViewModels.FileSystem
@@ -23,114 +21,17 @@ namespace Nfm.Core.ViewModels.FileSystem
 	/// <summary>
 	/// Local file system module view model.
 	/// </summary>
-	public class LocalFileSystemModuleVM : NotificationBase, IPanel
+	public class LocalFileSystemModuleVM : NodePanelBase
 	{
-		#region Implementation of IPanel
-
-		/// <summary>
-		/// Gets panel header: string text or complex content.
-		/// </summary>
-		public object Header { get; private set; }
-
-		/// <summary>
-		/// Gets a value indicating whether a panel can be closed.
-		/// </summary>
-		public bool CanClose
-		{
-			get
-			{
-				// Note: for future use
-				return true;
-			}
-		}
-
-		/// <summary>
-		/// Indicating whether a panel is selected.
-		/// </summary>
-		private bool isSelected;
-
-		/// <summary>
-		/// Gets or sets a value indicating whether a panel is selected.
-		/// </summary>
-		public bool IsSelected
-		{
-			get { return isSelected; }
-			set
-			{
-				OnPropertyChanging("IsSelected");
-				isSelected = value;
-				OnPropertyChanged("IsSelected");
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets parent <see cref="IPanel"/>.
-		/// </summary>
-		public IPanel Parent { get; set; }
-
-		/// <summary>
-		/// Request close action for panel.
-		/// </summary>
-		public void RequestClose()
-		{
-			if (!CanClose)
-			{
-				throw new Exception("Some child panels can not be closed.");
-			}
-
-			OnEvent(Closing, this);
-			//Dispose(true);
-			OnEvent(Closed, this);
-		}
-
-		/// <summary>
-		/// Fire when panel is intended to close.
-		/// </summary>
-		public event EventHandler<EventArgs> Closing;
-
-		/// <summary>
-		/// Fire when panel is closed.
-		/// </summary>
-		public event EventHandler<EventArgs> Closed;
+		#region Implementation of ICloneable
 
 		/// <summary>
 		/// Creates a new object that is a deep copy of the current instance.
 		/// </summary>
 		/// <returns>A new object that is a deep copy of this instance.</returns>
-		public LocalFileSystemModuleVM CloneDeep()
+		public override object Clone()
 		{
-			var result = (LocalFileSystemModuleVM)MemberwiseClone();
-
-			// Detach from parent panel
-			result.Parent = null;
-
-			// Remove original subscribiters
-			result.Closing -= Closing;
-			result.Closed -= Closed;
-
-			// Deep copy all childs
-			var childsCopy = new ObservableCollection<LogicalDriveNodeVM>();
-
-			foreach (var child in childs)
-			{
-				LogicalDriveNodeVM newChild = child.CloneDeep();
-				childsCopy.Add(newChild);
-			}
-
-			result.childs = childsCopy;
-
-			// Note: Model stay the same as original
-
-			return result;
-		}
-
-		/// <summary>
-		/// Creates a new object that is a deep copy of the current instance.
-		/// </summary>
-		/// <returns>A new object that is a deep copy of this instance.</returns>
-		IPanel IPanel.CloneDeep()
-		{
-			return CloneDeep();
+			return new LocalFileSystemModuleVM(this);
 		}
 
 		#endregion
@@ -140,7 +41,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// <summary>
 		/// Child nodes view models.
 		/// </summary>
-		private ObservableCollection<LogicalDriveNodeVM> childs = new ObservableCollection<LogicalDriveNodeVM>();
+		private readonly ObservableCollection<LogicalDriveNodeVM> childs = new ObservableCollection<LogicalDriveNodeVM>();
 
 		/// <summary>
 		/// Gets or sets corresponding node model.
@@ -156,7 +57,27 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public LocalFileSystemModuleVM()
 		{
-			NodeModel = new LocalFileSystemModule();
+			NodeModel = (LocalFileSystemModule) RootNode.Inst.GetModule("Local File System");
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LocalFileSystemModuleVM"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="LocalFileSystemModuleVM"/> instance to copy data from.</param>
+		protected LocalFileSystemModuleVM(LocalFileSystemModuleVM another)
+			: base(another)
+		{
+			NodeModel = another.NodeModel;
+
+			// Deep copy all childs
+			var childsCopy = new ObservableCollection<LogicalDriveNodeVM>();
+
+			foreach (LogicalDriveNodeVM child in another.childs)
+			{
+				childsCopy.Add((LogicalDriveNodeVM) child.Clone());
+			}
+
+			childs = childsCopy;
 		}
 
 		#endregion
@@ -164,10 +85,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 		#region Binding Properties
 
 		/// <summary>
-		/// Gets or sets a name.
+		/// Gets a name.
 		/// </summary>
-		public string Name { get { return NodeModel.DisplayName; } }
-
+		public string Name
+		{
+			get { return NodeModel.DisplayName; }
+		}
 
 		/// <summary>
 		/// Gets childs node view models.

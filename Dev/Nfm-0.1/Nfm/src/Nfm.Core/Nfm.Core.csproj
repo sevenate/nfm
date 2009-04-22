@@ -95,6 +95,7 @@
     <Compile Include="Converters\FileSizeToStringConverter.cs" />
     <Compile Include="Models\FileSystem\LocalFileSystemModule.cs" />
     <Compile Include="Models\FileSystem\LogicalDriveNode.cs" />
+    <Compile Include="Models\RootNode.cs" />
     <Compile Include="ViewModels\FileSystem\Icons\FileToIconConverter.cs" />
     <Compile Include="Localization\TranslateExtension.cs" />
     <Compile Include="Localization\Translator.cs" />
@@ -108,8 +109,10 @@
     <Compile Include="ViewModels\FileSystem\Icons\SysImageList.cs" />
     <Compile Include="ViewModels\FileSystem\LocalFileSystemModuleVM.cs" />
     <Compile Include="ViewModels\FileSystem\LogicalDriveNodeVM.cs" />
+    <Compile Include="ViewModels\INodePanel.cs" />
     <Compile Include="ViewModels\IPanel.cs" />
     <Compile Include="ViewModels\IPanelContainer.cs" />
+    <Compile Include="ViewModels\NodePanelBase.cs" />
     <Compile Include="ViewModels\TabContainer.cs" />
     <Compile Include="ViewModels\PanelContainerBase.cs" />
     <Compile Include="ViewModels\StackContainer.cs" />

@@ -33,7 +33,7 @@ namespace Nfm.Core.Commands
 
 			if (selectedPanel != null)
 			{
-				container.Childs.Add(selectedPanel.CloneDeep());
+				container.Childs.Add((IPanel)selectedPanel.Clone());
 			}
 		}
 

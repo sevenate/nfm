@@ -28,7 +28,7 @@ namespace Nfm.Core.Tests
 		{
 			var dir = new FileSystemEntityNode
 			{
-				AbsoluteName = @"D:\1"
+				Key = @"D:\Downloads"
 			};
 
 			var nodes = new List<INode>(dir.Childs);

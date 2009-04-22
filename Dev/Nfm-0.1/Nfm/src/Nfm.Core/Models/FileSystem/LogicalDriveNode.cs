@@ -11,6 +11,7 @@
 // </editor>
 // <summary>Represent logical drive in the local file system.</summary>
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -41,6 +42,10 @@ namespace Nfm.Core.Models.FileSystem
 			get
 			{
 				// Eagerly executed: checking required parametes here.
+				if (string.IsNullOrEmpty(Key))
+				{
+					throw new ArgumentException("Key should not be null or empty.");
+				}
 
 				return GetRootFolderContent();
 			}
@@ -58,33 +63,10 @@ namespace Nfm.Core.Models.FileSystem
 			}
 		}
 
-		#endregion
-
-		#region .Ctors
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LogicalDriveNode"/> class.
+		/// Gets or sets unique node identification key.
 		/// </summary>
-		/// <param name="parent">Parent node.</param>
-		/// <param name="driveInfo">Information about specific drive.</param>
-		public LogicalDriveNode(INode parent, DriveInfo driveInfo)
-		{
-			Parent = parent;
-			DriveInfo = driveInfo;
-			DisplayName = DriveInfo.Name;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="LogicalDriveNode"/> class.
-		/// </summary>
-		/// <param name="parent">Parent node.</param>
-		/// <param name="driveName">A valid drive path or drive letter. This can be either uppercase or lowercase, 'a' to 'z'. A null value is not valid.</param>
-		public LogicalDriveNode(INode parent, string driveName)
-		{
-			Parent = parent;
-			DisplayName = driveName;
-			RefreshDetails();
-		}
+		public string Key { get; set; }
 
 		#endregion
 
@@ -93,23 +75,48 @@ namespace Nfm.Core.Models.FileSystem
 		/// </summary>
 		public DriveInfo DriveInfo { get; private set; }
 
+		#region .Ctors
+
 		/// <summary>
-		/// Gets all root folder nodes (sub folders and files nodes).
+		/// Initializes a new instance of the <see cref="LogicalDriveNode"/> class.
 		/// </summary>
-		/// <returns>Enumerator, which supports a simple iteratetion over all root folder nodes.</returns>
-		private IEnumerable<INode> GetRootFolderContent()
+		public LogicalDriveNode()
 		{
-			var rootDriveFolder = new FileSystemEntityNode(this, DriveInfo.RootDirectory);
-			rootDriveFolder.RefreshDetails();
-			return rootDriveFolder.Childs;
 		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LogicalDriveNode"/> class.
+		/// </summary>
+		/// <param name="parent">Parent node.</param>
+		/// <param name="key">A valid drive path or drive letter. This can be either uppercase or lowercase, 'a' to 'z'. A null value is not valid.</param>
+		public LogicalDriveNode(INode parent, string key)
+		{
+			Parent = parent;
+			Key = key;
+			RefreshDetails();
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Fetch updated details info about file system entity.
 		/// </summary>
 		public void RefreshDetails()
 		{
-			DriveInfo = new DriveInfo(DisplayName);
+			DriveInfo = new DriveInfo(Key);
+			Key = DriveInfo.Name.ToLowerInvariant();
+			DisplayName = string.Format("{0} ({1})", DriveInfo.VolumeLabel, DriveInfo.Name.TrimEnd('\\').ToUpperInvariant());
+		}
+
+		/// <summary>
+		/// Gets all root folder nodes (sub folders and files nodes).
+		/// </summary>
+		/// <returns>Enumerator, which supports a simple iteratetion over all root folder nodes.</returns>
+		private IEnumerable<INode> GetRootFolderContent()
+		{
+			var rootDriveFolder = new FileSystemEntityNode(this, DriveInfo.RootDirectory.FullName);
+			rootDriveFolder.RefreshDetails();
+			return rootDriveFolder.Childs;
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Represent general info panel.
 	/// </summary>
-	public interface IPanel
+	public interface IPanel : ICloneable
 	{
 		/// <summary>
 		/// Gets panel header: string text or complex content.
@@ -54,11 +54,5 @@ namespace Nfm.Core.ViewModels
 		/// Fire when panel is closed.
 		/// </summary>
 		event EventHandler<EventArgs> Closed;
-
-		/// <summary>
-		/// Creates a new object that is a deep copy of the current instance.
-		/// </summary>
-		/// <returns>A new object that is a deep copy of this instance.</returns>
-		IPanel CloneDeep();
 	}
 }

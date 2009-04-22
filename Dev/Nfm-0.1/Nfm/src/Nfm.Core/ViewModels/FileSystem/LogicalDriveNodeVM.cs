@@ -11,11 +11,8 @@
 // </editor>
 // <summary>Logical drive node view model.</summary>
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using Nfm.Core.Models.FileSystem;
 
 namespace Nfm.Core.ViewModels.FileSystem
@@ -23,114 +20,17 @@ namespace Nfm.Core.ViewModels.FileSystem
 	/// <summary>
 	/// Logical drive node view model.
 	/// </summary>
-	public class LogicalDriveNodeVM : NotificationBase, IPanel
+	public class LogicalDriveNodeVM : NodePanelBase
 	{
 		#region Implementation of IPanel
 
 		/// <summary>
-		/// Indicating whether a panel is selected.
-		/// </summary>
-		private bool isSelected;
-
-		/// <summary>
-		/// Gets panel header: string text or complex content.
-		/// </summary>
-		public object Header { get; private set; }
-
-		/// <summary>
-		/// Gets a value indicating whether a panel can be closed.
-		/// </summary>
-		public bool CanClose
-		{
-			get
-			{
-				// Note: for future use
-				return true;
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets a value indicating whether a panel is selected.
-		/// </summary>
-		public bool IsSelected
-		{
-			get { return isSelected; }
-			set
-			{
-				OnPropertyChanging("IsSelected");
-				isSelected = value;
-				OnPropertyChanged("IsSelected");
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets parent <see cref="IPanel"/>.
-		/// </summary>
-		public IPanel Parent { get; set; }
-
-		/// <summary>
-		/// Request close action for panel.
-		/// </summary>
-		public void RequestClose()
-		{
-			if (!CanClose)
-			{
-				throw new Exception("Some child panels can not be closed.");
-			}
-
-			OnEvent(Closing, this);
-			//Dispose(true);
-			OnEvent(Closed, this);
-		}
-
-		/// <summary>
-		/// Fire when panel is intended to close.
-		/// </summary>
-		public event EventHandler<EventArgs> Closing;
-
-		/// <summary>
-		/// Fire when panel is closed.
-		/// </summary>
-		public event EventHandler<EventArgs> Closed;
-
-		/// <summary>
 		/// Creates a new object that is a deep copy of the current instance.
 		/// </summary>
 		/// <returns>A new object that is a deep copy of this instance.</returns>
-		IPanel IPanel.CloneDeep()
+		public override object Clone()
 		{
-			return CloneDeep();
-		}
-
-		/// <summary>
-		/// Creates a new object that is a deep copy of the current instance.
-		/// </summary>
-		/// <returns>A new object that is a deep copy of this instance.</returns>
-		public LogicalDriveNodeVM CloneDeep()
-		{
-			var result = (LogicalDriveNodeVM) MemberwiseClone();
-
-			// Detach from parent panel
-			result.Parent = null;
-
-			// Remove original subscribiters
-			result.Closing -= Closing;
-			result.Closed -= Closed;
-
-			// Deep copy all childs
-			var childsCopy = new ObservableCollection<FileSystemEntityNodeVM>();
-
-			foreach (FileSystemEntityNodeVM child in childs)
-			{
-				FileSystemEntityNodeVM newChild = child.CloneDeep();
-				childsCopy.Add(newChild);
-			}
-
-			result.childs = childsCopy;
-
-			// Note: Model stay the same as original
-
-			return result;
+			return new LogicalDriveNodeVM(this);
 		}
 
 		#endregion
@@ -140,7 +40,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// <summary>
 		/// Child nodes view models.
 		/// </summary>
-		private ObservableCollection<FileSystemEntityNodeVM> childs = new ObservableCollection<FileSystemEntityNodeVM>();
+		private readonly ObservableCollection<FileSystemEntityNodeVM> childs =
+			new ObservableCollection<FileSystemEntityNodeVM>();
 
 		/// <summary>
 		/// Gets or sets corresponding node model.
@@ -159,6 +60,26 @@ namespace Nfm.Core.ViewModels.FileSystem
 		{
 			NodeModel = node;
 			RefreshDetails();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LogicalDriveNodeVM"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="LogicalDriveNodeVM"/> instance to copy data from.</param>
+		protected LogicalDriveNodeVM(LogicalDriveNodeVM another)
+			: base(another)
+		{
+			NodeModel = another.NodeModel;
+
+			// Deep copy all childs
+			var childsCopy = new ObservableCollection<FileSystemEntityNodeVM>();
+
+			foreach (FileSystemEntityNodeVM child in another.childs)
+			{
+				childsCopy.Add((FileSystemEntityNodeVM) child.Clone());
+			}
+
+			childs = childsCopy;
 		}
 
 		#endregion

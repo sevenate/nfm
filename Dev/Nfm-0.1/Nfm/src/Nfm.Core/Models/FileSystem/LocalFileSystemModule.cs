@@ -11,6 +11,7 @@
 // </editor>
 // <summary>Logical file system module.</summary>
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -34,10 +35,7 @@ namespace Nfm.Core.Models.FileSystem
 		/// <summary>
 		/// Gets parent node.
 		/// </summary>
-		public INode Parent
-		{
-			get { return null; }
-		}
+		public INode Parent { get; private set; }
 
 		/// <summary>
 		/// Gets the enumerator, which supports a simple iteratetion over all child nodes.
@@ -64,6 +62,28 @@ namespace Nfm.Core.Models.FileSystem
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets unique node identification key.
+		/// </summary>
+		public string Key
+		{
+			get { return "LocalFileSystem"; }
+			set { throw new NotSupportedException("Local file system node key is constant."); }
+		}
+
+		#endregion
+
+		#region .Ctors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LocalFileSystemModule"/> class.
+		/// </summary>
+		/// <param name="parent">Parent node (root node usually).</param>
+		public LocalFileSystemModule(INode parent)
+		{
+			Parent = parent;
+		}
+
 		#endregion
 
 		/// <summary>
@@ -75,9 +95,9 @@ namespace Nfm.Core.Models.FileSystem
 			var driveInfos = new List<DriveInfo>();
 			driveInfos.AddRange(DriveInfo.GetDrives());
 
-			foreach (DriveInfo driveInfo in driveInfos)
+			foreach (var driveInfo in driveInfos)
 			{
-				yield return new LogicalDriveNode(this, driveInfo);
+				yield return new LogicalDriveNode(this, driveInfo.Name);
 			}
 		}
 	}

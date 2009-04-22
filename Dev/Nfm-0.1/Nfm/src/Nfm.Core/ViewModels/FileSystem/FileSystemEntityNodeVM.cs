@@ -30,139 +30,17 @@ namespace Nfm.Core.ViewModels.FileSystem
 		+ @", Childs = {Childs.Count}"
 		+ @", Model = {NodeModel.DisplayName}"
 		+ @", Parent = {Parent.Header}")]
-	public class FileSystemEntityNodeVM : NotificationBase, IPanel
+	public class FileSystemEntityNodeVM : NodePanelBase
 	{
-		#region Implementation of IDisposable
-
-		/// <summary>
-		/// Forced object distruction.
-		/// </summary>
-		/// <param name="disposing">"True" for manual calls.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				// Release managed resources.
-			}
-
-			// Release unmanaged resources.
-			// Set large fields to null.
-			// Call Dispose on your base class.
-			base.Dispose(disposing);
-		}
-
-		// The derived class does not have a Finalize method
-		// or a Dispose method with parameters because it inherits
-		// them from the base class.
-
-		#endregion
-
-		#region Implementation of IPanel
-
-		/// <summary>
-		/// Gets panel header: string text or complex content.
-		/// </summary>
-		public object Header { get; private set; }
-
-		/// <summary>
-		/// Gets a value indicating whether a panel can be closed.
-		/// </summary>
-		public bool CanClose
-		{
-			get
-			{
-				// Note: for future use
-				return true;
-			}
-		}
-
-		/// <summary>
-		/// Indicating whether a panel is selected.
-		/// </summary>
-		private bool isSelected;
-
-		/// <summary>
-		/// Gets or sets a value indicating whether a panel is selected.
-		/// </summary>
-		public bool IsSelected
-		{
-			get { return isSelected; }
-			set
-			{
-				OnPropertyChanging("IsSelected");
-				isSelected = value;
-				OnPropertyChanged("IsSelected");
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets parent <see cref="IPanel"/>.
-		/// </summary>
-		public IPanel Parent { get; set; }
-
-		/// <summary>
-		/// Request close action for panel.
-		/// </summary>
-		public void RequestClose()
-		{
-			if (!CanClose)
-			{
-				throw new Exception("Some child panels can not be closed.");
-			}
-
-			OnEvent(Closing, this);
-			//Dispose(true);
-			OnEvent(Closed, this);
-		}
-
-		/// <summary>
-		/// Fire when panel is intended to close.
-		/// </summary>
-		public event EventHandler<EventArgs> Closing;
-
-		/// <summary>
-		/// Fire when panel is closed.
-		/// </summary>
-		public event EventHandler<EventArgs> Closed;
+		#region Implementation of ICloneable
 
 		/// <summary>
 		/// Creates a new object that is a deep copy of the current instance.
 		/// </summary>
 		/// <returns>A new object that is a deep copy of this instance.</returns>
-		public FileSystemEntityNodeVM CloneDeep()
+		public override object Clone()
 		{
-			var result = (FileSystemEntityNodeVM) MemberwiseClone();
-
-			// Detach from parent panel
-			result.Parent = null;
-
-			// Remove original subscribiters
-			result.Closing -= Closing;
-			result.Closed -= Closed;
-
-			// Deep copy all childs
-			var childsCopy = new ObservableCollection<FileSystemEntityNodeVM>();
-
-			foreach (var child in childs)
-			{
-				FileSystemEntityNodeVM newChild = child.CloneDeep();
-				childsCopy.Add(newChild);
-			}
-
-			result.childs = childsCopy;
-
-			// Note: Model stay the same as original
-
-			return result;
-		}
-
-		/// <summary>
-		/// Creates a new object that is a deep copy of the current instance.
-		/// </summary>
-		/// <returns>A new object that is a deep copy of this instance.</returns>
-		IPanel IPanel.CloneDeep()
-		{
-			return CloneDeep();
+			return new FileSystemEntityNodeVM(this);
 		}
 
 		#endregion
@@ -191,6 +69,48 @@ namespace Nfm.Core.ViewModels.FileSystem
 		{
 			NodeModel = node;
 			RefreshDetails();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FileSystemEntityNodeVM"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="FileSystemEntityNodeVM"/> instance to copy data from.</param>
+		protected FileSystemEntityNodeVM(FileSystemEntityNodeVM another)
+			: base(another)
+		{
+			FullName = another.FullName;
+			Name = another.Name;
+			Extension = another.Extension;
+			HasExtension = another.HasExtension;
+			DateCreated = another.DateCreated;
+			DateModified = another.DateModified;
+			Size = another.Size;
+			IsArchive = another.IsArchive;
+			IsCompressed = another.IsCompressed;
+			IsDevice = another.IsDevice;
+			IsDirectory = another.IsDirectory;
+			IsFile = another.IsFile;
+			IsEncrypted = another.IsEncrypted;
+			IsHidden = another.IsHidden;
+			IsNotContentIndexed = another.IsNotContentIndexed;
+			IsOffline = another.IsOffline;
+			IsReadOnly = another.IsReadOnly;
+			IsReparsePoint = another.IsReparsePoint;
+			IsSparseFile = another.IsSparseFile;
+			IsSystem = another.IsSystem;
+			IsTemporary = another.IsTemporary;
+
+			NodeModel = another.NodeModel;
+
+			// Deep copy all childs
+			var childsCopy = new ObservableCollection<FileSystemEntityNodeVM>();
+
+			foreach (var child in another.childs)
+			{
+				childsCopy.Add((FileSystemEntityNodeVM) child.Clone());
+			}
+
+			childs = childsCopy;
 		}
 
 		#endregion
@@ -507,15 +427,15 @@ namespace Nfm.Core.ViewModels.FileSystem
 			// and make it separate in UI and code, but navigatable like always.
 			IEnumerable<FileSystemEntityNodeVM> resultList = Enumerable.Empty<FileSystemEntityNodeVM>();
 
-			NodeModel.RefreshParent();
-			
-			if (NodeModel.Parent != null)
-			{
-				var parentVm = new FileSystemEntityNodeVM((FileSystemEntityNode)NodeModel.Parent);
-				resultList = Enumerable.Repeat(parentVm, 1);
-
-				Parent = parentVm;
-			}
+//			NodeModel.RefreshParent();
+//			
+//			if (NodeModel.Parent != null)
+//			{
+//				var parentVm = new FileSystemEntityNodeVM((FileSystemEntityNode)NodeModel.Parent);
+//				resultList = Enumerable.Repeat(parentVm, 1);
+//
+//				Parent = parentVm;
+//			}
 
 			resultList = resultList.Concat(sortedList);
 			// -- TODOEND --

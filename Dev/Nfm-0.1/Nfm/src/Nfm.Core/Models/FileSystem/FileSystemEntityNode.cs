@@ -23,7 +23,7 @@ namespace Nfm.Core.Models.FileSystem
 	/// </summary>
 	[DebuggerDisplay(
 		@"Display = {DisplayName}"
-		+ @", Absolute = {AbsoluteName}"
+		+ @", Absolute = {Key}"
 		+ @", Parent = {Parent.DisplayName}"
 		)]
 	public class FileSystemEntityNode : INode
@@ -36,9 +36,9 @@ namespace Nfm.Core.Models.FileSystem
 		public string DisplayName { get; private set; }
 
 		/// <summary>
-		/// Gets or sets parent node.
+		/// Gets parent node.
 		/// </summary>
-		public INode Parent { get; set; }
+		public INode Parent { get; private set; }
 
 		/// <summary>
 		/// Gets the enumerator, which supports a simple iteratetion over all child nodes.
@@ -48,9 +48,9 @@ namespace Nfm.Core.Models.FileSystem
 			get
 			{
 				// Eagerly executed: checking required parametes.
-				if (string.IsNullOrEmpty(AbsoluteName))
+				if (string.IsNullOrEmpty(Key))
 				{
-					throw new ArgumentException("Absolute name should not be null or empty.");
+					throw new ArgumentException("Key should not be null or empty.");
 				}
 
 				if (!EntityType.HasValue)
@@ -74,21 +74,12 @@ namespace Nfm.Core.Models.FileSystem
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets unique node identification key.
+		/// </summary>
+		public string Key { get; set; }
+
 		#endregion
-
-		/// <summary>
-		/// Absolute file or directory name.
-		/// </summary>
-		private string absoluteName;
-
-		/// <summary>
-		/// Gets or sets a value indicating absolute name.
-		/// </summary>
-		public string AbsoluteName
-		{
-			get { return absoluteName; }
-			set { DisplayName = absoluteName = value; }
-		}
 
 		/// <summary>
 		/// Gets file system entity details info specific for file or directory.
@@ -113,12 +104,12 @@ namespace Nfm.Core.Models.FileSystem
 		/// Initializes a new instance of the <see cref="FileSystemEntityNode"/> class.
 		/// </summary>
 		/// <param name="parent">Parent node.</param>
-		/// <param name="detailsInfo">Information about specific file or folder.</param>
-		public FileSystemEntityNode(INode parent, FileSystemInfo detailsInfo)
+		/// <param name="key">Information about specific file or folder.</param>
+		public FileSystemEntityNode(INode parent, string key)
 		{
-			DetailsInfo = detailsInfo;
 			Parent = parent;
-			AbsoluteName = DetailsInfo.FullName;
+			Key = key;
+			RefreshDetails();
 		}
 
 		#endregion
@@ -128,40 +119,48 @@ namespace Nfm.Core.Models.FileSystem
 		/// </summary>
 		public void RefreshDetails()
 		{
-			if (Directory.Exists(AbsoluteName))
+			if (Directory.Exists(Key))
 			{
 				EntityType = FileSystemEntityType.Directory;
-				DetailsInfo = new DirectoryInfo(AbsoluteName);
+				DetailsInfo = new DirectoryInfo(Key);
 			}
-			else if (File.Exists(AbsoluteName))
+			else if (File.Exists(Key))
 			{
 				EntityType = FileSystemEntityType.File;
-				DetailsInfo = new FileInfo(AbsoluteName);
+				DetailsInfo = new FileInfo(Key);
 			}
 			else
 			{
 				DetailsInfo = null;
-				throw new ArgumentException(string.Format("File or directory with name \"{0}\" is not exist.", AbsoluteName));
+				throw new ArgumentException(string.Format("File or directory with name \"{0}\" is not exist.", Key));
 			}
 
 			DisplayName = DetailsInfo.Name;
+			Key = DetailsInfo.FullName.ToLowerInvariant();
 		}
 
 		/// <summary>
-		/// Set <see cref="Parent"/> instance if available (i.e. "parent directory").
+		/// Set <see cref="Parent"/> instance if available (i.e. "parent directory" or root logical drive).
 		/// </summary>
 		public void RefreshParent()
 		{
-			if (DetailsInfo != null && EntityType == FileSystemEntityType.Directory
-			    && ((DirectoryInfo) DetailsInfo).Parent != null)
+			if (DetailsInfo != null && EntityType == FileSystemEntityType.Directory)
 			{
-				Parent = new FileSystemEntityNode
-				         {
-				         	EntityType = FileSystemEntityType.Directory,
-				         	DetailsInfo = ((DirectoryInfo) DetailsInfo).Parent,
-				         	AbsoluteName = ((DirectoryInfo) DetailsInfo).Parent.FullName,
-				         	DisplayName = ((DirectoryInfo) DetailsInfo).Parent.Name,
-				         };
+				if (((DirectoryInfo) DetailsInfo).Parent != null)
+				{
+					Parent = new FileSystemEntityNode
+					         {
+					         	Key = ((DirectoryInfo) DetailsInfo).Parent.FullName.ToLowerInvariant(),
+					         	EntityType = FileSystemEntityType.Directory,
+					         	DetailsInfo = ((DirectoryInfo) DetailsInfo).Parent,
+					         	DisplayName = ((DirectoryInfo) DetailsInfo).Parent.Name
+					         };
+				}
+				else
+				{
+					// Todo: consider to use interface instead of direct LogicalDriveNode class
+					Parent = new LogicalDriveNode(RootNode.Inst.GetModule("LocalFileSystem"), DetailsInfo.Name);
+				}
 			}
 		}
 
@@ -172,13 +171,13 @@ namespace Nfm.Core.Models.FileSystem
 		public void Execute(string startupFolder)
 		{
 			// TODO: add parameter support
-			var processStartInfo = new ProcessStartInfo(AbsoluteName)
+			var processStartInfo = new ProcessStartInfo(Key)
 			                       {
 			                       	WorkingDirectory = !string.IsNullOrEmpty(startupFolder)
-									? startupFolder
-									: Parent == null || !(Parent is FileSystemEntityNode)
-			                       			? Environment.CurrentDirectory
-			                       			: ((FileSystemEntityNode) Parent).AbsoluteName
+			                       	                   	? startupFolder
+			                       	                   	: Parent == null || !(Parent is FileSystemEntityNode)
+			                       	                   	  	? Environment.CurrentDirectory
+			                       	                   	  	: ((FileSystemEntityNode) Parent).Key
 			                       };
 
 			Process.Start(processStartInfo);
@@ -192,12 +191,13 @@ namespace Nfm.Core.Models.FileSystem
 		{
 			if (EntityType == FileSystemEntityType.File)
 			{
+				// Todo: add extension point here (i.e. "content plugins").
 				yield break;
 			}
 
 			// All folders
 			var list = new List<string>();
-			list.AddRange(Directory.GetDirectories(AbsoluteName, "*.*", SearchOption.TopDirectoryOnly));
+			list.AddRange(Directory.GetDirectories(Key, "*.*", SearchOption.TopDirectoryOnly));
 
 			foreach (string path in list)
 			{
@@ -205,17 +205,17 @@ namespace Nfm.Core.Models.FileSystem
 
 				yield return new FileSystemEntityNode
 				             {
+				             	Parent = this,
+				             	Key = directoryInfo.FullName.ToLowerInvariant(),
 				             	EntityType = FileSystemEntityType.Directory,
 				             	DetailsInfo = directoryInfo,
-				             	AbsoluteName = directoryInfo.FullName,
-				             	DisplayName = directoryInfo.Name,
-				             	Parent = this
+				             	DisplayName = directoryInfo.Name
 				             };
 			}
 
 			// All files
 			list.Clear();
-			list.AddRange(Directory.GetFiles(AbsoluteName, "*.*", SearchOption.TopDirectoryOnly));
+			list.AddRange(Directory.GetFiles(Key, "*.*", SearchOption.TopDirectoryOnly));
 
 			foreach (string fileName in list)
 			{
@@ -223,11 +223,11 @@ namespace Nfm.Core.Models.FileSystem
 
 				yield return new FileSystemEntityNode
 				             {
+				             	Parent = this,
+				             	Key = fileInfo.FullName.ToLowerInvariant(),
 				             	EntityType = FileSystemEntityType.File,
 				             	DetailsInfo = fileInfo,
-				             	AbsoluteName = fileInfo.FullName,
-				             	DisplayName = fileInfo.Name,
-				             	Parent = this
+				             	DisplayName = fileInfo.Name
 				             };
 			}
 		}

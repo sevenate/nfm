@@ -38,5 +38,38 @@ namespace Nfm.Core.ViewModels
 				OnPropertyChanged("Orientation");
 			}
 		}
+
+		#region .Ctors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="StackContainer"/> class.
+		/// </summary>
+		public StackContainer()
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="StackContainer"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="StackContainer"/> instance to copy data from.</param>
+		protected StackContainer(StackContainer another)
+			: base(another)
+		{
+		}
+
+		#endregion
+
+		#region Implementation of ICloneable
+
+		/// <summary>
+		/// Creates a new object that is a deep copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a deep copy of this instance.</returns>
+		public override object Clone()
+		{
+			return new StackContainer(this);
+		}
+
+		#endregion
 	}
 }

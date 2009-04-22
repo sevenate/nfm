@@ -12,6 +12,7 @@
 // <summary>General configuration settings manager.</summary>
 
 using System.Windows.Controls;
+using Nfm.Core.Models;
 using Nfm.Core.Models.FileSystem;
 using Nfm.Core.ViewModels;
 using Nfm.Core.ViewModels.FileSystem;
@@ -29,6 +30,7 @@ namespace Nfm.Core.Configuration
 		/// <returns>Panels layout.</returns>
 		public static IPanel GetLayout()
 		{
+			LoadModules();
 			return GetDefaultLayout();
 		}
 
@@ -43,7 +45,7 @@ namespace Nfm.Core.Configuration
 			var driveCPanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"C:\",
+					Key = @"C:\",
 				})
 			                  {
 			                  	IsSelected = true
@@ -54,7 +56,7 @@ namespace Nfm.Core.Configuration
 			var driveDPanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\",
+					Key = @"D:\",
 				});
 			driveDPanel.RefreshDetails();
 			driveDPanel.RefreshChilds();
@@ -73,7 +75,7 @@ namespace Nfm.Core.Configuration
 			var workMiddlePanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\Downloads",
+					Key = @"D:\Downloads",
 				});
 			workMiddlePanel.RefreshDetails();
 			workMiddlePanel.RefreshChilds();
@@ -91,7 +93,7 @@ namespace Nfm.Core.Configuration
 			var workRightPanel1 = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\Games",
+					Key = @"D:\Games",
 				});
 			workRightPanel1.RefreshDetails();
 			workRightPanel1.RefreshChilds();
@@ -99,7 +101,7 @@ namespace Nfm.Core.Configuration
 			var workRightPanel2 = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\Music",
+					Key = @"D:\Music",
 				});
 			workRightPanel2.RefreshDetails();
 			workRightPanel2.RefreshChilds();
@@ -146,7 +148,7 @@ namespace Nfm.Core.Configuration
 			var enterPanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\Videos",
+					Key = @"D:\Videos",
 				})
 			                 {
 			                 	IsSelected = true
@@ -161,7 +163,7 @@ namespace Nfm.Core.Configuration
 			var topGamesPanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\Games",
+					Key = @"D:\Games",
 				});
 			topGamesPanel.RefreshDetails();
 			topGamesPanel.RefreshChilds();
@@ -169,7 +171,7 @@ namespace Nfm.Core.Configuration
 			var topMusicPanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\Music",
+					Key = @"D:\Music",
 				})
 			                    {
 			                    	IsSelected = true
@@ -187,7 +189,7 @@ namespace Nfm.Core.Configuration
 			var topDriveCpanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"C:\",
+					Key = @"C:\",
 				});
 			topDriveCpanel.RefreshDetails();
 			topDriveCpanel.RefreshChilds();
@@ -195,7 +197,7 @@ namespace Nfm.Core.Configuration
 			var topDriveDpanel = new FileSystemEntityNodeVM(
 				new FileSystemEntityNode
 				{
-					AbsoluteName = @"D:\",
+					Key = @"D:\",
 				})
 			                     {
 			                     	IsSelected = true
@@ -234,6 +236,14 @@ namespace Nfm.Core.Configuration
 			#endregion
 
 			return mainTabContainer; //workLeftTabContainer
+		}
+
+		/// <summary>
+		/// Load root node modules.
+		/// </summary>
+		private static void LoadModules()
+		{
+			RootNode.Inst.RegisterNode(new LocalFileSystemModule(RootNode.Inst));
 		}
 	}
 }

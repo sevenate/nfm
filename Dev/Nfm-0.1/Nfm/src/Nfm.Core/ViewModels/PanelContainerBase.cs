@@ -139,53 +139,18 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		public virtual event EventHandler<EventArgs> Closing;
 
-		/// <summary>
-		/// Creates a new object that is a deep copy of the current instance.
-		/// </summary>
-		/// <returns>A new object that is a deep copy of this instance.</returns>
-		IPanel IPanel.CloneDeep()
-		{
-			return CloneDeep();
-		}
+		#region Implementation of ICloneable
 
 		/// <summary>
 		/// Creates a new object that is a deep copy of the current instance.
 		/// </summary>
 		/// <returns>A new object that is a deep copy of this instance.</returns>
-		public PanelContainerBase CloneDeep()
+		public virtual object Clone()
 		{
-			var result = (PanelContainerBase) MemberwiseClone();
-
-			// Detach from parent panel
-			result.Parent = null;
-
-			// Remove original subscribiters
-			result.Closing -= Closing;
-			result.Closed -= Closed;
-
-			// Deep copy all childs
-			var childsCopy = new ObservableCollection<IPanel>();
-
-			// Important: handler below must belong to "result" object and NOT to "this" object!
-			// See defect #18.
-			childsCopy.CollectionChanged += result.OnChildsChanged;
-
-			foreach (IPanel child in childs)
-			{
-				IPanel newChild = child.CloneDeep();
-
-				// TODO: consider to remove this two lines: both "Closed" and "Closing" are null right after cloning
-				result.Closing -= Closing;
-				result.Closed -= Closed;
-				// ----
-
-				childsCopy.Add(newChild);
-			}
-
-			result.childs = childsCopy;
-
-			return result;
+			return new PanelContainerBase(this);
 		}
+
+		#endregion
 
 		#endregion
 
@@ -310,6 +275,49 @@ namespace Nfm.Core.ViewModels
 			{
 				RequestClose();
 			}
+		}
+
+		#endregion
+
+		#region .Ctors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PanelContainerBase"/> class.
+		/// </summary>
+		public PanelContainerBase()
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PanelContainerBase"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="PanelContainerBase"/> instance to copy data from.</param>
+		protected PanelContainerBase(PanelContainerBase another)
+		{
+			Header = another.Header;
+			isSelected = another.isSelected;
+
+			// Detach from parent panel
+			//	Parent = null;
+
+			// Remove original subscribiters
+			//	Closing = null;	// -= Closing;
+			//	Closed = null;	// -= Closed;
+
+			// Deep copy all childs
+			var childsCopy = new ObservableCollection<IPanel>();
+
+			// Important: handler below must belong to "result" object and NOT to "this" object!
+			// See defect #18.
+			childsCopy.CollectionChanged += OnChildsChanged;
+
+			foreach (var child in another.childs)
+			{
+				var newChild = (IPanel)child.Clone();
+				childsCopy.Add(newChild);
+			}
+
+			childs = childsCopy;
 		}
 
 		#endregion
