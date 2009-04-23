@@ -21,7 +21,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 	/// <summary>
 	/// Local file system module view model.
 	/// </summary>
-	public class LocalFileSystemModuleVM : NodePanelBase
+	public class LocalFileSystemModuleVM : PanelBase
 	{
 		#region Implementation of ICloneable
 

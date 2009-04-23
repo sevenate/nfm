@@ -20,7 +20,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 	/// <summary>
 	/// Logical drive node view model.
 	/// </summary>
-	public class LogicalDriveNodeVM : NodePanelBase
+	public class LogicalDriveNodeVM : PanelBase
 	{
 		#region Implementation of IPanel
 

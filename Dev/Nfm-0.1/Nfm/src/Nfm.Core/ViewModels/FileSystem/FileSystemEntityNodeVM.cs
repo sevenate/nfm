@@ -30,7 +30,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		+ @", Childs = {Childs.Count}"
 		+ @", Model = {NodeModel.DisplayName}"
 		+ @", Parent = {Parent.Header}")]
-	public class FileSystemEntityNodeVM : NodePanelBase
+	public class FileSystemEntityNodeVM : PanelBase
 	{
 		#region Implementation of ICloneable
 
