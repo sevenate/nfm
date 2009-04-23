@@ -136,7 +136,7 @@ namespace Nfm.Core.Models.FileSystem
 			}
 
 			DisplayName = DetailsInfo.Name;
-			Key = DetailsInfo.FullName.ToLowerInvariant();
+			Key = DetailsInfo.FullName;	//.ToLowerInvariant();
 		}
 
 		/// <summary>
@@ -150,7 +150,7 @@ namespace Nfm.Core.Models.FileSystem
 				{
 					Parent = new FileSystemEntityNode
 					         {
-					         	Key = ((DirectoryInfo) DetailsInfo).Parent.FullName.ToLowerInvariant(),
+					         	Key = ((DirectoryInfo) DetailsInfo).Parent.FullName,	//.ToLowerInvariant(),
 					         	EntityType = FileSystemEntityType.Directory,
 					         	DetailsInfo = ((DirectoryInfo) DetailsInfo).Parent,
 					         	DisplayName = ((DirectoryInfo) DetailsInfo).Parent.Name
@@ -206,7 +206,7 @@ namespace Nfm.Core.Models.FileSystem
 				yield return new FileSystemEntityNode
 				             {
 				             	Parent = this,
-				             	Key = directoryInfo.FullName.ToLowerInvariant(),
+				             	Key = directoryInfo.FullName,	//.ToLowerInvariant(),
 				             	EntityType = FileSystemEntityType.Directory,
 				             	DetailsInfo = directoryInfo,
 				             	DisplayName = directoryInfo.Name
@@ -224,7 +224,7 @@ namespace Nfm.Core.Models.FileSystem
 				yield return new FileSystemEntityNode
 				             {
 				             	Parent = this,
-				             	Key = fileInfo.FullName.ToLowerInvariant(),
+				             	Key = fileInfo.FullName,	//.ToLowerInvariant(),
 				             	EntityType = FileSystemEntityType.File,
 				             	DetailsInfo = fileInfo,
 				             	DisplayName = fileInfo.Name
