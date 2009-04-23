@@ -12,14 +12,13 @@
 // <summary>Base <see cref="INodePanel"/> implementation.</summary>
 
 using System;
-using Nfm.Core.Models;
 
 namespace Nfm.Core.ViewModels
 {
 	/// <summary>
-	/// Base <see cref="INodePanel"/> implementation.
+	/// Base <see cref="IPanel"/> implementation.
 	/// </summary>
-	public class NodePanelBase : NotificationBase, INodePanel
+	public class NodePanelBase : NotificationBase, IPanel
 	{
 		#region Implementation of IDisposable
 
@@ -122,15 +121,6 @@ namespace Nfm.Core.ViewModels
 
 		#endregion
 
-		#region Implementation of INodePanel
-
-		/// <summary>
-		/// Gets specific <see cref="INode"/>.
-		/// </summary>
-		public INode Node { get; protected set; }
-
-		#endregion
-
 		#region .Ctors
 
 		/// <summary>
@@ -158,7 +148,6 @@ namespace Nfm.Core.ViewModels
 			// Remove original subscribiters
 			//	Closing = null;	// -= Closing;
 			//	Closed = null;	// -= Closed;
-			Node = another.Node;
 		}
 
 		#endregion

@@ -109,7 +109,6 @@
     <Compile Include="ViewModels\FileSystem\Icons\SysImageList.cs" />
     <Compile Include="ViewModels\FileSystem\LocalFileSystemModuleVM.cs" />
     <Compile Include="ViewModels\FileSystem\LogicalDriveNodeVM.cs" />
-    <Compile Include="ViewModels\INodePanel.cs" />
     <Compile Include="ViewModels\IPanel.cs" />
     <Compile Include="ViewModels\IPanelContainer.cs" />
     <Compile Include="ViewModels\NodePanelBase.cs" />
