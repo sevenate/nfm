@@ -114,11 +114,20 @@ namespace Nfm.Core.Controls.DragDrop
 
 						if (insertBeforeTarget)
 						{
-							targetParentContainer.Childs.Move(oldIndex, targetIndex);
+							// Todo: select moved tab
+							var prev = oldIndex < targetIndex
+							           	? targetIndex - 1
+										: targetIndex;
+							targetParentContainer.Childs.Move(oldIndex, prev);
 						}
 						else
 						{
-							targetParentContainer.Childs.Move(oldIndex, targetIndex + 1);
+							var next = oldIndex < targetIndex 
+										? targetIndex < targetParentContainer.Childs.Count - 1
+											? targetIndex + 1
+											: targetIndex
+										: targetIndex + 1;
+							targetParentContainer.Childs.Move(oldIndex, next);
 						}
 					}
 				}
