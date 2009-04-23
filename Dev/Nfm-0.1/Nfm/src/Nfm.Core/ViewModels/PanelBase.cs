@@ -1,4 +1,4 @@
-// <copyright file="NodePanelBase.cs" company="HD">
+// <copyright file="PanelBase.cs" company="HD">
 // 	Copyright (c) 2009 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff">
@@ -18,7 +18,7 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Base <see cref="IPanel"/> implementation.
 	/// </summary>
-	public class NodePanelBase : NotificationBase, IPanel
+	public class PanelBase : NotificationBase, IPanel
 	{
 		#region Implementation of IDisposable
 
@@ -114,7 +114,7 @@ namespace Nfm.Core.ViewModels
 		/// <returns>A new object that is a deep copy of this instance.</returns>
 		public virtual object Clone()
 		{
-			return new NodePanelBase(this);
+			return new PanelBase(this);
 		}
 
 		#endregion
@@ -124,19 +124,19 @@ namespace Nfm.Core.ViewModels
 		#region .Ctors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="NodePanelBase"/> class.
+		/// Initializes a new instance of the <see cref="PanelBase"/> class.
 		/// </summary>
-		protected NodePanelBase()
+		protected PanelBase()
 		{
 			// Note: for future use
 			CanClose = true;
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="NodePanelBase"/> class.
+		/// Initializes a new instance of the <see cref="PanelBase"/> class.
 		/// </summary>
-		/// <param name="another">Another <see cref="NodePanelBase"/> instance to copy data from.</param>
-		protected NodePanelBase(NodePanelBase another)
+		/// <param name="another">Another <see cref="PanelBase"/> instance to copy data from.</param>
+		protected PanelBase(PanelBase another)
 		{
 			Header = another.Header;
 			CanClose = another.CanClose;
