@@ -55,6 +55,7 @@ namespace Nfm.Core.ViewModels
 		protected StackContainer(StackContainer another)
 			: base(another)
 		{
+			orientation = another.Orientation;
 		}
 
 		#endregion
