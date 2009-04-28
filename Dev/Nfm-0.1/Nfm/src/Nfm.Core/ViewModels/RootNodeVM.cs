@@ -40,6 +40,14 @@ namespace Nfm.Core.ViewModels
 		#region Implementation of IPanelContent
 
 		/// <summary>
+		/// Gets panel header: string text or complex content.
+		/// </summary>
+		public object Header
+		{
+			get { return AbsolutePath; }
+		}
+
+		/// <summary>
 		/// Gets or sets parent host panel.
 		/// </summary>
 		public IPanelContentHost Host { get; set; }

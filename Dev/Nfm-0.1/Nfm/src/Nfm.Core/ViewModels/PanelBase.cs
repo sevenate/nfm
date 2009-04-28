@@ -68,7 +68,10 @@ namespace Nfm.Core.ViewModels
 		/// <summary>
 		/// Gets panel header: string text or complex content.
 		/// </summary>
-		public object Header { get; protected set; }
+		public object Header
+		{
+			get { return panelContent.Header; }
+		}
 
 		/// <summary>
 		/// Gets a value indicating whether a panel can be closed.
@@ -137,10 +140,12 @@ namespace Nfm.Core.ViewModels
 			set
 			{
 				OnPropertyChanging("PanelContent");
-				
+				OnPropertyChanging("Header");
+
 				panelContent = value;
 				panelContent.Host = this;
 
+				OnPropertyChanged("Header");
 				OnPropertyChanged("PanelContent");
 			}
 		}
@@ -164,11 +169,10 @@ namespace Nfm.Core.ViewModels
 		/// <param name="another">Another <see cref="PanelBase"/> instance to copy data from.</param>
 		protected PanelBase(PanelBase another)
 		{
-			Header = another.Header;
 			CanClose = another.CanClose;
 			isSelected = another.isSelected;
 
-			PanelContent = (IPanelContent)another.PanelContent.Clone();
+			PanelContent = (IPanelContent) another.PanelContent.Clone();
 
 			// Detach from parent panel
 			//	Parent = null;
