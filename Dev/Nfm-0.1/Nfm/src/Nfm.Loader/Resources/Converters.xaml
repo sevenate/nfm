@@ -6,7 +6,7 @@
 					xmlns:fs="clr-namespace:Nfm.Core.ViewModels.FileSystem.Icons;assembly=Nfm.Core"
 					mc:Ignorable="d">
 
-	<convert:BoolToCornerRadiusConverter x:Key="BoolToCornerRadiusConverter" />
+<!--	<convert:BoolToCornerRadiusConverter x:Key="BoolToCornerRadiusConverter" />-->
 	<convert:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 	<convert:BoolToVisibilityConverter x:Key="BoolToVisibilityHiddenConverter"
 									   HiddenOnly="True" />
@@ -60,6 +60,7 @@
 	<convert:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
 	<convert:DateTimeToBrushConverter x:Key="DateTimeToBrushConverter" />
 	<fs:FileToIconConverter x:Key="FileToIconConverter" DefaultSize="32" />
+	<fs:FileToIconConverter x:Key="DriveToIconConverter" DefaultSize="48" />
 	
 
 </ResourceDictionary>

@@ -18,7 +18,7 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Base <see cref="IPanel"/> implementation.
 	/// </summary>
-	public class PanelBase : NotificationBase, IPanel
+	public class PanelBase : NotificationBase, IPanelContentHost
 	{
 		#region Implementation of IDisposable
 
@@ -42,6 +42,19 @@ namespace Nfm.Core.ViewModels
 		// The derived class does not have a Finalize method
 		// or a Dispose method with parameters because it inherits
 		// them from the base class.
+
+		#endregion
+
+		#region ICloneable
+
+		/// <summary>
+		/// Creates a new object that is a deep copy of the current instance.
+		/// </summary>
+		/// <returns>A new object that is a deep copy of this instance.</returns>
+		public virtual object Clone()
+		{
+			return new PanelBase(this);
+		}
 
 		#endregion
 
@@ -106,18 +119,31 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		public event EventHandler<EventArgs> Closed;
 
-		#region ICloneable
+		#endregion
+
+		#region Implementation of IPanelContentHost
 
 		/// <summary>
-		/// Creates a new object that is a deep copy of the current instance.
+		/// Panel content.
 		/// </summary>
-		/// <returns>A new object that is a deep copy of this instance.</returns>
-		public virtual object Clone()
-		{
-			return new PanelBase(this);
-		}
+		private IPanelContent panelContent;
 
-		#endregion
+		/// <summary>
+		/// Gets or sets panel content.
+		/// </summary>
+		public IPanelContent PanelContent
+		{
+			get { return panelContent; }
+			set
+			{
+				OnPropertyChanging("PanelContent");
+				
+				panelContent = value;
+				panelContent.Host = this;
+
+				OnPropertyChanged("PanelContent");
+			}
+		}
 
 		#endregion
 
@@ -126,7 +152,7 @@ namespace Nfm.Core.ViewModels
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PanelBase"/> class.
 		/// </summary>
-		protected PanelBase()
+		public PanelBase()
 		{
 			// Note: for future use
 			CanClose = true;
@@ -141,6 +167,8 @@ namespace Nfm.Core.ViewModels
 			Header = another.Header;
 			CanClose = another.CanClose;
 			isSelected = another.isSelected;
+
+			PanelContent = (IPanelContent)another.PanelContent.Clone();
 
 			// Detach from parent panel
 			//	Parent = null;

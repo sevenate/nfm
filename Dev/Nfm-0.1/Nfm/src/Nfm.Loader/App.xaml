@@ -18,6 +18,13 @@
 				<ResourceDictionary Source="Resources/Converters.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/StackContainer.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/TabContainer.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/PanelBase.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/FileView.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/DriveView.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/DriveFullView.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleView.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleFullView.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/RootNodeView.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/NodeBriefDataTemplate.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/FileSystemEntityNodeVM.xaml" />
 			</ResourceDictionary.MergedDictionaries>

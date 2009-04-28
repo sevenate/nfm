@@ -40,26 +40,56 @@ namespace Nfm.Core.Configuration
 		/// <returns>Default panels layout.</returns>
 		private static IPanel GetDefaultLayout()
 		{
-			#region Work Left Tab Container
+			TabContainer workLeftTabContainer = GetWorkLeftTabContainer();
+			TabContainer workMiddleTabContainer = GetWorkMiddleTabContainer();
+			StackContainer workRightStackContainer = GetWorkRightStackContainer();
+			StackContainer workStackContainer = GetWorkStackContainer(
+				workLeftTabContainer, workMiddleTabContainer, workRightStackContainer);
 
-			var driveCPanel = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"C:\",
-				})
+			PanelBase enterPanel = GetEnterPanel();
+
+			TabContainer subTabContainer1 = GetEnterTopTabContainer();
+			TabContainer subTabContainer2 = GetDisksTopTabSubContainer();
+			TabContainer topTabContainer = GetTopTabContainer(subTabContainer1, subTabContainer2);
+
+			TabContainer mainTabContainer = GetMainTabContainer(workStackContainer, enterPanel, topTabContainer);
+
+			return mainTabContainer; //workLeftTabContainer
+		}
+
+		/// <summary>
+		/// Load root node modules.
+		/// </summary>
+		private static void LoadModules()
+		{
+			var firstModule = new LocalFileSystemModule();
+			RootNode.Inst.RegisterNode(firstModule, new LocalFileSystemModuleVM(firstModule));
+		}
+
+		#region Debug layout
+
+		/// <summary>
+		/// Get Work Left Tab Container.
+		/// </summary>
+		/// <returns>Work Left Tab Container.</returns>
+		private static TabContainer GetWorkLeftTabContainer()
+		{
+			IViewModel driveC = RootNode.Inst.GetNode(@"\LocalFileSystem\C:\");
+			driveC.Refresh();
+
+			var driveCPanel = new PanelBase
 			                  {
+			                  	PanelContent = (IPanelContent) driveC,
 			                  	IsSelected = true
 			                  };
-			driveCPanel.RefreshDetails();
-			driveCPanel.RefreshChilds();
 
-			var driveDPanel = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"D:\",
-				});
-			driveDPanel.RefreshDetails();
-			driveDPanel.RefreshChilds();
+			IViewModel driveD = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\");
+			driveD.Refresh();
+
+			var driveDPanel = new PanelBase
+			                  {
+			                  	PanelContent = (IPanelContent) driveD
+			                  };
 
 			var workLeftTabContainer = new TabContainer
 			                           {
@@ -67,44 +97,52 @@ namespace Nfm.Core.Configuration
 			                           };
 			workLeftTabContainer.Childs.Add(driveDPanel);
 			workLeftTabContainer.Childs.Add(driveCPanel);
+			return workLeftTabContainer;
+		}
 
-			#endregion
+		/// <summary>
+		/// Get Work Middle Tab Container.
+		/// </summary>
+		/// <returns>Work Middle Tab Container.</returns>
+		private static TabContainer GetWorkMiddleTabContainer()
+		{
+			IViewModel workMiddle = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Downloads");
+			workMiddle.Refresh();
 
-			#region Work Middle Tab
-
-			var workMiddlePanel = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"D:\Downloads",
-				});
-			workMiddlePanel.RefreshDetails();
-			workMiddlePanel.RefreshChilds();
+			var workMiddlePanel = new PanelBase
+			                      {
+			                      	PanelContent = (IPanelContent) workMiddle
+			                      };
 
 			var workMiddleTabContainer = new TabContainer
 			                             {
 			                             	Header = "Middle Tab Container"
 			                             };
 			workMiddleTabContainer.Childs.Add(workMiddlePanel);
+			return workMiddleTabContainer;
+		}
 
-			#endregion
+		/// <summary>
+		/// Get Work Right Stack Container.
+		/// </summary>
+		/// <returns>Work Right Stack Container.</returns>
+		private static StackContainer GetWorkRightStackContainer()
+		{
+			IViewModel workRight1 = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Games");
+			workRight1.Refresh();
 
-			#region Work Right Vertical Stack Container
+			var workRightPanel1 = new PanelBase
+			                      {
+			                      	PanelContent = (IPanelContent) workRight1
+			                      };
 
-			var workRightPanel1 = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"D:\Games",
-				});
-			workRightPanel1.RefreshDetails();
-			workRightPanel1.RefreshChilds();
+			IViewModel workRight2 = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Music");
+			workRight2.Refresh();
 
-			var workRightPanel2 = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"D:\Music",
-				});
-			workRightPanel2.RefreshDetails();
-			workRightPanel2.RefreshChilds();
+			var workRightPanel2 = new PanelBase
+			                      {
+			                      	PanelContent = (IPanelContent) workRight2
+			                      };
 
 			var workRightPanel1TabContainer = new TabContainer
 			                                  {
@@ -127,11 +165,19 @@ namespace Nfm.Core.Configuration
 			//			workRightStackContainer.Childs.Add(workRightPanel2);
 			workRightStackContainer.Childs.Add(workRightPanel1TabContainer);
 			workRightStackContainer.Childs.Add(workRightPanel2TabContainer);
+			return workRightStackContainer;
+		}
 
-			#endregion
-
-			#region Work Horizontal Stack Container
-
+		/// <summary>
+		/// Get Work Stack Container.
+		/// </summary>
+		/// <param name="workLeftTabContainer">Work left tab container.</param>
+		/// <param name="workMiddleTabContainer">Work middle tab container.</param>
+		/// <param name="workRightStackContainer">Work right stack container.</param>
+		/// <returns>Work Stack Container.</returns>
+		private static StackContainer GetWorkStackContainer(
+			IPanel workLeftTabContainer, IPanel workMiddleTabContainer, IPanel workRightStackContainer)
+		{
 			var workStackContainer = new StackContainer
 			                         {
 			                         	Header = "Work Stack Container"
@@ -140,91 +186,117 @@ namespace Nfm.Core.Configuration
 			//			workStackContainer.Childs.Add(workMiddlePanel);
 			workStackContainer.Childs.Add(workMiddleTabContainer);
 			workStackContainer.Childs.Add(workRightStackContainer);
+			return workStackContainer;
+		}
 
-			#endregion
+		/// <summary>
+		/// Get Enter Panel.
+		/// </summary>
+		/// <returns>Enter Panel.</returns>
+		private static PanelBase GetEnterPanel()
+		{
+			IViewModel enter = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Videos");
+			enter.Refresh();
 
-			#region Enter Panel
+			return new PanelBase
+			       {
+			       	PanelContent = (IPanelContent) enter,
+			       	IsSelected = true
+			       };
+		}
 
-			var enterPanel = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"D:\Videos",
-				})
-			                 {
-			                 	IsSelected = true
-			                 };
-			enterPanel.RefreshDetails();
-			enterPanel.RefreshChilds();
+		/// <summary>
+		/// Get Enter Top Tab Container.
+		/// </summary>
+		/// <returns>Enter Top Tab Container.</returns>
+		private static TabContainer GetEnterTopTabContainer()
+		{
+			IViewModel topGames = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Games");
+			topGames.Refresh();
 
-			#endregion
-
-			#region Top Tab Container
-
-			var topGamesPanel = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"D:\Games",
-				});
-			topGamesPanel.RefreshDetails();
-			topGamesPanel.RefreshChilds();
-
-			var topMusicPanel = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"D:\Music",
-				})
+			var topGamesPanel = new PanelBase
 			                    {
+			                    	PanelContent = (IPanelContent) topGames
+			                    };
+
+			IViewModel topMusic = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Music");
+			topMusic.Refresh();
+
+			var topMusicPanel = new PanelBase
+			                    {
+			                    	PanelContent = (IPanelContent) topMusic,
 			                    	IsSelected = true
 			                    };
-			topMusicPanel.RefreshDetails();
-			topMusicPanel.RefreshChilds();
 
-			var subTabContainer1 = new TabContainer
-			                       {
-			                       	Header = "Enter Container"
-			                       };
-			subTabContainer1.Childs.Add(topGamesPanel);
-			subTabContainer1.Childs.Add(topMusicPanel);
+			var enterTopTabContainer = new TabContainer
+			                           {
+			                           	Header = "Enter Container"
+			                           };
+			enterTopTabContainer.Childs.Add(topGamesPanel);
+			enterTopTabContainer.Childs.Add(topMusicPanel);
+			return enterTopTabContainer;
+		}
 
-			var topDriveCpanel = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"C:\",
-				});
-			topDriveCpanel.RefreshDetails();
-			topDriveCpanel.RefreshChilds();
+		/// <summary>
+		/// Get Disks Top Tab Sub Container.
+		/// </summary>
+		/// <returns>Disks Top Tab Sub Container.</returns>
+		private static TabContainer GetDisksTopTabSubContainer()
+		{
+			IViewModel topDriveC = RootNode.Inst.GetNode(@"\LocalFileSystem\C:\");
+			topDriveC.Refresh();
 
-			var topDriveDpanel = new FileSystemEntityNodeVM(
-				new FileSystemEntityNode
-				{
-					Key = @"D:\",
-				})
+			var topDriveCpanel = new PanelBase
 			                     {
+			                     	PanelContent = (IPanelContent) topDriveC
+			                     };
+
+			IViewModel topDriveD = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\");
+			topDriveD.Refresh();
+
+			var topDriveDpanel = new PanelBase
+			                     {
+			                     	PanelContent = (IPanelContent) topDriveD,
 			                     	IsSelected = true
 			                     };
-			topDriveDpanel.RefreshDetails();
-			topDriveDpanel.RefreshChilds();
 
 			var subTabContainer2 = new TabContainer
 			                       {
-			                       	Header = "DisksContainer",
+			                       	Header = "Disks Container",
 			                       	IsSelected = true
 			                       };
 
 			subTabContainer2.Childs.Add(topDriveCpanel);
 			subTabContainer2.Childs.Add(topDriveDpanel);
+			return subTabContainer2;
+		}
 
+		/// <summary>
+		/// Get Top Tab Container.
+		/// </summary>
+		/// <param name="subTabContainer1">Sub container 1.</param>
+		/// <param name="subTabContainer2">Sub container 2.</param>
+		/// <returns>Top Tab Container.</returns>
+		private static TabContainer GetTopTabContainer(IPanel subTabContainer1, IPanel subTabContainer2)
+		{
 			var topTabContainer = new TabContainer
 			                      {
 			                      	Header = "Top Tab Container",
 			                      };
 			topTabContainer.Childs.Add(subTabContainer1);
 			topTabContainer.Childs.Add(subTabContainer2);
+			return topTabContainer;
+		}
 
-			#endregion
-
-			#region Main Tab Container
-
+		/// <summary>
+		/// Get Main Tab Container.
+		/// </summary>
+		/// <param name="workStackContainer">Work Stack Container.</param>
+		/// <param name="enterPanel">Rnter Panel.</param>
+		/// <param name="topTabContainer">Top Tab Container.</param>
+		/// <returns>Main Tab Container.</returns>
+		private static TabContainer GetMainTabContainer(IPanel workStackContainer, IPanel enterPanel, IPanel topTabContainer)
+		{
 			var mainTabContainer = new TabContainer
 			                       {
 			                       	Header = "Main Window",
@@ -232,18 +304,9 @@ namespace Nfm.Core.Configuration
 			mainTabContainer.Childs.Add(workStackContainer);
 			mainTabContainer.Childs.Add(enterPanel);
 			mainTabContainer.Childs.Add(topTabContainer);
-
-			#endregion
-
-			return mainTabContainer; //workLeftTabContainer
+			return mainTabContainer;
 		}
 
-		/// <summary>
-		/// Load root node modules.
-		/// </summary>
-		private static void LoadModules()
-		{
-			RootNode.Inst.RegisterNode(new LocalFileSystemModule(RootNode.Inst));
-		}
+		#endregion
 	}
 }

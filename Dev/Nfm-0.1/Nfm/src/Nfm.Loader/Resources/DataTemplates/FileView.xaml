@@ -1,11 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core"
-					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-					mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core">
 
-	<DataTemplate DataType="{x:Type FileSystem:FolderVM}">
+	<DataTemplate DataType="{x:Type FileSystem:FileVM}">
 		<DataTemplate.Resources>
 			<Storyboard x:Key="IconStoryboard">
 				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
@@ -44,10 +41,10 @@
 		<Border x:Name="Border"
 				Margin="1"
 				Padding="3,1,3,1"
-				Background="{StaticResource BackgroundBrush}"
-				BorderBrush="{StaticResource BorderBrush}"
+				Background="{Binding Path=Extension, Converter={StaticResource FileExtensionToBackgroundBrushConverter}}"
+				BorderBrush="{Binding Path=Extension, Converter={StaticResource FileExtensionToBrushConverter}}"
 				BorderThickness="2"
-				CornerRadius="3"
+				CornerRadius="5"
 				SnapsToDevicePixels="true">
 			<DockPanel LastChildFill="False">
 				<Border Width="32"
@@ -62,8 +59,8 @@
 						<Image.Source>
 							<MultiBinding Converter="{StaticResource FileToIconConverter}">
 								<Binding Path="AbsolutePath" />
-<!--								<Binding ElementName="slider"-->
-<!--										 Path="Value" />-->
+								<!--								<Binding ElementName="slider"-->
+								<!--										 Path="Value" />-->
 							</MultiBinding >
 						</Image.Source>
 					</Image>
@@ -90,6 +87,43 @@
 				<DockPanel x:Name="BottomLine"
 						   LastChildFill="False"
 						   DockPanel.Dock="Bottom">
+					<Grid DockPanel.Dock="Right"
+						  VerticalAlignment="Bottom">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="Size" />
+						</Grid.ColumnDefinitions>
+						<TextBlock x:Name="Size"
+								   Foreground="{Binding Path=Size, Converter={StaticResource FileSizeToBrushConverter}}"
+								   Text="{Binding Path=Size, Converter={StaticResource FileSizeToStringSpecificConverter}}"
+								   Padding="5,1,5,1"
+								   TextAlignment="Right">
+						<TextBlock.ToolTip>
+							<!-- TODO: Investigate strange memory consumption with using MarkupExtension solution (more expensive then static resource) -->
+							<!-- <ToolTip Content="{Binding Path=Size, Converter={FileSizeToStringConverter}}" /> -->
+							<ToolTip Content="{Binding Path=Size, Converter={StaticResource FileSizeToStringConverter}}" />
+						</TextBlock.ToolTip>
+						</TextBlock>
+					</Grid>
+					<Grid DockPanel.Dock="Right"
+						  VerticalAlignment="Bottom">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"
+											  SharedSizeGroup="Extension" />
+						</Grid.ColumnDefinitions>
+						<Border Background="Black"
+								BorderThickness="0"
+								CornerRadius="3"
+								Padding="8,1,8,1"
+								Visibility="{Binding Path=HasExtension, Converter={StaticResource BoolToVisibilityConverter}}"
+								HorizontalAlignment="Left">
+							<TextBlock x:Name="Extension"
+									   Text="{Binding Path=Extension}"
+									   Foreground="{Binding Path=Extension, Converter={StaticResource FileExtensionToBrushConverter}}"
+									   Style="{StaticResource FileExtension}" />
+						</Border>
+					</Grid>
+
 					<StackPanel DockPanel.Dock="Right"
 								VerticalAlignment="Bottom"
 								Orientation="Horizontal">
@@ -178,9 +212,9 @@
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="Background"
-						Value="{StaticResource HoverBackgroundBrush}" />
+						Value="{Binding Path=Extension, Converter={StaticResource FileExtensionToBackgroundHoverBrushConverter}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>
-
+	
 </ResourceDictionary>

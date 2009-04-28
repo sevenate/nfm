@@ -33,6 +33,14 @@
 							</CommandMessage>
 						</EventMessageTrigger.Message>
 					</EventMessageTrigger>
+<!--					<EventMessageTrigger EventName="MouseDoubleClick">-->
+<!--						<EventMessageTrigger.Message>-->
+<!--							<CommandMessage Command="{Resolve Key=RefreshChildNodes}">-->
+<!--								<Parameter Value="{Binding Mode=OneWay}" />-->
+<!--							</CommandMessage>-->
+<!--						</EventMessageTrigger.Message>-->
+<!--					</EventMessageTrigger>-->
+					
 					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToCurrentNodeHotKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToCurrentNodeHotKeyModifiers}}">
 						<GestureMessageTrigger.Message>
@@ -42,6 +50,15 @@
 							</CommandMessage>
 						</GestureMessageTrigger.Message>
 					</GestureMessageTrigger>
+					<!-- Bug: Multiple GestureMessageTrigger is not supported yet :( -->
+<!--					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToCurrentNodeHotKey}}"-->
+<!--										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToCurrentNodeHotKeyModifiers}}">-->
+<!--						<GestureMessageTrigger.Message>-->
+<!--							<CommandMessage Command="{Resolve Key=RefreshChildNodes}">-->
+<!--								<Parameter Value="{Binding Mode=OneWay}" />-->
+<!--							</CommandMessage>-->
+<!--						</GestureMessageTrigger.Message>-->
+<!--					</GestureMessageTrigger>-->
 				</RoutedMessageTriggerCollection>
 			</Setter.Value>
 		</Setter>

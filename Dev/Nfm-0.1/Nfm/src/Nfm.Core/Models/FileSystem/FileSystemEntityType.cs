@@ -26,6 +26,11 @@ namespace Nfm.Core.Models.FileSystem
 		/// <summary>
 		/// Regulary file.
 		/// </summary>
-		File
+		File,
+
+		/// <summary>
+		/// Logical drive.
+		/// </summary>
+		Drive
 	}
 }

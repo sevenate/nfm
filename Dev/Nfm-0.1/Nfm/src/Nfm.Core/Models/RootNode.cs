@@ -13,24 +13,25 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Models
 {
 	/// <summary>
 	/// Provide access to nodes tree.
 	/// </summary>
-	public class RootNode : INode
+	public class RootNode
 	{
-		/// <summary>
-		/// All registered root nodes (modules)
-		/// </summary>
-		private readonly List<INode> modules = new List<INode>();
-
 		/// <summary>
 		/// General nodes key separator in string path.
 		/// </summary>
-		public static readonly string Separator = @"\";
+		public static readonly char Separator = '\\';
+
+		/// <summary>
+		/// All registered root modules and they default view models.
+		/// </summary>
+		private readonly IDictionary<IRootModule, IDefaultModuleViewModel> childs =
+			new Dictionary<IRootModule, IDefaultModuleViewModel>();
 
 		#region Singleton
 
@@ -64,64 +65,32 @@ namespace Nfm.Core.Models
 
 		#endregion Singleton
 
-		#region Implementation of INode
-
 		/// <summary>
-		/// Gets node display name.
+		/// Gets the enumerator, which supports a simple iteratetion over all registered root modules.
 		/// </summary>
-		public string DisplayName
+		public IEnumerable<KeyValuePair<IRootModule, IDefaultModuleViewModel>> Childs
 		{
-			get { return "Root"; }
+			get { return childs; }
 		}
 
 		/// <summary>
-		/// Gets parent node.
-		/// </summary>
-		public INode Parent
-		{
-			get { return null; }
-		}
-
-		/// <summary>
-		/// Gets the enumerator, which supports a simple iteratetion over all registered root nodes (modules).
-		/// </summary>
-		public IEnumerable<INode> Childs
-		{
-			get { return modules; }
-		}
-
-		/// <summary>
-		/// Gets the enumerator, which supports a simple iteratetion over node attributes.
-		/// </summary>
-		public IEnumerable<INodeAttribute> Attributes
-		{
-			get
-			{
-				// TODO: add support of INodeAttribute
-				yield break;
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets unique node identification key.
+		/// Gets unique node identification key.
 		/// </summary>
 		public string Key
 		{
 			get { return @"\"; }
-			set { throw new NotSupportedException("Root node key is constant."); }
 		}
 
-		#endregion
-
 		/// <summary>
-		/// Register new node in the system.
+		/// Register new root module in the system.
 		/// </summary>
-		/// <param name="node">New node element.</param>
-		public void RegisterNode(INode node)
+		/// <param name="node">New root module element.</param>
+		/// <param name="defaultVM">Default view model, used to display root module.</param>
+		public void RegisterNode(IRootModule node, IDefaultModuleViewModel defaultVM)
 		{
-			if (!modules.Contains(node))
+			if (!childs.Keys.Contains(node))
 			{
-				modules.Add(node);
+				childs.Add(node, defaultVM);
 			}
 		}
 
@@ -129,33 +98,33 @@ namespace Nfm.Core.Models
 		/// Unregister node from the system.
 		/// </summary>
 		/// <param name="node">Registered node element.</param>
-		public void UnregisterNode(INode node)
+		public void UnregisterNode(IRootModule node)
 		{
-			if (modules.Contains(node))
+			if (childs.Keys.Contains(node))
 			{
-				modules.Remove(node);
+				childs.Remove(node);
 			}
 		}
 
 		/// <summary>
-		/// Get specific node in the tree according to provided string path to it.
+		/// Get default node view model in the tree according to provided absolute string path to it.
 		/// </summary>
 		/// <param name="pathToNode">Path to node.</param>
-		/// <returns>Correspond <see cref="INode"/>.</returns>
-		public INode GetNode(string pathToNode)
+		/// <returns>Correspond <see cref="IViewModel"/> if found or null otherwise.</returns>
+		public IViewModel GetNode(string pathToNode)
 		{
-			throw new NotImplementedException();
-		}
+			string moduleKey = pathToNode.Split(Separator)[1];
+			string pathInModule = pathToNode.Substring(pathToNode.IndexOf(Separator, 1) + 1);
 
-		/// <summary>
-		/// Get specific module by it unique key.
-		/// </summary>
-		/// <param name="key">Module unique key.</param>
-		/// <returns>Specific module or null if not found.</returns>
-		public INode GetModule(string key)
-		{
-			return
-				modules.Where(node => node.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase)).Single();
+			foreach (var module in childs)
+			{
+				if (module.Key.Key.Equals(moduleKey, StringComparison.InvariantCultureIgnoreCase))
+				{
+					return module.Value.GetChildViewModel(pathInModule);
+				}
+			}
+
+			throw new NotSupportedException("Specified path to node is not valid or corresponding module is not registered.");
 		}
 	}
 }

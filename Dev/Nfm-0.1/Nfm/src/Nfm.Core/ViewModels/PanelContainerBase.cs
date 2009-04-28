@@ -212,14 +212,7 @@ namespace Nfm.Core.ViewModels
 		protected void OnChildsChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			// Note: NotifyCollectionChangedAction.Reset
-			//    and NotifyCollectionChangedAction.Replace
 			//    change types should not occur for ObservableCollection<IPanel>.
-
-			if (e.Action == NotifyCollectionChangedAction.Replace)
-			{
-				// Todo: remove debug fail.
-				Debug.Fail("NotifyCollectionChangedAction.Reset");
-			}
 
 			if (e.Action == NotifyCollectionChangedAction.Reset)
 			{
@@ -229,7 +222,8 @@ namespace Nfm.Core.ViewModels
 
 			if (e.NewItems != null
 				&& e.NewItems.Count > 0
-				&& e.Action == NotifyCollectionChangedAction.Add)
+				&& (e.Action == NotifyCollectionChangedAction.Add
+					|| e.Action == NotifyCollectionChangedAction.Replace))
 			{
 				foreach (IPanel panel in e.NewItems)
 				{
@@ -241,7 +235,8 @@ namespace Nfm.Core.ViewModels
 
 			if (e.OldItems != null
 				&& e.OldItems.Count > 0
-				&& e.Action == NotifyCollectionChangedAction.Remove)
+				&& (e.Action == NotifyCollectionChangedAction.Remove
+					|| e.Action == NotifyCollectionChangedAction.Replace))
 			{
 				foreach (IPanel panel in e.OldItems)
 				{

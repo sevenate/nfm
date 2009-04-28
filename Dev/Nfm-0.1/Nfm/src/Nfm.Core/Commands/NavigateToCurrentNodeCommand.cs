@@ -14,10 +14,12 @@
 using System;
 using System.Windows;
 using Caliburn.Actions.Filters;
-using Nfm.Core.ViewModels.FileSystem;
+using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
 {
+	// Todo: rename this command to "DefaultDoubleClickAction" or something.
+
 	/// <summary>
 	/// Change node in panel to current node command.
 	/// </summary>
@@ -27,30 +29,30 @@ namespace Nfm.Core.Commands
 		/// <summary>
 		/// Change node in panel to current node.
 		/// </summary>
-		/// <param name="panel">Specific panel with node.</param>
-		/// <param name="currentNode">New node for panel.</param>
+		/// <param name="oldContent">Current panel content.</param>
+		/// <param name="newNode">New node for panel.</param>
 		[Preview("CanExecute", AffectsTriggers = false)]
-		public void Execute(FileSystemEntityNodeVM panel, FileSystemEntityNodeVM currentNode)
+		public void Execute(IPanelContent oldContent, IViewModel newNode)
 		{
-			if (currentNode.IsDirectory.HasValue && currentNode.IsDirectory.Value)
+			if (newNode.SupportExecute())
 			{
-				panel.ChangeNode(currentNode);
+				newNode.Execute();
 			}
 			else
 			{
-				currentNode.Execute(panel.FullName);
+				oldContent.Host.PanelContent = newNode.NavigateInto();
 			}
 		}
 
 		/// <summary>
 		/// Check if the current node have childs to make sense in navigation.
 		/// </summary>
-		/// <param name="panel">Specific panel with node.</param>
-		/// <param name="currentNode">New node for panel.</param>
+		/// <param name="oldContent">Current panel content.</param>
+		/// <param name="newNode">New node for panel.</param>
 		/// <returns>True, if the node have one or more child nodes.</returns>
-		public bool CanExecute(FileSystemEntityNodeVM panel, FileSystemEntityNodeVM currentNode)
+		public bool CanExecute(IPanelContent oldContent, IViewModel newNode)
 		{
-			return panel != null && currentNode != null;
+			return oldContent != null && newNode != null && (newNode.SupportExecute() || newNode.SupportNavigateInto());
 		}
 
 		/// <summary>

@@ -12,26 +12,24 @@
 // <summary>Change node in panel to he's parent node command.</summary>
 
 using Caliburn.Actions.Filters;
-using Nfm.Core.ViewModels.FileSystem;
+using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
 {
 	/// <summary>
-	/// Change node in panel to he's parent node command.
+	/// Change node in panel to parent node command.
 	/// </summary>
 	public class NavigateToParentNodeCommand
 	{
 		/// <summary>
-		/// Change node in panel to he's parent node.
+		/// Change node in panel to parent node.
 		/// </summary>
 		/// <param name="panel">Specific panel with node.</param>
-		[Preview("CanExecute")]
-		public void Execute(FileSystemEntityNodeVM panel)
+		[Preview("CanExecute", AffectsTriggers = false)]
+		public void Execute(IPanelContent panel)
 		{
-			if (panel != null)
-			{
-				panel.NavigateToParent();
-			}
+			// Todo: consider switching to single interface (IPanelContent or IViewModel)
+			panel.Host.PanelContent = ((IViewModel) panel).NavigateOut();
 		}
 
 		/// <summary>
@@ -39,10 +37,9 @@ namespace Nfm.Core.Commands
 		/// </summary>
 		/// <param name="panel">Specific panel with node.</param>
 		/// <returns>True, if the node have parent node.</returns>
-		public bool CanExecute(FileSystemEntityNodeVM panel)
+		public bool CanExecute(IPanelContent panel)
 		{
-			// TODO: implement check for parent node availability
-			return true;
+			return panel != null && ((IViewModel) panel).SupportNavigateOut();
 		}
 	}
 }

@@ -12,7 +12,7 @@
 // <summary>Refresh child nodes command.</summary>
 
 using Caliburn.Actions.Filters;
-using Nfm.Core.ViewModels.FileSystem;
+using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
 {
@@ -26,12 +26,9 @@ namespace Nfm.Core.Commands
 		/// </summary>
 		/// <param name="node">Specific parent node.</param>
 		[Preview("CanExecute")]
-		public void Execute(FileSystemEntityNodeVM node)
+		public void Execute(IPanelContent node)
 		{
-			if (node != null)
-			{
-				node.RefreshChilds();
-			}
+			((IViewModel)node).Refresh();
 		}
 
 		/// <summary>
@@ -39,10 +36,10 @@ namespace Nfm.Core.Commands
 		/// </summary>
 		/// <param name="node">Specific parent node.</param>
 		/// <returns>True, if the child nodes collection can be refreshed.</returns>
-		public bool CanExecute(FileSystemEntityNodeVM node)
+		public bool CanExecute(IPanelContent node)
 		{
 			// TODO: implement check for child refreshability sence
-			return true;
+			return node != null;
 		}
 	}
 }
