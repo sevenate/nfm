@@ -3,25 +3,25 @@
 // </copyright>
 // <author name="Andrew Levshoff">
 // 	<email>alevshoff@hd.com</email>
-// 	<date>2009-04-15</date>
+// 	<date>2009-04-27</date>
 // </author>
 // <editor name="Andrew Levshoff">
 // 	<email>alevshoff@hd.com</email>
-// 	<date>2009-04-15</date>
+// 	<date>2009-04-27</date>
 // </editor>
-// <summary>Local file system module view model.</summary>
+// <summary>Logical file system module view model.</summary>
 
-using System.Collections.ObjectModel;
+using System;
 using System.Diagnostics;
-using Nfm.Core.Models;
 using Nfm.Core.Models.FileSystem;
 
 namespace Nfm.Core.ViewModels.FileSystem
 {
 	/// <summary>
-	/// Local file system module view model.
+	/// Logical file system module view model.
 	/// </summary>
-	public class LocalFileSystemModuleVM : PanelBase
+	[DebuggerDisplay("{Name}")]
+	public class LocalFileSystemModuleVM : NotificationBase, IDefaultModuleViewModel
 	{
 		#region Implementation of ICloneable
 
@@ -29,24 +29,136 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// Creates a new object that is a deep copy of the current instance.
 		/// </summary>
 		/// <returns>A new object that is a deep copy of this instance.</returns>
-		public override object Clone()
+		public virtual object Clone()
 		{
 			return new LocalFileSystemModuleVM(this);
 		}
 
 		#endregion
 
-		#region Private
+		#region Implementation of IViewModel
 
 		/// <summary>
-		/// Child nodes view models.
+		/// Gets or sets absolute path.
 		/// </summary>
-		private readonly ObservableCollection<LogicalDriveNodeVM> childs = new ObservableCollection<LogicalDriveNodeVM>();
+		public string AbsolutePath
+		{
+			get { return Model.Key; }
+			set { throw new NotSupportedException("Absolute path is read only for module."); }
+		}
 
 		/// <summary>
-		/// Gets or sets corresponding node model.
+		/// Fetch data from corresponding file system element view model.
 		/// </summary>
-		private LocalFileSystemModule NodeModel { get; set; }
+		public virtual void Refresh()
+		{
+			// Nothing to do here.
+		}
+
+		#region Execute
+
+		/// <summary>
+		/// Checks if node support <see cref="IViewModel.Execute"/> action.
+		/// </summary>
+		/// <returns>True if node could handle <see cref="IViewModel.Execute"/> action.</returns>
+		public virtual bool SupportExecute()
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// "Execute" action.
+		/// </summary>
+		public virtual void Execute()
+		{
+			// Todo: consider using "execute" for LFS module as additional usefull action (like launching Computer Managment MMC snap-in or some thing).
+			throw new NotImplementedException("Execute action for local file system module is not implemented yet.");
+		}
+
+		#endregion
+
+		#region Navigate Into
+
+		/// <summary>
+		/// Checks if node support <see cref="IViewModel.NavigateInto"/> action.
+		/// </summary>
+		/// <returns>True if node could handle <see cref="IViewModel.NavigateInto"/> action.</returns>
+		public virtual bool SupportNavigateInto()
+		{
+			return true;
+		}
+
+		/// <summary>
+		/// "Navigate into" action.
+		/// </summary>
+		/// <returns>Corresponding (or default) content view model for node in "navigated" mode.</returns>
+		public virtual IPanelContent NavigateInto()
+		{
+			var vm = new LocalFileSystemModuleFullVM(Model);
+			vm.Refresh();
+			return vm;
+		}
+
+		#endregion
+
+		#region Navigate Out
+
+		/// <summary>
+		/// Checks if node support <see cref="IViewModel.SupportNavigateOut"/> action.
+		/// </summary>
+		/// <returns>True if node could handle <see cref="IViewModel.SupportNavigateOut"/> action.</returns>
+		public virtual bool SupportNavigateOut()
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// "Navigate out" action.
+		/// </summary>
+		/// <returns>Corresponding (or default) content view model for parent node in "navigated" mode.</returns>
+		public virtual IPanelContent NavigateOut()
+		{
+			throw new NotSupportedException("NavigateOut action is not supported for local file system module in base view model.");
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Implementation of IDefaultModuleViewModel
+
+		/// <summary>
+		/// Return default view model for node in specified path location.
+		/// </summary>
+		/// <param name="path">Path to node.</param>
+		/// <returns>Default node view model.</returns>
+		public IViewModel GetChildViewModel(string path)
+		{
+			switch (Model.GetEntityType(path))
+			{
+				case FileSystemEntityType.Directory:
+					var folder = new FolderFullVM(Model)
+					             {
+					             	AbsolutePath = path
+					             };
+					return folder;
+
+				// Todo: add support of FileFullVM.
+				case FileSystemEntityType.File:
+					var file = new FolderFullVM(Model)
+					{
+						AbsolutePath = path
+					};
+					return file;
+
+				default:	// FileSystemEntityType.Drive
+					var drive = new DriveFullVM(Model)
+					{
+						AbsolutePath = path
+					};
+					return drive;
+			}
+		}
 
 		#endregion
 
@@ -55,9 +167,10 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LocalFileSystemModuleVM" /> class.
 		/// </summary>
-		public LocalFileSystemModuleVM()
+		/// <param name="model">Local file system data model.</param>
+		public LocalFileSystemModuleVM(LocalFileSystemModule model)
 		{
-			NodeModel = (LocalFileSystemModule) RootNode.Inst.GetModule("Local File System");
+			Model = model;
 		}
 
 		/// <summary>
@@ -65,81 +178,29 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		/// <param name="another">Another <see cref="LocalFileSystemModuleVM"/> instance to copy data from.</param>
 		protected LocalFileSystemModuleVM(LocalFileSystemModuleVM another)
-			: base(another)
 		{
-			NodeModel = another.NodeModel;
-
-			// Deep copy all childs
-			var childsCopy = new ObservableCollection<LogicalDriveNodeVM>();
-
-			foreach (LogicalDriveNodeVM child in another.childs)
-			{
-				childsCopy.Add((LogicalDriveNodeVM) child.Clone());
-			}
-
-			childs = childsCopy;
+			Model = another.Model;
 		}
+
+		#endregion
+
+		#region Model Data
+
+		/// <summary>
+		/// Gets or sets corresponding node model.
+		/// </summary>
+		protected LocalFileSystemModule Model { get; private set; }
 
 		#endregion
 
 		#region Binding Properties
 
 		/// <summary>
-		/// Gets a name.
+		/// Gets the name of a module.
 		/// </summary>
 		public string Name
 		{
-			get { return NodeModel.DisplayName; }
-		}
-
-		/// <summary>
-		/// Gets childs node view models.
-		/// </summary>
-		public ObservableCollection<LogicalDriveNodeVM> Childs
-		{
-			[DebuggerStepThrough]
-			get { return childs; }
-		}
-
-		#endregion
-
-		#region Actions
-
-		/// <summary>
-		/// Refresh childs view models.
-		/// </summary>
-		public void RefreshChilds()
-		{
-//			var list = new List<IPanel>();
-//
-//			foreach (var node in NodeModel.Childs)
-//			{
-//				list.Add(new LogicalDriveNodeVM(this, node));
-//			}
-//
-//			// Sorting by file extenshion and, then, by file name.
-//			// TODO: make it configurable
-//			var sortedList =
-//				list.OrderBy(vm => vm.Name.ToLowerInvariant());
-//			// -- TODOEND --
-//
-//			// TODO: remove this temporary "parent simulator" from childs collection
-//			// and make it separate in UI and code, but navigatable like always.
-//			var resultList = Enumerable.Empty<IPanel>();
-//
-//			if (NodeModel.Parent != null)
-//			{
-//				resultList = Enumerable.Repeat(this, 1);
-//
-//			}
-//
-//			resultList = resultList.Concat(sortedList);
-//			// -- TODOEND --
-//
-//			OnPropertyChanging("Childs");
-//			childs.Clear();
-//			childs = new ObservableCollection<FileSystemEntityNodeVM>(resultList);
-//			OnPropertyChanged("Childs");
+			get { return Model.Name; }
 		}
 
 		#endregion
