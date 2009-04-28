@@ -77,10 +77,10 @@ namespace Nfm.Core.ViewModels.FileSystem
 
 			IEnumerable<IViewModel> resultList = Enumerable.Empty<IViewModel>();
 
-			// NOTE: THIS IS NOT CORRECT - ROOT NODE HAVE ONLY ONE - FULL - VIEW MODEL !
-//			var root = new RootNodeVM(RootNode.Inst);
-//			root.Refresh();
-//			resultList = Enumerable.Repeat((IViewModel)root, 1);
+			var fullVM = new RootNodeVM(RootNode.Inst);
+			fullVM.Refresh();
+			var parent = new ParentNodeVM(fullVM);
+			resultList = Enumerable.Repeat((IViewModel)parent, 1);
 
 			resultList = resultList.Concat(list);
 			// -- TODOEND --

@@ -100,9 +100,10 @@ namespace Nfm.Core.ViewModels.FileSystem
 			// and make it separate in UI and code, but navigatable like always.
 			IEnumerable<IViewModel> resultList = Enumerable.Empty<IViewModel>();
 
-//			var fullVM = new LocalFileSystemModuleVM(Model);
-//			fullVM.Refresh();
-//			resultList = Enumerable.Repeat((IViewModel)fullVM, 1);
+			var fullVM = new LocalFileSystemModuleFullVM(Model);
+			fullVM.Refresh();
+			var parent = new ParentNodeVM(fullVM);
+			resultList = Enumerable.Repeat((IViewModel)parent, 1);
 
 			resultList = resultList.Concat(sortedList);
 			// -- TODOEND --

@@ -122,6 +122,7 @@
     <Compile Include="ViewModels\PanelBase.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\ParentNodeVM.cs" />
     <Compile Include="ViewModels\RootNodeVM.cs" />
     <Compile Include="ViewModels\TabContainer.cs" />
     <Compile Include="ViewModels\PanelContainerBase.cs" />

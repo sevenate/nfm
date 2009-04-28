@@ -27,6 +27,7 @@
 				<ResourceDictionary Source="Resources/DataTemplates/RootNodeView.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/NodeBriefDataTemplate.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/FileSystemEntityNodeVM.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/ParentNodeView.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
