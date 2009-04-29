@@ -189,7 +189,15 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public string Name
 		{
-			get { return AbsolutePath; }
+			get { return Drive.Name; }
+		}
+
+		/// <summary>
+		/// Gets the name of a drive.
+		/// </summary>
+		public string DrivaLetter
+		{
+			get { return Name.TrimEnd('\\').ToUpperInvariant(); }
 		}
 
 		/// <summary>

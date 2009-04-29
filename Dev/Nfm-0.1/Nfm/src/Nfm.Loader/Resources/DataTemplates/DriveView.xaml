@@ -85,11 +85,11 @@
 				<Border	Height="48"
 						DockPanel.Dock="Left"
 						VerticalAlignment="Top">
-					<TextBlock x:Name="Name"
+					<TextBlock x:Name="DrivaLetter"
 							   Padding="5,1,5,1"
 							   VerticalAlignment="Center"
 							   HorizontalAlignment="Center"
-							   Text="{Binding Path=Name}"
+							   Text="{Binding Path=DrivaLetter}"
 							   FontSize="20" />
 				</Border>
 				<DockPanel x:Name="BottomLine"
