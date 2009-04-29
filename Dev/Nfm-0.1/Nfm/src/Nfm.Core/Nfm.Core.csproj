@@ -80,7 +80,9 @@
     <Compile Include="Controls\DragDrop\IDragSourceAdvisor.cs" />
     <Compile Include="Controls\DragDrop\IDropTargetAdvisor.cs" />
     <Compile Include="Controls\DragDrop\PanelDropTargetAdvisor.cs" />
+    <Compile Include="Controls\ElementUtility.cs" />
     <Compile Include="Controls\FirstFocusedElementExtension.cs" />
+    <Compile Include="Controls\HyperlinkUtility.cs" />
     <Compile Include="Controls\UniformStack.cs" />
     <Compile Include="Converters\BoolToCornerRadiusConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />

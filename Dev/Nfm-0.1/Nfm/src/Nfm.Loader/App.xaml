@@ -15,19 +15,29 @@
 				<ResourceDictionary Source="Resources/Styles/TabItemStyle.xaml" />
 				<ResourceDictionary Source="Resources/Styles/TabControlStyle.xaml" />
 				<ResourceDictionary Source="Resources/Styles/MainWindowDictionary.xaml" />
+				
 				<ResourceDictionary Source="Resources/Converters.xaml" />
+				
+				<!-- Panels view models -->
 				<ResourceDictionary Source="Resources/DataTemplates/StackContainer.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/TabContainer.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/PanelBase.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/FileView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/DriveView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/DriveFullView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleFullView.xaml" />
+				
+				<!-- General view models -->
 				<ResourceDictionary Source="Resources/DataTemplates/RootNodeView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/NodeBriefDataTemplate.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/FileSystemEntityNodeVM.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/ParentNodeView.xaml" />
+
+				<!-- Local File System Module view models -->
+				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleFullView.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleView.xaml" />
+
+				<ResourceDictionary Source="Resources/DataTemplates/DriveFullView.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/DriveView.xaml" />
+				
+				<ResourceDictionary Source="Resources/DataTemplates/FolderFullView.xaml" />
+				<ResourceDictionary Source="Resources/DataTemplates/FolderView.xaml" />
+
+				<ResourceDictionary Source="Resources/DataTemplates/FileView.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

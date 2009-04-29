@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
 namespace Nfm.Core.Models.FileSystem
 {
@@ -39,6 +40,61 @@ namespace Nfm.Core.Models.FileSystem
 		public string Key
 		{
 			get { return "LocalFileSystem"; }
+		}
+
+		/// <summary>
+		/// Gets module description.
+		/// </summary>
+		public string Description
+		{
+			get { return "Provide access to local file system entities: logical disk drives, files and folders."; }
+		}
+
+		/// <summary>
+		/// Gets module author.
+		/// </summary>
+		public string Author
+		{
+			get { return "This is built-in module."; }
+		}
+
+		/// <summary>
+		/// Gets module version.
+		/// </summary>
+		public string Version
+		{
+			get
+			{
+				Assembly asm = Assembly.GetExecutingAssembly();
+				return asm.GetName().Version.ToString();
+			}
+		}
+
+		/// <summary>
+		/// Gets module copyright.
+		/// </summary>
+		public string Copyright
+		{
+			// Todo: correct company name for LFS module.
+			get { return "(c) 2009 HD. All rights reserved."; }
+		}
+
+		/// <summary>
+		/// Gets module homepage.
+		/// </summary>
+		public string Homepage
+		{
+			// Todo: correct homepage url for LFS module.
+			get { return "http://localhost"; }
+		}
+
+		/// <summary>
+		/// Gets module author's e-mail.
+		/// </summary>
+		public string Email
+		{
+			// Todo: correct e-mail for LFS module.
+			get { return "nfm-lfs@localhost"; }
 		}
 
 		#endregion

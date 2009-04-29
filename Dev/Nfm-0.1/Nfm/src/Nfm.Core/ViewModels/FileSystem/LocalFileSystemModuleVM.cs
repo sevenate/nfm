@@ -118,7 +118,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// <returns>Corresponding (or default) content view model for parent node in "navigated" mode.</returns>
 		public virtual IPanelContent NavigateOut()
 		{
-			throw new NotSupportedException("NavigateOut action is not supported for local file system module in base view model.");
+			throw new NotSupportedException(
+				"NavigateOut action is not supported for local file system module in base view model.");
 		}
 
 		#endregion
@@ -143,19 +144,19 @@ namespace Nfm.Core.ViewModels.FileSystem
 					             };
 					return folder;
 
-				// Todo: add support of FileFullVM.
+					// Todo: add support of FileFullVM.
 				case FileSystemEntityType.File:
 					var file = new FolderFullVM(Model)
-					{
-						AbsolutePath = path
-					};
+					           {
+					           	AbsolutePath = path
+					           };
 					return file;
 
-				default:	// FileSystemEntityType.Drive
+				default: // FileSystemEntityType.Drive
 					var drive = new DriveFullVM(Model)
-					{
-						AbsolutePath = path
-					};
+					            {
+					            	AbsolutePath = path
+					            };
 					return drive;
 			}
 		}
@@ -187,7 +188,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		#region Model Data
 
 		/// <summary>
-		/// Gets or sets corresponding node model.
+		/// Gets corresponding node model.
 		/// </summary>
 		protected LocalFileSystemModule Model { get; private set; }
 
@@ -196,11 +197,67 @@ namespace Nfm.Core.ViewModels.FileSystem
 		#region Binding Properties
 
 		/// <summary>
-		/// Gets the name of a module.
+		/// Gets module name.
 		/// </summary>
 		public string Name
 		{
 			get { return Model.Name; }
+		}
+
+		/// <summary>
+		/// Gets unique module identification key.
+		/// </summary>
+		public string Key
+		{
+			get { return Model.Key; }
+		}
+
+		/// <summary>
+		/// Gets module description.
+		/// </summary>
+		public string Description
+		{
+			get { return Model.Description; }
+		}
+
+		/// <summary>
+		/// Gets module author.
+		/// </summary>
+		public string Author
+		{
+			get { return Model.Author; }
+		}
+
+		/// <summary>
+		/// Gets module version.
+		/// </summary>
+		public string Version
+		{
+			get { return Model.Version; }
+		}
+
+		/// <summary>
+		/// Gets module copyright.
+		/// </summary>
+		public string Copyright
+		{
+			get { return Model.Copyright; }
+		}
+
+		/// <summary>
+		/// Gets module homepage.
+		/// </summary>
+		public string Homepage
+		{
+			get { return Model.Homepage; }
+		}
+
+		/// <summary>
+		/// Gets module author's e-mail.
+		/// </summary>
+		public string Email
+		{
+			get { return Model.Email; }
 		}
 
 		#endregion

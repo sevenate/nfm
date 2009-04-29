@@ -27,5 +27,35 @@ namespace Nfm.Core.Models
 		/// Gets unique module identification key.
 		/// </summary>
 		string Key { get; }
+
+		/// <summary>
+		/// Gets module description.
+		/// </summary>
+		string Description { get; }
+
+		/// <summary>
+		/// Gets module author.
+		/// </summary>
+		string Author { get; }
+
+		/// <summary>
+		/// Gets module version.
+		/// </summary>
+		string Version { get; }
+
+		/// <summary>
+		/// Gets module copyright.
+		/// </summary>
+		string Copyright { get; }
+
+		/// <summary>
+		/// Gets module homepage.
+		/// </summary>
+		string Homepage { get; }
+
+		/// <summary>
+		/// Gets module author's e-mail.
+		/// </summary>
+		string Email { get; }
 	}
 }
