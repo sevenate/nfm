@@ -9,13 +9,13 @@
 											   Storyboard.TargetName="Icon"
 											   Storyboard.TargetProperty="(FrameworkElement.Width)">
 					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
-										  Value="56" />
+										  Value="40" />
 				</DoubleAnimationUsingKeyFrames>
 				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
 											   Storyboard.TargetName="Icon"
 											   Storyboard.TargetProperty="(FrameworkElement.Height)">
 					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
-										  Value="56" />
+										  Value="40" />
 				</DoubleAnimationUsingKeyFrames>
 			</Storyboard>
 			<Storyboard x:Key="IconStoryboard2">
@@ -23,13 +23,13 @@
 											   Storyboard.TargetName="Icon"
 											   Storyboard.TargetProperty="(FrameworkElement.Width)">
 					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
-										  Value="64" />
+										  Value="48" />
 				</DoubleAnimationUsingKeyFrames>
 				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
 											   Storyboard.TargetName="Icon"
 											   Storyboard.TargetProperty="(FrameworkElement.Height)">
 					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
-										  Value="64" />
+										  Value="48" />
 				</DoubleAnimationUsingKeyFrames>
 			</Storyboard>
 		</DataTemplate.Resources>
@@ -50,14 +50,14 @@
 				<DockPanel x:Name="PrimaryInfo"
 						   LastChildFill="True"
 						   DockPanel.Dock="Top">
-					<Border Width="64"
-							Height="64"
+					<Border Width="48"
+							Height="48"
 							DockPanel.Dock="Left"
 							VerticalAlignment="Top">
 						<!-- Todo: Add custom icon for LFS module -->
 						<Border x:Name="Icon"
-								Width="64"
-								Height="64"
+								Width="48"
+								Height="48"
 								CornerRadius="5"
 								Background="{StaticResource BorderBrush}"
 								VerticalAlignment="Center"
@@ -79,7 +79,8 @@
 							</RoutedMessageTriggerCollection>
 						</Message.Triggers>
 					</Border>
-					<Grid Margin="5,0,0,0">
+					<Grid Margin="5,0,0,0"
+						  VerticalAlignment="Center">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition Width="*" />
@@ -87,73 +88,43 @@
 						<Grid.RowDefinitions>
 							<RowDefinition />
 							<RowDefinition />
-							<RowDefinition />
-							<RowDefinition />
 						</Grid.RowDefinitions>
 						<TextBlock Grid.Column="0"
 								   Grid.Row="0"
 								   Foreground="DarkGray"
 								   Text="Name:"
+								   Margin="0,0,0,4"
 								   HorizontalAlignment="Right"
-								   VerticalAlignment="Center" />
+								   VerticalAlignment="Top" />
 						<TextBlock Grid.Column="0"
 								   Grid.Row="1"
 								   Foreground="DarkGray"
-								   Text="Author(s):"
-								   HorizontalAlignment="Right"
-								   VerticalAlignment="Center" />
-						<TextBlock Grid.Column="0"
-								   Grid.Row="2"
-								   Foreground="DarkGray"
 								   Text="Version:"
 								   HorizontalAlignment="Right"
-								   VerticalAlignment="Center" />
-						<TextBlock Grid.Column="0"
-								   Grid.Row="3"
-								   Foreground="DarkGray"
-								   Text="Unique ID:"
-								   HorizontalAlignment="Right"
-								   VerticalAlignment="Center" />
+								   VerticalAlignment="Top" />
 						<TextBox x:Name="Name"
 								 Grid.Column="1"
 								 Grid.Row="0"
 								 Text="{Binding Path=Name, Mode=OneWay}"
 								 ToolTip="Module name"
+								 Margin="0,0,0,4"
 								 TextWrapping="Wrap"
 								 IsReadOnly="True"
 								 Foreground="White"
 								 Background="Transparent"
-								 BorderThickness="0" />
-						<TextBox x:Name="Author"
-								 Grid.Column="1"
-								 Grid.Row="1"
-								 Text="{Binding Path=Author, Mode=OneWay}"
-								 ToolTip="Module author"
-								 TextWrapping="Wrap"
-								 IsReadOnly="True"
-								 Foreground="White"
-								 Background="Transparent"
-								 BorderThickness="0" />
+								 BorderThickness="0"
+								 VerticalAlignment="Top" />
 						<TextBox x:Name="Version"
 								 Grid.Column="1"
-								 Grid.Row="2"
+								 Grid.Row="1"
 								 Text="{Binding Path=Version, Mode=OneWay}"
 								 ToolTip="Module version"
 								 TextWrapping="Wrap"
 								 IsReadOnly="True"
-								 Foreground="White"
+								 Foreground="LightGreen"
 								 Background="Transparent"
-								 BorderThickness="0" />
-						<TextBox x:Name="Key"
-								 Grid.Column="1"
-								 Grid.Row="3"
-								 Text="{Binding Path=Key, Mode=OneWay}"
-								 ToolTip="Unique module ID"
-								 TextWrapping="Wrap"
-								 IsReadOnly="True"
-								 Foreground="White"
-								 Background="Transparent"
-								 BorderThickness="0" />
+								 BorderThickness="0"
+								 VerticalAlignment="Top" />
 					</Grid>
 				</DockPanel>
 				<Grid x:Name="AdditionalInfo"
@@ -166,56 +137,98 @@
 						<RowDefinition />
 						<RowDefinition />
 						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
 					</Grid.RowDefinitions>
 					<TextBlock Grid.Column="0"
 							   Grid.Row="0"
 							   Foreground="DarkGray"
-							   Text="Copyright:"
+							   Text="ID:"
 							   HorizontalAlignment="Right"
-							   VerticalAlignment="Center" />
+							   VerticalAlignment="Top" />
 					<TextBlock Grid.Column="0"
 							   Grid.Row="1"
 							   Foreground="DarkGray"
-							   Text="Homepage:"
+							   Text="Author(s):"
 							   HorizontalAlignment="Right"
-							   VerticalAlignment="Center" />
+							   VerticalAlignment="Top" />
 					<TextBlock Grid.Column="0"
 							   Grid.Row="2"
 							   Foreground="DarkGray"
+							   Text="Copyright:"
+							   HorizontalAlignment="Right"
+							   VerticalAlignment="Top" />
+					<TextBlock Grid.Column="0"
+							   Grid.Row="3"
+							   Foreground="DarkGray"
+							   Text="Homepage:"
+							   HorizontalAlignment="Right"
+							   VerticalAlignment="Top" />
+					<TextBlock Grid.Column="0"
+							   Grid.Row="4"
+							   Foreground="DarkGray"
 							   Text="Email:"
 							   HorizontalAlignment="Right"
-							   VerticalAlignment="Center" />
-					<TextBox x:Name="Copyright"
+							   VerticalAlignment="Top" />
+					<TextBox x:Name="Key"
 							 Grid.Column="1"
 							 Grid.Row="0"
+							 Text="{Binding Path=Key, Mode=OneWay}"
+							 ToolTip="Unique module ID"
+							 TextWrapping="Wrap"
+							 IsReadOnly="True"
+							 Foreground="White"
+							 Background="Transparent"
+							 BorderThickness="0"
+							 VerticalAlignment="Top" />
+					<TextBox x:Name="Author"
+							 Grid.Column="1"
+							 Grid.Row="1"
+							 Text="{Binding Path=Author, Mode=OneWay}"
+							 ToolTip="Author(s)"
+							 TextWrapping="Wrap"
+							 IsReadOnly="True"
+							 Foreground="White"
+							 Background="Transparent"
+							 BorderThickness="0"
+							 VerticalAlignment="Top" />
+					<TextBox x:Name="Copyright"
+							 Grid.Column="1"
+							 Grid.Row="2"
 							 Text="{Binding Path=Copyright, Mode=OneWay}"
 							 ToolTip="Copyright"
 							 TextWrapping="Wrap"
 							 IsReadOnly="True"
 							 Foreground="White"
 							 Background="Transparent"
-							 BorderThickness="0" />
-					<!-- Todo: Make Homepage URL clickable for LFS module -->
+							 BorderThickness="0"
+							 VerticalAlignment="Top" />
 					<TextBlock x:Name="Homepage"
 							   Grid.Column="1"
-							   Grid.Row="1"
+							   Grid.Row="3"
 							   ToolTip="Go to module home page"
-							   Padding="2"
-							   TextWrapping="Wrap">
+							   Padding="2,0,0,0"
+							   TextWrapping="Wrap"
+							   VerticalAlignment="Top">
 							<Hyperlink NavigateUri="{Binding Path=Homepage, Mode=OneWay}"
 									   HyperlinkUtility.LaunchDefaultBrowser="True">
-								<TextBlock Text="{Binding Path=Homepage, Mode=OneWay}" />
+								<TextBlock Text="{Binding Path=Homepage, Mode=OneWay}"
+										   TextWrapping="Wrap"
+										   VerticalAlignment="Top" />
 							</Hyperlink>
 					</TextBlock>
 					<TextBlock x:Name="Email"
 							   Grid.Column="1"
-							   Grid.Row="2"
+							   Grid.Row="4"
 							   ToolTip="Send email to module author"
-							   Padding="2"
-							   TextWrapping="Wrap">
+							   Padding="2,0,0,0"
+							   TextWrapping="Wrap"
+							   VerticalAlignment="Top">
 							<Hyperlink NavigateUri="{Binding Path=Email, Mode=OneWay}"
 									   HyperlinkUtility.LaunchDefaultBrowser="True">
-								<TextBlock Text="{Binding Path=Email, Mode=OneWay}" />
+								<TextBlock Text="{Binding Path=Email, Mode=OneWay}"
+										   TextWrapping="Wrap"
+										   VerticalAlignment="Top" />
 							</Hyperlink>
 					</TextBlock>
 				</Grid>
@@ -245,8 +258,8 @@
 				<MultiTrigger.Conditions>
 					<Condition Property="IsMouseOver"
 							   Value="True" />
-					<!--					<Condition Property="IsSelected"-->
-					<!--										   Value="False" />-->
+<!--					<Condition Property="IsSelected"-->
+<!--										   Value="False" />-->
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="Background"

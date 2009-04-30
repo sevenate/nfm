@@ -74,7 +74,7 @@ namespace Nfm.Core.Configuration
 		/// <returns>Work Left Tab Container.</returns>
 		private static TabContainer GetWorkLeftTabContainer()
 		{
-			IViewModel driveC = RootNode.Inst.GetNode(@"\LocalFileSystem\C:\");
+			IViewModel driveC = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\C:\");
 			driveC.Refresh();
 
 			var driveCPanel = new PanelBase
@@ -83,7 +83,7 @@ namespace Nfm.Core.Configuration
 			                  	IsSelected = true
 			                  };
 
-			IViewModel driveD = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\");
+			IViewModel driveD = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\");
 			driveD.Refresh();
 
 			var driveDPanel = new PanelBase
@@ -106,7 +106,7 @@ namespace Nfm.Core.Configuration
 		/// <returns>Work Middle Tab Container.</returns>
 		private static TabContainer GetWorkMiddleTabContainer()
 		{
-			IViewModel workMiddle = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Downloads");
+			IViewModel workMiddle = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Downloads");
 			workMiddle.Refresh();
 
 			var workMiddlePanel = new PanelBase
@@ -128,7 +128,7 @@ namespace Nfm.Core.Configuration
 		/// <returns>Work Right Stack Container.</returns>
 		private static StackContainer GetWorkRightStackContainer()
 		{
-			IViewModel workRight1 = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Games");
+			IViewModel workRight1 = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Games");
 			workRight1.Refresh();
 
 			var workRightPanel1 = new PanelBase
@@ -136,7 +136,7 @@ namespace Nfm.Core.Configuration
 			                      	PanelContent = (IPanelContent) workRight1
 			                      };
 
-			IViewModel workRight2 = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Music");
+			IViewModel workRight2 = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Music");
 			workRight2.Refresh();
 
 			var workRightPanel2 = new PanelBase
@@ -195,7 +195,7 @@ namespace Nfm.Core.Configuration
 		/// <returns>Enter Panel.</returns>
 		private static PanelBase GetEnterPanel()
 		{
-			IViewModel enter = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Videos");
+			IViewModel enter = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Videos");
 			enter.Refresh();
 
 			return new PanelBase
@@ -211,7 +211,7 @@ namespace Nfm.Core.Configuration
 		/// <returns>Enter Top Tab Container.</returns>
 		private static TabContainer GetEnterTopTabContainer()
 		{
-			IViewModel topGames = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Games");
+			IViewModel topGames = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Games");
 			topGames.Refresh();
 
 			var topGamesPanel = new PanelBase
@@ -219,7 +219,7 @@ namespace Nfm.Core.Configuration
 			                    	PanelContent = (IPanelContent) topGames
 			                    };
 
-			IViewModel topMusic = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\Music");
+			IViewModel topMusic = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Music");
 			topMusic.Refresh();
 
 			var topMusicPanel = new PanelBase
@@ -243,7 +243,7 @@ namespace Nfm.Core.Configuration
 		/// <returns>Disks Top Tab Sub Container.</returns>
 		private static TabContainer GetDisksTopTabSubContainer()
 		{
-			IViewModel topDriveC = RootNode.Inst.GetNode(@"\LocalFileSystem\C:\");
+			IViewModel topDriveC = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\C:\");
 			topDriveC.Refresh();
 
 			var topDriveCpanel = new PanelBase
@@ -251,7 +251,7 @@ namespace Nfm.Core.Configuration
 			                     	PanelContent = (IPanelContent) topDriveC
 			                     };
 
-			IViewModel topDriveD = RootNode.Inst.GetNode(@"\LocalFileSystem\D:\");
+			IViewModel topDriveD = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\");
 			topDriveD.Refresh();
 
 			var topDriveDpanel = new PanelBase

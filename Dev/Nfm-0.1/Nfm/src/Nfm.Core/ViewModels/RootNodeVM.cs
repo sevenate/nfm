@@ -70,6 +70,7 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		public void Refresh()
 		{
+			// Todo: Add "Add-ins refresh" code here.
 			IList<IViewModel> list = new List<IViewModel>();
 
 			foreach (var module in Model.Childs)

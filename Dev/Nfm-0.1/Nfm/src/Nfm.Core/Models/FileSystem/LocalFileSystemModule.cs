@@ -39,7 +39,7 @@ namespace Nfm.Core.Models.FileSystem
 		/// </summary>
 		public string Key
 		{
-			get { return "LocalFileSystem"; }
+			get { return "{78888951-2516-4e63-AC97-90E9D54351D8}"; }
 		}
 
 		/// <summary>
