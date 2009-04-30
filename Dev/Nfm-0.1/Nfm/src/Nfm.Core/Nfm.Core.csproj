@@ -95,6 +95,7 @@
     <Compile Include="Converters\DateTimeToBrushConverter.cs" />
     <Compile Include="Converters\DateTimeToStringConverter.cs" />
     <Compile Include="Converters\FileSizeToStringConverter.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Models\IRootModule.cs" />
     <Compile Include="Models\FileSystem\LocalFileSystemModule.cs" />
     <Compile Include="Models\RootNode.cs" />
