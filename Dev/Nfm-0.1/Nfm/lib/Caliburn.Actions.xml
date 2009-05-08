@@ -77,6 +77,9 @@
             <param name="exception">The exception.</param>
             <param name="sourceNode">The source node.</param>
             <param name="handlingNode">The handling node.</param>
+            <returns>
+            true if the exception was handled, false otherwise
+            </returns>
         </member>
         <member name="T:Caliburn.Actions.Action">
             <summary>
@@ -115,14 +118,14 @@
             <param name="d">The d.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.Actions.Action.SetTargetWithoutDataContext(System.Windows.DependencyObject,System.Object)">
+        <member name="M:Caliburn.Actions.Action.SetTargetWithoutContext(System.Windows.DependencyObject,System.Object)">
             <summary>
             Sets the target.
             </summary>
             <param name="d">The d.</param>
             <param name="target">The target.</param>
         </member>
-        <member name="M:Caliburn.Actions.Action.GetTargetWithoutDataContext(System.Windows.DependencyObject)">
+        <member name="M:Caliburn.Actions.Action.GetTargetWithoutContext(System.Windows.DependencyObject)">
             <summary>
             Gets the target.
             </summary>
@@ -138,6 +141,13 @@
             <summary>
             Represents a single action.
             </summary>
+        </member>
+        <member name="M:Caliburn.Actions.IAction.Matches(Caliburn.Actions.ActionMessage)">
+            <summary>
+            Determines whether this action matches the specified message.
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
         </member>
         <member name="M:Caliburn.Actions.IAction.HasTriggerEffects(System.Object,Caliburn.Actions.ActionMessage,Caliburn.RoutedUIMessaging.IInteractionNode)">
             <summary>
@@ -163,7 +173,7 @@
         </member>
         <member name="M:Caliburn.Actions.IAction.Execute(System.Object,Caliburn.Actions.ActionMessage,Caliburn.RoutedUIMessaging.IInteractionNode,System.Object)">
             <summary>
-            Executes the specified this action on the specified target.
+            Executes the specified action on the specified target.
             </summary>
             <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
@@ -175,12 +185,6 @@
             Gets the name.
             </summary>
             <value>The name.</value>
-        </member>
-        <member name="P:Caliburn.Actions.IAction.Parameters">
-            <summary>
-            Gets the parameters.
-            </summary>
-            <value>The parameters.</value>
         </member>
         <member name="E:Caliburn.Actions.IAction.Completed">
             <summary>
@@ -200,6 +204,13 @@
             <param name="method">The method.</param>
             <param name="methodBinder">The method binder.</param>
             <param name="filters">The filters.</param>
+        </member>
+        <member name="M:Caliburn.Actions.ActionBase.Matches(Caliburn.Actions.ActionMessage)">
+            <summary>
+            Determines whether this action matches the specified message.
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
         </member>
         <member name="M:Caliburn.Actions.ActionBase.HasTriggerEffects(System.Object,Caliburn.Actions.ActionMessage,Caliburn.RoutedUIMessaging.IInteractionNode)">
             <summary>
@@ -232,6 +243,15 @@
             <param name="handlingNode">The node.</param>
             <param name="context">The context.</param>
         </member>
+        <member name="M:Caliburn.Actions.ActionBase.ApplyRescueOrFail(Caliburn.Actions.ActionMessage,Caliburn.RoutedUIMessaging.IInteractionNode,System.Object,System.Exception)">
+            <summary>
+            Applies the rescue or fails.
+            </summary>
+            <param name="actionMessage">The action message.</param>
+            <param name="handlingNode">The handling node.</param>
+            <param name="target">The target.</param>
+            <param name="ex">The exception.</param>
+        </member>
         <member name="M:Caliburn.Actions.ActionBase.DoExecute(System.Object,Caliburn.Actions.ActionMessage,Caliburn.RoutedUIMessaging.IInteractionNode,System.Object[])">
             <summary>
             Executes the core logic, specific to the action type.
@@ -262,12 +282,6 @@
             Gets the filters.
             </summary>
             <value>The filters.</value>
-        </member>
-        <member name="P:Caliburn.Actions.ActionBase.Parameters">
-            <summary>
-            Gets the parameters.
-            </summary>
-            <value>The parameters.</value>
         </member>
         <member name="T:Caliburn.Actions.ActionConfiguration">
             <summary>
@@ -339,20 +353,20 @@
             Hosts instances of <see cref="T:Caliburn.Actions.IAction"/> and related metadata.
             </summary>
         </member>
-        <member name="M:Caliburn.Actions.IActionHost.HasAction(System.String)">
+        <member name="M:Caliburn.Actions.IActionHost.HasAction(Caliburn.Actions.ActionMessage)">
             <summary>
             Determines whether the host supports the specified action.
             </summary>
-            <param name="actionName">Name of the action.</param>
+            <param name="message">The action message.</param>
             <returns>
             	<c>true</c> if supported; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Caliburn.Actions.IActionHost.GetAction(System.String)">
+        <member name="M:Caliburn.Actions.IActionHost.GetAction(Caliburn.Actions.ActionMessage)">
             <summary>
             Gets the action.
             </summary>
-            <param name="name">The name.</param>
+            <param name="message">The action message.</param>
             <returns></returns>
         </member>
         <member name="M:Caliburn.Actions.IActionHost.GetFilterManager(Caliburn.Core.Invocation.IMethod)">
@@ -382,20 +396,20 @@
             <param name="factory">The factory.</param>
             <param name="serviceLocator">The container</param>
         </member>
-        <member name="M:Caliburn.Actions.ActionHost.HasAction(System.String)">
+        <member name="M:Caliburn.Actions.ActionHost.HasAction(Caliburn.Actions.ActionMessage)">
             <summary>
             Determines whether the host supports the specified action.
             </summary>
-            <param name="actionName">Name of the action.</param>
+            <param name="message">The action message.</param>
             <returns>
             	<c>true</c> if supported; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Caliburn.Actions.ActionHost.GetAction(System.String)">
+        <member name="M:Caliburn.Actions.ActionHost.GetAction(Caliburn.Actions.ActionMessage)">
             <summary>
             Gets the action.
             </summary>
-            <param name="name">The name.</param>
+            <param name="message">The action message.</param>
             <returns></returns>
         </member>
         <member name="M:Caliburn.Actions.ActionHost.GetFilterManager(Caliburn.Core.Invocation.IMethod)">
@@ -536,15 +550,6 @@
             Initializes this handler on the specified node.
             </summary>
             <param name="node">The node.</param>
-        </member>
-        <member name="M:Caliburn.Actions.ActionMessageHandler.HasAction(System.String)">
-            <summary>
-            Determines whether the specified action is handled by this instance.
-            </summary>
-            <param name="actionName">Name of the action.</param>
-            <returns>
-            	<c>true</c> if the specified action name has action; otherwise, <c>false</c>.
-            </returns>
         </member>
         <member name="M:Caliburn.Actions.ActionMessageHandler.Unwrap">
             <summary>
@@ -789,12 +794,6 @@
             Gets the filters.
             </summary>
             <value>The filters.</value>
-        </member>
-        <member name="P:Caliburn.Actions.OverloadedAction.Parameters">
-            <summary>
-            Gets the parameters.
-            </summary>
-            <value>The parameters.</value>
         </member>
         <member name="T:Caliburn.Actions.SynchronousAction">
             <summary>

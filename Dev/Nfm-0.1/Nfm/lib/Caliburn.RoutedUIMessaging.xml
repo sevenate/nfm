@@ -108,7 +108,7 @@
             </summary>
             <value>The instance aware filters.</value>
         </member>
-        <member name="P:Caliburn.RoutedUIMessaging.Filters.IFilterManager.Rescue">
+        <member name="P:Caliburn.RoutedUIMessaging.Filters.IFilterManager.Rescues">
             <summary>
             Gets a filter that performs a resuce.
             </summary>
@@ -122,7 +122,7 @@
             <param name="metadataContainer">The metadata container.</param>
             <param name="serviceLocator">The serviceLocator.</param>
         </member>
-        <member name="M:Caliburn.RoutedUIMessaging.Filters.FilterManager.#ctor(System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IPreExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IPreExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IPostExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IInstanceAwareFilter},Caliburn.RoutedUIMessaging.Filters.IRescueFilter)">
+        <member name="M:Caliburn.RoutedUIMessaging.Filters.FilterManager.#ctor(System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IPreExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IPreExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IPostExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IInstanceAwareFilter},System.Collections.Generic.IEnumerable{Caliburn.RoutedUIMessaging.Filters.IRescueFilter})">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.RoutedUIMessaging.Filters.FilterManager"/> class.
             </summary>
@@ -130,7 +130,7 @@
             <param name="triggerEffects">The trigger effects.</param>
             <param name="postExecute">The post execute.</param>
             <param name="instanceAwareFilters">The instance aware.</param>
-            <param name="rescue">The rescue.</param>
+            <param name="rescues">The rescues</param>
         </member>
         <member name="M:Caliburn.RoutedUIMessaging.Filters.FilterManager.Combine(Caliburn.RoutedUIMessaging.Filters.IFilterManager)">
             <summary>
@@ -171,7 +171,7 @@
             </summary>
             <value>The instance aware filters.</value>
         </member>
-        <member name="P:Caliburn.RoutedUIMessaging.Filters.FilterManager.Rescue">
+        <member name="P:Caliburn.RoutedUIMessaging.Filters.FilterManager.Rescues">
             <summary>
             Gets a filter that performs a resuce.
             </summary>
@@ -241,6 +241,7 @@
             <param name="exception">The exception.</param>
             <param name="sourceNode">The source node.</param>
             <param name="handlingNode">The handling node.</param>
+            <returns>true if the exception was handled, false otherwise</returns>
         </member>
         <member name="T:Caliburn.RoutedUIMessaging.Parsers.EventTriggerParser">
             <summary>
@@ -568,21 +569,6 @@
             </summary>
             <param name="isAvailable">if set to <c>true</c> [is available].</param>
         </member>
-        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.System#Windows#Input#ICommand#Execute(System.Object)">
-            <summary>
-            Defines the method to be called when the command is invoked.
-            </summary>
-            <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
-        </member>
-        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.System#Windows#Input#ICommand#CanExecute(System.Object)">
-            <summary>
-            Defines the method that determines whether the command can execute in its current state.
-            </summary>
-            <returns>
-            true if this command can be executed; otherwise, false.
-            </returns>
-            <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
-        </member>
         <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.CreateInstanceCore">
             <summary>
             When implemented in a derived class, creates a new instance of the <see cref="T:System.Windows.Freezable"/> derived class.
@@ -607,7 +593,81 @@
             </summary>
             <value>The mouse action.</value>
         </member>
-        <member name="E:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.System#Windows#Input#ICommand#CanExecuteChanged">
+        <member name="T:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand">
+            <summary>
+            Used to attach gestures.
+            </summary>
+        </member>
+        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.#ctor(System.Windows.Input.InputGesture)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand"/> class.
+            </summary>
+            <param name="gesture">The gesture.</param>
+        </member>
+        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.</param>
+            <returns>
+            true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+            </returns>
+            <exception cref="T:System.NullReferenceException">
+            The <paramref name="obj"/> parameter is null.
+            </exception>
+        </member>
+        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.GetHashCode">
+            <summary>
+            Serves as a hash function for a particular type.
+            </summary>
+            <returns>
+            A hash code for the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.op_Equality(Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand,Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.op_Inequality(Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand,Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.AddTrigger(Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger)">
+            <summary>
+            Adds the trigger.
+            </summary>
+            <param name="trigger">The trigger.</param>
+        </member>
+        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.Execute(System.Object)">
+            <summary>
+            Defines the method to be called when the command is invoked.
+            </summary>
+            <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+        </member>
+        <member name="M:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.CanExecute(System.Object)">
+            <summary>
+            Defines the method that determines whether the command can execute in its current state.
+            </summary>
+            <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+            <returns>
+            true if this command can be executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.Gesture">
+            <summary>
+            Gets the gesture.
+            </summary>
+            <value>The gesture.</value>
+        </member>
+        <member name="E:Caliburn.RoutedUIMessaging.Triggers.GestureMessageTrigger.GestureCommand.System#Windows#Input#ICommand#CanExecuteChanged">
             <summary>
             Occurs when changes occur that affect whether or not the command should execute.
             </summary>
