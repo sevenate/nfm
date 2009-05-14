@@ -92,6 +92,23 @@ namespace Nfm.Core.Configuration
 				}
 			}
 
+			// Make sure that there will be three panels even if the system have one or two logical drives
+			switch (viewModels.Count)
+			{
+				case 0:
+					throw new Exception("No one logical drives has been found in the system.");
+
+				case 1:
+					viewModels.Add((IViewModel)viewModels[0].Clone());
+					viewModels.Add((IViewModel)viewModels[0].Clone());
+					break;
+
+				case 2:
+					viewModels.Add((IViewModel)viewModels[1].Clone());
+					break;
+			}
+
+
 			StackContainer drivesStackContainer = GenerateStackContainer(viewModels, "Logical Drives", Orientation.Horizontal, true);
 
 			viewModels.Clear();
@@ -149,9 +166,9 @@ namespace Nfm.Core.Configuration
 			foreach (IViewModel viewModel in viewModels)
 			{
 				var panel = new PanelBase
-				            {
-				            	PanelContent = (IPanelContent) viewModel.Clone()
-				            };
+							{
+								PanelContent = (IPanelContent)viewModel.Clone()
+							};
 
 				panels.Add(panel);
 			}
@@ -162,16 +179,16 @@ namespace Nfm.Core.Configuration
 		private static TabContainer GenerateTabContainer(IList<IPanel> panels, object header, int selectedIndex)
 		{
 			var container = new TabContainer
-			                {
-			                	Header = header,
-			                };
+							{
+								Header = header,
+							};
 
 			for (int i = 0; i < panels.Count; i++)
 			{
-				var panel = (IPanel) panels[i].Clone();
+				var panel = (IPanel)panels[i].Clone();
 				panel.IsSelected = i == selectedIndex
-				                   	? true
-				                   	: false;
+									? true
+									: false;
 
 				container.Childs.Add(panel);
 			}
@@ -187,9 +204,9 @@ namespace Nfm.Core.Configuration
 			foreach (IViewModel viewModel in viewModels)
 			{
 				var panel = new PanelBase
-				            {
-				            	PanelContent = (IPanelContent) viewModel.Clone(),
-				            };
+							{
+								PanelContent = (IPanelContent)viewModel.Clone(),
+							};
 
 				panels.Add(panel);
 			}
@@ -201,14 +218,14 @@ namespace Nfm.Core.Configuration
 			IEnumerable<IPanel> panels, object header, Orientation orientation, bool wrapUpEachPanelInTabContainer)
 		{
 			var stackContainer = new StackContainer
-			                     {
-			                     	Header = header,
-			                     	Orientation = orientation
-			                     };
+								 {
+									 Header = header,
+									 Orientation = orientation
+								 };
 
 			foreach (IPanel panel in panels)
 			{
-				var newPanel = (IPanel) panel.Clone();
+				var newPanel = (IPanel)panel.Clone();
 
 				if (wrapUpEachPanelInTabContainer)
 				{
@@ -267,23 +284,23 @@ namespace Nfm.Core.Configuration
 			music.Refresh();
 
 			var musicPanel = new PanelBase
-			                 {
-			                 	PanelContent = (IPanelContent) music,
-			                 	IsSelected = true
-			                 };
+							 {
+								 PanelContent = (IPanelContent)music,
+								 IsSelected = true
+							 };
 
 			IViewModel driveD = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\C:\");
 			driveD.Refresh();
 
 			var driveDPanel = new PanelBase
-			                  {
-			                  	PanelContent = (IPanelContent) driveD
-			                  };
+							  {
+								  PanelContent = (IPanelContent)driveD
+							  };
 
 			var workLeftTabContainer = new TabContainer
-			                           {
-			                           	Header = "Left Tab Container"
-			                           };
+									   {
+										   Header = "Left Tab Container"
+									   };
 			workLeftTabContainer.Childs.Add(driveDPanel);
 			workLeftTabContainer.Childs.Add(musicPanel);
 			return workLeftTabContainer;
@@ -299,14 +316,14 @@ namespace Nfm.Core.Configuration
 			workMiddle.Refresh();
 
 			var workMiddlePanel = new PanelBase
-			                      {
-			                      	PanelContent = (IPanelContent) workMiddle
-			                      };
+								  {
+									  PanelContent = (IPanelContent)workMiddle
+								  };
 
 			var workMiddleTabContainer = new TabContainer
-			                             {
-			                             	Header = "Middle Tab Container"
-			                             };
+										 {
+											 Header = "Middle Tab Container"
+										 };
 			workMiddleTabContainer.Childs.Add(workMiddlePanel);
 			return workMiddleTabContainer;
 		}
@@ -321,35 +338,35 @@ namespace Nfm.Core.Configuration
 			workRight1.Refresh();
 
 			var workRightPanel1 = new PanelBase
-			                      {
-			                      	PanelContent = (IPanelContent) workRight1
-			                      };
+								  {
+									  PanelContent = (IPanelContent)workRight1
+								  };
 
 			IViewModel workRight2 = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\");
 			workRight2.Refresh();
 
 			var workRightPanel2 = new PanelBase
-			                      {
-			                      	PanelContent = (IPanelContent) workRight2
-			                      };
+								  {
+									  PanelContent = (IPanelContent)workRight2
+								  };
 
 			var workRightPanel1TabContainer = new TabContainer
-			                                  {
-			                                  	Header = "Work Right Top Tab Container"
-			                                  };
+											  {
+												  Header = "Work Right Top Tab Container"
+											  };
 			workRightPanel1TabContainer.Childs.Add(workRightPanel1);
 
 			var workRightPanel2TabContainer = new TabContainer
-			                                  {
-			                                  	Header = "Work Right Bottom Tab Container"
-			                                  };
+											  {
+												  Header = "Work Right Bottom Tab Container"
+											  };
 			workRightPanel2TabContainer.Childs.Add(workRightPanel2);
 
 			var workRightStackContainer = new StackContainer
-			                              {
-			                              	Header = "Right Stack Container",
-			                              	Orientation = Orientation.Vertical
-			                              };
+										  {
+											  Header = "Right Stack Container",
+											  Orientation = Orientation.Vertical
+										  };
 			//			workRightStackContainer.Childs.Add(workRightPanel1);
 			//			workRightStackContainer.Childs.Add(workRightPanel2);
 			workRightStackContainer.Childs.Add(workRightPanel1TabContainer);
@@ -368,9 +385,9 @@ namespace Nfm.Core.Configuration
 			IPanel workLeftTabContainer, IPanel workMiddleTabContainer, IPanel workRightStackContainer)
 		{
 			var workStackContainer = new StackContainer
-			                         {
-			                         	Header = "Work Stack Container"
-			                         };
+									 {
+										 Header = "Work Stack Container"
+									 };
 			workStackContainer.Childs.Add(workLeftTabContainer);
 			//			workStackContainer.Childs.Add(workMiddlePanel);
 			workStackContainer.Childs.Add(workMiddleTabContainer);
@@ -389,7 +406,7 @@ namespace Nfm.Core.Configuration
 
 			if (enter is IViewModelWithChilds)
 			{
-				var enterWithChilds = (IViewModelWithChilds) enter;
+				var enterWithChilds = (IViewModelWithChilds)enter;
 
 				if (enterWithChilds.Childs.Count > 5)
 				{
@@ -402,9 +419,9 @@ namespace Nfm.Core.Configuration
 			}
 
 			return new PanelBase
-			       {
-			       	PanelContent = (IPanelContent) enter
-			       };
+				   {
+					   PanelContent = (IPanelContent)enter
+				   };
 		}
 
 		/// <summary>
@@ -417,23 +434,23 @@ namespace Nfm.Core.Configuration
 			topGames.Refresh();
 
 			var topGamesPanel = new PanelBase
-			                    {
-			                    	PanelContent = (IPanelContent) topGames
-			                    };
+								{
+									PanelContent = (IPanelContent)topGames
+								};
 
 			IViewModel topMusic = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Music");
 			topMusic.Refresh();
 
 			var topMusicPanel = new PanelBase
-			                    {
-			                    	PanelContent = (IPanelContent) topMusic,
-			                    	IsSelected = true
-			                    };
+								{
+									PanelContent = (IPanelContent)topMusic,
+									IsSelected = true
+								};
 
 			var enterTopTabContainer = new TabContainer
-			                           {
-			                           	Header = "Enter Container"
-			                           };
+									   {
+										   Header = "Enter Container"
+									   };
 			enterTopTabContainer.Childs.Add(topGamesPanel);
 			enterTopTabContainer.Childs.Add(topMusicPanel);
 			return enterTopTabContainer;
@@ -449,24 +466,24 @@ namespace Nfm.Core.Configuration
 			topDriveC.Refresh();
 
 			var topDriveCpanel = new PanelBase
-			                     {
-			                     	PanelContent = (IPanelContent) topDriveC
-			                     };
+								 {
+									 PanelContent = (IPanelContent)topDriveC
+								 };
 
 			IViewModel topDriveD = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\");
 			topDriveD.Refresh();
 
 			var topDriveDpanel = new PanelBase
-			                     {
-			                     	PanelContent = (IPanelContent) topDriveD,
-			                     	IsSelected = true
-			                     };
+								 {
+									 PanelContent = (IPanelContent)topDriveD,
+									 IsSelected = true
+								 };
 
 			var subTabContainer2 = new TabContainer
-			                       {
-			                       	Header = "Disks Container",
-			                       	IsSelected = true
-			                       };
+								   {
+									   Header = "Disks Container",
+									   IsSelected = true
+								   };
 
 			subTabContainer2.Childs.Add(topDriveCpanel);
 			subTabContainer2.Childs.Add(topDriveDpanel);
@@ -482,9 +499,9 @@ namespace Nfm.Core.Configuration
 		private static TabContainer GetTopTabContainer(IPanel subTabContainer1, IPanel subTabContainer2)
 		{
 			var topTabContainer = new TabContainer
-			                      {
-			                      	Header = "Top Tab Container",
-			                      };
+								  {
+									  Header = "Top Tab Container",
+								  };
 			topTabContainer.Childs.Add(subTabContainer1);
 			topTabContainer.Childs.Add(subTabContainer2);
 			return topTabContainer;
@@ -500,9 +517,9 @@ namespace Nfm.Core.Configuration
 		private static TabContainer GetMainTabContainer(IPanel firstPanel, IPanel secondPanel, IPanel thirdPanel)
 		{
 			var mainTabContainer = new TabContainer
-			                       {
-			                       	Header = "Main Window",
-			                       };
+								   {
+									   Header = "Main Window",
+								   };
 			mainTabContainer.Childs.Add(firstPanel);
 			mainTabContainer.Childs.Add(secondPanel);
 			mainTabContainer.Childs.Add(thirdPanel);
