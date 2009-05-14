@@ -11,6 +11,8 @@
 // </editor>
 // <summary>General configuration settings manager.</summary>
 
+using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using Nfm.Core.Models;
 using Nfm.Core.Models.FileSystem;
@@ -24,13 +26,44 @@ namespace Nfm.Core.Configuration
 	/// </summary>
 	public static class ConfigManager
 	{
+		#region .Ctors
+
+		/// <summary>
+		/// Initializes static members of the <see cref="ConfigManager"/> class.
+		/// </summary>
+		static ConfigManager()
+		{
+			LoadModules();
+		}
+
+		#endregion
+
+		#region Initialization
+
+		/// <summary>
+		/// Load root node modules.
+		/// </summary>
+		private static void LoadModules()
+		{
+			var firstModule = new LocalFileSystemModule();
+			RootNode.Inst.RegisterNode(firstModule, new LocalFileSystemModuleVM(firstModule));
+
+			// Todo: Check existing modules files and check configuration for enabled modules.
+		}
+
+		#endregion
+
+		#region  Layout Generation
+
 		/// <summary>
 		/// Gets panels layout.
 		/// </summary>
 		/// <returns>Panels layout.</returns>
 		public static IPanel GetLayout()
 		{
-			LoadModules();
+#if DEBUG
+			return GetDebugLayout();
+#endif
 			return GetDefaultLayout();
 		}
 
@@ -39,6 +72,171 @@ namespace Nfm.Core.Configuration
 		/// </summary>
 		/// <returns>Default panels layout.</returns>
 		private static IPanel GetDefaultLayout()
+		{
+			var viewModels = new List<IViewModel>();
+			var panels = new List<IPanel>();
+
+			string[] logicalDrives = Environment.GetLogicalDrives();
+
+			for (int i = 0; i < logicalDrives.Length; i++)
+			{
+				string logicalDrive = logicalDrives[i];
+				IViewModel node = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\" + logicalDrive);
+				node.Refresh();
+				viewModels.Add(node);
+
+				if (i == 2)
+				{
+					// 3 drives enough for 3 panels in horizontal oriented stack container
+					break;
+				}
+			}
+
+			StackContainer drivesStackContainer = GenerateStackContainer(viewModels, "Logical Drives", Orientation.Horizontal, true);
+
+			viewModels.Clear();
+
+			IViewModel personal =
+				RootNode.Inst.GetNode(
+					@"\{78888951-2516-4e63-AC97-90E9D54351D8}\" + Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+			personal.Refresh();
+
+			IViewModel desktop =
+				RootNode.Inst.GetNode(
+					@"\{78888951-2516-4e63-AC97-90E9D54351D8}\" + Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+			desktop.Refresh();
+
+			IViewModel myMusic =
+				RootNode.Inst.GetNode(
+					@"\{78888951-2516-4e63-AC97-90E9D54351D8}\" + Environment.GetFolderPath(Environment.SpecialFolder.MyMusic));
+			myMusic.Refresh();
+
+			IViewModel myPictures =
+				RootNode.Inst.GetNode(
+					@"\{78888951-2516-4e63-AC97-90E9D54351D8}\" + Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
+			myPictures.Refresh();
+
+
+			viewModels.Add(personal);
+			viewModels.Add(desktop);
+
+			TabContainer dataTabContainer = GenerateTabContainer(viewModels, "Personal Data", 0);
+
+			viewModels.Clear();
+
+			viewModels.Add(myMusic);
+			viewModels.Add(myPictures);
+
+			StackContainer mediaStackContainer = GenerateStackContainer(viewModels, "Media Content", Orientation.Vertical, true);
+
+			panels.Add(dataTabContainer);
+			panels.Add(mediaStackContainer);
+
+			StackContainer secondTabStackContainer = GenerateStackContainer(panels, "Special Folders", Orientation.Horizontal, false);
+
+			panels.Clear();
+
+			panels.Add(drivesStackContainer);
+			panels.Add(secondTabStackContainer);
+
+			return GenerateTabContainer(panels, "Main Window", 0);
+		}
+
+		private static TabContainer GenerateTabContainer(IEnumerable<IViewModel> viewModels, string header, int selectedIndex)
+		{
+			var panels = new List<IPanel>();
+
+			foreach (IViewModel viewModel in viewModels)
+			{
+				var panel = new PanelBase
+				            {
+				            	PanelContent = (IPanelContent) viewModel.Clone()
+				            };
+
+				panels.Add(panel);
+			}
+
+			return GenerateTabContainer(panels, header, selectedIndex);
+		}
+
+		private static TabContainer GenerateTabContainer(IList<IPanel> panels, object header, int selectedIndex)
+		{
+			var container = new TabContainer
+			                {
+			                	Header = header,
+			                };
+
+			for (int i = 0; i < panels.Count; i++)
+			{
+				var panel = (IPanel) panels[i].Clone();
+				panel.IsSelected = i == selectedIndex
+				                   	? true
+				                   	: false;
+
+				container.Childs.Add(panel);
+			}
+
+			return container;
+		}
+
+		private static StackContainer GenerateStackContainer(
+			IEnumerable<IViewModel> viewModels, object header, Orientation orientation, bool wrapUpEachViewModelInTabContainer)
+		{
+			var panels = new List<IPanel>();
+
+			foreach (IViewModel viewModel in viewModels)
+			{
+				var panel = new PanelBase
+				            {
+				            	PanelContent = (IPanelContent) viewModel.Clone(),
+				            };
+
+				panels.Add(panel);
+			}
+
+			return GenerateStackContainer(panels, header, orientation, wrapUpEachViewModelInTabContainer);
+		}
+
+		private static StackContainer GenerateStackContainer(
+			IEnumerable<IPanel> panels, object header, Orientation orientation, bool wrapUpEachPanelInTabContainer)
+		{
+			var stackContainer = new StackContainer
+			                     {
+			                     	Header = header,
+			                     	Orientation = orientation
+			                     };
+
+			foreach (IPanel panel in panels)
+			{
+				var newPanel = (IPanel) panel.Clone();
+
+				if (wrapUpEachPanelInTabContainer)
+				{
+					newPanel.IsSelected = true;
+
+					var tabContainer = new TabContainer();
+					tabContainer.Childs.Add(newPanel);
+
+					stackContainer.Childs.Add(tabContainer);
+				}
+				else
+				{
+					stackContainer.Childs.Add(newPanel);
+				}
+			}
+
+			return stackContainer;
+		}
+
+		#endregion
+
+		#region Debug Layout
+
+		/// <summary>
+		/// Gets debug panels layout.
+		/// </summary>
+		/// <returns>Debug panels layout.</returns>
+		private static IPanel GetDebugLayout()
 		{
 			TabContainer workLeftTabContainer = GetWorkLeftTabContainer();
 			TabContainer workMiddleTabContainer = GetWorkMiddleTabContainer();
@@ -53,22 +251,11 @@ namespace Nfm.Core.Configuration
 			TabContainer subTabContainer2 = GetDisksTopTabSubContainer();
 			TabContainer topTabContainer = GetTopTabContainer(subTabContainer1, subTabContainer2);
 
-//			workStackContainer.IsSelected = true;
+			//			workStackContainer.IsSelected = true;
 			TabContainer mainTabContainer = GetMainTabContainer(enterPanel, workStackContainer, topTabContainer);
 
 			return mainTabContainer; //workLeftTabContainer
 		}
-
-		/// <summary>
-		/// Load root node modules.
-		/// </summary>
-		private static void LoadModules()
-		{
-			var firstModule = new LocalFileSystemModule();
-			RootNode.Inst.RegisterNode(firstModule, new LocalFileSystemModuleVM(firstModule));
-		}
-
-		#region Debug layout
 
 		/// <summary>
 		/// Get Work Left Tab Container.
@@ -80,10 +267,10 @@ namespace Nfm.Core.Configuration
 			music.Refresh();
 
 			var musicPanel = new PanelBase
-			                  {
-			                  	PanelContent = (IPanelContent) music,
-			                  	IsSelected = true
-			                  };
+			                 {
+			                 	PanelContent = (IPanelContent) music,
+			                 	IsSelected = true
+			                 };
 
 			IViewModel driveD = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\C:\");
 			driveD.Refresh();
