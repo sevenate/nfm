@@ -85,7 +85,6 @@
     <Compile Include="Controls\KeyboardFocusManagerExtension.cs" />
     <Compile Include="Controls\HyperlinkUtility.cs" />
     <Compile Include="Controls\ListBoxExt.cs" />
-    <Compile Include="Controls\ShellContextMenu.cs" />
     <Compile Include="Controls\UniformStack.cs" />
     <Compile Include="Controls\UniformWrapPanel.cs" />
     <Compile Include="Controls\VirtualizingVerticalWrapPanel.cs" />
@@ -116,10 +115,11 @@
     <Compile Include="Modules\FileSystem\ViewModels\FileVM.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\FolderFullVM.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\FolderVM.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\Icons\FileToIconConverter.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\Icons\SysImageList.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\LocalFileSystemModuleFullVM.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\LocalFileSystemModuleVM.cs" />
+    <Compile Include="Modules\FileSystem\ViewModels\Unsafe\FileToIconConverter.cs" />
+    <Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
+    <Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
     <Compile Include="Resources\SharedResourceDictionary.cs" />
     <Compile Include="ViewModels\IViewModelWithChilds.cs" />
     <Compile Include="ViewModels\IDefaultModuleViewModel.cs" />
