@@ -53,7 +53,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ListBoxItem">
-					<Grid>
+					<Grid SnapsToDevicePixels="True">
 						<!-- TODO: Investigate memory consumption with WrapPanel as ListBox items panel -->
 <!--						<Grid.ColumnDefinitions>-->
 <!--							<ColumnDefinition SharedSizeGroup="ItemsSizeScope" />-->

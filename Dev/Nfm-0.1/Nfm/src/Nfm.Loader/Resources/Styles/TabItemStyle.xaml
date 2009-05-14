@@ -43,7 +43,8 @@
 							BorderBrush="{TemplateBinding BorderBrush}"
 							Background="{DynamicResource BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
-							CornerRadius="5">
+							CornerRadius="5"
+							SnapsToDevicePixels="True">
 						<DockPanel>
 							<Button x:Name="CloseButton"
 									HorizontalAlignment="Center"
