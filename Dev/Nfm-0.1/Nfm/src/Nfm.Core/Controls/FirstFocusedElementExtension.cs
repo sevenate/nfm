@@ -35,6 +35,15 @@ namespace Nfm.Core.Controls
 	/// </summary>
 	public class FirstFocusedElementExtension : MarkupExtension
 	{
+		#region Const
+
+		/// <summary>
+		/// Default focusable candidate filter.
+		/// </summary>
+		private Func<IInputElement, bool> defaultFilder = element => true;
+
+		#endregion
+
 		#region .Ctors
 
 		/// <summary>
@@ -59,11 +68,10 @@ namespace Nfm.Core.Controls
 		#region MarkupExtension Overrides
 
 		/// <summary>
-		/// This method locates the first focusable + visible element we can
-		/// change focus to.
+		/// This method locates the first focusable + visible element we can change focus to.
 		/// </summary>
-		/// <param name="serviceProvider">IServiceProvider from XAML</param>
-		/// <returns>Focusable Element or null</returns>
+		/// <param name="serviceProvider"><see cref="IServiceProvider"/> from XAML.</param>
+		/// <returns>Focusable Element or null.</returns>
 		public override object ProvideValue(IServiceProvider serviceProvider)
 		{
 			// Ignore if in design mode
@@ -81,6 +89,14 @@ namespace Nfm.Core.Controls
 			
 			if (pvt != null)
 			{
+				// Note: Important check for System.Windows.SharedDp,
+				// when using markup extension inside of ControlTemplates and DataTemplates.
+				// Details: http://social.msdn.microsoft.com/forums/en-US/wpf/thread/a9ead3d5-a4e4-4f9c-b507-b7a7d530c6a9/
+				if (!(pvt.TargetObject is DependencyObject))
+				{
+					return this;
+				}
+
 				var fe = pvt.TargetObject as FrameworkElement;
 				object targetProperty = pvt.TargetProperty;
 				
@@ -102,8 +118,9 @@ namespace Nfm.Core.Controls
 						                      	}
 
 						                      	// Look for the first focusable leaf child and set the property
-						                      	IInputElement ie = GetLeafFocusableChild(fe);
-						                      	if (targetProperty is DependencyProperty)
+												IInputElement ie = GetLeafFocusableChild(fe, defaultFilder);
+						                      	
+												  if (targetProperty is DependencyProperty)
 						                      	{
 						                      		// Specific case where we are setting focused element.
 						                      		// We really need to set this property onto the focus scope, 
@@ -137,7 +154,7 @@ namespace Nfm.Core.Controls
 					}
 					else
 					{
-						return GetLeafFocusableChild(fe);
+						return GetLeafFocusableChild(fe, defaultFilder);
 					}
 				}
 			}
@@ -154,16 +171,17 @@ namespace Nfm.Core.Controls
 		/// the visual tree until we hit a leaf node.
 		/// </summary>
 		/// <param name="fe">Focusable element.</param>
+		/// <param name="isSuitable">Custom element filter.</param>
 		/// <returns>Leaf focusable element.</returns>
-		private static IInputElement GetLeafFocusableChild(IInputElement fe)
+		private static IInputElement GetLeafFocusableChild(IInputElement fe, Func<IInputElement, bool> isSuitable)
 		{
-			IInputElement ie = GetFirstFocusableChild(fe);
+			IInputElement ie = GetFirstFocusableChild(fe, isSuitable);
 			IInputElement final = ie;
 			
 			while (final != null)
 			{
 				ie = final;
-				final = GetFirstFocusableChild(final);
+				final = GetFirstFocusableChild(final, isSuitable);
 			}
 
 			return ie;
@@ -173,8 +191,9 @@ namespace Nfm.Core.Controls
 		/// This searches the Visual Tree looking for a valid child which can have focus.
 		/// </summary>
 		/// <param name="fe">Focusable element.</param>
+		/// <param name="isSuitable">Custom element filter.</param>
 		/// <returns>First focusable element.</returns>
-		private static IInputElement GetFirstFocusableChild(IInputElement fe)
+		private static IInputElement GetFirstFocusableChild(IInputElement fe, Func<IInputElement, bool> isSuitable)
 		{
 			var dpo = fe as DependencyObject;
 			return dpo == null
@@ -182,7 +201,8 @@ namespace Nfm.Core.Controls
 			       	: (from vc in EnumerateVisualTree(dpo, c => !FocusManager.GetIsFocusScope(c))
 			       	   let iic = vc as IInputElement
 			       	   where iic != null && iic.Focusable && iic.IsEnabled &&
-			       	         (!(iic is FrameworkElement) || ((FrameworkElement) iic).IsVisible)
+			       	         (!(iic is FrameworkElement) || ((FrameworkElement) iic).IsVisible) &&
+			       	         isSuitable(iic)
 			       	   select iic).FirstOrDefault();
 		}
 

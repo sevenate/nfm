@@ -38,9 +38,28 @@ namespace Nfm.Core.ViewModels
 		#region Implementation of IViewModel
 
 		/// <summary>
+		/// Flag value indicating whether view model is selected.
+		/// </summary>
+		private bool isSelected;
+
+		/// <summary>
 		/// Gets or sets absolute path.
 		/// </summary>
 		public string AbsolutePath { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether view model is selected.
+		/// </summary>
+		public bool IsSelected
+		{
+			get { return isSelected; }
+			set
+			{
+				OnPropertyChanging("IsSelected");
+				isSelected = value;
+				OnPropertyChanged("IsSelected");
+			}
+		}
 
 		/// <summary>
 		/// Fetch data from corresponding file system element view model.
@@ -126,6 +145,7 @@ namespace Nfm.Core.ViewModels
 		public ParentNodeVM(IPanelContent parentContent)
 		{
 			ParentContent = parentContent;
+			AbsolutePath = string.Empty;
 		}
 
 		/// <summary>
@@ -135,6 +155,7 @@ namespace Nfm.Core.ViewModels
 		protected ParentNodeVM(ParentNodeVM another)
 		{
 			AbsolutePath = another.AbsolutePath;
+			isSelected = another.IsSelected;
 			ParentContent = (IPanelContent) another.ParentContent.Clone();
 		}
 

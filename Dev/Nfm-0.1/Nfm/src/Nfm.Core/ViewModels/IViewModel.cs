@@ -26,6 +26,11 @@ namespace Nfm.Core.ViewModels
 		string AbsolutePath { get; set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether view model is selected.
+		/// </summary>
+		bool IsSelected { get; set; }
+
+		/// <summary>
 		/// Fetch data from corresponding file system element view model.
 		/// </summary>
 		void Refresh();

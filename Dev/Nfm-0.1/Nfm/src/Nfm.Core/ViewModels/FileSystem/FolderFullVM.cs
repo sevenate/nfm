@@ -25,8 +25,66 @@ namespace Nfm.Core.ViewModels.FileSystem
 	/// Folder content view model.
 	/// </summary>
 	[DebuggerDisplay("{Name} ({Childs.Count})")]
-	public class FolderFullVM : FolderVM, IPanelContent
+	public class FolderFullVM : FolderVM, IViewModelWithChilds, IPanelContent
 	{
+		/// <summary>
+		/// Child nodes view models.
+		/// </summary>
+		private ObservableCollection<IViewModel> childs = new ObservableCollection<IViewModel>();
+
+		/// <summary>
+		/// Selected child nodes view models.
+		/// </summary>
+		private readonly ObservableCollection<IViewModel> selectedChilds = new ObservableCollection<IViewModel>();
+
+		/// <summary>
+		/// Current child item with keyboard focus on.
+		/// </summary>
+		private int currentItemIndex = -1;
+
+		#region .Ctors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FolderFullVM" /> class.
+		/// </summary>
+		/// <param name="model">Local file system data model.</param>
+		public FolderFullVM(LocalFileSystemModule model)
+			: base(model)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FolderFullVM"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="FolderFullVM"/> instance to copy data from.</param>
+		protected FolderFullVM(FolderFullVM another)
+			: base(another)
+		{
+			// Deep copy all childs
+			var childsCopy = new ObservableCollection<IViewModel>();
+
+			foreach (IViewModel child in another.childs)
+			{
+				childsCopy.Add((IViewModel) child.Clone());
+			}
+
+			childs = childsCopy;
+
+			// Deep copy all selected childs
+			var selectedChildsCopy = new ObservableCollection<IViewModel>();
+
+			foreach (IViewModel child in another.selectedChilds)
+			{
+				selectedChildsCopy.Add((IViewModel)child.Clone());
+			}
+
+			selectedChilds = selectedChildsCopy;
+
+			currentItemIndex = another.CurrentItemIndex;
+		}
+
+		#endregion
+
 		#region Implementation of ICloneable
 
 		/// <summary>
@@ -57,7 +115,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 				         {
 				         	AbsolutePath = folder.FullName
 				         };
-				
+
 				vm.Refresh();
 				list.Add(vm);
 			}
@@ -74,7 +132,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 			}
 
 			// Sorting by file extenshion and, then, by file name.
-			// TODO: make it configurable
+			// TODO: make it configurable: sorting childs
 			IOrderedEnumerable<IViewModel> sortedList =
 				list.OrderBy(vm => vm is FileVM)
 					.ThenBy(
@@ -91,28 +149,13 @@ namespace Nfm.Core.ViewModels.FileSystem
 			// and make it separate in UI and code, but navigatable like always.
 			IEnumerable<IViewModel> resultList = Enumerable.Empty<IViewModel>();
 
-			IViewModel fullVM;
+			var fullVM = NavigateOut();
+			var parent = new ParentNodeVM(fullVM)
+			             {
+							 AbsolutePath = ((IViewModel)fullVM).AbsolutePath
+			             };
 
-			if (Folder.Parent != null && Folder.Parent.Parent != null)
-			{
-				fullVM = new FolderFullVM(Model)
-				{
-					AbsolutePath = Folder.Parent.FullName
-				};
-				fullVM.Refresh();
-
-			}
-			else
-			{
-				fullVM = new DriveFullVM(Model)
-				{
-					AbsolutePath = Folder.FullName
-				};
-				fullVM.Refresh();
-			}
-
-			var parent = new ParentNodeVM((IPanelContent)fullVM);
-			resultList = Enumerable.Repeat((IViewModel)parent, 1);
+			resultList = Enumerable.Repeat((IViewModel) parent, 1);
 
 			resultList = resultList.Concat(sortedList);
 			// -- TODOEND --
@@ -121,6 +164,13 @@ namespace Nfm.Core.ViewModels.FileSystem
 			childs.Clear();
 			childs = new ObservableCollection<IViewModel>(resultList);
 			OnPropertyChanged("Childs");
+
+			if (CurrentItemIndex == -1 && childs.Count > 0)
+			{
+				OnPropertyChanging("CurrentItemIndex");
+				CurrentItemIndex = 0;
+				OnPropertyChanged("CurrentItemIndex");
+			}
 		}
 
 		#region Execute
@@ -190,6 +240,17 @@ namespace Nfm.Core.ViewModels.FileSystem
 				             	AbsolutePath = Folder.Parent.FullName
 				             };
 				fullVM.Refresh();
+
+				for (int i = 0; i < fullVM.Childs.Count; i++)
+				{
+					var model = fullVM.Childs[i];
+
+					if (model.AbsolutePath.Equals(AbsolutePath, StringComparison.InvariantCultureIgnoreCase))
+					{
+						fullVM.CurrentItemIndex = i;
+					}
+				}
+
 				return fullVM;
 			}
 			else
@@ -199,11 +260,58 @@ namespace Nfm.Core.ViewModels.FileSystem
 				             	AbsolutePath = Folder.FullName
 				             };
 				fullVM.Refresh();
+
+				for (int i = 0; i < fullVM.Childs.Count; i++)
+				{
+					var model = fullVM.Childs[i];
+
+					if (model.AbsolutePath.StartsWith(AbsolutePath, StringComparison.InvariantCultureIgnoreCase))
+					{
+						fullVM.CurrentItemIndex = i;
+					}
+				}
+
 				return fullVM;
 			}
 		}
 
 		#endregion
+
+		#endregion
+
+		#region Implementation of IViewModelWithChilds
+
+		/// <summary>
+		/// Gets childs view models.
+		/// </summary>
+		public ObservableCollection<IViewModel> Childs
+		{
+			[DebuggerStepThrough]
+			get { return childs; }
+		}
+
+		/// <summary>
+		/// Gets selected childs view models.
+		/// </summary>
+		public ObservableCollection<IViewModel> SelectedItems
+		{
+			[DebuggerStepThrough]
+			get { return selectedChilds; }
+		}
+
+		/// <summary>
+		/// Gets or sets current child item index.
+		/// </summary>
+		public int CurrentItemIndex
+		{
+			get { return currentItemIndex; }
+			set
+			{
+				currentItemIndex = 0 <= value && value < childs.Count
+				                   	? value
+				                   	: -1;
+			}
+		}
 
 		#endregion
 
@@ -221,55 +329,6 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// Gets or sets parent host panel.
 		/// </summary>
 		public IPanelContentHost Host { get; set; }
-
-		#endregion
-
-		/// <summary>
-		/// Child nodes view models.
-		/// </summary>
-		private ObservableCollection<IViewModel> childs = new ObservableCollection<IViewModel>();
-
-		#region .Ctors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FolderFullVM" /> class.
-		/// </summary>
-		/// <param name="model">Local file system data model.</param>
-		public FolderFullVM(LocalFileSystemModule model)
-			: base(model)
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FolderFullVM"/> class.
-		/// </summary>
-		/// <param name="another">Another <see cref="FolderFullVM"/> instance to copy data from.</param>
-		protected FolderFullVM(FolderFullVM another)
-			: base(another)
-		{
-			// Deep copy all childs
-			var childsCopy = new ObservableCollection<IViewModel>();
-
-			foreach (IViewModel child in another.childs)
-			{
-				childsCopy.Add((IViewModel) child.Clone());
-			}
-
-			childs = childsCopy;
-		}
-
-		#endregion
-
-		#region Binding Properties
-
-		/// <summary>
-		/// Gets childs view models.
-		/// </summary>
-		public ObservableCollection<IViewModel> Childs
-		{
-			[DebuggerStepThrough]
-			get { return childs; }
-		}
 
 		#endregion
 	}

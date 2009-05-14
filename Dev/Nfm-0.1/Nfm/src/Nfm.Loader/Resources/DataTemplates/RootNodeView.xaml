@@ -1,44 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ViewModels="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core"
-    xmlns:Commands="clr-namespace:Nfm.Core.Commands;assembly=Nfm.Core">
+    xmlns:ViewModels="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core">
     
 	<DataTemplate DataType="{x:Type ViewModels:RootNodeVM}">
-		<ListBox ItemsSource="{Binding Path=Childs}"
+		<ListBox ItemsSource="{Binding Path=Childs, IsAsync=True}"
 				 Style="{StaticResource ListBoxStyle}"
-				 ItemContainerStyle="{StaticResource ListBoxItemStyle}">
-			<Message.Triggers>
-				<RoutedMessageTriggerCollection>
-					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKey}}"
-										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKeyModifiers}}">
-						<GestureMessageTrigger.Message>
-							<CommandMessage Command="{Resolve Key=RefreshChildNodes}">
-								<Parameter Value="{Binding Mode=OneWay}" />
-							</CommandMessage>
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKey}}"
-										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKeyModifiers}}">
-						<GestureMessageTrigger.Message>
-							<CommandMessage Command="{Resolve Key=NavigateToParentNode}">
-								<Parameter Value="{Binding Mode=OneWay}" />
-							</CommandMessage>
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-<!--					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RequestCloseHotKey}}"-->
-<!--										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RequestCloseHotKeyModifiers}}">-->
-<!--						<CommandMessage Command="{Resolve Key=ClosePanel}">-->
-<!--							<Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />-->
-<!--						</CommandMessage>-->
-<!--					</GestureMessageTrigger>-->
-<!--					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKey}}"-->
-<!--										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKeyModifiers}}">-->
-<!--						<CommandMessage Command="{Resolve Key=DublicateSelectedPanel}">-->
-<!--							<Parameter Value="{Binding Mode=OneWay}" />-->
-<!--						</CommandMessage>-->
-<!--					</GestureMessageTrigger>-->
-				</RoutedMessageTriggerCollection>
-			</Message.Triggers>
+				 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+				 ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
+				 ElementUtility.Dummy="{KeyboardFocusManager}">
 		</ListBox>
 	</DataTemplate>
 	

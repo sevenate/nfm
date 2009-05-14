@@ -22,8 +22,56 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Root node view model.
 	/// </summary>
-	public sealed class RootNodeVM : NotificationBase, IViewModel, IPanelContent
+	public sealed class RootNodeVM : NotificationBase, IViewModelWithChilds, IPanelContent
 	{
+		/// <summary>
+		/// Child nodes view models.
+		/// </summary>
+		private ObservableCollection<IViewModel> childs = new ObservableCollection<IViewModel>();
+
+		/// <summary>
+		/// Selected child nodes view models.
+		/// </summary>
+		private readonly ObservableCollection<IViewModel> selectedChilds = new ObservableCollection<IViewModel>();
+
+		/// <summary>
+		/// Current child item with keyboard focus on.
+		/// </summary>
+		private int currentItemIndex = -1;
+
+		#region .Ctors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RootNodeVM" /> class.
+		/// </summary>
+		/// <param name="model">Local file system data model.</param>
+		public RootNodeVM(RootNode model)
+		{
+			Model = model;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RootNodeVM"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="RootNodeVM"/> instance to copy data from.</param>
+		private RootNodeVM(RootNodeVM another)
+		{
+			isSelected = another.IsSelected;
+			Model = another.Model;
+
+			// Deep copy all childs
+			var childsCopy = new ObservableCollection<IViewModel>();
+
+			foreach (IViewModel child in another.childs)
+			{
+				childsCopy.Add((IViewModel) child.Clone());
+			}
+
+			childs = childsCopy;
+		}
+
+		#endregion
+
 		#region Implementation of ICloneable
 
 		/// <summary>
@@ -37,24 +85,12 @@ namespace Nfm.Core.ViewModels
 
 		#endregion
 
-		#region Implementation of IPanelContent
-
-		/// <summary>
-		/// Gets panel header: string text or complex content.
-		/// </summary>
-		public object Header
-		{
-			get { return AbsolutePath; }
-		}
-
-		/// <summary>
-		/// Gets or sets parent host panel.
-		/// </summary>
-		public IPanelContentHost Host { get; set; }
-
-		#endregion
-
 		#region Implementation of IViewModel
+
+		/// <summary>
+		/// Flag value indicating whether view model is selected.
+		/// </summary>
+		private bool isSelected;
 
 		/// <summary>
 		/// Gets or sets absolute path.
@@ -63,6 +99,20 @@ namespace Nfm.Core.ViewModels
 		{
 			get { return Model.Key; }
 			set { throw new NotSupportedException("Absolute path is read only for root node."); }
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether view model is selected.
+		/// </summary>
+		public bool IsSelected
+		{
+			get { return isSelected; }
+			set
+			{
+				OnPropertyChanging("IsSelected");
+				isSelected = value;
+				OnPropertyChanged("IsSelected");
+			}
 		}
 
 		/// <summary>
@@ -83,6 +133,13 @@ namespace Nfm.Core.ViewModels
 			childs.Clear();
 			childs = new ObservableCollection<IViewModel>(list);
 			OnPropertyChanged("Childs");
+
+			if (CurrentItemIndex == -1 && childs.Count > 0)
+			{
+				OnPropertyChanging("CurrentItemIndex");
+				CurrentItemIndex = 0;
+				OnPropertyChanged("CurrentItemIndex");
+			}
 		}
 
 		#region Execute
@@ -152,53 +209,7 @@ namespace Nfm.Core.ViewModels
 
 		#endregion
 
-		/// <summary>
-		/// Child nodes view models.
-		/// </summary>
-		private ObservableCollection<IViewModel> childs = new ObservableCollection<IViewModel>();
-
-		#region .Ctors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="RootNodeVM" /> class.
-		/// </summary>
-		/// <param name="model">Local file system data model.</param>
-		public RootNodeVM(RootNode model)
-		{
-			Model = model;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="RootNodeVM"/> class.
-		/// </summary>
-		/// <param name="another">Another <see cref="RootNodeVM"/> instance to copy data from.</param>
-		private RootNodeVM(RootNodeVM another)
-		{
-			Model = another.Model;
-
-			// Deep copy all childs
-			var childsCopy = new ObservableCollection<IViewModel>();
-
-			foreach (IViewModel child in another.childs)
-			{
-				childsCopy.Add((IViewModel) child.Clone());
-			}
-
-			childs = childsCopy;
-		}
-
-		#endregion
-
-		#region Model Data
-
-		/// <summary>
-		/// Gets or sets corresponding node model.
-		/// </summary>
-		private RootNode Model { get; set; }
-
-		#endregion
-
-		#region Binding Properties
+		#region Implementation of IViewModelWithChilds
 
 		/// <summary>
 		/// Gets childs view models.
@@ -208,6 +219,55 @@ namespace Nfm.Core.ViewModels
 			[DebuggerStepThrough]
 			get { return childs; }
 		}
+
+		/// <summary>
+		/// Gets selected childs view models.
+		/// </summary>
+		public ObservableCollection<IViewModel> SelectedItems
+		{
+			[DebuggerStepThrough]
+			get { return selectedChilds; }
+		}
+
+		/// <summary>
+		/// Gets or sets current child item index.
+		/// </summary>
+		public int CurrentItemIndex
+		{
+			get { return currentItemIndex; }
+			set
+			{
+				currentItemIndex = 0 <= value && value < childs.Count
+									? value
+									: -1;
+			}
+		}
+
+		#endregion
+
+		#region Implementation of IPanelContent
+
+		/// <summary>
+		/// Gets panel header: string text or complex content.
+		/// </summary>
+		public object Header
+		{
+			get { return AbsolutePath; }
+		}
+
+		/// <summary>
+		/// Gets or sets parent host panel.
+		/// </summary>
+		public IPanelContentHost Host { get; set; }
+
+		#endregion
+
+		#region Model Data
+
+		/// <summary>
+		/// Gets or sets corresponding node model.
+		/// </summary>
+		private RootNode Model { get; set; }
 
 		#endregion
 	}

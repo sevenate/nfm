@@ -47,12 +47,14 @@ namespace Nfm.Core.Configuration
 				workLeftTabContainer, workMiddleTabContainer, workRightStackContainer);
 
 			PanelBase enterPanel = GetEnterPanel();
+			enterPanel.IsSelected = true;
 
 			TabContainer subTabContainer1 = GetEnterTopTabContainer();
 			TabContainer subTabContainer2 = GetDisksTopTabSubContainer();
 			TabContainer topTabContainer = GetTopTabContainer(subTabContainer1, subTabContainer2);
 
-			TabContainer mainTabContainer = GetMainTabContainer(workStackContainer, enterPanel, topTabContainer);
+//			workStackContainer.IsSelected = true;
+			TabContainer mainTabContainer = GetMainTabContainer(enterPanel, workStackContainer, topTabContainer);
 
 			return mainTabContainer; //workLeftTabContainer
 		}
@@ -74,16 +76,16 @@ namespace Nfm.Core.Configuration
 		/// <returns>Work Left Tab Container.</returns>
 		private static TabContainer GetWorkLeftTabContainer()
 		{
-			IViewModel driveC = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\C:\");
-			driveC.Refresh();
+			IViewModel music = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Music");
+			music.Refresh();
 
-			var driveCPanel = new PanelBase
+			var musicPanel = new PanelBase
 			                  {
-			                  	PanelContent = (IPanelContent) driveC,
+			                  	PanelContent = (IPanelContent) music,
 			                  	IsSelected = true
 			                  };
 
-			IViewModel driveD = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\");
+			IViewModel driveD = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\C:\");
 			driveD.Refresh();
 
 			var driveDPanel = new PanelBase
@@ -96,7 +98,7 @@ namespace Nfm.Core.Configuration
 			                           	Header = "Left Tab Container"
 			                           };
 			workLeftTabContainer.Childs.Add(driveDPanel);
-			workLeftTabContainer.Childs.Add(driveCPanel);
+			workLeftTabContainer.Childs.Add(musicPanel);
 			return workLeftTabContainer;
 		}
 
@@ -136,7 +138,7 @@ namespace Nfm.Core.Configuration
 			                      	PanelContent = (IPanelContent) workRight1
 			                      };
 
-			IViewModel workRight2 = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Music");
+			IViewModel workRight2 = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\");
 			workRight2.Refresh();
 
 			var workRightPanel2 = new PanelBase
@@ -198,10 +200,23 @@ namespace Nfm.Core.Configuration
 			IViewModel enter = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Videos");
 			enter.Refresh();
 
+			if (enter is IViewModelWithChilds)
+			{
+				var enterWithChilds = (IViewModelWithChilds) enter;
+
+				if (enterWithChilds.Childs.Count > 5)
+				{
+					enterWithChilds.SelectedItems.Add(enterWithChilds.Childs[1]);
+					enterWithChilds.SelectedItems.Add(enterWithChilds.Childs[2]);
+					enterWithChilds.SelectedItems.Add(enterWithChilds.Childs[3]);
+
+					enterWithChilds.CurrentItemIndex = 4;
+				}
+			}
+
 			return new PanelBase
 			       {
-			       	PanelContent = (IPanelContent) enter,
-			       	IsSelected = true
+			       	PanelContent = (IPanelContent) enter
 			       };
 		}
 
@@ -291,19 +306,19 @@ namespace Nfm.Core.Configuration
 		/// <summary>
 		/// Get Main Tab Container.
 		/// </summary>
-		/// <param name="workStackContainer">Work Stack Container.</param>
-		/// <param name="enterPanel">Rnter Panel.</param>
-		/// <param name="topTabContainer">Top Tab Container.</param>
+		/// <param name="firstPanel">Work Stack Container.</param>
+		/// <param name="secondPanel">Rnter Panel.</param>
+		/// <param name="thirdPanel">Top Tab Container.</param>
 		/// <returns>Main Tab Container.</returns>
-		private static TabContainer GetMainTabContainer(IPanel workStackContainer, IPanel enterPanel, IPanel topTabContainer)
+		private static TabContainer GetMainTabContainer(IPanel firstPanel, IPanel secondPanel, IPanel thirdPanel)
 		{
 			var mainTabContainer = new TabContainer
 			                       {
 			                       	Header = "Main Window",
 			                       };
-			mainTabContainer.Childs.Add(workStackContainer);
-			mainTabContainer.Childs.Add(enterPanel);
-			mainTabContainer.Childs.Add(topTabContainer);
+			mainTabContainer.Childs.Add(firstPanel);
+			mainTabContainer.Childs.Add(secondPanel);
+			mainTabContainer.Childs.Add(thirdPanel);
 			return mainTabContainer;
 		}
 

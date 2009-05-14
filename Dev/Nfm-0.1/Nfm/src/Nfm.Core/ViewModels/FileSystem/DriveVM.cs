@@ -40,9 +40,28 @@ namespace Nfm.Core.ViewModels.FileSystem
 		#region Implementation of IViewModel
 
 		/// <summary>
+		/// Flag value indicating whether view model is selected.
+		/// </summary>
+		private bool isSelected;
+
+		/// <summary>
 		/// Gets or sets absolute path.
 		/// </summary>
 		public string AbsolutePath { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether view model is selected.
+		/// </summary>
+		public bool IsSelected
+		{
+			get { return isSelected; }
+			set
+			{
+				OnPropertyChanging("IsSelected");
+				isSelected = value;
+				OnPropertyChanged("IsSelected");
+			}
+		}
 
 		/// <summary>
 		/// Fetch data from corresponding file system element node model.
@@ -162,6 +181,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// <param name="another">Another <see cref="DriveVM"/> instance to copy data from.</param>
 		protected DriveVM(DriveVM another)
 		{
+			AbsolutePath = another.AbsolutePath;
+			isSelected = another.IsSelected;
 			Model = another.Model;
 			Drive = another.Drive;
 		}
@@ -205,7 +226,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public long TotalSize
 		{
-			get { return IsReady ? Drive.TotalSize : 0; }
+			get
+			{
+				return IsReady
+				       	? Drive.TotalSize
+				       	: 0;
+			}
 		}
 
 		/// <summary>
@@ -213,7 +239,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public long TotalFreeSpace
 		{
-			get { return IsReady ? Drive.TotalFreeSpace : 0; }
+			get
+			{
+				return IsReady
+				       	? Drive.TotalFreeSpace
+				       	: 0;
+			}
 		}
 
 		/// <summary>
@@ -221,7 +252,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public string VolumeLabel
 		{
-			get { return IsReady ? Drive.VolumeLabel : string.Empty; }
+			get
+			{
+				return IsReady
+				       	? Drive.VolumeLabel
+				       	: string.Empty;
+			}
 		}
 
 		/// <summary>
@@ -229,7 +265,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public long AvailableFreeSpace
 		{
-			get { return IsReady ? Drive.AvailableFreeSpace : 0; }
+			get
+			{
+				return IsReady
+				       	? Drive.AvailableFreeSpace
+				       	: 0;
+			}
 		}
 
 		/// <summary>
@@ -245,7 +286,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public string DriveFormat
 		{
-			get { return IsReady ? Drive.DriveFormat : string.Empty; }
+			get
+			{
+				return IsReady
+				       	? Drive.DriveFormat
+				       	: string.Empty;
+			}
 		}
 
 		/// <summary>
@@ -261,7 +307,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public long OccupiedSpace
 		{
-			get { return IsReady ? Drive.TotalSize - Drive.AvailableFreeSpace : 0; }
+			get
+			{
+				return IsReady
+				       	? Drive.TotalSize - Drive.AvailableFreeSpace
+				       	: 0;
+			}
 		}
 
 		/// <summary>
@@ -269,7 +320,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public float UsedCapacity
 		{
-			get { return IsReady ? 100 * (Drive.TotalSize - Drive.AvailableFreeSpace) / (float)Drive.TotalSize : 0; }
+			get
+			{
+				return IsReady
+				       	? 100*(Drive.TotalSize - Drive.AvailableFreeSpace)/(float) Drive.TotalSize
+				       	: 0;
+			}
 		}
 
 		#endregion

@@ -82,8 +82,12 @@
     <Compile Include="Controls\DragDrop\PanelDropTargetAdvisor.cs" />
     <Compile Include="Controls\ElementUtility.cs" />
     <Compile Include="Controls\FirstFocusedElementExtension.cs" />
+    <Compile Include="Controls\KeyboardFocusManagerExtension.cs" />
     <Compile Include="Controls\HyperlinkUtility.cs" />
+    <Compile Include="Controls\ListBoxExt.cs" />
     <Compile Include="Controls\UniformStack.cs" />
+    <Compile Include="Controls\UniformWrapPanel.cs" />
+    <Compile Include="Controls\VirtualizingVerticalWrapPanel.cs" />
     <Compile Include="Converters\BoolToCornerRadiusConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DebugConvertor.cs" />
@@ -114,6 +118,7 @@
     <Compile Include="Models\FileSystem\NodeAttributeValueType.cs" />
     <Compile Include="Resources\SharedResourceDictionary.cs" />
     <Compile Include="ViewModels\FileSystem\Icons\SysImageList.cs" />
+    <Compile Include="ViewModels\IViewModelWithChilds.cs" />
     <Compile Include="ViewModels\IDefaultModuleViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\FileSystem\LocalFileSystemModuleFullVM.cs" />

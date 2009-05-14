@@ -40,9 +40,28 @@ namespace Nfm.Core.ViewModels.FileSystem
 		#region Implementation of IViewModel
 
 		/// <summary>
+		/// Flag value indicating whether view model is selected.
+		/// </summary>
+		private bool isSelected;
+
+		/// <summary>
 		/// Gets or sets absolute path.
 		/// </summary>
 		public string AbsolutePath { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether view model is selected.
+		/// </summary>
+		public bool IsSelected
+		{
+			get { return isSelected; }
+			set
+			{
+				OnPropertyChanging("IsSelected");
+				isSelected = value;
+				OnPropertyChanged("IsSelected");
+			}
+		}
 
 		/// <summary>
 		/// Fetch data from corresponding folder node model.
@@ -111,7 +130,9 @@ namespace Nfm.Core.ViewModels.FileSystem
 			             {
 			             	AbsolutePath = Folder.FullName
 			             };
+			
 			fullVM.Refresh();
+
 			return fullVM;
 		}
 
@@ -158,6 +179,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// <param name="another">Another <see cref="FolderVM"/> instance to copy data from.</param>
 		protected FolderVM(FolderVM another)
 		{
+			AbsolutePath = another.AbsolutePath;
+			isSelected = another.IsSelected;
 			Model = another.Model;
 			Folder = another.Folder;
 		}

@@ -21,6 +21,8 @@ namespace Nfm.Core.Controls
 	/// </summary>
 	public static class ElementUtility
 	{
+		#region Helpers for RoutedEvents
+
 		/// <summary>
 		/// Adds a routed event handler for a specified routed event,
 		/// adding the handler to the handler collection on the current element.
@@ -71,5 +73,59 @@ namespace Nfm.Core.Controls
 				element.RemoveHandler(routedEvent, handler);
 			}
 		}
+
+		#endregion
+
+		#region Dummy Attached Property
+
+		/// <summary>
+		/// Dummy attached property.
+		/// </summary>
+		public static readonly DependencyProperty DummyProperty =
+			DependencyProperty.RegisterAttached(
+				"Dummy",
+				typeof (object),
+				typeof (ElementUtility),
+				new FrameworkPropertyMetadata(
+					new PropertyChangedCallback(OnDummyChanged)));
+
+		/// <summary>
+		/// Set <see cref="DummyProperty"/> value.
+		/// </summary>
+		/// <param name="depObj">Target dependency object.</param>
+		/// <param name="isSet">The new property value.</param>
+		public static void SetDummy(DependencyObject depObj, bool isSet)
+		{
+			depObj.SetValue(DummyProperty, isSet);
+		}
+
+		/// <summary>
+		/// Get <see cref="DummyProperty"/> value.
+		/// </summary>
+		/// <param name="depObj">Target dependency object.</param>
+		/// <returns>Returns the current effective property value.</returns>
+		public static object GetDummy(DependencyObject depObj)
+		{
+			return depObj.GetValue(DummyProperty);
+		}
+
+		/// <summary>
+		/// <see cref="DummyProperty"/> attached property value changed callback.
+		/// </summary>
+		/// <param name="depObj">Target dependency object.</param>
+		/// <param name="args">Provides data for attached property changed event.</param>
+		private static void OnDummyChanged(DependencyObject depObj, DependencyPropertyChangedEventArgs args)
+		{
+//			var sourceUI = (UIElement)depObj;
+
+			if (args.NewValue != null && args.OldValue == null)
+			{
+			}
+			else if (args.NewValue == null && args.OldValue != null)
+			{
+			}
+		}
+
+		#endregion
 	}
 }
