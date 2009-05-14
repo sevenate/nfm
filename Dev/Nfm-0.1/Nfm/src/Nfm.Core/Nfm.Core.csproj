@@ -65,9 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddInManager.cs" />
-    <Compile Include="Commands\ClosePanelCommand.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Commands\ClosePanelCommand.cs" />
     <Compile Include="Commands\DublicateSelectedPanelCommand.cs" />
     <Compile Include="Commands\HotKeyManager.cs" />
     <Compile Include="Commands\NavigateToCurrentNodeCommand.cs" />
@@ -81,6 +79,7 @@
     <Compile Include="Controls\DragDrop\IDropTargetAdvisor.cs" />
     <Compile Include="Controls\DragDrop\PanelDropTargetAdvisor.cs" />
     <Compile Include="Controls\ElementUtility.cs" />
+    <Compile Include="Controls\FastTabControl.cs" />
     <Compile Include="Controls\FirstFocusedElementExtension.cs" />
     <Compile Include="Controls\KeyboardFocusManagerExtension.cs" />
     <Compile Include="Controls\HyperlinkUtility.cs" />
@@ -127,9 +126,7 @@
     <Compile Include="ViewModels\IPanelContent.cs" />
     <Compile Include="ViewModels\IPanel.cs" />
     <Compile Include="ViewModels\IPanelContainer.cs" />
-    <Compile Include="ViewModels\PanelBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="ViewModels\PanelBase.cs" />
     <Compile Include="ViewModels\ParentNodeVM.cs" />
     <Compile Include="ViewModels\RootNodeVM.cs" />
     <Compile Include="ViewModels\TabContainer.cs" />

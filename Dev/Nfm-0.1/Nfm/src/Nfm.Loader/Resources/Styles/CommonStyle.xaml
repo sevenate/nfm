@@ -20,6 +20,8 @@
 					 Color="#FF424242" />
 	<SolidColorBrush x:Key="BorderBrush"
 					 Color="#FF595959" />
+	<SolidColorBrush x:Key="SelectedTabBackgroundBrush"
+					 Color="#FF3A3A3A" />
 	
 	<!-- #Brushes: Selected -->
 	<SolidColorBrush x:Key="SelectedForegroundBrush"

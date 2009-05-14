@@ -4,7 +4,7 @@
 					xmlns:Commands="clr-namespace:Nfm.Core.Commands;assembly=Nfm.Core">
 
 	<DataTemplate DataType="{x:Type vm:TabContainer}">
-		<TabControl ItemsSource="{Binding Path=Childs}"
+		<FastTabControl ItemsSource="{Binding Path=Childs}"
 					Style="{DynamicResource TabControlStyle}"
 					ItemContainerStyle="{DynamicResource TabItemStyle}">
 			<TabControl.ItemTemplate>
@@ -30,7 +30,7 @@
 					</GestureMessageTrigger>
 				</RoutedMessageTriggerCollection>
 			</Message.Triggers>
-		</TabControl>
+		</FastTabControl>
 	</DataTemplate>
 
 </ResourceDictionary>

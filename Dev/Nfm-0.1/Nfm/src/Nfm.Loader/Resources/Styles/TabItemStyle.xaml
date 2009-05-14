@@ -9,11 +9,13 @@
 			<PanelDropTargetAdvisor x:Key="PanelDropTargetAdvisor" />
 		</Style.Resources>
 		<Setter Property="BorderBrush"
-				Value="Black" />
+				Value="{DynamicResource BorderBrush}" />
 		<Setter Property="BorderThickness"
-				Value="0" />
+				Value="2" />
 		<Setter Property="Foreground"
 				Value="White" />
+		<Setter Property="Background"
+				Value="{DynamicResource SelectedTabBackgroundBrush}" />
 		<Setter Property="FontFamily"
 				Value="Verdana" />
 		<Setter Property="FontSize"
@@ -21,9 +23,11 @@
 		<Setter Property="Padding"
 				Value="5" />
 		<Setter Property="Margin"
-				Value="0" />
+				Value="1" />
 		<Setter Property="IsTabStop"
 				Value="False" />
+<!--		<Setter Property="Focusable"-->
+<!--				Value="False" />-->
 		<Setter Property="IsSelected"
 				Value="{Binding IsSelected}" />
 <!--		<Setter Property="FocusVisualStyle"-->
@@ -38,9 +42,10 @@
 					<Border x:Name="Border"
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
-							CornerRadius="5,5,0,0">
+							CornerRadius="5">
 						<DockPanel>
-							<Button HorizontalAlignment="Center"
+							<Button x:Name="CloseButton"
+								HorizontalAlignment="Center"
 									VerticalAlignment="Center"
 									Width="16"
 									Height="16"
@@ -70,14 +75,30 @@
 								 Value="True">
 							<Setter TargetName="Border"
 									Property="Background"
-									Value="#FF595959" />
-						</Trigger>
-						<Trigger Property="IsSelected"
-								 Value="False">
+									Value="{DynamicResource BorderBrush}" />
 							<Setter TargetName="Border"
-									Property="Background"
-									Value="#FF3A3A3A" />
+									Property="BorderThickness"
+									Value="0" />
+							<!-- Todo: Make it configurable: multiline tabs appearence -->
+							<!--<Setter Property="Margin"
+									Value="0" />-->
+							<!--<Setter TargetName="Border"
+									Property="CornerRadius"
+									Value="5,5,0,0" />-->
+							<Setter TargetName="Border"
+									Property="CornerRadius"
+									Value="5,5,5,5" />
+							<!--Todo: Make it configurable: tab close button visibility -->
+<!--							<Setter TargetName="CloseButton"-->
+<!--									Property="Visibility"-->
+<!--									Value="Visible" />-->
 						</Trigger>
+<!--						<Trigger Property="IsSelected"-->
+<!--								 Value="False">-->
+<!--							<Setter TargetName="Border"-->
+<!--									Property="Background"-->
+<!--									Value="{DynamicResource SelectedTabBackgroundBrush}" />-->
+<!--						</Trigger>-->
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
 								<Condition Property="IsMouseOver"
@@ -88,9 +109,15 @@
 							<MultiTrigger.Setters>
 								<Setter TargetName="Border"
 										Property="Background"
-										Value="#FF424242" />
+										Value="{DynamicResource HoverBackgroundBrush}" />
 							</MultiTrigger.Setters>
 						</MultiTrigger>
+						<Trigger Property="IsKeyboardFocused"
+								 Value="true">
+							<Setter TargetName="Border"
+									Property="BorderBrush"
+									Value="Blue" />
+						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
