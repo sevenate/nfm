@@ -41,11 +41,12 @@
 				<ControlTemplate TargetType="{x:Type TabItem}">
 					<Border x:Name="Border"
 							BorderBrush="{TemplateBinding BorderBrush}"
+							Background="{DynamicResource BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							CornerRadius="5">
 						<DockPanel>
 							<Button x:Name="CloseButton"
-								HorizontalAlignment="Center"
+									HorizontalAlignment="Center"
 									VerticalAlignment="Center"
 									Width="16"
 									Height="16"
@@ -75,10 +76,10 @@
 								 Value="True">
 							<Setter TargetName="Border"
 									Property="Background"
-									Value="{DynamicResource BorderBrush}" />
+									Value="Transparent" />
 							<Setter TargetName="Border"
 									Property="BorderThickness"
-									Value="0" />
+									Value="2" />
 							<!-- Todo: Make it configurable: multiline tabs appearence -->
 							<!--<Setter Property="Margin"
 									Value="0" />-->

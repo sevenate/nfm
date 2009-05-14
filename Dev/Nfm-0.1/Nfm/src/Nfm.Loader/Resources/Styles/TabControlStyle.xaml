@@ -5,7 +5,7 @@
 	<Style x:Key="TabControlStyle"
 		   TargetType="{x:Type FastTabControl}">
 		<Setter Property="Background"
-				Value="{DynamicResource BackgroundBrush}" />
+				Value="{DynamicResource BorderBrush}" />
 		<Setter Property="BorderBrush"
 				Value="{DynamicResource BorderBrush}" />
 		<Setter Property="BorderThickness"
@@ -17,71 +17,78 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type FastTabControl}">
-					<Border Background="{DynamicResource BackgroundBrush}"
+					<Border Background="{TemplateBinding Background}"
 							BorderBrush="{DynamicResource BackgroundBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}"
+							BorderThickness="2"
 							Padding="{TemplateBinding Padding}"
 							CornerRadius="5">
 						<DockPanel LastChildFill="True">
-							<DockPanel LastChildFill="True"
-									   DockPanel.Dock="Top">
-								<!-- Todo: Make it configurable: multiline tabs -->
-								<!--<TabPanel Panel.ZIndex="1"
-							  Margin="0,0,4,-1"
-							  IsItemsHost="True"
-							  Background="Transparent" />-->
-								<Border Background="{DynamicResource BackgroundBrush}"
-										BorderBrush="{DynamicResource BorderBrush}"
-										BorderThickness="{TemplateBinding BorderThickness}"
-										Padding="{TemplateBinding Padding}"
-										CornerRadius="5"
-										DockPanel.Dock="Left">
-									<WrapPanel x:Name="Tabs"
-											   IsItemsHost="True" />
-								</Border>
-								<Border Background="{DynamicResource BorderBrush}"
-										BorderBrush="{DynamicResource BorderBrush}"
-										BorderThickness="{TemplateBinding BorderThickness}"
-										Padding="{TemplateBinding Padding}"
-										CornerRadius="5"
-										MinWidth="32">
-									<DockPanel x:Name="Toolbar">
-										<Button DockPanel.Dock="Right"
-												HorizontalAlignment="Right"
-												VerticalAlignment="Center"
-												Width="16"
-												Height="16"
-												Margin="0,0,5,0"
-												Style="{DynamicResource CloseableTabItemButtonStyle}">
-											<Message.Triggers>
-												<RoutedMessageTriggerCollection>
-													<EventMessageTrigger EventName="Click">
-														<CommandMessage Command="{Resolve Key=ClosePanel}">
-															<Parameter Value="{Binding Mode=OneWay}" />
-														</CommandMessage>
-													</EventMessageTrigger>
-												</RoutedMessageTriggerCollection>
-											</Message.Triggers>
-										</Button>
-										<Button DockPanel.Dock="Left"
-												HorizontalAlignment="Left"
-												VerticalAlignment="Center"
-												Width="16"
-												Height="16"
-												Style="{DynamicResource DuplicateTabItemButtonStyle}">
-											<Message.Triggers>
-												<RoutedMessageTriggerCollection>
-													<EventMessageTrigger EventName="Click">
-														<CommandMessage Command="{Resolve Key=DublicateSelectedPanel}">
-															<Parameter Value="{Binding Mode=OneWay}" />
-														</CommandMessage>
-													</EventMessageTrigger>
-												</RoutedMessageTriggerCollection>
-											</Message.Triggers>
-										</Button>
-									</DockPanel>
-								</Border>
-							</DockPanel>
+							<Border x:Name="TabsTopArea"
+									Background="{TemplateBinding Background}"
+									BorderBrush="{TemplateBinding BorderBrush}"
+									BorderThickness="2"
+									Padding="{TemplateBinding Padding}"
+									CornerRadius="5"
+									DockPanel.Dock="Top">
+								<DockPanel LastChildFill="True">
+									<!-- Todo: Make it configurable: multiline tabs -->
+									<!--<TabPanel Panel.ZIndex="1"
+											  Margin="0,0,4,-1"
+											  IsItemsHost="True"
+											  Background="Transparent" />-->
+									<Border Background="{DynamicResource BackgroundBrush}"
+											BorderBrush="{DynamicResource BackgroundBrush}"
+											BorderThickness="{TemplateBinding BorderThickness}"
+											Padding="{TemplateBinding Padding}"
+											CornerRadius="5"
+											DockPanel.Dock="Left">
+										<WrapPanel x:Name="Tabs"
+												   IsItemsHost="True" />
+									</Border>
+									<Border Background="Transparent"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											BorderThickness="{TemplateBinding BorderThickness}"
+											Padding="{TemplateBinding Padding}"
+											CornerRadius="5"
+											MinWidth="32">
+										<DockPanel x:Name="Toolbar">
+											<Button DockPanel.Dock="Right"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													Width="16"
+													Height="16"
+													Margin="0,0,5,0"
+													Style="{DynamicResource CloseableTabItemButtonStyle}">
+												<Message.Triggers>
+													<RoutedMessageTriggerCollection>
+														<EventMessageTrigger EventName="Click">
+															<CommandMessage Command="{Resolve Key=ClosePanel}">
+																<Parameter Value="{Binding Mode=OneWay}" />
+															</CommandMessage>
+														</EventMessageTrigger>
+													</RoutedMessageTriggerCollection>
+												</Message.Triggers>
+											</Button>
+											<Button DockPanel.Dock="Left"
+													HorizontalAlignment="Left"
+													VerticalAlignment="Center"
+													Width="16"
+													Height="16"
+													Style="{DynamicResource DuplicateTabItemButtonStyle}">
+												<Message.Triggers>
+													<RoutedMessageTriggerCollection>
+														<EventMessageTrigger EventName="Click">
+															<CommandMessage Command="{Resolve Key=DublicateSelectedPanel}">
+																<Parameter Value="{Binding Mode=OneWay}" />
+															</CommandMessage>
+														</EventMessageTrigger>
+													</RoutedMessageTriggerCollection>
+												</Message.Triggers>
+											</Button>
+										</DockPanel>
+									</Border>
+								</DockPanel>
+							</Border>
 							<Border x:Name="TabsContentArea"
 									Background="{TemplateBinding Background}"
 									BorderBrush="{TemplateBinding BorderBrush}"
