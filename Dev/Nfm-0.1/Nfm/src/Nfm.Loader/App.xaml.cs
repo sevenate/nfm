@@ -14,7 +14,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 using Caliburn.Actions;
 using Caliburn.Commands;
@@ -22,9 +21,7 @@ using Caliburn.Core;
 using Caliburn.RoutedUIMessaging;
 using Nfm.Core.Commands;
 using Nfm.Core.Configuration;
-using Nfm.Core.Models.FileSystem;
 using Nfm.Core.ViewModels;
-using Nfm.Core.ViewModels.FileSystem;
 using Nfm.Loader.Legacy;
 using Nfm.Loader.Views;
 
@@ -35,8 +32,10 @@ namespace Nfm.Loader
 	/// </summary>
 	public partial class App
 	{
+		#region .Ctors
+
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:System.Windows.Application" /> class.
+		/// Initializes a new instance of the <see cref="App" /> class.
 		/// </summary>
 		/// <exception cref="T:System.InvalidOperationException">
 		/// More than one instance of the <see cref="T:System.Windows.Application" /> class is created per <see cref="T:System.AppDomain" />.
@@ -52,13 +51,36 @@ namespace Nfm.Loader
 				.WithCommands()
 				.StartApplication();
 
-			// All application commands
+			// Note: register all application commands here
 			container.RegisterSingleton<ClosePanelCommand>("ClosePanel");
 			container.RegisterSingleton<NavigateToCurrentNodeCommand>("NavigateToCurrentNode");
 			container.RegisterSingleton<NavigateToParentNodeCommand>("NavigateToParentNode");
 			container.RegisterSingleton<RefreshChildNodesCommand>("RefreshChildNodes");
 			container.RegisterSingleton<DublicateSelectedPanelCommand>("DublicateSelectedPanel");
 		}
+
+		#endregion
+
+		#region Public Methods
+
+		/// <summary>
+		/// Open new application window.
+		/// </summary>
+		/// <param name="commandLine">Command line arguments.</param>
+		public void RunNextInstance(ReadOnlyCollection<string> commandLine)
+		{
+			if (Windows.Count == 0)
+			{
+				//TODO: Add specific application initialization logic here (+handle command line args).
+
+				ShowNewWindow();
+				return;
+			}
+
+			ShowNewWindow();
+		}
+
+		#endregion
 
 		#region Overrides of Application
 
@@ -127,6 +149,8 @@ namespace Nfm.Loader
 
 		#endregion
 
+		#region Private Implementation
+
 		/// <summary>
 		/// Occurs when an exception is thrown by an application but not handled.
 		/// </summary>
@@ -145,33 +169,16 @@ namespace Nfm.Loader
 		}
 
 		/// <summary>
-		/// Open new application window.
-		/// </summary>
-		/// <param name="commandLine">Command line arguments.</param>
-		public void RunNextInstance(ReadOnlyCollection<string> commandLine)
-		{
-			if (Windows.Count == 0)
-			{
-				//TODO: Add specific application initialization logic here (+handle command line args).
-
-				ShowNewWindow();
-				return;
-			}
-
-			ShowNewWindow();
-		}
-
-		/// <summary>
 		/// Show new application window.
 		/// </summary>
-		public void ShowNewWindow()
+		private void ShowNewWindow()
 		{
-			var rootLayoutPanel = ConfigManager.GetLayout();
+			IPanel rootLayoutPanel = ConfigManager.GetLayout();
 
 			var newWindow = new MainWindow
-			{
-				DataContext = rootLayoutPanel
-			};
+			                {
+			                	DataContext = rootLayoutPanel
+			                };
 
 			rootLayoutPanel.Closed += (sender, e) => newWindow.Close();
 
@@ -208,5 +215,7 @@ namespace Nfm.Loader
 			newWindow.Show();
 			newWindow.Activate();
 		}
+
+		#endregion
 	}
 }
