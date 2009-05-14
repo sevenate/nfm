@@ -110,26 +110,29 @@ namespace Nfm.Core.ViewModels.FileSystem
 
 			IList<IViewModel> list = new List<IViewModel>();
 
-			foreach (DirectoryInfo folder in Model.Folders(Drive.Name))
+			if (Drive.IsReady)
 			{
-				var vm = new FolderVM(Model)
-				         {
-				         	AbsolutePath = folder.FullName
-				         };
+				foreach (DirectoryInfo folder in Model.Folders(Drive.Name))
+				{
+					var vm = new FolderVM(Model)
+					         {
+					         	AbsolutePath = folder.FullName
+					         };
 
-				vm.Refresh();
-				list.Add(vm);
-			}
+					vm.Refresh();
+					list.Add(vm);
+				}
 
-			foreach (FileInfo file in Model.Files(Drive.Name))
-			{
-				var vm = new FileVM(Model)
-				         {
-				         	AbsolutePath = file.FullName
-				         };
+				foreach (FileInfo file in Model.Files(Drive.Name))
+				{
+					var vm = new FileVM(Model)
+					         {
+					         	AbsolutePath = file.FullName
+					         };
 
-				vm.Refresh();
-				list.Add(vm);
+					vm.Refresh();
+					list.Add(vm);
+				}
 			}
 
 			// Sorting by file extenshion and, then, by file name.
