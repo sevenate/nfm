@@ -1,167 +1,194 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0783CA39-53C3-412F-AA6C-B9530288050E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nfm.Core</RootNamespace>
-    <AssemblyName>Nfm.Core</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkSubset>Client</TargetFrameworkSubset>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\test\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Caliburn.Actions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Caliburn.Actions.dll</HintPath>
-    </Reference>
-    <Reference Include="Caliburn.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Caliburn.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Caliburn.RoutedUIMessaging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Caliburn.RoutedUIMessaging.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="PresentationFramework">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.AddIn">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.XML" />
-    <Reference Include="WindowsBase">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AddInManager.cs" />
-    <Compile Include="Commands\ClosePanelCommand.cs" />
-    <Compile Include="Commands\DublicateSelectedPanelCommand.cs" />
-    <Compile Include="Commands\HotKeyManager.cs" />
-    <Compile Include="Commands\NavigateToCurrentNodeCommand.cs" />
-    <Compile Include="Commands\NavigateToParentNodeCommand.cs" />
-    <Compile Include="Commands\RefreshChildNodesCommand.cs" />
-    <Compile Include="Configuration\ConfigManager.cs" />
-    <Compile Include="Controls\DragDrop\PanelDragSourceAdvisor.cs" />
-    <Compile Include="Controls\DragDrop\DragDropManager.cs" />
-    <Compile Include="Controls\DragDrop\DropPreviewAdorner.cs" />
-    <Compile Include="Controls\DragDrop\IDragSourceAdvisor.cs" />
-    <Compile Include="Controls\DragDrop\IDropTargetAdvisor.cs" />
-    <Compile Include="Controls\DragDrop\PanelDropTargetAdvisor.cs" />
-    <Compile Include="Controls\ElementUtility.cs" />
-    <Compile Include="Controls\FastTabControl.cs" />
-    <Compile Include="Controls\FirstFocusedElementExtension.cs" />
-    <Compile Include="Controls\KeyboardFocusManagerExtension.cs" />
-    <Compile Include="Controls\HyperlinkUtility.cs" />
-    <Compile Include="Controls\ListBoxExt.cs" />
-    <Compile Include="Controls\UniformStack.cs" />
-    <Compile Include="Controls\UniformWrapPanel.cs" />
-    <Compile Include="Controls\VirtualizingVerticalWrapPanel.cs" />
-    <Compile Include="Converters\BoolToCornerRadiusConverter.cs" />
-    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\DebugConvertor.cs" />
-    <Compile Include="Converters\FileExtensionToBrushConverter.cs" />
-    <Compile Include="Converters\FileSizePrecision.cs" />
-    <Compile Include="Converters\FileSizeUnit.cs" />
-    <Compile Include="Converters\FileSizeUtility.cs" />
-    <Compile Include="Converters\FileSizeToBrushConverter.cs" />
-    <Compile Include="Converters\DateTimeToBrushConverter.cs" />
-    <Compile Include="Converters\DateTimeToStringConverter.cs" />
-    <Compile Include="Converters\FileSizeToStringConverter.cs" />
-    <Compile Include="Globals.cs" />
-    <Compile Include="Models\IRootModule.cs" />
-    <Compile Include="Models\NodeAttribute.cs" />
-    <Compile Include="Models\NodeAttributeValueType.cs" />
-    <Compile Include="Models\RootNode.cs" />
-    <Compile Include="Modules\FileSystem\Models\FileSystemEntityType.cs" />
-    <Compile Include="Modules\FileSystem\Models\LocalFileSystemModule.cs" />
-    <Compile Include="Localization\TranslateExtension.cs" />
-    <Compile Include="Localization\Translator.cs" />
-    <Compile Include="Models\INode.cs" />
-    <Compile Include="Models\INodeAttribute.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\DriveFullVM.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\DriveVM.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\FileVM.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\FolderFullVM.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\FolderVM.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\LocalFileSystemModuleFullVM.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\LocalFileSystemModuleVM.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\Unsafe\FileToIconConverter.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
-    <Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
-    <Compile Include="Resources\SharedResourceDictionary.cs" />
-    <Compile Include="ViewModels\IViewModelWithChilds.cs" />
-    <Compile Include="ViewModels\IDefaultModuleViewModel.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
-    <Compile Include="ViewModels\IPanelContentHost.cs" />
-    <Compile Include="ViewModels\IPanelContent.cs" />
-    <Compile Include="ViewModels\IPanel.cs" />
-    <Compile Include="ViewModels\IPanelContainer.cs" />
-    <Compile Include="ViewModels\PanelBase.cs" />
-    <Compile Include="ViewModels\ParentNodeVM.cs" />
-    <Compile Include="ViewModels\RootNodeVM.cs" />
-    <Compile Include="ViewModels\TabContainer.cs" />
-    <Compile Include="ViewModels\PanelContainerBase.cs" />
-    <Compile Include="ViewModels\StackContainer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\NotificationBase.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Nfm.HostView\Nfm.HostView.csproj">
-      <Project>{CA3758DD-8F75-4CA2-8AA5-15A089104D9B}</Project>
-      <Name>Nfm.HostView</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\FileSystem\Views\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\Nfm.MsBuild.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProductVersion>9.0.30729</ProductVersion>
+		<SchemaVersion>2.0</SchemaVersion>
+		<ProjectGuid>{0783CA39-53C3-412F-AA6C-B9530288050E}</ProjectGuid>
+		<OutputType>Library</OutputType>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<RootNamespace>Nfm.Core</RootNamespace>
+		<AssemblyName>Nfm.Core</AssemblyName>
+		<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+		<FileAlignment>512</FileAlignment>
+		<TargetFrameworkSubset>Client</TargetFrameworkSubset>
+		<ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>..\..\test\</OutputPath>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>..\..\bin\</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="Caliburn.Actions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+			<SpecificVersion>False</SpecificVersion>
+			<HintPath>..\..\lib\Caliburn.Actions.dll</HintPath>
+		</Reference>
+		<Reference Include="Caliburn.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+			<SpecificVersion>False</SpecificVersion>
+			<HintPath>..\..\lib\Caliburn.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Caliburn.RoutedUIMessaging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+			<SpecificVersion>False</SpecificVersion>
+			<HintPath>..\..\lib\Caliburn.RoutedUIMessaging.dll</HintPath>
+		</Reference>
+		<Reference Include="PresentationCore">
+			<RequiredTargetFramework>3.0</RequiredTargetFramework>
+		</Reference>
+		<Reference Include="PresentationFramework">
+			<RequiredTargetFramework>3.0</RequiredTargetFramework>
+		</Reference>
+		<Reference Include="System" />
+		<Reference Include="System.AddIn">
+			<RequiredTargetFramework>3.5</RequiredTargetFramework>
+		</Reference>
+		<Reference Include="System.Core">
+			<RequiredTargetFramework>3.5</RequiredTargetFramework>
+		</Reference>
+		<Reference Include="System.Drawing" />
+		<Reference Include="System.Windows.Forms" />
+		<Reference Include="System.XML" />
+		<Reference Include="WindowsBase">
+			<RequiredTargetFramework>3.0</RequiredTargetFramework>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="AddInManager.cs" />
+		<Compile Include="Commands\ClosePanelCommand.cs" />
+		<Compile Include="Commands\DublicateSelectedPanelCommand.cs" />
+		<Compile Include="Commands\HotKeyManager.cs" />
+		<Compile Include="Commands\NavigateToCurrentNodeCommand.cs" />
+		<Compile Include="Commands\NavigateToParentNodeCommand.cs" />
+		<Compile Include="Commands\RefreshChildNodesCommand.cs" />
+		<Compile Include="Configuration\ConfigManager.cs" />
+		<Compile Include="Controls\DragDrop\PanelDragSourceAdvisor.cs" />
+		<Compile Include="Controls\DragDrop\DragDropManager.cs" />
+		<Compile Include="Controls\DragDrop\DropPreviewAdorner.cs" />
+		<Compile Include="Controls\DragDrop\IDragSourceAdvisor.cs" />
+		<Compile Include="Controls\DragDrop\IDropTargetAdvisor.cs" />
+		<Compile Include="Controls\DragDrop\PanelDropTargetAdvisor.cs" />
+		<Compile Include="Controls\ElementUtility.cs" />
+		<Compile Include="Controls\FastTabControl.cs" />
+		<Compile Include="Controls\FirstFocusedElementExtension.cs" />
+		<Compile Include="Controls\KeyboardFocusManagerExtension.cs" />
+		<Compile Include="Controls\HyperlinkUtility.cs" />
+		<Compile Include="Controls\ListBoxExt.cs" />
+		<Compile Include="Controls\UniformStack.cs" />
+		<Compile Include="Controls\UniformWrapPanel.cs" />
+		<Compile Include="Controls\VirtualizingVerticalWrapPanel.cs" />
+		<Compile Include="Converters\BoolToCornerRadiusConverter.cs" />
+		<Compile Include="Converters\BoolToVisibilityConverter.cs" />
+		<Compile Include="Converters\DebugConvertor.cs" />
+		<Compile Include="Converters\FileExtensionToBrushConverter.cs" />
+		<Compile Include="Converters\FileSizePrecision.cs" />
+		<Compile Include="Converters\FileSizeUnit.cs" />
+		<Compile Include="Converters\FileSizeUtility.cs" />
+		<Compile Include="Converters\FileSizeToBrushConverter.cs" />
+		<Compile Include="Converters\DateTimeToBrushConverter.cs" />
+		<Compile Include="Converters\DateTimeToStringConverter.cs" />
+		<Compile Include="Converters\FileSizeToStringConverter.cs" />
+		<Compile Include="Globals.cs" />
+		<Compile Include="Models\IRootModule.cs" />
+		<Compile Include="Models\NodeAttribute.cs" />
+		<Compile Include="Models\NodeAttributeValueType.cs" />
+		<Compile Include="Models\RootNode.cs" />
+		<Compile Include="Modules\FileSystem\Models\FileSystemEntityType.cs" />
+		<Compile Include="Modules\FileSystem\Models\LocalFileSystemModule.cs" />
+		<Compile Include="Localization\TranslateExtension.cs" />
+		<Compile Include="Localization\Translator.cs" />
+		<Compile Include="Models\INode.cs" />
+		<Compile Include="Models\INodeAttribute.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\DriveFullVM.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\DriveVM.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\FileVM.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\FolderFullVM.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\FolderVM.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\LocalFileSystemModuleFullVM.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\LocalFileSystemModuleVM.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\Unsafe\FileToIconConverter.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
+		<Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
+		<Compile Include="Resources\SharedResourceDictionary.cs" />
+		<Compile Include="ViewModels\IViewModelWithChilds.cs" />
+		<Compile Include="ViewModels\IDefaultModuleViewModel.cs" />
+		<Compile Include="ViewModels\IViewModel.cs" />
+		<Compile Include="ViewModels\IPanelContentHost.cs" />
+		<Compile Include="ViewModels\IPanelContent.cs" />
+		<Compile Include="ViewModels\IPanel.cs" />
+		<Compile Include="ViewModels\IPanelContainer.cs" />
+		<Compile Include="ViewModels\PanelBase.cs" />
+		<Compile Include="ViewModels\ParentNodeVM.cs" />
+		<Compile Include="ViewModels\RootNodeVM.cs" />
+		<Compile Include="ViewModels\TabContainer.cs" />
+		<Compile Include="ViewModels\PanelContainerBase.cs" />
+		<Compile Include="ViewModels\StackContainer.cs" />
+		<Compile Include="ViewModels\NotificationBase.cs" />
+		<Compile Include="Properties\AssemblyInfo.cs" />
+		<Compile Include="Properties\Resources.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTime>True</DesignTime>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Include="Properties\Settings.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+		</Compile>
+		<EmbeddedResource Include="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<None Include="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+		<AppDesigner Include="Properties\" />
+	</ItemGroup>
+	<ItemGroup>
+		<Page Include="Themes\Generic.xaml">
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Nfm.HostView\Nfm.HostView.csproj">
+			<Project>{CA3758DD-8F75-4CA2-8AA5-15A089104D9B}</Project>
+			<Name>Nfm.HostView</Name>
+			<Private>False</Private>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="ClassDiagram.cd" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Modules\FileSystem\Views\" />
+	</ItemGroup>
+	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+	<Import Project="..\..\Nfm.MsBuild.targets" />
+	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties StartDate="20090312" />
-    </VisualStudio>
-  </ProjectExtensions>
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties StartDate="20090312" />
+		</VisualStudio>
+	</ProjectExtensions>
 </Project>
