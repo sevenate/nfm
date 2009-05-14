@@ -126,7 +126,9 @@ namespace Nfm.Core.Controls.DragDrop
 										? targetIndex < targetParentContainer.Childs.Count - 1
 											? targetIndex + 1
 											: targetIndex
-										: targetIndex + 1;
+										: oldIndex != targetIndex
+											? targetIndex + 1
+											: targetIndex;
 							targetParentContainer.Childs.Move(oldIndex, next);
 						}
 					}
