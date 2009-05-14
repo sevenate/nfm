@@ -72,13 +72,6 @@
 									</CommandMessage>
 								</EventMessageTrigger.Message>
 							</EventMessageTrigger>
-<!--							<EventMessageTrigger EventName="MouseLeftButtonDown">-->
-<!--								<EventMessageTrigger.Message>-->
-<!--									<CommandMessage Command="{Resolve Key=RefreshChildNodes}">-->
-<!--										<Parameter Value="{Binding Mode=OneWay}" />-->
-<!--									</CommandMessage>-->
-<!--								</EventMessageTrigger.Message>-->
-<!--							</EventMessageTrigger>-->
 						</RoutedMessageTriggerCollection>
 					</Message.Triggers>
 				</Border>

@@ -77,13 +77,6 @@
 									</CommandMessage>
 								</EventMessageTrigger.Message>
 							</EventMessageTrigger>
-<!--							<EventMessageTrigger EventName="MouseLeftButtonDown">-->
-<!--								<EventMessageTrigger.Message>-->
-<!--									<CommandMessage Command="{Resolve Key=RefreshChildNodes}">-->
-<!--										<Parameter Value="{Binding Mode=OneWay}" />-->
-<!--									</CommandMessage>-->
-<!--								</EventMessageTrigger.Message>-->
-<!--							</EventMessageTrigger>-->
 						</RoutedMessageTriggerCollection>
 					</Message.Triggers>
 				</Border>
@@ -157,6 +150,18 @@
 						   Padding="5,1,5,1"
 						   DockPanel.Dock="Top" />
 			</DockPanel>
+			<Action.Target>
+				<Binding />
+			</Action.Target>
+			<Message.Triggers>
+				<RoutedMessageTriggerCollection>
+					<EventMessageTrigger EventName="MouseRightButtonUp">
+						<EventMessageTrigger.Message>
+							<ActionMessage MethodName="ShowContextMenu" />
+						</EventMessageTrigger.Message>
+					</EventMessageTrigger>
+				</RoutedMessageTriggerCollection>
+			</Message.Triggers>
 		</Border>
 		<DataTemplate.Triggers>
 			<EventTrigger RoutedEvent="Mouse.MouseEnter"

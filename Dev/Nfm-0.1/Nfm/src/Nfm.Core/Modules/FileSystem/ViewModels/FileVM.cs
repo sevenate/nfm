@@ -14,7 +14,9 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 using Nfm.Core.Models.FileSystem;
+using Nfm.Core.Modules.FileSystem.ViewModels.Icons;
 
 namespace Nfm.Core.ViewModels.FileSystem
 {
@@ -280,6 +282,23 @@ namespace Nfm.Core.ViewModels.FileSystem
 		}
 
 		#endregion
+
+		#endregion
+
+		#region Actions
+
+		/// <summary>
+		/// Show shell context menu for file.
+		/// Todo: should be replaced with WPF-styled context menu.
+		/// Todo: remove System.Windows.Forms.dll dependency.
+		/// </summary>
+		public void ShowContextMenu()
+		{
+			var scm = new ShellContextMenu();
+			var files = new FileInfo[1];
+			files[0] = new FileInfo(AbsolutePath);
+			scm.ShowContextMenu(files, Cursor.Position);
+		}
 
 		#endregion
 	}
