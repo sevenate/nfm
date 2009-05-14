@@ -26,9 +26,9 @@ namespace Nfm.Core.Commands
 		/// </summary>
 		/// <param name="node">Specific parent node.</param>
 		[Preview("CanExecute")]
-		public void Execute(IPanelContent node)
+		public void Execute(IViewModel node)
 		{
-			((IViewModel)node).Refresh();
+			node.Refresh();
 		}
 
 		/// <summary>
@@ -36,7 +36,7 @@ namespace Nfm.Core.Commands
 		/// </summary>
 		/// <param name="node">Specific parent node.</param>
 		/// <returns>True, if the child nodes collection can be refreshed.</returns>
-		public bool CanExecute(IPanelContent node)
+		public bool CanExecute(IViewModel node)
 		{
 			// TODO: implement check for child refreshability sence
 			return node != null;
