@@ -3,7 +3,8 @@
     xmlns:ViewModels="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core">
 
 	<DataTemplate DataType="{x:Type ViewModels:PanelBase}">
-		<ContentControl Content="{Binding Path=PanelContent}" />
+		<ContentControl Content="{Binding Path=PanelContent}"
+						Focusable="False" />
 	</DataTemplate>
 
 </ResourceDictionary>

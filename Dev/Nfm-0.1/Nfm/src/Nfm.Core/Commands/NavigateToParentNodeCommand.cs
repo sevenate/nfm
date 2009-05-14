@@ -9,7 +9,7 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2009-04-01</date>
 // </editor>
-// <summary>Change node in panel to he's parent node command.</summary>
+// <summary>Change node in panel to parent node command.</summary>
 
 using Caliburn.Actions.Filters;
 using Nfm.Core.ViewModels;

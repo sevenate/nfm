@@ -55,6 +55,8 @@
 				Value="Close" />
 		<Setter Property="IsTabStop"
 				Value="False" />
+		<Setter Property="Focusable"
+				Value="False" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Button}">
