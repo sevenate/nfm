@@ -22,8 +22,8 @@ using Caliburn.RoutedUIMessaging;
 using Nfm.Core.Commands;
 using Nfm.Core.Configuration;
 using Nfm.Core.ViewModels;
+using Nfm.Core.Views;
 using Nfm.Loader.Legacy;
-using Nfm.Loader.Views;
 
 namespace Nfm.Loader
 {

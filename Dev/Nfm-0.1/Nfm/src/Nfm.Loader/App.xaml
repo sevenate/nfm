@@ -7,20 +7,11 @@
 			<ResourceDictionary.MergedDictionaries>
 				<!-- Note: Optimization memory - replace all ResourceDictionary to SharedResourceDictionary in release -->
 				<!-- Blend 3 does't support it in design tyme :( -->
-				<ResourceDictionary x:Name="darkTheme"
-									Source="/Nfm.Core;component/Themes/Dark/DarkTheme.xaml" />
-				
+				<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/DarkTheme.xaml" />
+				<ResourceDictionary Source="/Nfm.Core;component/Views/CommonViews.xaml" />
+
 				<ResourceDictionary Source="Resources/Converters.xaml" />
 				
-				<!-- Panels view models -->
-				<ResourceDictionary Source="Resources/DataTemplates/StackContainer.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/TabContainer.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/PanelBase.xaml" />
-				
-				<!-- General view models -->
-				<ResourceDictionary Source="Resources/DataTemplates/RootNodeView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/ParentNodeView.xaml" />
-
 				<!-- Local File System Module view models -->
 				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleFullView.xaml" />
 				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleView.xaml" />

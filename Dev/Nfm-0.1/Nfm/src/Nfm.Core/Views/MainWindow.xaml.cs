@@ -11,7 +11,7 @@
 // </editor>
 // <summary>Main application window.</summary>
 
-namespace Nfm.Loader.Views
+namespace Nfm.Core.Views
 {
 	/// <summary>
 	/// Main application window.

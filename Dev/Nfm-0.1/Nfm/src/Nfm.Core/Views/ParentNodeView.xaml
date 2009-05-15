@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ViewModels="clr-namespace:Nfm.Core.ViewModels;assembly=Nfm.Core">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ViewModels="clr-namespace:Nfm.Core.ViewModels">
 
 	<DataTemplate DataType="{x:Type ViewModels:ParentNodeVM}">
 		<Border x:Name="Border"
 				Margin="1"
 				Padding="3,1,3,1"
-				Background="{StaticResource BackgroundBrush}"
-				BorderBrush="{StaticResource BorderBrush}"
+				Background="{DynamicResource BackgroundBrush}"
+				BorderBrush="{DynamicResource BorderBrush}"
 				BorderThickness="2"
 				CornerRadius="3"
 				SnapsToDevicePixels="true"
@@ -25,13 +25,6 @@
 								</CommandMessage>
 							</EventMessageTrigger.Message>
 						</EventMessageTrigger>
-<!--						<EventMessageTrigger EventName="MouseLeftButtonDown">-->
-<!--							<EventMessageTrigger.Message>-->
-<!--								<CommandMessage Command="{Resolve Key=RefreshChildNodes}">-->
-<!--									<Parameter Value="{Binding Mode=OneWay}" />-->
-<!--								</CommandMessage>-->
-<!--							</EventMessageTrigger.Message>-->
-<!--						</EventMessageTrigger>-->
 					</RoutedMessageTriggerCollection>
 				</Message.Triggers>
 			</Button>
@@ -46,7 +39,7 @@
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="Background"
-						Value="{StaticResource HoverBackgroundBrush}" />
+						Value="{DynamicResource HoverBackgroundBrush}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>

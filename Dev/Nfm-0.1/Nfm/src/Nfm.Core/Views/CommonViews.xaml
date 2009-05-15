@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="PanelBase.xaml" />
+		<ResourceDictionary Source="TabContainer.xaml" />
+		<ResourceDictionary Source="StackContainer.xaml" />
+		<ResourceDictionary Source="RootNodeView.xaml" />
+		<ResourceDictionary Source="ParentNodeView.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
