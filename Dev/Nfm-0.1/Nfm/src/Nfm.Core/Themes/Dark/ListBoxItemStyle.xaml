@@ -2,13 +2,23 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-					xmlns:Commands="clr-namespace:Nfm.Core.Commands;assembly=Nfm.Core"
+					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
 					mc:Ignorable="d">
 
 	<!-- #ListBoxItem Style -->
 	<Style x:Key="ListBoxItemStyle"
-		   BasedOn="{StaticResource GeneralFont}"
 		   TargetType="{x:Type ListBoxItem}">
+		
+		<!-- General Font styles: should be used via BasedOn attribute! -->
+		<Setter Property="Control.FontFamily"
+				Value="Verdana" />
+		<Setter Property="Control.FontSize"
+				Value="12" />
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="12" />
+		
 		<Setter Property="SnapsToDevicePixels"
 				Value="true" />
 		<Setter Property="OverridesDefaultStyle"
@@ -73,7 +83,7 @@
 						<Trigger Property="IsEnabled"
 								 Value="false">
 							<Setter Property="Foreground"
-									Value="{StaticResource DisabledForegroundBrush}" />
+									Value="{DynamicResource DisabledForegroundBrush}" />
 						</Trigger>
 						<Trigger Property="IsFocused"
 								 Value="true">

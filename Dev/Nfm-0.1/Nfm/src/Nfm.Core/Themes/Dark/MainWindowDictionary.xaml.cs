@@ -16,7 +16,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Shapes;
 
-namespace Nfm.Loader.Resources
+namespace Nfm.Core.Themes.Dark
 {
 	/// <summary>
 	/// Resources for main application window.

@@ -130,6 +130,9 @@
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
     <Compile Include="Resources\SharedResourceDictionary.cs" />
+    <Compile Include="Themes\Dark\MainWindowDictionary.xaml.cs">
+      <DependentUpon>MainWindowDictionary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\IViewModelWithChilds.cs" />
     <Compile Include="ViewModels\IDefaultModuleViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
@@ -166,9 +169,37 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Themes\Dark\CloseableTabItemButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dark\CommonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Dark\DarkTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Dark\DuplicateTabItemButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dark\ListBoxItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dark\ListBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dark\MainWindowDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dark\TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Dark\TabItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>

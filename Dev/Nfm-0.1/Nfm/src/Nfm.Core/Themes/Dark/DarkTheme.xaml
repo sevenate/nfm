@@ -1,6 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="CommonStyle.xaml" />
+		<ResourceDictionary Source="CloseableTabItemButtonStyle.xaml" />
+		<ResourceDictionary Source="DuplicateTabItemButtonStyle.xaml" />
+		<ResourceDictionary Source="ListBoxItemStyle.xaml" />
+		<ResourceDictionary Source="ListBoxStyle.xaml" />
 		<ResourceDictionary Source="TabItemStyle.xaml" />
+		<ResourceDictionary Source="TabControlStyle.xaml" />
+		<ResourceDictionary Source="MainWindowDictionary.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
