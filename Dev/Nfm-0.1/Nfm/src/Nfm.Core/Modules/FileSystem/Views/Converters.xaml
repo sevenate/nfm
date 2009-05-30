@@ -19,11 +19,11 @@
 									   GBytePrecision="OneDecimalPlaces"
 									   TBytePrecision="TwoDecimalPlaces" />
 	<convert:FileSizeToBrushConverter x:Key="FileSizeToBrushConverter"
-									  ByteBrush="{StaticResource FileSizeByteBrush}"
-									  KByteBrush="{StaticResource FileSizeKByteBrush}"
-									  MByteBrush="{StaticResource FileSizeMByteBrush}"
-									  GByteBrush="{StaticResource FileSizeGByteBrush}"
-									  TByteBrush="{StaticResource FileSizeTByteBrush}" />
+									  ByteBrush="White"
+									  KByteBrush="LightGreen"
+									  MByteBrush="Orange"
+									  GByteBrush="#FFFF4F4F"
+									  TByteBrush="LightSeaGreen" />
 	<convert:FileExtensionToBrushConverter x:Key="FileExtensionToBrushConverter"
 										   ExecutableBrush="#FF00FF00"
 										   LibraryBrush="#FF007B00"
@@ -45,7 +45,7 @@
 										   TemporaryBrush="#227B7B00"
 										   SourceBrush="#2200FFFF"
 										   WebBrush="#22FF7B00"
-										   NormalBrush="{StaticResource ListItemBackgroundBrush}" />
+										   NormalBrush="#FF595959" />
 	<convert:FileExtensionToBrushConverter x:Key="FileExtensionToBackgroundHoverBrushConverter"
 										   ExecutableBrush="#6600FF00"
 										   LibraryBrush="#66007B00"
@@ -56,11 +56,10 @@
 										   TemporaryBrush="#667B7B00"
 										   SourceBrush="#6600FFFF"
 										   WebBrush="#66FF7B00"
-										   NormalBrush="{StaticResource HoverBackgroundBrush}" />
+										   NormalBrush="#FF424242" />
 	<convert:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
 	<convert:DateTimeToBrushConverter x:Key="DateTimeToBrushConverter" />
 	<fs:FileToIconConverter x:Key="FileToIconConverter" DefaultSize="32" />
 	<fs:FileToIconConverter x:Key="DriveToIconConverter" DefaultSize="48" />
-	
 
 </ResourceDictionary>
