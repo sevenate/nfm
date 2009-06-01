@@ -7,6 +7,8 @@
 	<DataTemplate DataType="{x:Type FileSystem:FileVM}">
 		<DataTemplate.Resources>
 			<ResourceDictionary>
+				
+				<!-- Todo: Important: remove classic resource merging! -->
 				<ResourceDictionary.MergedDictionaries>
 					<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Resources/Converters.xaml" />
 				</ResourceDictionary.MergedDictionaries>
