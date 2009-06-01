@@ -3,10 +3,11 @@
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					mc:Ignorable="d">
 
 	<!-- #ListBoxItem Style -->
-	<Style x:Key="ListBoxItemStyle"
+	<Style x:Key="{x:Static Themes:Theme.ListBoxItemStyleKey}"
 		   TargetType="{x:Type ListBoxItem}">
 		
 		<!-- General Font styles: should be used via BasedOn attribute! -->
@@ -24,7 +25,7 @@
 		<Setter Property="OverridesDefaultStyle"
 				Value="true" />
 		<Setter Property="Foreground"
-				Value="{DynamicResource ForegroundBrush}" />
+				Value="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}" />
 		<Setter Property="Padding"
 				Value="1" />
 		<Setter Property="Margin"
@@ -83,7 +84,7 @@
 						<Trigger Property="IsEnabled"
 								 Value="false">
 							<Setter Property="Foreground"
-									Value="{DynamicResource DisabledForegroundBrush}" />
+									Value="{DynamicResource {x:Static Themes:Theme.DisabledForegroundBrushKey}}" />
 						</Trigger>
 						<Trigger Property="IsFocused"
 								 Value="true">
@@ -98,7 +99,7 @@
 								 Value="true">
 							<Setter TargetName="SelectedRectangle"
 									Property="Stroke"
-									Value="{DynamicResource FocusedBorderBrush}" />
+									Value="{DynamicResource {x:Static Themes:Theme.FocusedBorderBrushKey}}" />
 							<Setter TargetName="SelectedRectangle"
 									Property="StrokeThickness"
 									Value="2" />
@@ -107,7 +108,7 @@
 								 Value="True">
 							<Setter TargetName="SelectedRectangle"
 									Property="Fill"
-									Value="{DynamicResource SelectedBackgroundBrush}" />
+									Value="{DynamicResource {x:Static Themes:Theme.SelectedBackgroundBrushKey}}" />
 						</Trigger>
 <!--						<MultiTrigger>-->
 <!--							<MultiTrigger.Conditions>-->

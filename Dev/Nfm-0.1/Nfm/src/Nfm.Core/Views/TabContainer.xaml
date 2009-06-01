@@ -6,8 +6,8 @@
 
 	<DataTemplate DataType="{x:Type vm:TabContainer}">
 		<Controls:FastTabControl ItemsSource="{Binding Path=Childs}"
-					Style="{DynamicResource TabControlStyle}"
-					ItemContainerStyle="{DynamicResource TabItemStyle}">
+					Style="{DynamicResource {x:Static Theme.TabControlStyleKey}}"
+					ItemContainerStyle="{DynamicResource {x:Static Theme.TabItemStyleKey}}">
 			<TabControl.ItemTemplate>
 				<DataTemplate>
 					<ContentControl Content="{Binding Path=Header}"

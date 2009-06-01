@@ -119,6 +119,7 @@
     <Compile Include="Localization\Translator.cs" />
     <Compile Include="Models\INode.cs" />
     <Compile Include="Models\INodeAttribute.cs" />
+    <Compile Include="Modules\FileSystem\Resources\ModuleTheme.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\DriveFullVM.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\DriveVM.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\FileVM.cs" />
@@ -129,10 +130,11 @@
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\FileToIconConverter.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
-    <Compile Include="Resources\SharedResourceDictionary.cs" />
+    <Compile Include="Resources\ResourceCache.cs" />
     <Compile Include="Themes\Dark\MainWindowDictionary.xaml.cs">
       <DependentUpon>MainWindowDictionary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Theme.cs" />
     <Compile Include="ViewModels\IViewModelWithChilds.cs" />
     <Compile Include="ViewModels\IDefaultModuleViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
@@ -172,13 +174,45 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Resources\CommonResources.xaml">
+    <Page Include="Modules\FileSystem\Resources\ModuleTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\FileSystem\Resources\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Converters.xaml">
+    <Page Include="Modules\FileSystem\Views\DriveFullView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FileSystem\Views\DriveView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FileSystem\Views\FileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FileSystem\Views\FolderFullView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FileSystem\Views\FolderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FileSystem\Views\LocalFileSystemModuleFullView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FileSystem\Views\LocalFileSystemModuleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FileSystem\Resources\ModuleResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Dark\CloseableTabItemButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -220,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\AllViews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -256,7 +294,6 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\FileSystem\Views\" />
     <Folder Include="Themes\Light\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

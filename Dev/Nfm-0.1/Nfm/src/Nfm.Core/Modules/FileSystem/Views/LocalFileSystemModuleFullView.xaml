@@ -1,18 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem"
+					xmlns:Controls="clr-namespace:Nfm.Core.Controls">
 
 	<DataTemplate DataType="{x:Type FileSystem:LocalFileSystemModuleFullVM}">
 		<DockPanel>
 			<TextBlock Text="{Binding Path=Name}"
-					   Foreground="{StaticResource ForegroundBrush}"
+					   Foreground="{DynamicResource {x:Static Theme.ForegroundBrushKey}}"
 					   Margin="3"
 					   DockPanel.Dock="Top" />
 			<ListBox ItemsSource="{Binding Path=Childs, IsAsync=True}"
-					 Style="{StaticResource ListBoxStyle}"
-					 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-					 ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
-					 ElementUtility.Dummy="{KeyboardFocusManager}">
+					 Style="{DynamicResource {x:Static Theme.ListBoxStyleKey}}"
+					 ItemContainerStyle="{DynamicResource {x:Static Theme.ListBoxItemStyleKey}}"
+					 Controls:ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
+					 Controls:ElementUtility.Dummy="{Controls:KeyboardFocusManager}">
 			</ListBox>
 		</DockPanel>
 	</DataTemplate>

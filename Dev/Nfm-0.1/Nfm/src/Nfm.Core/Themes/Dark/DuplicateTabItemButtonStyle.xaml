@@ -2,9 +2,10 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					mc:Ignorable="d">
 
-	<Style x:Key="DuplicateTabItemButtonStyle"
+	<Style x:Key="{x:Static Themes:Theme.DuplicateTabItemButtonStyleKey}"
 		   TargetType="{x:Type Button}">
 		<Style.Resources>
 			<LinearGradientBrush x:Key="ButtonNormalBackground"

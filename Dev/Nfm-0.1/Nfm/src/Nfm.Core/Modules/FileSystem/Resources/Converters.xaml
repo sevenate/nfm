@@ -10,6 +10,7 @@
 	<convert:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 	<convert:BoolToVisibilityConverter x:Key="BoolToVisibilityHiddenConverter"
 									   HiddenOnly="True" />
+	
 	<convert:FileSizeToStringConverter x:Key="FileSizeToStringConverter" />
 	<convert:FileSizeToStringConverter x:Key="FileSizeToStringSpecificConverter"
 									   KByteUnit="KiloByte"
@@ -18,12 +19,14 @@
 									   TByteUnit="TeraByte"
 									   GBytePrecision="OneDecimalPlaces"
 									   TBytePrecision="TwoDecimalPlaces" />
+	
 	<convert:FileSizeToBrushConverter x:Key="FileSizeToBrushConverter"
 									  ByteBrush="White"
 									  KByteBrush="LightGreen"
 									  MByteBrush="Orange"
 									  GByteBrush="#FFFF4F4F"
 									  TByteBrush="LightSeaGreen" />
+	
 	<convert:FileExtensionToBrushConverter x:Key="FileExtensionToBrushConverter"
 										   ExecutableBrush="#FF00FF00"
 										   LibraryBrush="#FF007B00"
@@ -57,8 +60,10 @@
 										   SourceBrush="#6600FFFF"
 										   WebBrush="#66FF7B00"
 										   NormalBrush="#FF424242" />
+	
 	<convert:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
 	<convert:DateTimeToBrushConverter x:Key="DateTimeToBrushConverter" />
+	
 	<fs:FileToIconConverter x:Key="FileToIconConverter" DefaultSize="32" />
 	<fs:FileToIconConverter x:Key="DriveToIconConverter" DefaultSize="48" />
 

@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
 
-	<Style x:Key="CloseableTabItemButtonStyle"
+	<Style x:Key="{x:Static Themes:Theme.CloseableTabItemButtonStyleKey}"
 		   TargetType="{x:Type Button}">
 		<Style.Resources>
 			<LinearGradientBrush x:Key="ButtonNormalBackground"

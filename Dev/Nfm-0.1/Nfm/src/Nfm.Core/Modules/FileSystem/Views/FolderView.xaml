@@ -1,8 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core"
+					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem"
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:Resources="clr-namespace:Nfm.Core.Resources"
+					xmlns:ModuleResources="clr-namespace:Nfm.Core.Modules.FileSystem.Resources"
 					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type FileSystem:FolderVM}">
@@ -42,10 +44,11 @@
 		<!-- Border Background "hover" was: #66338833 -->
 
 		<Border x:Name="Border"
+				Resources:ResourceCache.MergedDictionaries="{x:Static Resources:ResourceCache.Converters}"
 				Margin="1"
 				Padding="3,1,3,1"
-				Background="{StaticResource BackgroundBrush}"
-				BorderBrush="{StaticResource BorderBrush}"
+				Background="{DynamicResource {x:Static Theme.BackgroundBrushKey}}"
+				BorderBrush="{DynamicResource {x:Static Theme.BorderBrushKey}}"
 				BorderThickness="2"
 				CornerRadius="3"
 				SnapsToDevicePixels="true">
@@ -88,34 +91,34 @@
 								Orientation="Horizontal">
 						<TextBlock x:Name="AttributeSystem"
 								   Visibility="{Binding Path=IsSystem, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
-								   Foreground="{StaticResource FileAttributeSystemBrush}"
+								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeSystemBrushKey}}"
 								   Text="S"
 								   ToolTip="System"
-								   Style="{DynamicResource FileAttribute}"
+								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
 						<TextBlock x:Name="AttributeHidden"
 								   Visibility="{Binding Path=IsHidden, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
-								   Foreground="{StaticResource FileAttributeHiddenBrush}"
+								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeHiddenBrushKey}}"
 								   Text="H"
 								   ToolTip="Hidden"
-								   Style="{DynamicResource FileAttribute}"
+								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
 						<TextBlock x:Name="AttributeArchive"
 								   Visibility="{Binding Path=IsArchive, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
-								   Foreground="{StaticResource FileAttributeArchiveBrush}"
+								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeArchiveBrushKey}}"
 								   Text="A"
 								   ToolTip="Archive"
-								   Style="{DynamicResource FileAttribute}"
+								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
 						<TextBlock x:Name="AttributeReadOnly"
 								   Visibility="{Binding Path=IsReadOnly, Converter={StaticResource BoolToVisibilityHiddenConverter}}"
-								   Foreground="{StaticResource FileAttributeReadOnlyBrush}"
+								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeReadOnlyBrushKey}}"
 								   Text="R"
 								   ToolTip="Read Only"
-								   Style="{DynamicResource FileAttribute}"
+								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
 					</StackPanel>
@@ -126,7 +129,7 @@
 							   Foreground="{Binding Path=DateModified, Converter={StaticResource DateTimeToBrushConverter}}"
 							   Padding="5,1,5,1"
 							   MinWidth="160"
-							   Style="{DynamicResource FileDateModified}"
+							   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileDateModifiedKey}}"
 							   TextAlignment="Right"
 							   DockPanel.Dock="Right"
 							   VerticalAlignment="Bottom" />
@@ -178,12 +181,12 @@
 				<MultiTrigger.Conditions>
 					<Condition Property="IsMouseOver"
 							   Value="True" />
-					<!--					<Condition Property="IsSelected"-->
-					<!--										   Value="False" />-->
+<!--					<Condition Property="IsSelected"-->
+<!--										   Value="False" />-->
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="Background"
-						Value="{StaticResource HoverBackgroundBrush}" />
+						Value="{DynamicResource {x:Static Theme.HoverBackgroundBrushKey}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>

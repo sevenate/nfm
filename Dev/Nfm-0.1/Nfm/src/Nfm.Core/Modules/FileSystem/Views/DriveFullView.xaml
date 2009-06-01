@@ -2,20 +2,21 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem;assembly=Nfm.Core"
+					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem"
+					xmlns:Controls="clr-namespace:Nfm.Core.Controls"
 					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type FileSystem:DriveFullVM}">
 		<DockPanel>
 			<TextBlock Text="{Binding Path=Name}"
-					   Foreground="{DynamicResource ForegroundBrush}"
+					   Foreground="{DynamicResource {x:Static Theme.ForegroundBrushKey}}"
 					   Margin="3"
 					   DockPanel.Dock="Top" />
 			<ListBox ItemsSource="{Binding Path=Childs, IsAsync=True}"
-					 Style="{DynamicResource ListBoxStyle}"
-					 ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
-					 ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
-					 ElementUtility.Dummy="{KeyboardFocusManager}">
+					 Style="{DynamicResource {x:Static Theme.ListBoxStyleKey}}"
+					 ItemContainerStyle="{DynamicResource {x:Static Theme.ListBoxItemStyleKey}}"
+					 Controls:ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
+					 Controls:ElementUtility.Dummy="{Controls:KeyboardFocusManager}">
 			</ListBox>
 		</DockPanel>
 	</DataTemplate>

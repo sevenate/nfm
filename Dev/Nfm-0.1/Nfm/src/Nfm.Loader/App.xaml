@@ -3,27 +3,6 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 DispatcherUnhandledException="Application_DispatcherUnhandledException">
 	<Application.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<!-- Note: Optimization memory - replace all ResourceDictionary to SharedResourceDictionary in release -->
-				<!-- Blend 3 does't support it in design tyme :( -->
-				<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/DarkTheme.xaml" />
-				<ResourceDictionary Source="/Nfm.Core;component/Resources/CommonResources.xaml" />
-
-<!--				<ResourceDictionary Source="Resources/Converters.xaml" />-->
-				
-				<!-- Local File System Module view models -->
-				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleFullView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/LocalFileSystemModuleView.xaml" />
-
-				<ResourceDictionary Source="Resources/DataTemplates/DriveFullView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/DriveView.xaml" />
-				
-				<ResourceDictionary Source="Resources/DataTemplates/FolderFullView.xaml" />
-				<ResourceDictionary Source="Resources/DataTemplates/FolderView.xaml" />
-
-				<ResourceDictionary Source="Resources/DataTemplates/FileView.xaml" />
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
+		
 	</Application.Resources>
 </Application>

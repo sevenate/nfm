@@ -6,8 +6,8 @@
 		<Border x:Name="Border"
 				Margin="1"
 				Padding="3,1,3,1"
-				Background="{DynamicResource BackgroundBrush}"
-				BorderBrush="{DynamicResource BorderBrush}"
+				Background="{DynamicResource {x:Static Theme.BackgroundBrushKey}}"
+				BorderBrush="{DynamicResource {x:Static Theme.BorderBrushKey}}"
 				BorderThickness="2"
 				CornerRadius="3"
 				SnapsToDevicePixels="true"
@@ -39,7 +39,7 @@
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="Background"
-						Value="{DynamicResource HoverBackgroundBrush}" />
+						Value="{DynamicResource {x:Static Theme.HoverBackgroundBrushKey}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>
