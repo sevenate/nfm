@@ -2,7 +2,8 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem"
 					xmlns:Controls="clr-namespace:Nfm.Core.Controls"
-					xmlns:Resources="clr-namespace:Nfm.Core.Resources">
+					xmlns:Resources="clr-namespace:Nfm.Core.Resources"
+					xmlns:ModuleResources="clr-namespace:Nfm.Core.Modules.FileSystem.Resources">
 
 	<DataTemplate DataType="{x:Type FileSystem:LocalFileSystemModuleVM}">
 		<DataTemplate.Resources>
@@ -41,7 +42,7 @@
 		<!-- Border Background "hover" was: #66338833 -->
 
 		<Border x:Name="Border"
-				Resources:ResourceCache.MergedDictionaries="{x:Static Resources:ResourceCache.Converters}"
+				Resources:ResourceCache.MergedDictionaries="{x:Static ModuleResources:ModuleTheme.Converters}"
 				Margin="1"
 				Padding="3"
 				Background="{DynamicResource {x:Static Theme.BackgroundBrushKey}}"

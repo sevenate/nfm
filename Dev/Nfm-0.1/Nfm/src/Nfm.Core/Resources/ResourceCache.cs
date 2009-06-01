@@ -103,14 +103,6 @@ namespace Nfm.Core.Resources
 		private static readonly Dictionary<Uri, WeakReference> CachedDictionaries = new Dictionary<Uri, WeakReference>();
 
 		/// <summary>
-		/// Gets specify path to dictionary with all common converters used across all application.
-		/// </summary>
-		public static string Converters
-		{
-			get { return GetPackUri("Modules/FileSystem/Resources/Converters.xaml").AbsolutePath; }
-		}
-
-		/// <summary>
 		/// Load specific <see cref="ResourceDictionary"/> and store it in cache to prevent loading in the future.
 		/// </summary>
 		/// <param name="source">Path to dictionary.</param>
