@@ -89,5 +89,19 @@ namespace Nfm.Core.Commands
 		public static ModifierKeys DuplicateHotKeyModifiers { get { return ModifierKeys.Control; } }
 
 		#endregion
+
+		#region Switch Theme (Ctrl + Alt + T)
+
+		/// <summary>
+		/// Gets hotkey for "SwitchTheme" command.
+		/// </summary>
+		public static Key SwitchThemeKey { get { return Key.T; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "SwitchTheme" command.
+		/// </summary>
+		public static ModifierKeys SwitchThemeModifiers { get { return ModifierKeys.Control | ModifierKeys.Alt; } }
+
+		#endregion
 	}
 }

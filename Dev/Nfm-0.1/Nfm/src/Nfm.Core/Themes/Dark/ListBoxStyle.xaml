@@ -76,6 +76,12 @@
 							</CommandMessage>
 						</GestureMessageTrigger.Message>
 					</GestureMessageTrigger>
+					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeKey}}"
+										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeModifiers}}">
+						<GestureMessageTrigger.Message>
+							<CommandMessage Command="{Resolve Key=SwitchTheme}" />
+						</GestureMessageTrigger.Message>
+					</GestureMessageTrigger>
 				</RoutedMessageTriggerCollection>
 			</Setter.Value>
 		</Setter>

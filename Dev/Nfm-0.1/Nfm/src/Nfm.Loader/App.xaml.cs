@@ -57,6 +57,7 @@ namespace Nfm.Loader
 			container.RegisterSingleton<NavigateToParentNodeCommand>("NavigateToParentNode");
 			container.RegisterSingleton<RefreshChildNodesCommand>("RefreshChildNodes");
 			container.RegisterSingleton<DublicateSelectedPanelCommand>("DublicateSelectedPanel");
+			container.RegisterSingleton<SwitchThemeCommand>("SwitchTheme");
 		}
 
 		#endregion
