@@ -46,13 +46,23 @@ namespace Nfm.Core.ViewModels
 		void RequestClose();
 
 		/// <summary>
-		/// Fire when panel is intended to close.
+		/// Rased before panel is closed.
 		/// </summary>
 		event EventHandler<EventArgs> Closing;
 
 		/// <summary>
-		/// Fire when panel is closed.
+		/// Rased after panel is closed.
 		/// </summary>
 		event EventHandler<EventArgs> Closed;
+
+		/// <summary>
+		/// Rased before panel is selected.
+		/// </summary>
+		event Action<IPanel> SelectionChanging;
+
+		/// <summary>
+		/// Rased after panel is selected.
+		/// </summary>
+		event Action<IPanel> SelectionChanged;
 	}
 }

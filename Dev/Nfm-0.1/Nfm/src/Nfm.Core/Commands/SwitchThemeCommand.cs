@@ -11,7 +11,7 @@
 // </editor>
 // <summary>Switch current application theme to next from all available.</summary>
 
-using Caliburn.Actions.Filters;
+using Caliburn.PresentationFramework.Filters;
 using Nfm.Core.Themes;
 
 namespace Nfm.Core.Commands

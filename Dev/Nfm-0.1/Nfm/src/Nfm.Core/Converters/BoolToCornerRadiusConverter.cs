@@ -12,6 +12,7 @@
 // <summary>Convert boolean value to corner radius of <see cref="Border"/>.</summary>
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -52,6 +53,39 @@ namespace Nfm.Core.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotSupportedException();
+		}
+
+		#endregion
+
+		#region Singleton
+
+		/// <summary>
+		/// Singleton instance.
+		/// </summary>
+		private static BoolToCornerRadiusConverter instance;
+
+		/// <summary>
+		/// Prevents a default instance of the <see cref="BoolToCornerRadiusConverter"/> class from being created.
+		/// </summary>
+		private BoolToCornerRadiusConverter()
+		{
+		}
+
+		/// <summary>
+		/// Gets the singleton instance.
+		/// </summary>
+		public static BoolToCornerRadiusConverter Inst
+		{
+			[DebuggerStepThrough]
+			get
+			{
+				if (instance == null)
+				{
+					instance = new BoolToCornerRadiusConverter();
+				}
+
+				return instance;
+			}
 		}
 
 		#endregion

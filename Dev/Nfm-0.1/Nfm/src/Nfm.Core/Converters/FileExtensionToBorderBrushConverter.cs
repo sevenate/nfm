@@ -1,13 +1,13 @@
-// <copyright file="FileExtensionToBrushConverter.cs" company="HD">
+// <copyright file="FileExtensionToBorderBrushConverter.cs" company="HD">
 // 	Copyright (c) 2009 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff">
 // 	<email>alevshoff@hd.com</email>
-// 	<date>2009-01-23</date>
+// 	<date>2009-06-09</date>
 // </author>
 // <editor name="Andrew Levshoff">
 // 	<email>alevshoff@hd.com</email>
-// 	<date>2009-01-23</date>
+// 	<date>2009-06-09</date>
 // </editor>
 // <summary>Convert file extension value to <see cref="Brush"/>.</summary>
 
@@ -23,8 +23,8 @@ namespace Nfm.Core.Converters
 	/// <summary>
 	/// Convert file extension value to <see cref="Brush"/>.
 	/// </summary>
-	[ValueConversion(typeof (string), typeof (Brush))]
-	public class FileExtensionToBrushConverter : IValueConverter
+	[ValueConversion(typeof(string), typeof(Brush))]
+	public class FileExtensionToBorderBrushConverter : IValueConverter
 	{
 		#region Implementation of IValueConverter
 
@@ -44,64 +44,64 @@ namespace Nfm.Core.Converters
 				return null; // new SolidColorBrush();
 			}
 
-			var ext = (string) value;
+			var ext = (string)value;
 
 			// Executable
 			if (ext.Equals("exe", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.ExecutableBrush;
+				return ModuleConfig.FileExtensionBorder.ExecutableBrush;
 			}
 
 			// Library
 			if (ext.Equals("dll", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.LibraryBrush;
+				return ModuleConfig.FileExtensionBorder.LibraryBrush;
 			}
 
 			// Video
 			if (ext.Equals("avi", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.VideoBrush;
+				return ModuleConfig.FileExtensionBorder.VideoBrush;
 			}
 
 			// Audio
 			if (ext.Equals("mp3", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.AudioBrush;
+				return ModuleConfig.FileExtensionBorder.AudioBrush;
 			}
 
 			// Image
 			if (ext.Equals("jpg", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.ImageBrush;
+				return ModuleConfig.FileExtensionBorder.ImageBrush;
 			}
 
 			// Archive
 			if (ext.Equals("zip", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.ArchiveBrush;
+				return ModuleConfig.FileExtensionBorder.ArchiveBrush;
 			}
 
 			// Temporary
 			if (ext.Equals("tmp", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.TemporaryBrush;
+				return ModuleConfig.FileExtensionBorder.TemporaryBrush;
 			}
 
 			// Source
 			if (ext.Equals("cs", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.SourceBrush;
+				return ModuleConfig.FileExtensionBorder.SourceBrush;
 			}
 
 			// Web
 			if (ext.Equals("html", StringComparison.OrdinalIgnoreCase))
 			{
-				return ModuleConfig.FileExtension.WebBrush;
+				return ModuleConfig.FileExtensionBorder.WebBrush;
 			}
 
 			// Normal
-			return ModuleConfig.FileExtension.NormalBrush;
+			return ModuleConfig.FileExtensionBorder.NormalBrush;
 		}
 
 		/// <summary>
@@ -124,26 +124,26 @@ namespace Nfm.Core.Converters
 		/// <summary>
 		/// Singleton instance.
 		/// </summary>
-		private static FileExtensionToBrushConverter instance;
+		private static FileExtensionToBorderBrushConverter instance;
 
 		/// <summary>
 		/// Prevents a default instance of the <see cref="FileExtensionToBrushConverter"/> class from being created.
 		/// </summary>
-		private FileExtensionToBrushConverter()
+		private FileExtensionToBorderBrushConverter()
 		{
 		}
 
 		/// <summary>
 		/// Gets the singleton instance.
 		/// </summary>
-		public static FileExtensionToBrushConverter Inst
+		public static FileExtensionToBorderBrushConverter Inst
 		{
 			[DebuggerStepThrough]
 			get
 			{
 				if (instance == null)
 				{
-					instance = new FileExtensionToBrushConverter();
+					instance = new FileExtensionToBorderBrushConverter();
 				}
 
 				return instance;

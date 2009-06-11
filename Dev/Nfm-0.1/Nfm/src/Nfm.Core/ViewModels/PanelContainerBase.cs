@@ -94,7 +94,9 @@ namespace Nfm.Core.ViewModels
 			set
 			{
 				OnPropertyChanging("IsSelected");
+				OnAction(SelectionChanging, this);
 				isSelected = value;
+				OnAction(SelectionChanged, this);
 				OnPropertyChanged("IsSelected");
 			}
 		}
@@ -130,14 +132,24 @@ namespace Nfm.Core.ViewModels
 		}
 
 		/// <summary>
-		/// Fire when panel is closed.
+		/// Rased before panel is closed.
 		/// </summary>
-		public virtual event EventHandler<EventArgs> Closed;
+		public event EventHandler<EventArgs> Closing;
 
 		/// <summary>
-		/// Fire when panel is intended to close.
+		/// Rased after panel is closed.
 		/// </summary>
-		public virtual event EventHandler<EventArgs> Closing;
+		public event EventHandler<EventArgs> Closed;
+
+		/// <summary>
+		/// Rased before panel is selected.
+		/// </summary>
+		public event Action<IPanel> SelectionChanging;
+
+		/// <summary>
+		/// Rased after panel is selected.
+		/// </summary>
+		public event Action<IPanel> SelectionChanged;
 
 		#region Implementation of ICloneable
 
@@ -155,6 +167,11 @@ namespace Nfm.Core.ViewModels
 		#endregion
 
 		#region Implementation of IPanelContainer
+
+		/// <summary>
+		/// Active child panel.
+		/// </summary>
+		private IPanel active;
 
 		/// <summary>
 		/// Child panels.
@@ -182,6 +199,29 @@ namespace Nfm.Core.ViewModels
 				}
 
 				return childs;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets active child panel.
+		/// </summary>
+		public IPanel Active
+		{
+			get { return active; }
+			set
+			{
+				if (Childs.Contains(value))
+				{
+					OnPropertyChanging("Active");
+					active = value;
+
+					if (!active.IsSelected)
+					{
+						active.IsSelected = true;
+					}
+
+					OnPropertyChanged("Active");
+				}
 			}
 		}
 
@@ -221,22 +261,35 @@ namespace Nfm.Core.ViewModels
 			}
 
 			if (e.NewItems != null
-				&& e.NewItems.Count > 0
-				&& (e.Action == NotifyCollectionChangedAction.Add
-					|| e.Action == NotifyCollectionChangedAction.Replace))
+			    && e.NewItems.Count > 0
+			    && (e.Action == NotifyCollectionChangedAction.Add
+			        || e.Action == NotifyCollectionChangedAction.Replace))
 			{
 				foreach (IPanel panel in e.NewItems)
 				{
 					// Take ownership of this child.
 					panel.Parent = this;
 					panel.Closed += OnChildClose;
+					panel.SelectionChanged += OnChildSelectionChanged;
+
+					// Initialize active panel with last added selected panel
+					if (panel.IsSelected)
+					{
+						Active = panel;
+					}
+				}
+
+				// Force selection of last added panel to initialize active panel
+				if (Active == null)
+				{
+					((IPanel) e.NewItems[e.NewItems.Count - 1]).IsSelected = true;
 				}
 			}
 
 			if (e.OldItems != null
-				&& e.OldItems.Count > 0
-				&& (e.Action == NotifyCollectionChangedAction.Remove
-					|| e.Action == NotifyCollectionChangedAction.Replace))
+			    && e.OldItems.Count > 0
+			    && (e.Action == NotifyCollectionChangedAction.Remove
+			        || e.Action == NotifyCollectionChangedAction.Replace))
 			{
 				foreach (IPanel panel in e.OldItems)
 				{
@@ -250,6 +303,7 @@ namespace Nfm.Core.ViewModels
 
 					// But event handler still need to be removed.
 					panel.Closed -= OnChildClose;
+					panel.SelectionChanged -= OnChildSelectionChanged;
 				}
 			}
 		}
@@ -261,14 +315,44 @@ namespace Nfm.Core.ViewModels
 		/// <param name="e">Event params.</param>
 		private void OnChildClose(object sender, EventArgs e)
 		{
-			if (Childs.Contains(sender as IPanel))
+			var panel = sender as IPanel;
+
+			if (Childs.Contains(panel))
 			{
-				Childs.Remove(sender as IPanel);
+				int panelIndex = Childs.IndexOf(panel);
+				Childs.Remove(panel);
+
+				if (Active == panel && Childs.Count > 0)
+				{
+					// Todo: Make this configurable - after child panel is closed, make next OR prev child panel active.
+					int newActiveIndex = panelIndex < Childs.Count
+					                     	? panelIndex
+					                     	: Childs.Count - 1;
+					Active = Childs[newActiveIndex];
+				}
 			}
 
 			if (Childs.Count == 0 && !isClosing)
 			{
+				active = null;
 				RequestClose();
+			}
+		}
+
+		/// <summary>
+		/// Child <see cref="IPanel.SelectionChanged"/> event handler.
+		/// </summary>
+		/// <param name="panel">Event sender.</param>
+		private void OnChildSelectionChanged(IPanel panel)
+		{
+			if (panel.IsSelected && panel != Active)
+			{
+				if (Active != null)
+				{
+					Active.IsSelected = false;
+				}
+
+				Active = panel;
 			}
 		}
 
@@ -306,10 +390,15 @@ namespace Nfm.Core.ViewModels
 			// See defect #18.
 			childsCopy.CollectionChanged += OnChildsChanged;
 
-			foreach (var child in another.childs)
+			foreach (IPanel child in another.childs)
 			{
-				var newChild = (IPanel)child.Clone();
+				var newChild = (IPanel) child.Clone();
 				childsCopy.Add(newChild);
+
+				if (child == another.Active)
+				{
+					active = newChild;
+				}
 			}
 
 			childs = childsCopy;

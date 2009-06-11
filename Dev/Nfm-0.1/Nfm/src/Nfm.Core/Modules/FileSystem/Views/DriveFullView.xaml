@@ -4,17 +4,18 @@
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem"
 					xmlns:Controls="clr-namespace:Nfm.Core.Controls"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type FileSystem:DriveFullVM}">
 		<DockPanel>
 			<TextBlock Text="{Binding Path=Name}"
-					   Foreground="{DynamicResource {x:Static Theme.ForegroundBrushKey}}"
+					   Foreground="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}"
 					   Margin="3"
 					   DockPanel.Dock="Top" />
 			<ListBox ItemsSource="{Binding Path=Childs, IsAsync=True}"
-					 Style="{DynamicResource {x:Static Theme.ListBoxStyleKey}}"
-					 ItemContainerStyle="{DynamicResource {x:Static Theme.ListBoxItemStyleKey}}"
+					 Style="{DynamicResource {x:Static Themes:Theme.ListBoxStyleKey}}"
+					 ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.ListBoxItemStyleKey}}"
 					 Controls:ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
 					 Controls:ElementUtility.Dummy="{Controls:KeyboardFocusManager}">
 			</ListBox>

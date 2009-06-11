@@ -1,32 +1,33 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:ViewModels="clr-namespace:Nfm.Core.ViewModels">
+					xmlns:ViewModels="clr-namespace:Nfm.Core.ViewModels"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:cb="http://caliburn.codeplex.com">
 
 	<DataTemplate DataType="{x:Type ViewModels:ParentNodeVM}">
 		<Border x:Name="Border"
 				Margin="1"
 				Padding="3,1,3,1"
-				Background="{DynamicResource {x:Static Theme.BackgroundBrushKey}}"
-				BorderBrush="{DynamicResource {x:Static Theme.BorderBrushKey}}"
+				Background="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
+				BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
 				BorderThickness="2"
 				CornerRadius="3"
-				SnapsToDevicePixels="true"
-				Width="100">
+				SnapsToDevicePixels="true">
 			<Button Content="Up"
 					FontSize="16"
 					Focusable="False">
-				<Message.Triggers>
-					<RoutedMessageTriggerCollection>
-						<EventMessageTrigger EventName="Click">
-							<EventMessageTrigger.Message>
-								<CommandMessage Command="{Resolve Key=NavigateToCurrentNode}">
-									<Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
-									<Parameter Value="{Binding Mode=OneWay}" />
-								</CommandMessage>
-							</EventMessageTrigger.Message>
-						</EventMessageTrigger>
-					</RoutedMessageTriggerCollection>
-				</Message.Triggers>
+				<cb:Message.Triggers>
+					<cb:RoutedMessageTriggerCollection>
+						<cb:EventMessageTrigger EventName="Click">
+							<cb:EventMessageTrigger.Message>
+								<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+									<cb:Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+									<cb:Parameter Value="{Binding Mode=OneWay}" />
+								</cb:CommandMessage>
+							</cb:EventMessageTrigger.Message>
+						</cb:EventMessageTrigger>
+					</cb:RoutedMessageTriggerCollection>
+				</cb:Message.Triggers>
 			</Button>
 		</Border>
 		<DataTemplate.Triggers>
@@ -39,7 +40,7 @@
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="Background"
-						Value="{DynamicResource {x:Static Theme.HoverBackgroundBrushKey}}" />
+						Value="{DynamicResource {x:Static Themes:Theme.HoverBackgroundBrushKey}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>

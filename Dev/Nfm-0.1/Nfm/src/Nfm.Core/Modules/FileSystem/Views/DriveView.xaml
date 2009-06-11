@@ -1,8 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem"
-					xmlns:Resources="clr-namespace:Nfm.Core.Resources"
-					xmlns:ModuleResources="clr-namespace:Nfm.Core.Modules.FileSystem.Resources">
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:cb="http://caliburn.codeplex.com"
+					xmlns:fs="clr-namespace:Nfm.Core.ViewModels.FileSystem.Icons"
+					xmlns:Converters="clr-namespace:Nfm.Core.Converters">
 
 	<DataTemplate DataType="{x:Type FileSystem:DriveVM}">
 		<DataTemplate.Resources>
@@ -34,6 +36,8 @@
 										  Value="48" />
 				</DoubleAnimationUsingKeyFrames>
 			</Storyboard>
+			<fs:FileToIconConverter x:Key="DriveToIconConverter"
+									DefaultSize="48" />
 		</DataTemplate.Resources>
 
 		<!-- Border BorderBrush was: #FF338833 -->
@@ -41,11 +45,10 @@
 		<!-- Border Background "hover" was: #66338833 -->
 
 		<Border x:Name="Border"
-				Resources:ResourceCache.MergedDictionaries="{x:Static ModuleResources:ModuleTheme.Converters}"
 				Margin="1"
 				Padding="3,1,3,1"
-				Background="{DynamicResource {x:Static Theme.BackgroundBrushKey}}"
-				BorderBrush="{DynamicResource {x:Static Theme.BorderBrushKey}}"
+				Background="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
+				BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
 				BorderThickness="2"
 				CornerRadius="3"
 				SnapsToDevicePixels="true">
@@ -65,18 +68,18 @@
 							</MultiBinding >
 						</Image.Source>
 					</Image>
-					<Message.Triggers>
-						<RoutedMessageTriggerCollection>
-							<EventMessageTrigger EventName="MouseLeftButtonDown">
-								<EventMessageTrigger.Message>
-									<CommandMessage Command="{Resolve Key=NavigateToCurrentNode}">
-										<Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
-										<Parameter Value="{Binding Mode=OneWay}" />
-									</CommandMessage>
-								</EventMessageTrigger.Message>
-							</EventMessageTrigger>
-						</RoutedMessageTriggerCollection>
-					</Message.Triggers>
+					<cb:Message.Triggers>
+						<cb:RoutedMessageTriggerCollection>
+							<cb:EventMessageTrigger EventName="MouseLeftButtonDown">
+								<cb:EventMessageTrigger.Message>
+									<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+										<cb:Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+										<cb:Parameter Value="{Binding Mode=OneWay}" />
+									</cb:CommandMessage>
+								</cb:EventMessageTrigger.Message>
+							</cb:EventMessageTrigger>
+						</cb:RoutedMessageTriggerCollection>
+					</cb:Message.Triggers>
 				</Border>
 				<Border	Height="48"
 						DockPanel.Dock="Left"
@@ -106,26 +109,26 @@
 					</Grid>
 					<Grid DockPanel.Dock="Right"
 						  VerticalAlignment="Bottom"
-						  Visibility="{Binding Path=IsReady, Converter={StaticResource BoolToVisibilityConverter}}">
+						  Visibility="{Binding Path=IsReady, Converter={Converters:BoolToVisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"
 											  SharedSizeGroup="TotalSize" />
 						</Grid.ColumnDefinitions>
 						<TextBlock x:Name="TotalSize"
-								   Foreground="{Binding Path=TotalSize, Converter={StaticResource FileSizeToBrushConverter}}"
-								   Text="{Binding Path=TotalSize, Converter={StaticResource FileSizeToStringSpecificConverter}}"
+								   Foreground="{Binding Path=TotalSize, Converter={x:Static Converters:FileSizeToBrushConverter.Inst}}"
+								   Text="{Binding Path=TotalSize, Converter={x:Static Converters:FileSizeToStringConverter.Inst}}"
 								   Padding="5,1,5,1"
 								   TextAlignment="Right">
 						<TextBlock.ToolTip>
 							<!-- TODO: Investigate strange memory consumption with using MarkupExtension solution (more expensive then static resource) -->
-							<!-- <ToolTip Content="{Binding Path=TotalSize, Converter={FileSizeToStringConverter}}" /> -->
+							<!-- <ToolTip Content="{Binding Path=TotalSize, Converter={x:Static Converters:FileSizeToFullStringConverter.Inst}}" /> -->
 							<ToolTip>
 								<ToolTip.Content>
 									<TextBlock>
 										<TextBlock.Text>
 											<MultiBinding StringFormat="{}Total Size: {0}">
 											<Binding Path="TotalSize"
-													 Converter="{StaticResource FileSizeToStringConverter}" />
+													 Converter="{x:Static Converters:FileSizeToFullStringConverter.Inst}" />
 										</MultiBinding>
 										</TextBlock.Text>
 									</TextBlock>
@@ -136,26 +139,26 @@
 					</Grid>
 					<Grid DockPanel.Dock="Right"
 						  VerticalAlignment="Bottom"
-						  Visibility="{Binding Path=IsReady, Converter={StaticResource BoolToVisibilityConverter}}">
+						  Visibility="{Binding Path=IsReady, Converter={Converters:BoolToVisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"
 											  SharedSizeGroup="AvailableFreeSpace" />
 						</Grid.ColumnDefinitions>
 						<TextBlock x:Name="AvailableFreeSpace"
-								   Foreground="{Binding Path=AvailableFreeSpace, Converter={StaticResource FileSizeToBrushConverter}}"
-								   Text="{Binding Path=AvailableFreeSpace, Converter={StaticResource FileSizeToStringSpecificConverter}}"
+								   Foreground="{Binding Path=AvailableFreeSpace, Converter={x:Static Converters:FileSizeToBrushConverter.Inst}}"
+								   Text="{Binding Path=AvailableFreeSpace, Converter={x:Static Converters:FileSizeToStringConverter.Inst}}"
 								   Padding="5,1,5,1"
 								   TextAlignment="Right">
 						<TextBlock.ToolTip>
 							<!-- TODO: Investigate strange memory consumption with using MarkupExtension solution (more expensive then static resource) -->
-							<!-- <ToolTip Content="{Binding Path=AvailableFreeSpace, Converter={FileSizeToStringConverter}}" /> -->
+							<!-- <ToolTip Content="{Binding Path=AvailableFreeSpace, Converter={x:Static Converters:FileSizeToFullStringConverter.Inst}}" /> -->
 							<ToolTip>
 								<ToolTip.Content>
 									<TextBlock>
 										<TextBlock.Text>
 											<MultiBinding StringFormat="{}Available Free Space: {0}">
 											<Binding Path="AvailableFreeSpace"
-													 Converter="{StaticResource FileSizeToStringConverter}" />
+													 Converter="{x:Static Converters:FileSizeToFullStringConverter.Inst}" />
 										</MultiBinding>
 										</TextBlock.Text>
 									</TextBlock>
@@ -165,7 +168,7 @@
 						</TextBlock>
 					</Grid>
 					<TextBlock x:Name="DriveFormat"
-							   Visibility="{Binding Path=IsReady, Converter={StaticResource BoolToVisibilityConverter}}"
+							   Visibility="{Binding Path=IsReady, Converter={Converters:BoolToVisibilityConverter}}"
 							   Foreground="DarkGray"
 							   Text="{Binding Path=DriveFormat}"
 							   ToolTip="Drive Format"
@@ -175,19 +178,17 @@
 							   VerticalAlignment="Bottom" />
 				</DockPanel>
 				<TextBlock x:Name="VolumeLabel"
-						   Visibility="{Binding Path=IsReady, Converter={StaticResource BoolToVisibilityConverter}}"
+						   Visibility="{Binding Path=IsReady, Converter={Converters:BoolToVisibilityConverter}}"
 						   TextWrapping="Wrap"
 						   Padding="5,1,5,1"
 						   DockPanel.Dock="Top">
 					<TextBlock.Text>
-						<MultiBinding StringFormat="{}{0}">
-							<Binding Path="VolumeLabel" />
-						</MultiBinding>
+						<Binding Path="VolumeLabel" StringFormat="{}{0}" />
 					</TextBlock.Text>
 				</TextBlock>
 				<DockPanel DockPanel.Dock="Top"
 						   LastChildFill="True"
-						   Visibility="{Binding Path=IsReady, Converter={StaticResource BoolToVisibilityConverter}}">
+						   Visibility="{Binding Path=IsReady, Converter={Converters:BoolToVisibilityConverter}}">
 					<TextBlock DockPanel.Dock="Right"
 							   Padding="5,1,5,1"
 							   Foreground="Aqua"
@@ -224,7 +225,7 @@
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="Background"
-						Value="{DynamicResource {x:Static Theme.HoverBackgroundBrushKey}}" />
+						Value="{DynamicResource {x:Static Themes:Theme.HoverBackgroundBrushKey}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>

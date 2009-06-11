@@ -87,7 +87,11 @@ namespace Nfm.Core.ViewModels
 			set
 			{
 				OnPropertyChanging("IsSelected");
+				OnAction(SelectionChanging, this);
+
 				isSelected = value;
+
+				OnAction(SelectionChanged, this);
 				OnPropertyChanged("IsSelected");
 			}
 		}
@@ -113,14 +117,24 @@ namespace Nfm.Core.ViewModels
 		}
 
 		/// <summary>
-		/// Fire when panel is intended to close.
+		/// Rased before panel is closed.
 		/// </summary>
 		public event EventHandler<EventArgs> Closing;
 
 		/// <summary>
-		/// Fire when panel is closed.
+		/// Rased after panel is closed.
 		/// </summary>
 		public event EventHandler<EventArgs> Closed;
+
+		/// <summary>
+		/// Rased before panel is selected.
+		/// </summary>
+		public event Action<IPanel> SelectionChanging;
+
+		/// <summary>
+		/// Rased after panel is selected.
+		/// </summary>
+		public event Action<IPanel> SelectionChanged;
 
 		#endregion
 

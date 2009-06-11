@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
-					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:cb="http://caliburn.codeplex.com">
 
 	<!-- #ListBox Style -->
 	<Style x:Key="{x:Static Themes:Theme.ListBoxStyleKey}"
@@ -12,8 +13,6 @@
 				Value="{DynamicResource {x:Static Themes:Theme.ListBackgroundBrushKey}}" />
 		<Setter Property="BorderBrush"
 				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
-		<Setter Property="BorderThickness"
-				Value="1" />
 		<Setter Property="Padding"
 				Value="1" />
 <!--		<Setter Property="Focusable"-->
@@ -57,32 +56,32 @@
 <!--				</ItemsPanelTemplate >-->
 <!--			</Setter.Value>-->
 <!--		</Setter>-->
-		<Setter Property="Message.Triggers">
+		<Setter Property="cb:Message.Triggers">
 			<Setter.Value>
-				<RoutedMessageTriggerCollection>
-					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKey}}"
+				<cb:RoutedMessageTriggerCollection>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKeyModifiers}}">
-						<GestureMessageTrigger.Message>
-							<CommandMessage Command="{Resolve Key=RefreshChildNodes}">
-								<Parameter Value="{Binding Mode=OneWay}" />
-							</CommandMessage>
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKey}}"
+						<cb:GestureMessageTrigger.Message>
+							<cb:CommandMessage Command="{cb:Resolve Key=RefreshChildNodes}">
+								<cb:Parameter Value="{Binding Mode=OneWay}" />
+							</cb:CommandMessage>
+						</cb:GestureMessageTrigger.Message>
+					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKeyModifiers}}">
-						<GestureMessageTrigger.Message>
-							<CommandMessage Command="{Resolve Key=NavigateToParentNode}">
-								<Parameter Value="{Binding Mode=OneWay}" />
-							</CommandMessage>
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-					<GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeKey}}"
+						<cb:GestureMessageTrigger.Message>
+							<cb:CommandMessage Command="{cb:Resolve Key=NavigateToParentNode}">
+								<cb:Parameter Value="{Binding Mode=OneWay}" />
+							</cb:CommandMessage>
+						</cb:GestureMessageTrigger.Message>
+					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeModifiers}}">
-						<GestureMessageTrigger.Message>
-							<CommandMessage Command="{Resolve Key=SwitchTheme}" />
-						</GestureMessageTrigger.Message>
-					</GestureMessageTrigger>
-				</RoutedMessageTriggerCollection>
+						<cb:GestureMessageTrigger.Message>
+							<cb:CommandMessage Command="{cb:Resolve Key=SwitchTheme}" />
+						</cb:GestureMessageTrigger.Message>
+					</cb:GestureMessageTrigger>
+				</cb:RoutedMessageTriggerCollection>
 			</Setter.Value>
 		</Setter>
 		<Setter Property="Template">
@@ -138,6 +137,7 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Setter Property="BorderThickness" Value="0,0,0,0"/>
 	</Style>
 
 </ResourceDictionary>

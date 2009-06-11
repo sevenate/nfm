@@ -127,6 +127,11 @@ namespace Nfm.Core.Controls
 						                      		// so we'll use UIElement.Focus() which will do exactly that.
 						                      		if (targetProperty == FocusManager.FocusedElementProperty)
 						                      		{
+						                      			if (ie == null)
+						                      			{
+															throw new Exception("There is no focusable element in the reachable VisualTree.");
+						                      			}
+
 						                      			ie.Focus();
 						                      		}
 						                      		else

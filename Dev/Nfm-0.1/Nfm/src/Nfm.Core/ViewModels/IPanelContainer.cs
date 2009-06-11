@@ -24,5 +24,10 @@ namespace Nfm.Core.ViewModels
 		/// Gets all child panels.
 		/// </summary>
 		ObservableCollection<IPanel> Childs { get; }
+
+		/// <summary>
+		/// Gets or sets active child panel.
+		/// </summary>
+		IPanel Active { get; set; }
 	}
 }

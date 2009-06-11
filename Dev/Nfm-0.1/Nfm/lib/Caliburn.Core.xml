@@ -4,69 +4,28 @@
         <name>Caliburn.Core</name>
     </assembly>
     <members>
-        <member name="T:Caliburn.Core.Invocation.BatchingDispatcher">
+        <member name="T:Caliburn.Core.Invocation.LateBoundFunc">
             <summary>
-            An impelementation of <see cref="T:Caliburn.Core.Invocation.IDispatcher"/> that efficiently batches updates to the UI thread.
+            Represents a generic delegate to a function.
             </summary>
         </member>
-        <member name="T:Caliburn.Core.Invocation.IDispatcher">
+        <member name="T:Caliburn.Core.Invocation.LateBoundProc">
             <summary>
-            Abstracts a dispatcher capable of executing code on a background or UI thread.
+            Represents a generic delegate to a procedure.
             </summary>
         </member>
-        <member name="M:Caliburn.Core.Invocation.IDispatcher.ExecuteOnBackgroundThread(System.Action,System.Action)">
+        <member name="T:Caliburn.Core.Invocation.DelegateFactory">
             <summary>
-            Executes code on the background thread.
-            </summary>
-            <param name="backgroundAction">The background action.</param>
-            <param name="uiCallback">The UI callback.</param>
-        </member>
-        <member name="M:Caliburn.Core.Invocation.IDispatcher.ExecuteOnUIThread(System.Action)">
-            <summary>
-            Executes code on the UI thread.
-            </summary>
-            <param name="uiAction">The UI action.</param>
-        </member>
-        <member name="M:Caliburn.Core.Invocation.BatchingDispatcher.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.Core.Invocation.DispatcherImplementation"/> class.
+            A factory for delegates.
             </summary>
         </member>
-        <member name="M:Caliburn.Core.Invocation.BatchingDispatcher.ExecuteOnBackgroundThread(System.Action,System.Action)">
+        <member name="M:Caliburn.Core.Invocation.DelegateFactory.Create``1(System.Reflection.MethodInfo)">
             <summary>
-            Executes code on the background thread.
+            Creates a delegate to the specified method.
             </summary>
-            <param name="backgroundAction">The background action.</param>
-            <param name="uiCallback">The UI callback.</param>
-        </member>
-        <member name="M:Caliburn.Core.Invocation.BatchingDispatcher.ExecuteOnUIThread(System.Action)">
-            <summary>
-            Executes code on the UI thread.
-            </summary>
-            <param name="uiAction">The UI action.</param>
-        </member>
-        <member name="T:Caliburn.Core.Invocation.DispatcherImplementation">
-            <summary>
-            An implementation of <see cref="T:Caliburn.Core.Invocation.IDispatcher"/> for WPF.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.Invocation.DispatcherImplementation.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.Core.Invocation.DispatcherImplementation"/> class.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.Invocation.DispatcherImplementation.ExecuteOnBackgroundThread(System.Action,System.Action)">
-            <summary>
-            Executes code on the background thread.
-            </summary>
-            <param name="backgroundAction">The background action.</param>
-            <param name="uiCallback">The UI callback.</param>
-        </member>
-        <member name="M:Caliburn.Core.Invocation.DispatcherImplementation.ExecuteOnUIThread(System.Action)">
-            <summary>
-            Executes code on the UI thread.
-            </summary>
-            <param name="uiAction">The UI action.</param>
+            <typeparam name="T">Should be a <see cref="T:Caliburn.Core.Invocation.LateBoundFunc"/> or <see cref="T:Caliburn.Core.Invocation.LateBoundProc"/>.</typeparam>
+            <param name="method">The method to create the delegate for.</param>
+            <returns>The delegate.</returns>
         </member>
         <member name="T:Caliburn.Core.Invocation.EventHandlerFactory">
             <summary>
@@ -145,6 +104,21 @@
             <param name="backgroundAction">The action.</param>
             <param name="uiCallback">The UI callback.</param>
         </member>
+        <member name="M:Caliburn.Core.Invocation.Execute.OnBackgroundThread(System.Action,System.Action,System.Action{System.Double})">
+            <summary>
+            Executes the backgroundAction on a background thread.
+            </summary>
+            <param name="backgroundAction">The action.</param>
+            <param name="uiCallback">The UI callback.</param>
+            <param name="progressChanged">The progress change callback.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.Execute.OnBackgroundThread(System.Action,System.Action{System.Double})">
+            <summary>
+            Executes the backgroundAction on a background thread.
+            </summary>
+            <param name="backgroundAction">The action.</param>
+            <param name="progressChanged">The progress change callback.</param>
+        </member>
         <member name="M:Caliburn.Core.Invocation.Execute.OnUIThread(System.Action)">
             <summary>
             Executes the action on the UI thread.
@@ -157,18 +131,120 @@
             </summary>
             <remarks>This implementation only executes code on the calling thread.</remarks>
         </member>
-        <member name="M:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ExecuteOnBackgroundThread(System.Action,System.Action)">
+        <member name="T:Caliburn.Core.Invocation.IDispatcher">
+            <summary>
+            Abstracts a dispatcher capable of executing code on a background or UI thread.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.IDispatcher.ExecuteOnBackgroundThread(System.Action,System.Action,System.Action{System.Double})">
             <summary>
             Executes code on the background thread.
             </summary>
             <param name="backgroundAction">The background action.</param>
             <param name="uiCallback">The UI callback.</param>
+            <param name="progressChanged">The progress change callback.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.IDispatcher.ExecuteOnUIThread(System.Action)">
+            <summary>
+            Executes code on the UI thread.
+            </summary>
+            <param name="uiAction">The UI action.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ExecuteOnBackgroundThread(System.Action,System.Action,System.Action{System.Double})">
+            <summary>
+            Executes code on the background thread.
+            </summary>
+            <param name="backgroundAction">The background action.</param>
+            <param name="uiCallback">The UI callback.</param>
+            <param name="progressChanged">The progress change callback.</param>
         </member>
         <member name="M:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ExecuteOnUIThread(System.Action)">
             <summary>
             Executes code on the UI thread.
             </summary>
             <param name="uiAction">The UI action.</param>
+        </member>
+        <member name="T:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask">
+            <summary>
+            Used by the <see cref="T:Caliburn.Core.Invocation.Execute.SimpleDispatcher"/> to execute background tasks on the main thread.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Core.Threading.IBackgroundTask">
+            <summary>
+            A task that can execute asynchronously.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.Threading.IBackgroundTask.Enqueue(System.Object)">
+            <summary>
+            Enqueues the task with the specified user state.
+            </summary>
+            <param name="userState">The user supplied state.</param>
+        </member>
+        <member name="M:Caliburn.Core.Threading.IBackgroundTask.Cancel">
+            <summary>
+            Cancels the task.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Core.Threading.IBackgroundTask.IsBusy">
+            <summary>
+            Gets a value indicating whether this task is currently processing.
+            </summary>
+            <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Caliburn.Core.Threading.IBackgroundTask.CancellationPending">
+            <summary>
+            Gets a value indicating whether this task's cancellation is pending.
+            </summary>
+            <value><c>true</c> if cancellation is pending; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="E:Caliburn.Core.Threading.IBackgroundTask.ProgressChanged">
+            <summary>
+            Occurs when the background task indicates that progress has changed.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Core.Threading.IBackgroundTask.Completed">
+            <summary>
+            Occurs when the background task has completed either successfully, by cancellation or with an error.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.#ctor(System.Action)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask"/> class.
+            </summary>
+            <param name="delegate">The @delegate.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.Enqueue(System.Object)">
+            <summary>
+            Enqueues the task with the specified user state.
+            </summary>
+            <param name="userState">The user supplied state.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.Cancel">
+            <summary>
+            Cancels the task.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.IsBusy">
+            <summary>
+            Gets a value indicating whether this task is currently processing.
+            </summary>
+            <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.CancellationPending">
+            <summary>
+            Gets a value indicating whether this task's cancellation is pending.
+            </summary>
+            <value><c>true</c> if cancellation is pending; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="E:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.ProgressChanged">
+            <summary>
+            Occurs when the background task indicates that progress has changed.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.Completed">
+            <summary>
+            Occurs when the background task has completed either successfully, by cancellation or with an error.
+            </summary>
         </member>
         <member name="T:Caliburn.Core.Invocation.IMethod">
             <summary>
@@ -252,6 +328,11 @@
             <param name="methodInfo">The method info.</param>
             <returns>An instance of <see cref="T:Caliburn.Core.Invocation.IMethod"/>.</returns>
         </member>
+        <member name="T:Caliburn.Core.Invocation.MethodFactory.MethodProxyBase">
+            <summary>
+            A base class for <see cref="T:Caliburn.Core.Invocation.IMethod"/> implementations.
+            </summary>
+        </member>
         <member name="T:Caliburn.Core.Metadata.MetadataContainer">
             <summary>
             An implementation of <see cref="T:Caliburn.Core.Metadata.IMetadataContainer"/>.
@@ -304,6 +385,103 @@
             </summary>
             <typeparam name="T">The type to match.</typeparam>
             <returns>The matches</returns>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.MethodProxyBase.#ctor(System.Reflection.MethodInfo,Caliburn.Core.Threading.IThreadPool)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Invocation.MethodFactory.MethodProxyBase"/> class.
+            </summary>
+            <param name="info">The info.</param>
+            <param name="threadPool">The thread pool.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.MethodProxyBase.Invoke(System.Object,System.Object[])">
+            <summary>
+            Invokes the specified method on the provided instance with the given parameters.
+            </summary>
+            <param name="instance">The instance.</param>
+            <param name="parameters">The parameters.</param>
+            <returns>
+            The result of the function or null if it is a procedure.
+            </returns>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.MethodProxyBase.CreateBackgroundTask(System.Object,System.Object[])">
+            <summary>
+            Creates a background task for executing this method asynchronously.
+            </summary>
+            <param name="instance">The instance.</param>
+            <param name="parameters">The parameters.</param>
+            <returns>
+            An instance of <see cref="T:Caliburn.Core.Threading.IBackgroundTask"/>.
+            </returns>
+        </member>
+        <member name="P:Caliburn.Core.Invocation.MethodFactory.MethodProxyBase.Info">
+            <summary>
+            Gets the <see cref="T:System.Reflection.MethodInfo"/> to which this instance applies.
+            </summary>
+            <value>The info.</value>
+        </member>
+        <member name="T:Caliburn.Core.Invocation.MethodFactory.Procedure">
+            <summary>
+            A procedure implementation of <see cref="T:Caliburn.Core.Invocation.IMethod"/>.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.Procedure.#ctor(System.Reflection.MethodInfo,Caliburn.Core.Threading.IThreadPool)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Invocation.MethodFactory.Procedure"/> class.
+            </summary>
+            <param name="info">The info.</param>
+            <param name="threadPool">The thread pool.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.Procedure.Invoke(System.Object,System.Object[])">
+            <summary>
+            Invokes the specified method on the provided instance with the given parameters.
+            </summary>
+            <param name="instance">The instance.</param>
+            <param name="parameters">The parameters.</param>
+            <returns>
+            The result of the function or null if it is a procedure.
+            </returns>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.Procedure.CreateBackgroundTask(System.Object,System.Object[])">
+            <summary>
+            Creates a background task for executing this method asynchronously.
+            </summary>
+            <param name="instance">The instance.</param>
+            <param name="parameters">The parameters.</param>
+            <returns>
+            An instance of <see cref="T:Caliburn.Core.Threading.IBackgroundTask"/>.
+            </returns>
+        </member>
+        <member name="T:Caliburn.Core.Invocation.MethodFactory.Function">
+            <summary>
+            A function implementation of <see cref="T:Caliburn.Core.Invocation.IMethod"/>.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.Function.#ctor(System.Reflection.MethodInfo,Caliburn.Core.Threading.IThreadPool)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Invocation.MethodFactory.Function"/> class.
+            </summary>
+            <param name="info">The info.</param>
+            <param name="threadPool">The thread pool.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.Function.Invoke(System.Object,System.Object[])">
+            <summary>
+            Invokes the specified method on the provided instance with the given parameters.
+            </summary>
+            <param name="instance">The instance.</param>
+            <param name="parameters">The parameters.</param>
+            <returns>
+            The result of the function or null if it is a procedure.
+            </returns>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.MethodFactory.Function.CreateBackgroundTask(System.Object,System.Object[])">
+            <summary>
+            Creates a background task for executing this method asynchronously.
+            </summary>
+            <param name="instance">The instance.</param>
+            <param name="parameters">The parameters.</param>
+            <returns>
+            An instance of <see cref="T:Caliburn.Core.Threading.IBackgroundTask"/>.
+            </returns>
         </member>
         <!-- Некорректный комментарий в формате XML для члена "T:Caliburn.Core.MemoryManagement.BaseDictionary`2" проигнорирован -->
         <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.Clear">
@@ -550,6 +728,12 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="M:Caliburn.Core.MemoryManagement.WeakReference`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.MemoryManagement.WeakReference`1"/> class.
+            </summary>
+            <param name="target">The target.</param>
+        </member>
         <member name="P:Caliburn.Core.MemoryManagement.WeakReference`1.IsAlive">
             <summary>
             Gets a value indicating whether this instance is alive.
@@ -565,6 +749,12 @@
             <exception cref="T:System.InvalidOperationException">The reference to the target object is invalid. This exception can be thrown while setting this property if the value is a null reference or if the object has been finalized during the set operation.</exception>
         </member>
         <!-- Некорректный комментарий в формате XML для члена "T:Caliburn.Core.MemoryManagement.WeakKeyComparer`1" проигнорирован -->
+        <member name="M:Caliburn.Core.MemoryManagement.WeakKeyComparer`1.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.MemoryManagement.WeakKeyComparer`1"/> class.
+            </summary>
+            <param name="comparer">The comparer.</param>
+        </member>
         <member name="M:Caliburn.Core.MemoryManagement.WeakKeyComparer`1.GetHashCode(System.Object)">
             <summary>
             Returns a hash code for the specified object.
@@ -679,6 +869,12 @@
             <param name="key">The key.</param>
             <param name="value">The value.</param>
         </member>
+        <member name="M:Caliburn.Core.MemoryManagement.WeakKeyedDictionary`2.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only. </exception>
+        </member>
         <member name="M:Caliburn.Core.MemoryManagement.WeakKeyedDictionary`2.GetEnumerator">
             <summary>
             Returns an enumerator that iterates through the collection.
@@ -727,19 +923,15 @@
             <param name="key">The key.</param>
             <param name="comparer">The comparer.</param>
         </member>
-        <member name="T:Caliburn.Core.Metadata.IMetadata">
-            <summary>
-            A marker interface for custom discoverable metadata.
-            </summary>
-        </member>
-        <member name="T:Caliburn.Core.Metadata.PerRequestAttribute">
-            <summary>
-            An attribute that directs Caliburn to register the component with a per request lifetime.
-            </summary>
-        </member>
+        <!-- Некорректный комментарий в формате XML для члена "T:Caliburn.Core.Metadata.CustomAttribute" проигнорирован -->
         <member name="T:Caliburn.Core.Metadata.RegisterAttribute">
             <summary>
             An attribute that gives directions to Caliburn concerning component registration.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Core.Metadata.IMetadata">
+            <summary>
+            A marker interface for custom discoverable metadata.
             </summary>
         </member>
         <member name="M:Caliburn.Core.Metadata.RegisterAttribute.GetComponentInfo(System.Type)">
@@ -747,6 +939,36 @@
             Registers the type with the specified container.
             </summary>
             <param name="decoratedType">The decorated type.</param>
+        </member>
+        <member name="M:Caliburn.Core.Metadata.CustomAttribute.#ctor(System.Type,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.CustomAttribute"/> class.
+            </summary>
+            <param name="typeKey">The type key.</param>
+            <param name="customLifetimeType">The custom lifetime type.</param>
+        </member>
+        <member name="M:Caliburn.Core.Metadata.CustomAttribute.GetComponentInfo(System.Type)">
+            <summary>
+            Registers the type with the specified container.
+            </summary>
+            <param name="decoratedType">The decorated type.</param>
+        </member>
+        <member name="P:Caliburn.Core.Metadata.CustomAttribute.TypeKey">
+            <summary>
+            Gets the type key.
+            </summary>
+            <value>The type key.</value>
+        </member>
+        <member name="P:Caliburn.Core.Metadata.CustomAttribute.CustomLifetimeType">
+            <summary>
+            Gets the lifetime.
+            </summary>
+            <value>The lifetime.</value>
+        </member>
+        <member name="T:Caliburn.Core.Metadata.PerRequestAttribute">
+            <summary>
+            An attribute that directs Caliburn to register the component with a per request lifetime.
+            </summary>
         </member>
         <member name="M:Caliburn.Core.Metadata.PerRequestAttribute.#ctor(System.Type)">
             <summary>
@@ -789,72 +1011,9 @@
             </summary>
             <value>The type key.</value>
         </member>
-        <member name="T:Caliburn.Core.Metadata.ViewMetadata">
-            <summary>
-            Metadata that stores the current view over a model.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.Metadata.ViewMetadata.SetView(System.Object,System.Boolean)">
-            <summary>
-            Sets the view.
-            </summary>
-            <param name="view">The view.</param>
-            <param name="useWeakReference">if set to <c>true</c> uses a weak reference.</param>
-        </member>
-        <member name="M:Caliburn.Core.Metadata.ViewMetadata.GetTypedView``1">
-            <summary>
-            Gets a strongly typed view.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="P:Caliburn.Core.Metadata.ViewMetadata.View">
-            <summary>
-            Gets the view.
-            </summary>
-            <value>The view.</value>
-        </member>
         <member name="T:Caliburn.Core.Threading.BackgroundTask">
             <summary>
             An implementation of <see cref="T:Caliburn.Core.Threading.IBackgroundTask"/>.
-            </summary>
-        </member>
-        <member name="T:Caliburn.Core.Threading.IBackgroundTask">
-            <summary>
-            A task that can execute asynchronously.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.Threading.IBackgroundTask.Enqueue(System.Object)">
-            <summary>
-            Enqueues the task with the specified user state.
-            </summary>
-            <param name="userState">The user supplied state.</param>
-        </member>
-        <member name="M:Caliburn.Core.Threading.IBackgroundTask.Cancel">
-            <summary>
-            Cancels the task.
-            </summary>
-        </member>
-        <member name="P:Caliburn.Core.Threading.IBackgroundTask.IsBusy">
-            <summary>
-            Gets a value indicating whether this task is currently processing.
-            </summary>
-            <value><c>true</c> if this instance is busy; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:Caliburn.Core.Threading.IBackgroundTask.CancellationPending">
-            <summary>
-            Gets a value indicating whether this task's cancellation is pending.
-            </summary>
-            <value><c>true</c> if cancellation is pending; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="E:Caliburn.Core.Threading.IBackgroundTask.ProgressChanged">
-            <summary>
-            Occurs when the background task indicates that progress has changed.
-            </summary>
-        </member>
-        <member name="E:Caliburn.Core.Threading.IBackgroundTask.Completed">
-            <summary>
-            Occurs when the background task has completed either successfully, by cancellation or with an error.
             </summary>
         </member>
         <member name="M:Caliburn.Core.Threading.BackgroundTask.#ctor(Caliburn.Core.Threading.IThreadPool,System.Func{System.Object})">
@@ -903,6 +1062,11 @@
             </summary>
             <value>The current context.</value>
         </member>
+        <member name="T:Caliburn.Core.Threading.BackgroundTask.BackgroundContext">
+            <summary>
+            A simple implementation of <see cref="T:Caliburn.Core.Threading.IBackgroundContext"/>.
+            </summary>
+        </member>
         <member name="T:Caliburn.Core.Threading.IBackgroundContext">
             <summary>
             The context for the currently executing background task.
@@ -921,6 +1085,35 @@
             <value>
             	<c>true</c> if cancelled; otherwise, <c>false</c>.
             </value>
+        </member>
+        <member name="M:Caliburn.Core.Threading.BackgroundTask.BackgroundContext.#ctor(Caliburn.Core.Threading.BackgroundTask)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Threading.BackgroundTask.BackgroundContext"/> class.
+            </summary>
+            <param name="task">The task.</param>
+        </member>
+        <member name="M:Caliburn.Core.Threading.BackgroundTask.BackgroundContext.Initialize(System.Object)">
+            <summary>
+            Initializes the specified user state.
+            </summary>
+            <param name="userState">State of the user.</param>
+        </member>
+        <member name="M:Caliburn.Core.Threading.BackgroundTask.BackgroundContext.Teardown">
+            <summary>
+            Tears down this instance.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.Threading.BackgroundTask.BackgroundContext.UpdateProgress(System.Double)">
+            <summary>
+            Enables the current task to update its progress.
+            </summary>
+            <param name="percentage">The percentage.</param>
+        </member>
+        <member name="P:Caliburn.Core.Threading.BackgroundTask.BackgroundContext.IsCancelled">
+            <summary>
+            Gets a value indicating whether the current task has been cancelled.
+            </summary>
+            <value><c>true</c> if cancelled; otherwise, <c>false</c>.</value>
         </member>
         <member name="T:Caliburn.Core.Threading.BackgroundTaskCompletedEventArgs">
             <summary>
@@ -1008,78 +1201,6 @@
             <param name="callback">The work callback.</param>
             <returns></returns>
         </member>
-        <member name="T:Caliburn.Core.BindableCollection`1">
-            <summary>
-            A base collection class that supports automatic UI thread marshalling.
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:Caliburn.Core.BindableCollection`1.OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs)">
-            <summary>
-            Raises the <see cref="E:System.Collections.ObjectModel.ObservableCollection`1.PropertyChanged"/> event with the provided arguments.
-            </summary>
-            <param name="e">Arguments of the event being raised.</param>
-        </member>
-        <member name="M:Caliburn.Core.BindableCollection`1.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
-            <summary>
-            Raises the <see cref="E:System.Collections.ObjectModel.ObservableCollection`1.CollectionChanged"/> event with the provided arguments.
-            </summary>
-            <param name="e">Arguments of the event being raised.</param>
-        </member>
-        <member name="M:Caliburn.Core.BindableCollection`1.RaiseCollectionChangedEventImmediately(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
-            <summary>
-            Raises the collection changed event immediately.
-            </summary>
-            <param name="e">The <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:Caliburn.Core.BindableCollection`1.RaisePropertyChangedEventImmediately(System.ComponentModel.PropertyChangedEventArgs)">
-            <summary>
-            Raises the property changed event immediately.
-            </summary>
-            <param name="e">The <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="T:Caliburn.Core.CaliburnApplication">
-            <summary>
-            A gateway for configuring Caliburn.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnApplication.ConfigureCore">
-            <summary>
-            Configures caliburn with the <see cref="T:Caliburn.Core.SimpleContainer"/>.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnApplication.ConfigureCore``1(``0)">
-            <summary>
-            Configures Caliburn with the specified container implementation.
-            </summary>
-            <param name="container">The container.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnApplication.ConfigureCore(Microsoft.Practices.ServiceLocation.IServiceLocator,Caliburn.Core.IConfigurator)">
-            <summary>
-            Configures Caliburn with the specified <see cref="T:Microsoft.Practices.ServiceLocation.IServiceLocator"/> and container <see cref="T:Caliburn.Core.IConfigurator"/>.
-            </summary>
-            <param name="container">The container.</param>
-            <param name="configurator">The configurator.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnApplication.ConfigureCore(Microsoft.Practices.ServiceLocation.IServiceLocator,System.Action{System.Collections.Generic.IEnumerable{Caliburn.Core.ComponentInfo}})">
-            <summary>
-            Caliburn with the specified <see cref="T:Microsoft.Practices.ServiceLocation.IServiceLocator"/> and configurator method.
-            </summary>
-            <param name="serviceLocator">The service locator.</param>
-            <param name="configurator">The configurator.</param>
-            <returns></returns>
-        </member>
-        <member name="P:Caliburn.Core.CaliburnApplication.IsInDesignMode">
-            <summary>
-            Gets a value indicating whether the framework is in design mode.
-            </summary>
-            <value>
-            	<c>true</c> if the framework is in design mode; otherwise, <c>false</c>.
-            </value>
-        </member>
         <member name="T:Caliburn.Core.CaliburnConfiguration">
             <summary>
             A base class used by Caliburn modules to extend the configuration mechanism.
@@ -1102,7 +1223,7 @@
             </summary>
             <param name="hook">The hook.</param>
         </member>
-        <member name="M:Caliburn.Core.CaliburnConfiguration.StartApplication">
+        <member name="M:Caliburn.Core.CaliburnConfiguration.Start">
             <summary>
             Starts the application.
             </summary>
@@ -1161,6 +1282,40 @@
             Initializes a new instance of the <see cref="T:Caliburn.Core.CaliburnException"/> class.
             </summary>
         </member>
+        <member name="T:Caliburn.Core.CaliburnFramework">
+            <summary>
+            A gateway for configuring Caliburn.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnFramework.ConfigureCore">
+            <summary>
+            Configures caliburn with the <see cref="T:Caliburn.Core.SimpleContainer"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnFramework.ConfigureCore``1(``0)">
+            <summary>
+            Configures Caliburn with the specified container implementation.
+            </summary>
+            <param name="container">The container.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnFramework.ConfigureCore(Microsoft.Practices.ServiceLocation.IServiceLocator,Caliburn.Core.IConfigurator)">
+            <summary>
+            Configures Caliburn with the specified <see cref="T:Microsoft.Practices.ServiceLocation.IServiceLocator"/> and container <see cref="T:Caliburn.Core.IConfigurator"/>.
+            </summary>
+            <param name="container">The container.</param>
+            <param name="configurator">The configurator.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnFramework.ConfigureCore(Microsoft.Practices.ServiceLocation.IServiceLocator,System.Action{System.Collections.Generic.IEnumerable{Caliburn.Core.ComponentInfo}})">
+            <summary>
+            Caliburn with the specified <see cref="T:Microsoft.Practices.ServiceLocation.IServiceLocator"/> and configurator method.
+            </summary>
+            <param name="serviceLocator">The service locator.</param>
+            <param name="configurator">The configurator.</param>
+            <returns></returns>
+        </member>
         <member name="T:Caliburn.Core.ComponentInfo">
             <summary>
             Used to provide component info to a container configurator.
@@ -1173,6 +1328,15 @@
             <param name="key">The key.</param>
             <param name="implementation">The implementation.</param>
             <param name="lifetime">The lifetime.</param>
+        </member>
+        <member name="M:Caliburn.Core.ComponentInfo.#ctor(System.Object,System.Type,Caliburn.Core.ComponentLifetime,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.ComponentInfo"/> class.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="implementation">The implementation.</param>
+            <param name="lifetime">The lifetime.</param>
+            <param name="customeLifetimeType">The custom lifetime type.</param>
         </member>
         <member name="P:Caliburn.Core.ComponentInfo.Key">
             <summary>
@@ -1192,6 +1356,12 @@
             </summary>
             <value>The lifetime.</value>
         </member>
+        <member name="P:Caliburn.Core.ComponentInfo.CustomLifetimeType">
+            <summary>
+            Gets or sets the custom lifetime type.
+            </summary>
+            <value>The custom lifetime type.</value>
+        </member>
         <member name="T:Caliburn.Core.ComponentLifetime">
             <summary>
             The lifetime of a Caliburn component.
@@ -1205,6 +1375,11 @@
         <member name="F:Caliburn.Core.ComponentLifetime.PerRequest">
             <summary>
             A new instance is created on each request.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Core.ComponentLifetime.Custom">
+            <summary>
+            A new instance is created per custom lifetime rules.
             </summary>
         </member>
         <member name="T:Caliburn.Core.CoreConfiguration">
@@ -1240,6 +1415,13 @@
             <typeparam name="T">The event handler factory type.</typeparam>
             <returns>The configuration.</returns>
         </member>
+        <member name="M:Caliburn.Core.CoreConfiguration.UsingDispatcher``1">
+            <summary>
+            Customizes the dispatcher implementation.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
         <member name="M:Caliburn.Core.CoreConfiguration.Add(Caliburn.Core.CaliburnConfiguration)">
             <summary>
             Adds the specified child configuration.
@@ -1250,10 +1432,10 @@
             <summary>
             Adds assemblies to search for types registerable in the DI container.
             </summary>
-            <param name="assembliesToRegister">The assemblies to register.</param>
+            <param name="assembliesToInspect">The assemblies to register.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.Core.CoreConfiguration.StartApplication">
+        <member name="M:Caliburn.Core.CoreConfiguration.Start">
             <summary>
             Starts the application.
             </summary>
@@ -1263,6 +1445,12 @@
             Gets the core configuration.
             </summary>
             <value>The core configuration.</value>
+        </member>
+        <member name="P:Caliburn.Core.CoreConfiguration.AssembliesToInspect">
+            <summary>
+            Gets the assemblies to inspect.
+            </summary>
+            <value>The assemblies to inspect.</value>
         </member>
         <member name="P:Caliburn.Core.CoreConfiguration.ServiceLocator">
             <summary>
@@ -1274,22 +1462,6 @@
             <summary>
             Various extension methods used by the framework.
             </summary>
-        </member>
-        <member name="M:Caliburn.Core.ExtensionMethods.GetView``1(Caliburn.Core.Metadata.IMetadataContainer)">
-            <summary>
-            Gets the view from metadata.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="container">The container.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Caliburn.Core.ExtensionMethods.SetView(Caliburn.Core.Metadata.IMetadataContainer,System.Object,System.Boolean)">
-            <summary>
-            Stores the view in metadata.
-            </summary>
-            <param name="container">The container.</param>
-            <param name="view">The view.</param>
-            <param name="useWeakReference">Indicates whether the view should be referenced weakly.</param>
         </member>
         <member name="M:Caliburn.Core.ExtensionMethods.Apply``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
             <summary>
@@ -1306,24 +1478,6 @@
             <param name="value">The value to convert.</param>
             <returns>The converted string or null, if the value was null.</returns>
         </member>
-        <member name="M:Caliburn.Core.ExtensionMethods.GetResource``1(System.Windows.FrameworkElement,System.Object)">
-            <summary>
-            Gets the resource by searching the hierarchy of of elements.
-            </summary>
-            <typeparam name="T">The type of resource.</typeparam>
-            <param name="element">The element.</param>
-            <param name="key">The key.</param>
-            <returns>The resource.</returns>
-        </member>
-        <member name="M:Caliburn.Core.ExtensionMethods.GetResource``1(System.Windows.FrameworkContentElement,System.Object)">
-            <summary>
-            Gets the resource by searching the hierarchy of of elements.
-            </summary>
-            <typeparam name="T">The type of resource.</typeparam>
-            <param name="element">The element.</param>
-            <param name="key">The key.</param>
-            <returns>The resource.</returns>
-        </member>
         <member name="T:Caliburn.Core.IConfigurator">
             <summary>
             Implemented by a class that can configure the componets with a container.
@@ -1334,49 +1488,6 @@
             Configures the container with the provided components.
             </summary>
             <param name="components">The components.</param>
-        </member>
-        <member name="T:Caliburn.Core.ResolveExtension">
-            <summary>
-            A Markup Extension that enables type resolution through the DI container in XAML.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.ResolveExtension.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.Core.ResolveExtension"/> class.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.ResolveExtension.#ctor(System.Type)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.Core.ResolveExtension"/> class.
-            </summary>
-            <param name="type">The type.</param>
-        </member>
-        <member name="M:Caliburn.Core.ResolveExtension.ProvideValue(System.IServiceProvider)">
-            <summary>
-            When implemented in a derived class, returns an object that is set as the value of the target property for this markup extension.
-            </summary>
-            <param name="serviceProvider">Object that can provide services for the markup extension.</param>
-            <returns>
-            The object value to set on the property where the extension is applied.
-            </returns>
-        </member>
-        <member name="P:Caliburn.Core.ResolveExtension.Type">
-            <summary>
-            Gets or sets the type.
-            </summary>
-            <value>The type.</value>
-        </member>
-        <member name="P:Caliburn.Core.ResolveExtension.Key">
-            <summary>
-            Gets or sets the key.
-            </summary>
-            <value>The key.</value>
-        </member>
-        <member name="P:Caliburn.Core.ResolveExtension.DesignTimeValue">
-            <summary>
-            Gets or sets the design time value.
-            </summary>
-            <value>The design time value.</value>
         </member>
         <member name="T:Caliburn.Core.SimpleContainer">
             <summary>

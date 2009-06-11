@@ -12,47 +12,20 @@
 // <summary>Convert long file size value to <see cref="Brush"/>.</summary>
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using Nfm.Core.Modules.FileSystem.Configuration;
 
 namespace Nfm.Core.Converters
 {
 	/// <summary>
 	/// Convert long file size value to <see cref="Brush"/>.
 	/// </summary>
-	[ValueConversion(typeof(long), typeof(Brush))]
+	[ValueConversion(typeof (long), typeof (Brush))]
 	public class FileSizeToBrushConverter : IValueConverter
 	{
-		#region Public Properties
-
-		/// <summary>
-		/// Gets or sets brush to draw byte size.
-		/// </summary>
-		public Brush ByteBrush { get; set; }
-
-		/// <summary>
-		/// Gets or sets brush to draw kilo-byte size.
-		/// </summary>
-		public Brush KByteBrush { get; set; }
-
-		/// <summary>
-		/// Gets or sets brush to draw mega-byte size.
-		/// </summary>
-		public Brush MByteBrush { get; set; }
-
-		/// <summary>
-		/// Gets or sets brush to draw giga-byte size.
-		/// </summary>
-		public Brush GByteBrush { get; set; }
-
-		/// <summary>
-		/// Gets or sets brush to draw tera-byte size.
-		/// </summary>
-		public Brush TByteBrush { get; set; }
-
-		#endregion
-
 		#region Implementation of IValueConverter
 
 		/// <summary>
@@ -68,7 +41,7 @@ namespace Nfm.Core.Converters
 			if (value == null)
 			{
 				//TODO: Check, if this correct
-				return null;	// new SolidColorBrush();
+				return null; // new SolidColorBrush();
 			}
 
 			var fileSize = (long) value;
@@ -76,29 +49,29 @@ namespace Nfm.Core.Converters
 			//Tera bytes
 			if (fileSize >= FileSizeUtility.Size[FileSizeUnit.TeraByte])
 			{
-				return TByteBrush;
+				return ModuleConfig.TByteBrush;
 			}
 
 			//Giga bytes
 			if (fileSize >= FileSizeUtility.Size[FileSizeUnit.GigaByte])
 			{
-				return GByteBrush;
+				return ModuleConfig.GByteBrush;
 			}
 
 			//Mega bytes
 			if (fileSize >= FileSizeUtility.Size[FileSizeUnit.MegaByte])
 			{
-				return MByteBrush;
+				return ModuleConfig.MByteBrush;
 			}
 
 			//Kilo bytes
 			if (fileSize >= FileSizeUtility.Size[FileSizeUnit.KiloByte])
 			{
-				return KByteBrush;
+				return ModuleConfig.KByteBrush;
 			}
 
 			//Bytes
-			return ByteBrush;
+			return ModuleConfig.ByteBrush;
 		}
 
 		/// <summary>
@@ -112,6 +85,39 @@ namespace Nfm.Core.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotSupportedException();
+		}
+
+		#endregion
+
+		#region Singleton
+
+		/// <summary>
+		/// Singleton instance.
+		/// </summary>
+		private static FileSizeToBrushConverter instance;
+
+		/// <summary>
+		/// Prevents a default instance of the <see cref="FileSizeToBrushConverter"/> class from being created.
+		/// </summary>
+		private FileSizeToBrushConverter()
+		{
+		}
+
+		/// <summary>
+		/// Gets the singleton instance.
+		/// </summary>
+		public static FileSizeToBrushConverter Inst
+		{
+			[DebuggerStepThrough]
+			get
+			{
+				if (instance == null)
+				{
+					instance = new FileSizeToBrushConverter();
+				}
+
+				return instance;
+			}
 		}
 
 		#endregion

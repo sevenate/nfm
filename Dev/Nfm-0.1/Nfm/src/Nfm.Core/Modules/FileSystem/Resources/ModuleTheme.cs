@@ -12,7 +12,6 @@
 // <summary>Hold all module theme's resource <see cref="ComponentResourceKey"/>.</summary>
 
 using System.Windows;
-using Nfm.Core.Resources;
 
 namespace Nfm.Core.Modules.FileSystem.Resources
 {
@@ -77,18 +76,6 @@ namespace Nfm.Core.Modules.FileSystem.Resources
 			{
 				return new ComponentResourceKey(typeof(ModuleTheme), "FileAttributeReadOnlyBrush");
 			}
-		}
-
-		#endregion
-
-		#region Module Dictionaries
-
-		/// <summary>
-		/// Gets specify path to dictionary with all converters used across this module.
-		/// </summary>
-		public static string Converters
-		{
-			get { return ResourceCache.GetPackUri("Modules/FileSystem/Resources/Converters.xaml").AbsolutePath; }
 		}
 
 		#endregion

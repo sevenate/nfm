@@ -149,18 +149,6 @@ namespace Nfm.Core.ViewModels
 		#region Event firing
 
 		/// <summary>
-		/// Check for null and fire specific action delegate.
-		/// </summary>
-		/// <param name="action">Action to check and fire.</param>
-		protected static void OnAction(Action action)
-		{
-			if (action != null)
-			{
-				action();
-			}
-		}
-
-		/// <summary>
 		/// Check for null and fire specific eventHandler delegate.
 		/// </summary>
 		/// <param name="eventHandler">Action to check and fire.</param>
@@ -170,6 +158,19 @@ namespace Nfm.Core.ViewModels
 			if (eventHandler != null)
 			{
 				eventHandler(sender, EventArgs.Empty);
+			}
+		}
+
+		/// <summary>
+		/// Check for null and raise specific action delegate.
+		/// </summary>
+		/// <param name="action">Action to check and raise.</param>
+		/// <param name="data">Action data.</param>
+		protected static void OnAction<T>(Action<T> action, T data)
+		{
+			if (action != null)
+			{
+				action(data);
 			}
 		}
 

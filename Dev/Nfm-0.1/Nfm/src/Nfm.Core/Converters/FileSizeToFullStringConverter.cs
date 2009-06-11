@@ -1,13 +1,13 @@
-// <copyright file="FileSizeToStringConverter.cs" company="HD">
+// <copyright file="FileSizeToFullStringConverter.cs" company="HD">
 // 	Copyright (c) 2009 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff">
 // 	<email>alevshoff@hd.com</email>
-// 	<date>2009-01-23</date>
+// 	<date>2009-06-09</date>
 // </author>
 // <editor name="Andrew Levshoff">
 // 	<email>alevshoff@hd.com</email>
-// 	<date>2009-01-23</date>
+// 	<date>2009-06-09</date>
 // </editor>
 // <summary>Convert long file size value to readable string.</summary>
 
@@ -22,8 +22,8 @@ namespace Nfm.Core.Converters
 	/// <summary>
 	/// Convert long file size value to readable string.
 	/// </summary>
-	[ValueConversion(typeof (long), typeof (string))]
-	public class FileSizeToStringConverter : IValueConverter
+	[ValueConversion(typeof(long), typeof(string))]
+	public class FileSizeToFullStringConverter : IValueConverter
 	{
 		#region Implementation of IValueConverter
 
@@ -42,29 +42,29 @@ namespace Nfm.Core.Converters
 				return string.Empty;
 			}
 
-			var fileSize = (long) value;
+			var fileSize = (long)value;
 
 			if (fileSize >= FileSizeUtility.Size[FileSizeUnit.TeraByte])
 			{
-				return GetStringValue(fileSize, ModuleConfig.FileSizeBrief.TByteUnit, ModuleConfig.FileSizeBrief.TBytePrecision);
+				return GetStringValue(fileSize, ModuleConfig.FileSizeFull.TByteUnit, ModuleConfig.FileSizeFull.TBytePrecision);
 			}
 
 			if (fileSize >= FileSizeUtility.Size[FileSizeUnit.GigaByte])
 			{
-				return GetStringValue(fileSize, ModuleConfig.FileSizeBrief.GByteUnit, ModuleConfig.FileSizeBrief.GBytePrecision);
+				return GetStringValue(fileSize, ModuleConfig.FileSizeFull.GByteUnit, ModuleConfig.FileSizeFull.GBytePrecision);
 			}
 
 			if (fileSize >= FileSizeUtility.Size[FileSizeUnit.MegaByte])
 			{
-				return GetStringValue(fileSize, ModuleConfig.FileSizeBrief.MByteUnit, ModuleConfig.FileSizeBrief.MBytePrecision);
+				return GetStringValue(fileSize, ModuleConfig.FileSizeFull.MByteUnit, ModuleConfig.FileSizeFull.MBytePrecision);
 			}
 
 			if (fileSize >= FileSizeUtility.Size[FileSizeUnit.KiloByte])
 			{
-				return GetStringValue(fileSize, ModuleConfig.FileSizeBrief.KByteUnit, ModuleConfig.FileSizeBrief.KBytePrecision);
+				return GetStringValue(fileSize, ModuleConfig.FileSizeFull.KByteUnit, ModuleConfig.FileSizeFull.KBytePrecision);
 			}
 
-			return GetStringValue(fileSize, ModuleConfig.FileSizeBrief.ByteUnit, ModuleConfig.FileSizeBrief.BytePrecision);
+			return GetStringValue(fileSize, ModuleConfig.FileSizeFull.ByteUnit, ModuleConfig.FileSizeFull.BytePrecision);
 		}
 
 		/// <summary>
@@ -87,26 +87,26 @@ namespace Nfm.Core.Converters
 		/// <summary>
 		/// Singleton instance.
 		/// </summary>
-		private static FileSizeToStringConverter instance;
+		private static FileSizeToFullStringConverter instance;
 
 		/// <summary>
 		/// Prevents a default instance of the <see cref="FileSizeToStringConverter"/> class from being created.
 		/// </summary>
-		private FileSizeToStringConverter()
+		private FileSizeToFullStringConverter()
 		{
 		}
 
 		/// <summary>
 		/// Gets the singleton instance.
 		/// </summary>
-		public static FileSizeToStringConverter Inst
+		public static FileSizeToFullStringConverter Inst
 		{
 			[DebuggerStepThrough]
 			get
 			{
 				if (instance == null)
 				{
-					instance = new FileSizeToStringConverter();
+					instance = new FileSizeToFullStringConverter();
 				}
 
 				return instance;
@@ -132,26 +132,26 @@ namespace Nfm.Core.Converters
 				case FileSizeUnit.TeraByte:
 					return string.Format(
 						string.Format("{0} {1}", FileSizeUtility.Format[precision], FileSizeUtility.TBYTE),
-						(decimal) size/FileSizeUtility.Size[FileSizeUnit.TeraByte]);
+						(decimal)size / FileSizeUtility.Size[FileSizeUnit.TeraByte]);
 
 				case FileSizeUnit.GigaByte:
 					return string.Format(
 						string.Format("{0} {1}", FileSizeUtility.Format[precision], FileSizeUtility.GBYTE),
-						(decimal) size/FileSizeUtility.Size[FileSizeUnit.GigaByte]);
+						(decimal)size / FileSizeUtility.Size[FileSizeUnit.GigaByte]);
 
 				case FileSizeUnit.MegaByte:
 					return string.Format(
 						string.Format("{0} {1}", FileSizeUtility.Format[precision], FileSizeUtility.MBYTE),
-						(decimal) size/FileSizeUtility.Size[FileSizeUnit.MegaByte]);
+						(decimal)size / FileSizeUtility.Size[FileSizeUnit.MegaByte]);
 
 				case FileSizeUnit.KiloByte:
 					return string.Format(
 						string.Format("{0} {1}", FileSizeUtility.Format[precision], FileSizeUtility.KBYTE),
-						(decimal) size/FileSizeUtility.Size[FileSizeUnit.KiloByte]);
+						(decimal)size / FileSizeUtility.Size[FileSizeUnit.KiloByte]);
 
 				default: // FileSizeUnit.Byte
 					return string.Format(
-						string.Format("{0} {1}", FileSizeUtility.Format[precision], FileSizeUtility.BYTE), (decimal) size);
+						string.Format("{0} {1}", FileSizeUtility.Format[precision], FileSizeUtility.BYTE), (decimal)size);
 			}
 		}
 	}

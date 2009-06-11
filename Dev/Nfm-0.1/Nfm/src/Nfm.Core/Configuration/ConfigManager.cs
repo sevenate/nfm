@@ -156,7 +156,17 @@ namespace Nfm.Core.Configuration
 			panels.Add(drivesStackContainer);
 			panels.Add(secondTabStackContainer);
 
-			return GenerateTabContainer(panels, "Main Window", 0);
+			TabContainer mainTabContainer = GenerateTabContainer(panels, "Main Window", 0);
+
+			var topStackContainer = new StackContainer
+			{
+				Header = "Root Stack Container",
+				Orientation = Orientation.Vertical
+			};
+
+			topStackContainer.Childs.Add(mainTabContainer);
+
+			return topStackContainer;
 		}
 
 		private static TabContainer GenerateTabContainer(IEnumerable<IViewModel> viewModels, string header, int selectedIndex)
@@ -255,21 +265,21 @@ namespace Nfm.Core.Configuration
 		/// <returns>Debug panels layout.</returns>
 		private static IPanel GetDebugLayout()
 		{
-			TabContainer workLeftTabContainer = GetWorkLeftTabContainer();
-			TabContainer workMiddleTabContainer = GetWorkMiddleTabContainer();
-			StackContainer workRightStackContainer = GetWorkRightStackContainer();
-			StackContainer workStackContainer = GetWorkStackContainer(
+			var workLeftTabContainer = GetWorkLeftTabContainer();
+			var workMiddleTabContainer = GetWorkMiddleTabContainer();
+			var workRightStackContainer = GetWorkRightStackContainer();
+			var workStackContainer = GetWorkStackContainer(
 				workLeftTabContainer, workMiddleTabContainer, workRightStackContainer);
 
-			PanelBase enterPanel = GetEnterPanel();
+			var enterPanel = GetEnterPanel();
 			enterPanel.IsSelected = true;
 
-			TabContainer subTabContainer1 = GetEnterTopTabContainer();
-			TabContainer subTabContainer2 = GetDisksTopTabSubContainer();
-			TabContainer topTabContainer = GetTopTabContainer(subTabContainer1, subTabContainer2);
+			var subTabContainer1 = GetEnterTopTabContainer();
+			var subTabContainer2 = GetDisksTopTabSubContainer();
+			var topTabContainer = GetTopTabContainer(subTabContainer1, subTabContainer2);
 
 			//			workStackContainer.IsSelected = true;
-			TabContainer mainTabContainer = GetMainTabContainer(enterPanel, workStackContainer, topTabContainer);
+			var mainTabContainer = GetMainTabContainer(enterPanel, workStackContainer, topTabContainer);
 
 			return mainTabContainer; //workLeftTabContainer
 		}
@@ -278,7 +288,7 @@ namespace Nfm.Core.Configuration
 		/// Get Work Left Tab Container.
 		/// </summary>
 		/// <returns>Work Left Tab Container.</returns>
-		private static TabContainer GetWorkLeftTabContainer()
+		private static IPanelContainer GetWorkLeftTabContainer()
 		{
 			IViewModel music = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Music");
 			music.Refresh();
@@ -310,7 +320,7 @@ namespace Nfm.Core.Configuration
 		/// Get Work Middle Tab Container.
 		/// </summary>
 		/// <returns>Work Middle Tab Container.</returns>
-		private static TabContainer GetWorkMiddleTabContainer()
+		private static IPanelContainer GetWorkMiddleTabContainer()
 		{
 			IViewModel workMiddle = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Downloads");
 			workMiddle.Refresh();
@@ -320,9 +330,10 @@ namespace Nfm.Core.Configuration
 									  PanelContent = (IPanelContent)workMiddle
 								  };
 
-			var workMiddleTabContainer = new TabContainer
+			var workMiddleTabContainer = new StackContainer
 										 {
-											 Header = "Middle Tab Container"
+											 Header = "Middle Tab Container",
+											 Orientation = Orientation.Vertical
 										 };
 			workMiddleTabContainer.Childs.Add(workMiddlePanel);
 			return workMiddleTabContainer;
@@ -332,7 +343,7 @@ namespace Nfm.Core.Configuration
 		/// Get Work Right Stack Container.
 		/// </summary>
 		/// <returns>Work Right Stack Container.</returns>
-		private static StackContainer GetWorkRightStackContainer()
+		private static IPanelContainer GetWorkRightStackContainer()
 		{
 			IViewModel workRight1 = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Games");
 			workRight1.Refresh();
@@ -381,7 +392,7 @@ namespace Nfm.Core.Configuration
 		/// <param name="workMiddleTabContainer">Work middle tab container.</param>
 		/// <param name="workRightStackContainer">Work right stack container.</param>
 		/// <returns>Work Stack Container.</returns>
-		private static StackContainer GetWorkStackContainer(
+		private static IPanelContainer GetWorkStackContainer(
 			IPanel workLeftTabContainer, IPanel workMiddleTabContainer, IPanel workRightStackContainer)
 		{
 			var workStackContainer = new StackContainer
@@ -399,7 +410,7 @@ namespace Nfm.Core.Configuration
 		/// Get Enter Panel.
 		/// </summary>
 		/// <returns>Enter Panel.</returns>
-		private static PanelBase GetEnterPanel()
+		private static IPanel GetEnterPanel()
 		{
 			IViewModel enter = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Videos");
 			enter.Refresh();
@@ -428,7 +439,7 @@ namespace Nfm.Core.Configuration
 		/// Get Enter Top Tab Container.
 		/// </summary>
 		/// <returns>Enter Top Tab Container.</returns>
-		private static TabContainer GetEnterTopTabContainer()
+		private static IPanelContainer GetEnterTopTabContainer()
 		{
 			IViewModel topGames = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\D:\Games");
 			topGames.Refresh();
@@ -460,7 +471,7 @@ namespace Nfm.Core.Configuration
 		/// Get Disks Top Tab Sub Container.
 		/// </summary>
 		/// <returns>Disks Top Tab Sub Container.</returns>
-		private static TabContainer GetDisksTopTabSubContainer()
+		private static IPanelContainer GetDisksTopTabSubContainer()
 		{
 			IViewModel topDriveC = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\C:\");
 			topDriveC.Refresh();
@@ -496,7 +507,7 @@ namespace Nfm.Core.Configuration
 		/// <param name="subTabContainer1">Sub container 1.</param>
 		/// <param name="subTabContainer2">Sub container 2.</param>
 		/// <returns>Top Tab Container.</returns>
-		private static TabContainer GetTopTabContainer(IPanel subTabContainer1, IPanel subTabContainer2)
+		private static IPanelContainer GetTopTabContainer(IPanel subTabContainer1, IPanel subTabContainer2)
 		{
 			var topTabContainer = new TabContainer
 								  {
@@ -514,7 +525,7 @@ namespace Nfm.Core.Configuration
 		/// <param name="secondPanel">Rnter Panel.</param>
 		/// <param name="thirdPanel">Top Tab Container.</param>
 		/// <returns>Main Tab Container.</returns>
-		private static TabContainer GetMainTabContainer(IPanel firstPanel, IPanel secondPanel, IPanel thirdPanel)
+		private static IPanelContainer GetMainTabContainer(IPanel firstPanel, IPanel secondPanel, IPanel thirdPanel)
 		{
 			var mainTabContainer = new TabContainer
 								   {
@@ -523,7 +534,16 @@ namespace Nfm.Core.Configuration
 			mainTabContainer.Childs.Add(firstPanel);
 			mainTabContainer.Childs.Add(secondPanel);
 			mainTabContainer.Childs.Add(thirdPanel);
-			return mainTabContainer;
+
+			var topStackContainer = new StackContainer
+			{
+				Header = "Root Stack Container",
+				Orientation = Orientation.Vertical
+			};
+
+			topStackContainer.Childs.Add(mainTabContainer);
+
+			return topStackContainer;
 		}
 
 		#endregion

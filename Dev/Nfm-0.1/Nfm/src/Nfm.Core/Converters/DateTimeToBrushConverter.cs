@@ -12,6 +12,7 @@
 // <summary>Convert nullable <see cref="DateTime"/> value to <see cref="Brush"/>.</summary>
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -21,7 +22,7 @@ namespace Nfm.Core.Converters
 	/// <summary>
 	/// Convert nullable <see cref="DateTime"/> value to <see cref="Brush"/>.
 	/// </summary>
-	[ValueConversion(typeof(DateTime?), typeof(Brush))]
+	[ValueConversion(typeof (DateTime?), typeof (Brush))]
 	public class DateTimeToBrushConverter : IValueConverter
 	{
 		#region Implementation of IValueConverter
@@ -36,12 +37,12 @@ namespace Nfm.Core.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var date = (DateTime?)value;
+			var date = (DateTime?) value;
 
 			if (!date.HasValue)
 			{
 				//TODO: Check, if this correct
-				return null;	// new SolidColorBrush();
+				return null; // new SolidColorBrush();
 			}
 
 			TimeSpan diff = DateTime.Now - date.Value;
@@ -78,6 +79,39 @@ namespace Nfm.Core.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotSupportedException();
+		}
+
+		#endregion
+
+		#region Singleton
+
+		/// <summary>
+		/// Singleton instance.
+		/// </summary>
+		private static DateTimeToBrushConverter instance;
+
+		/// <summary>
+		/// Prevents a default instance of the <see cref="DateTimeToBrushConverter"/> class from being created.
+		/// </summary>
+		private DateTimeToBrushConverter()
+		{
+		}
+
+		/// <summary>
+		/// Gets the singleton instance.
+		/// </summary>
+		public static DateTimeToBrushConverter Inst
+		{
+			[DebuggerStepThrough]
+			get
+			{
+				if (instance == null)
+				{
+					instance = new DateTimeToBrushConverter();
+				}
+
+				return instance;
+			}
 		}
 
 		#endregion

@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:DrapDrop="clr-namespace:Nfm.Core.Controls.DragDrop"
-					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
+					xmlns:cb="http://caliburn.codeplex.com">
 
 	<!-- #TabItem Style -->
 	<Style x:Key="{x:Static Themes:Theme.TabItemStyleKey}"
@@ -27,17 +29,53 @@
 		<Setter Property="Margin"
 				Value="1" />
 		<Setter Property="IsTabStop"
-				Value="False" />
+				Value="True" />
 <!--		<Setter Property="Focusable"-->
 <!--				Value="False" />-->
 		<Setter Property="IsSelected"
-				Value="{Binding IsSelected}" />
-<!--		<Setter Property="FocusVisualStyle"-->
-<!--				Value="{x:Null}" />-->
-		<Setter Property="DragDropManager.DragSourceAdvisor"
+				Value="{Binding Path=IsSelected}" />
+		<Setter Property="FocusVisualStyle"
+				Value="{x:Null}" />
+		<Setter Property="DrapDrop:DragDropManager.DragSourceAdvisor"
 				Value="{DynamicResource PanelDragSourceAdvisor}"/>
-		<Setter Property="DragDropManager.DropTargetAdvisor"
+		<Setter Property="DrapDrop:DragDropManager.DropTargetAdvisor"
 				Value="{DynamicResource PanelDropTargetAdvisor}" />
+		<Setter Property="cb:Message.Triggers">
+			<Setter.Value>
+				<cb:RoutedMessageTriggerCollection>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RequestCloseHotKey}}"
+										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RequestCloseHotKeyModifiers}}">
+						<cb:CommandMessage Command="{cb:Resolve Key=ClosePanel}">
+							<cb:Parameter Value="{Binding Mode=OneWay}" />
+						</cb:CommandMessage>
+					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKey}}"
+										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKeyModifiers}}">
+						<cb:CommandMessage Command="{cb:Resolve Key=DublicateSelectedPanel}">
+							<cb:Parameter Value="{Binding Mode=OneWay}" />
+						</cb:CommandMessage>
+					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SwapStackContainerOrientationKey}}"
+											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.SwapStackContainerOrientationModifiers}}">
+						<cb:CommandMessage Command="{cb:Resolve Key=SwapStackContainerOrientation}">
+							<cb:Parameter Value="{Binding Mode=OneWay}" />
+						</cb:CommandMessage>
+					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SplitTabContainerCommandKey}}"
+											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.SplitTabContainerCommandModifiers}}">
+						<cb:CommandMessage Command="{cb:Resolve Key=SplitTabContainer}">
+							<cb:Parameter Value="{Binding Mode=OneWay}" />
+						</cb:CommandMessage>
+					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.WrapPanelWithTabContainerCommandKey}}"
+											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.WrapPanelWithTabContainerCommandModifiers}}">
+						<cb:CommandMessage Command="{cb:Resolve Key=WrapPanelWithTabContainer}">
+							<cb:Parameter Value="{Binding Mode=OneWay}" />
+						</cb:CommandMessage>
+					</cb:GestureMessageTrigger>
+				</cb:RoutedMessageTriggerCollection>
+			</Setter.Value>
+		</Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TabItem}">
@@ -50,21 +88,21 @@
 						<DockPanel>
 							<Button x:Name="CloseButton"
 									HorizontalAlignment="Center"
+									Margin="0,0,5,0"
 									VerticalAlignment="Center"
 									Width="16"
 									Height="16"
-									Margin="0,0,5,0"
 									DockPanel.Dock="Right"
 									Style="{DynamicResource {x:Static Themes:Theme.CloseableTabItemButtonStyleKey}}">
-								<Message.Triggers>
-									<RoutedMessageTriggerCollection>
-										<EventMessageTrigger EventName="Click">
-											<CommandMessage Command="{Resolve Key=ClosePanel}">
-												<Parameter Value="{Binding Mode=OneWay}" />
-											</CommandMessage>
-										</EventMessageTrigger>
-									</RoutedMessageTriggerCollection>
-								</Message.Triggers>
+								<cb:Message.Triggers>
+									<cb:RoutedMessageTriggerCollection>
+										<cb:EventMessageTrigger EventName="Click">
+											<cb:CommandMessage Command="{cb:Resolve Key=ClosePanel}">
+												<cb:Parameter Value="{Binding Mode=OneWay}" />
+											</cb:CommandMessage>
+										</cb:EventMessageTrigger>
+									</cb:RoutedMessageTriggerCollection>
+								</cb:Message.Triggers>
 							</Button>
 							<ContentPresenter x:Name="ContentSite"
 											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"

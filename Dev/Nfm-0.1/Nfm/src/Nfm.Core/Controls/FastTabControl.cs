@@ -50,6 +50,16 @@ namespace Nfm.Core.Controls
 			ItemContainerGenerator.StatusChanged += ItemContainerGeneratorStatusChanged;
 		}
 
+		/// <summary>
+		/// Initializes static members of the <see cref="FastTabControl"/> class.
+		/// </summary>
+		static FastTabControl()
+		{
+			// TODO: Consiter using this default static ctor with such body:
+//			DefaultStyleKeyProperty.OverrideMetadata(
+//				typeof (FastTabControl), new FrameworkPropertyMetadata(typeof (FastTabControl)));
+		}
+
 		#endregion
 
 		#region Overrides from TabControl

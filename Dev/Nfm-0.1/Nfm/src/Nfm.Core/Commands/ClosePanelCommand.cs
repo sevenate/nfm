@@ -11,7 +11,8 @@
 // </editor>
 // <summary>Close panel command.</summary>
 
-using Caliburn.Actions.Filters;
+using System;
+using Caliburn.PresentationFramework.Filters;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -28,10 +29,12 @@ namespace Nfm.Core.Commands
 		[Preview("CanExecute")]
 		public void Execute(IPanel panel)
 		{
-			if (panel != null)
+			if (panel == null)
 			{
-				panel.RequestClose();
+				throw new ArgumentNullException("panel");
 			}
+
+			panel.RequestClose();
 		}
 
 		/// <summary>

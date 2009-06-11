@@ -3,11 +3,11 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:Controls="clr-namespace:Nfm.Core.Controls"
 		xmlns:Themes="clr-namespace:Nfm.Core.Themes"
-		Style="{DynamicResource {x:Static Themes:Theme.MainWindowStyleKey}}"
-		FocusManager.FocusedElement="{Controls:FirstFocusedElement}">
+		Style="{DynamicResource {x:Static Themes:Theme.MainWindowStyleKey}}">
+<!--		FocusManager.FocusedElement="{Controls:FirstFocusedElement}">-->
 	<!-- Grid used as default adorner layer -->
 	<Grid>
-		<ContentControl IsTabStop="False"
+		<ContentControl Focusable="False"
 						Content="{Binding}" />
 	</Grid>
 </Window>

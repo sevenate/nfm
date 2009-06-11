@@ -15,10 +15,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
-using Caliburn.Actions;
-using Caliburn.Commands;
 using Caliburn.Core;
-using Caliburn.RoutedUIMessaging;
+using Caliburn.PresentationFramework;
 using Nfm.Core.Commands;
 using Nfm.Core.Configuration;
 using Nfm.Core.ViewModels;
@@ -44,12 +42,10 @@ namespace Nfm.Loader
 		{
 			var container = new SimpleContainer();
 
-			CaliburnApplication
+			CaliburnFramework
 				.ConfigureCore(container)
-				.WithRoutedUIMessaging()
-				.WithActions()
-				.WithCommands()
-				.StartApplication();
+				.WithPresentationFramework()
+				.Start();
 
 			// Note: register all application commands here
 			container.RegisterSingleton<ClosePanelCommand>("ClosePanel");
@@ -58,6 +54,9 @@ namespace Nfm.Loader
 			container.RegisterSingleton<RefreshChildNodesCommand>("RefreshChildNodes");
 			container.RegisterSingleton<DublicateSelectedPanelCommand>("DublicateSelectedPanel");
 			container.RegisterSingleton<SwitchThemeCommand>("SwitchTheme");
+			container.RegisterSingleton<SwapStackContainerOrientationCommand>("SwapStackContainerOrientation");
+			container.RegisterSingleton<SplitTabContainerCommand>("SplitTabContainer");
+			container.RegisterSingleton<WrapPanelWithTabContainerCommand>("WrapPanelWithTabContainer");
 		}
 
 		#endregion

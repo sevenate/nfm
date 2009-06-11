@@ -127,6 +127,7 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Setter Property="Focusable" Value="False"/>
 	</Style>
 
 </ResourceDictionary>

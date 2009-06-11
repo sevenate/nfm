@@ -11,8 +11,8 @@
 // </editor>
 // <summary>Dublicate selected panel command.</summary>
 
-using System.Linq;
-using Caliburn.Actions.Filters;
+using System;
+using Caliburn.PresentationFramework.Filters;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -23,28 +23,35 @@ namespace Nfm.Core.Commands
 	public class DublicateSelectedPanelCommand
 	{
 		/// <summary>
-		/// Dublicate selected panel in the specific container.
+		/// Dublicate panel in the parent container.
 		/// </summary>
-		/// <param name="container">Ccntainer with selected panel.</param>
-		[Preview("CanExecute")]
-		public void Execute(IPanelContainer container)
+		/// <param name="panel">Panel to dublicate.</param>
+		[Preview("CanExecute", AffectsTriggers = false)]
+		public void Execute(IPanel panel)
 		{
-			var selectedPanel = container.Childs.Where(child => child.IsSelected).FirstOrDefault();
-
-			if (selectedPanel != null)
+			if (panel == null)
 			{
-				container.Childs.Add((IPanel)selectedPanel.Clone());
+				throw new ArgumentNullException("panel");
+			}
+
+			var container = panel.Parent as IPanelContainer;
+
+			if (container != null)
+			{
+				// Insert after current panel
+				int targetIndex = container.Childs.IndexOf(panel);
+				container.Childs.Insert(targetIndex + 1, (IPanel) panel.Clone());
 			}
 		}
 
 		/// <summary>
-		/// Check if the selected panel can be dublicated.
+		/// Check if the panel can be dublicated.
 		/// </summary>
-		/// <param name="container">Ccntainer with selected panel.</param>
-		/// <returns>True, if at least one selected child panel exist and it can be dublicated in the container.</returns>
-		public bool CanExecute(IPanelContainer container)
+		/// <param name="panel">Panel to dublicate.</param>
+		/// <returns>True, if at panel can be dublicated in the parent container.</returns>
+		public bool CanExecute(IPanel panel)
 		{
-			return container != null && container.Childs.Where(child => child.IsSelected).FirstOrDefault() != null;
+			return panel != null && panel.Parent is IPanelContainer;
 		}
 	}
 }

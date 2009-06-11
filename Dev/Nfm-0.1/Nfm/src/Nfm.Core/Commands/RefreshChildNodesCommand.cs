@@ -11,7 +11,7 @@
 // </editor>
 // <summary>Refresh child nodes command.</summary>
 
-using Caliburn.Actions.Filters;
+using Caliburn.PresentationFramework.Filters;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands

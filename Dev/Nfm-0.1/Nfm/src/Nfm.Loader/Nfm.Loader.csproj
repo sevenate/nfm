@@ -50,21 +50,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Actions, Version=1.0.0.6042, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Caliburn.Actions.dll</HintPath>
-    </Reference>
-    <Reference Include="Caliburn.Commands, Version=1.0.0.6042, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Caliburn.Commands.dll</HintPath>
-    </Reference>
     <Reference Include="Caliburn.Core, Version=1.0.0.6042, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Caliburn.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Caliburn.RoutedUIMessaging, Version=1.0.0.6042, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+    <Reference Include="Caliburn.PresentationFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Caliburn.RoutedUIMessaging.dll</HintPath>
+      <HintPath>..\..\lib\Caliburn.PresentationFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

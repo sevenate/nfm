@@ -103,5 +103,47 @@ namespace Nfm.Core.Commands
 		public static ModifierKeys SwitchThemeModifiers { get { return ModifierKeys.Control | ModifierKeys.Alt; } }
 
 		#endregion
+
+		#region Swap parent stack container (Ctrl + G)
+
+		/// <summary>
+		/// Gets hotkey for "SwapStackContainerOrientation" command.
+		/// </summary>
+		public static Key SwapStackContainerOrientationKey { get { return Key.G; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "SwapStackContainerOrientation" command.
+		/// </summary>
+		public static ModifierKeys SwapStackContainerOrientationModifiers { get { return ModifierKeys.Control; } }
+
+		#endregion
+
+		#region Split tab container (Ctrl + Shift + G)
+
+		/// <summary>
+		/// Gets hotkey for "SplitTabContainerCommand" command.
+		/// </summary>
+		public static Key SplitTabContainerCommandKey { get { return Key.G; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "SplitTabContainerCommand" command.
+		/// </summary>
+		public static ModifierKeys SplitTabContainerCommandModifiers { get { return ModifierKeys.Control | ModifierKeys.Shift; } }
+
+		#endregion
+
+		#region Wrap panel with tab container (Ctrl + Alt + G)
+
+		/// <summary>
+		/// Gets hotkey for "WrapPanelWithTabContainerCommand" command.
+		/// </summary>
+		public static Key WrapPanelWithTabContainerCommandKey { get { return Key.G; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "SplitTabContainerCommand" command.
+		/// </summary>
+		public static ModifierKeys WrapPanelWithTabContainerCommandModifiers { get { return ModifierKeys.Control | ModifierKeys.Alt; } }
+
+		#endregion
 	}
 }

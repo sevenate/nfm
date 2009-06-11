@@ -13,7 +13,7 @@
 
 using System;
 using System.Windows;
-using Caliburn.Actions.Filters;
+using Caliburn.PresentationFramework.Filters;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands

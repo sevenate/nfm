@@ -12,6 +12,7 @@
 // <summary>Convert nullable <see cref="DateTime"/> value to user friendly string.</summary>
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 
@@ -35,7 +36,7 @@ namespace Nfm.Core.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var date = (DateTime?)value;
+			var date = (DateTime?) value;
 
 			if (!date.HasValue)
 			{
@@ -93,6 +94,39 @@ namespace Nfm.Core.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotSupportedException();
+		}
+
+		#endregion
+
+		#region Singleton
+
+		/// <summary>
+		/// Singleton instance.
+		/// </summary>
+		private static DateTimeToStringConverter instance;
+
+		/// <summary>
+		/// Prevents a default instance of the <see cref="DateTimeToStringConverter"/> class from being created.
+		/// </summary>
+		private DateTimeToStringConverter()
+		{
+		}
+
+		/// <summary>
+		/// Gets the singleton instance.
+		/// </summary>
+		public static DateTimeToStringConverter Inst
+		{
+			[DebuggerStepThrough]
+			get
+			{
+				if (instance == null)
+				{
+					instance = new DateTimeToStringConverter();
+				}
+
+				return instance;
+			}
 		}
 
 		#endregion
