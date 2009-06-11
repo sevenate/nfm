@@ -377,6 +377,8 @@ namespace Nfm.Core.Controls.DragDrop
 		{
 			if (currentTargetAdvisor.IsValidDataObject(sender, e.Data) == false)
 			{
+				e.Effects = DragDropEffects.None;
+				e.Handled = true;
 				return false;
 			}
 
