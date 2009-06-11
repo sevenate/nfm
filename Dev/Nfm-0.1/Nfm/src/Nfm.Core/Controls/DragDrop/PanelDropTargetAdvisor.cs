@@ -132,19 +132,24 @@ namespace Nfm.Core.Controls.DragDrop
 							targetParentContainer.Childs.Move(oldIndex, next);
 						}
 					}
+
+					sourcePanel.IsSelected = true;
 				}
 				else if ((finalEffects & DragDropEffects.Copy) == DragDropEffects.Copy)
 				{
 					// Bug: Not thread safe operation!
 					// Simultaneously add new item while data binding UI enumerate collection.
 
+					var newPanel = (IPanel) sourcePanel.Clone();
+					newPanel.IsSelected = true;
+
 					if (insertBeforeTarget)
 					{
-						targetParentContainer.Childs.Insert(targetIndex, (IPanel) sourcePanel.Clone());
+						targetParentContainer.Childs.Insert(targetIndex, newPanel);
 					}
 					else
 					{
-						targetParentContainer.Childs.Insert(targetIndex + 1, (IPanel) sourcePanel.Clone());
+						targetParentContainer.Childs.Insert(targetIndex + 1, newPanel);
 					}
 				}
 			}
