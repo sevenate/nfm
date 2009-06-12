@@ -29,6 +29,7 @@ namespace Nfm.Core.Tests
 		[Fact]
 		public void Find()
 		{
+			AddInManager.Update();
 			AddInManager.Find();
 		}
 	}
