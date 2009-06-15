@@ -1614,7 +1614,7 @@
         <member name="P:Moq.Mock.CallBase">
             <summary>
 			Whether the base member virtual implementation will be called
-			for mocked classes if no setup is matched. Defaults to <see langword="true"/>.
+			for mocked classes if no setup is matched. Defaults to <see langword="false"/>.
 		</summary>
         </member>
         <member name="P:Moq.Mock.DefaultValue">
@@ -1979,7 +1979,7 @@
         <member name="P:Moq.MockFactory.CallBase">
             <summary>
             Whether the base member virtual implementation will be called 
-            for mocked classes if no setup is matched. Defaults to <see langword="true"/>.
+            for mocked classes if no setup is matched. Defaults to <see langword="false"/>.
             </summary>
         </member>
         <member name="P:Moq.MockFactory.DefaultValue">
@@ -2106,7 +2106,7 @@
         <member name="P:Moq.Properties.Resources.NoMatchingCallsAtMostOnce">
              <summary>
                Looks up a localized string similar to {0}
-            Invocation was performed on the mock more than a time: {1}.
+            Invocation was performed on the mock more than once: {1}.
              </summary>
         </member>
         <member name="P:Moq.Properties.Resources.NoMatchingCallsBetweenExclusive">
@@ -2130,7 +2130,13 @@
         <member name="P:Moq.Properties.Resources.NoMatchingCallsNever">
              <summary>
                Looks up a localized string similar to {0}
-            Invocation was performed on the mock: {1}.
+            Invocation should not have been performed on the mock: {1}.
+             </summary>
+        </member>
+        <member name="P:Moq.Properties.Resources.NoMatchingCallsOnce">
+             <summary>
+               Looks up a localized string similar to {0}
+            Invocation was performed more than once on the mock: {1}.
              </summary>
         </member>
         <member name="P:Moq.Properties.Resources.NoSetup">
@@ -2507,7 +2513,8 @@
         </member>
         <member name="M:Moq.Match.Matcher``1">
             <devdoc>
-            Provided for the sole purpose of rendering the delegate passed to SetupSet.
+            Provided for the sole purpose of rendering the delegate passed to the 
+            matcher constructor if no friendly render lambda is provided.
             </devdoc>
         </member>
         <member name="T:Moq.Match`1">
@@ -2521,11 +2528,15 @@
 			matching mechanism is fully extensible.
 		</remarks><example>
 			Creating a custom matcher is straightforward. You just need to create a method
-			that returns a value from a call to <see cref="M:Moq.Match`1.Create(System.Predicate{`0})"/> with your matching condition:
+			that returns a value from a call to <see cref="M:Moq.Match`1.Create(System.Predicate{`0})"/> with 
+			your matching condition and optional friendly render expression:
 			<code>
 				public Order IsBigOrder()
 				{
-					return Match&lt;Order&gt;.Create(o =&gt; o.GrandTotal &gt;= 5000);
+					return Match&lt;Order&gt;.Create(
+						o =&gt; o.GrandTotal &gt;= 5000, 
+						/* a friendly expression to render on failures */
+						() =&gt; IsBigOrder());
 				}
 			</code>
 			This method can be used in any mock setup invocation:
@@ -2563,9 +2574,12 @@
 			Initializes the match with the condition that
 			will be checked in order to match invocation
 			values.
-		</summary><remarks>
+		</summary><param name="condition">The condition to match against actual values.</param><remarks>
 			 <seealso cref="T:Moq.Match`1"/>
 		</remarks>
+        </member>
+        <member name="M:Moq.Match`1.Create(System.Predicate{`0},System.Linq.Expressions.Expression{System.Func{`0}})">
+            <!-- No matching elements were found for the following include tag --><include file="Match.xdoc" path="docs/doc[@for=&quot;Match{T}.Create(condition,renderExpression&quot;]/*"/>
         </member>
         <member name="M:Moq.Match`1.Convert">
             <!-- No matching elements were found for the following include tag --><include file="Match.xdoc" path="docs/doc[@for=&quot;Match{T}.Convert&quot;]/*"/>
@@ -3130,90 +3144,28 @@
         </member>
         <member name="M:Moq.Mock`1.Expect(System.Linq.Expressions.Expression{System.Action{`0}})">
             <summary>
-            Sets an expectation on the mocked type for a call to 
-            to a void method.
+            Obsolete.
             </summary>
-            <remarks>
-            If more than one expectation is set for the same method or property, 
-            the latest one wins and is the one that will be executed.
-            </remarks>
-            <param name="expression">Lambda expression that specifies the expected method invocation.</param>
-            <example group="expectations">
-            <code>
-            var mock = new Mock&lt;IProcessor&gt;();
-            this.Setup(x =&gt; x.Execute("ping"));
-            </code>
-            </example>
         </member>
         <member name="M:Moq.Mock`1.Expect``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
-            Sets an expectation on the mocked type for a call to 
-            to a value returning method.
+            Obsolete.
             </summary>
-            <typeparam name="TResult">Type of the return value. Typically omitted as it can be inferred from the expression.</typeparam>
-            <remarks>
-            If more than one expectation is set for the same method or property, 
-            the latest one wins and is the one that will be executed.
-            </remarks>
-            <param name="expression">Lambda expression that specifies the expected method invocation.</param>
-            <example group="expectations">
-            <code>
-            this.Setup(x =&gt; x.HasInventory("Talisker", 50)).Returns(true);
-            </code>
-            </example>
         </member>
         <member name="M:Moq.Mock`1.ExpectGet``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
-            Sets an expectation on the mocked type for a call to 
-            to a property getter.
+            Obsolete.
             </summary>
-            <remarks>
-            If more than one expectation is set for the same property getter, 
-            the latest one wins and is the one that will be executed.
-            </remarks>
-            <typeparam name="TProperty">Type of the property. Typically omitted as it can be inferred from the expression.</typeparam>
-            <param name="expression">Lambda expression that specifies the expected property getter.</param>
-            <example group="expectations">
-            <code>
-            this.SetupGet(x =&gt; x.Suspended)
-                .Returns(true);
-            </code>
-            </example>
         </member>
         <member name="M:Moq.Mock`1.ExpectSet``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
             <summary>
-            Sets an expectation on the mocked type for a call to 
-            to a property setter.
+            Obsolete.
             </summary>
-            <remarks>
-            If more than one expectation is set for the same property setter, 
-            the latest one wins and is the one that will be executed.
-            </remarks>
-            <typeparam name="TProperty">Type of the property. Typically omitted as it can be inferred from the expression.</typeparam>
-            <param name="expression">Lambda expression that specifies the expected property setter.</param>
-            <example group="expectations">
-            <code>
-            this.SetupSet(x =&gt; x.Suspended);
-            </code>
-            </example>
         </member>
         <member name="M:Moq.Mock`1.ExpectSet``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)">
             <summary>
-            Sets an expectation on the mocked type for a call to 
-            to a property setter with a specific value.
+            Obsolete.
             </summary>
-            <remarks>
-            More than one expectation can be set for the setter with 
-            different values.
-            </remarks>
-            <typeparam name="TProperty">Type of the property. Typically omitted as it can be inferred from the expression.</typeparam>
-            <param name="expression">Lambda expression that specifies the expected property setter.</param>
-            <param name="value">The value expected to be set for the property.</param>
-            <example group="expectations">
-            <code>
-            this.SetupSet(x =&gt; x.Suspended, true);
-            </code>
-            </example>
         </member>
         <member name="P:Moq.Mock`1.Object">
             <summary>
@@ -3229,75 +3181,18 @@
         </member>
         <member name="M:Moq.MockLegacyExtensions.SetupSet``2(Moq.Mock{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},``1)">
             <summary>
-            Specifies a setup on the mocked type for a call to 
-            to a property setter with a specific value.
+            Obsolete.
             </summary>
-            <remarks>
-            More than one setup can be set for the setter with 
-            different values.
-            </remarks>
-            <typeparam name="TProperty">Type of the property. Typically omitted as it can be inferred from the expression.</typeparam>
-            <typeparam name="T">Type of the mock.</typeparam>
-            <param name="mock">The target mock for the setup.</param>
-            <param name="expression">Lambda expression that specifies the property setter.</param>
-            <param name="value">The value to be set for the property.</param>
-            <example group="setups">
-            <code>
-            mock.SetupSet(x =&gt; x.Suspended, true);
-            </code>
-            </example>
         </member>
         <member name="M:Moq.MockLegacyExtensions.VerifySet``2(Moq.Mock{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},``1)">
             <summary>
-            Verifies that a property has been set on the mock to the given value.
-            Use in conjuntion with the default <see cref="F:Moq.MockBehavior.Loose"/>.
+            Obsolete.
             </summary>
-            <example group="verification">
-            This example assumes that the mock has been used, 
-            and later we want to verify that a given invocation 
-            with specific parameters was performed:
-            <code>
-            var mock = new Mock&lt;IWarehouse&gt;();
-            // exercise mock
-            //...
-            // Will throw if the test code didn't set the IsClosed property to true
-            mock.VerifySet(warehouse =&gt; warehouse.IsClosed, true);
-            </code>
-            </example>
-            <exception cref="T:Moq.MockException">The invocation was not performed on the mock.</exception>
-            <param name="expression">Expression to verify.</param>
-            <param name="value">The value that should have been set on the property.</param>
-            <param name="mock">The mock instance.</param>
-            <typeparam name="T">Mocked type.</typeparam>
-            <typeparam name="TProperty">Type of the property to verify. Typically omitted as it can 
-            be inferred from the expression's return type.</typeparam>
         </member>
         <member name="M:Moq.MockLegacyExtensions.VerifySet``2(Moq.Mock{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},``1,System.String)">
             <summary>
-            Verifies that a property has been set on the mock to the given value, specifying a failure  
-            error message. 
-            Use in conjuntion with the default <see cref="F:Moq.MockBehavior.Loose"/>.
+            Obsolete.
             </summary>
-            <example group="verification">
-            This example assumes that the mock has been used, 
-            and later we want to verify that a given invocation 
-            with specific parameters was performed:
-            <code>
-            var mock = new Mock&lt;IWarehouse&gt;();
-            // exercise mock
-            //...
-            // Will throw if the test code didn't set the IsClosed property to true
-            mock.VerifySet(warehouse =&gt; warehouse.IsClosed, true);
-            </code>
-            </example>
-            <exception cref="T:Moq.MockException">The invocation was not performed on the mock.</exception>
-            <param name="expression">Expression to verify.</param>
-            <param name="value">The value that should have been set on the property.</param>
-            <param name="failMessage">Message to show if verification fails.</param>
-            <param name="mock">The mock instance.</param>
-            <typeparam name="T">Mocked type.</typeparam>
-            <typeparam name="TProperty">Type of the property to verify. Typically omitted as it can 
-            be inferred from the expression's return type.</typeparam>
         </member>
         <member name="T:Moq.FluentMockContext">
             <summary>
@@ -3488,6 +3383,26 @@
             <typeparam name="TProperty">Type of the property to verify. Typically omitted as it can 
             be inferred from the expression's return type.</typeparam>
         </member>
+        <member name="T:Moq.Stub.StubExtensions">
+            <summary>
+            Legacy Stub stuff, moved to the core API.
+            </summary>
+        </member>
+        <member name="M:Moq.Stub.StubExtensions.Stub``2(Moq.Mock{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Obsolete. Use <see cref="M:Moq.Mock`1.SetupProperty``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})"/>.
+            </summary>
+        </member>
+        <member name="M:Moq.Stub.StubExtensions.Stub``2(Moq.Mock{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},``1)">
+            <summary>
+            Obsolete. Use <see cref="M:Moq.Mock`1.SetupProperty``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)"/>.
+            </summary>
+        </member>
+        <member name="M:Moq.Stub.StubExtensions.StubAll``1(Moq.Mock{``0})">
+            <summary>
+            Obsolete. Use <see cref="M:Moq.Mock`1.SetupAllProperties"/>.
+            </summary>
+        </member>
         <member name="T:Moq.Times">
             <summary>
             Defines the number of invocations allowed by a mocked method.
@@ -3539,6 +3454,12 @@
         <member name="M:Moq.Times.Never">
             <summary>
             Specifies that a mocked method should not be invoked.
+            </summary>
+            <returns>An object defining the allowed number of invocations.</returns>
+        </member>
+        <member name="M:Moq.Times.Once">
+            <summary>
+            Specifies that a mocked method should be invoked exactly one time.
             </summary>
             <returns>An object defining the allowed number of invocations.</returns>
         </member>
