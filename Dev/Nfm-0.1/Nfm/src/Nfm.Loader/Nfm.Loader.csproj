@@ -50,17 +50,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Core, Version=1.0.0.6042, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+    <Reference Include="Caliburn.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Caliburn.Core.dll</HintPath>
+      <HintPath>..\..\ext\Caliburn.Core.dll</HintPath>
     </Reference>
     <Reference Include="Caliburn.PresentationFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Caliburn.PresentationFramework.dll</HintPath>
+      <HintPath>..\..\ext\Caliburn.PresentationFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\ext\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationFramework.Aero" />
