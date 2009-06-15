@@ -7,9 +7,9 @@
   <Target Name="Test">
     <xunit Assembly="..\test\Nfm.Core.Tests.dll"
 			Verbose="true"
-			WorkingFolder="Output"
-			Html="Report.html"
-			Xml="Report.xml" />
+			WorkingFolder="..\test"
+			Html="Unit Tests Report.html"
+			Xml="Unit Tests Report.xml" />
   </Target>
 
 </Project>
