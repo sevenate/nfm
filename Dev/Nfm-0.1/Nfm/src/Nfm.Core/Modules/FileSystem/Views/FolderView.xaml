@@ -5,7 +5,7 @@
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:ModuleResources="clr-namespace:Nfm.Core.Modules.FileSystem.Resources"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
-					xmlns:cb="http://caliburn.codeplex.com"
+					xmlns:cb="http://www.caliburnproject.org"
 					xmlns:fs="clr-namespace:Nfm.Core.ViewModels.FileSystem.Icons"
 					xmlns:Converters="clr-namespace:Nfm.Core.Converters"
 					mc:Ignorable="d">

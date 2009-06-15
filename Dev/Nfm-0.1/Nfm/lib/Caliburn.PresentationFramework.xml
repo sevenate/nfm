@@ -3395,9 +3395,9 @@
             The conversion cannot be performed.
             </exception>
         </member>
-        <member name="T:Caliburn.PresentationFramework.CompositeResult">
+        <member name="T:Caliburn.PresentationFramework.DefaultResultBehavior">
             <summary>
-            An implementation of <see cref="T:Caliburn.PresentationFramework.IExecutableResult"/> that enables execution of multiple results.
+            The default behavior for handling return values of bound methods.
             </summary>
         </member>
         <member name="T:Caliburn.PresentationFramework.IExecutableResult">
@@ -3412,28 +3412,9 @@
             <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.CompositeResult.#ctor(Caliburn.PresentationFramework.IExecutableResult[])">
+        <member name="E:Caliburn.PresentationFramework.IExecutableResult.Completed">
             <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.CompositeResult"/> class.
-            </summary>
-            <param name="children">The children.</param>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.CompositeResult.Execute(Caliburn.PresentationFramework.IMessageSuppportingMethodBinding,Caliburn.PresentationFramework.IInteractionNode)">
-            <summary>
-            Executes the custom code.
-            </summary>
-            <param name="message">The message.</param>
-            <param name="handlingNode">The handling node.</param>
-        </member>
-        <member name="P:Caliburn.PresentationFramework.CompositeResult.Children">
-            <summary>
-            Gets the children.
-            </summary>
-            <value>The children.</value>
-        </member>
-        <member name="T:Caliburn.PresentationFramework.DefaultResultBehavior">
-            <summary>
-            The default behavior for handling return values of bound methods.
+            Occurs when execution has completed.
             </summary>
         </member>
         <member name="M:Caliburn.PresentationFramework.DefaultResultBehavior.#ctor(System.Object)">
@@ -3463,6 +3444,11 @@
             <param name="target">The target.</param>
             <param name="propertyPath">The property path.</param>
             <returns></returns>
+        </member>
+        <member name="E:Caliburn.PresentationFramework.DefaultResultBehavior.Completed">
+            <summary>
+            Occurs when execution has completed.
+            </summary>
         </member>
         <member name="M:Caliburn.PresentationFramework.ExtensionMethods.WireTo(System.Object,System.Object)">
             <summary>
@@ -4174,6 +4160,35 @@
             Creates a new instance of the <see cref="T:System.Windows.FreezableCollection`1"/>.
             </summary>
             <returns>The new instance.</returns>
+        </member>
+        <member name="T:Caliburn.PresentationFramework.SequentialResult">
+            <summary>
+            An implementation of <see cref="T:Caliburn.PresentationFramework.IExecutableResult"/> that enables execution of multiple results.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.SequentialResult.#ctor(Caliburn.PresentationFramework.IExecutableResult[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.SequentialResult"/> class.
+            </summary>
+            <param name="children">The children.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.SequentialResult.Execute(Caliburn.PresentationFramework.IMessageSuppportingMethodBinding,Caliburn.PresentationFramework.IInteractionNode)">
+            <summary>
+            Executes the custom code.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="handlingNode">The handling node.</param>
+        </member>
+        <member name="E:Caliburn.PresentationFramework.SequentialResult.Completed">
+            <summary>
+            Occurs when execution has completed.
+            </summary>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.SequentialResult.Children">
+            <summary>
+            Gets the children.
+            </summary>
+            <value>The children.</value>
         </member>
     </members>
 </doc>

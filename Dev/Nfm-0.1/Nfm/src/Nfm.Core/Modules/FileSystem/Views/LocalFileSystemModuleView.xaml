@@ -3,7 +3,7 @@
 					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem"
 					xmlns:Controls="clr-namespace:Nfm.Core.Controls"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
-					xmlns:cb="http://caliburn.codeplex.com">
+					xmlns:cb="http://www.caliburnproject.org">
 
 	<DataTemplate DataType="{x:Type FileSystem:LocalFileSystemModuleVM}">
 		<DataTemplate.Resources>

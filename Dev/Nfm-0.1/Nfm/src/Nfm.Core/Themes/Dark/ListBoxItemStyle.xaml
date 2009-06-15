@@ -4,7 +4,7 @@
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
-					xmlns:cb="http://caliburn.codeplex.com"
+					xmlns:cb="http://www.caliburnproject.org"
 					mc:Ignorable="d">
 
 	<!-- #ListBoxItem Style -->
