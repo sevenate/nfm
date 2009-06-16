@@ -57,6 +57,7 @@ namespace Nfm.Loader
 			container.RegisterSingleton<SwapStackContainerOrientationCommand>("SwapStackContainerOrientation");
 			container.RegisterSingleton<SplitTabContainerCommand>("SplitTabContainer");
 			container.RegisterSingleton<WrapPanelWithTabContainerCommand>("WrapPanelWithTabContainer");
+			container.RegisterSingleton<TogglePanelHeaderCommand>("TogglePanelHeader");
 		}
 
 		#endregion

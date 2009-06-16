@@ -4,20 +4,19 @@
 					xmlns:Converters="clr-namespace:Nfm.Core.Converters">
 
 	<DataTemplate DataType="{x:Type ViewModels:PanelHeader}">
-		<Border>
-			<StackPanel Orientation="Horizontal">
-				<Image x:Name="Icon"
-					   Width="16"
-					   Height="16"
+		<StackPanel Orientation="Horizontal"
+					Visibility="{Binding Path=IsVisible, Converter={Converters:BoolToVisibilityConverter}, Mode=TwoWay}">
+			<Image x:Name="Icon"
+				   Width="16"
+				   Height="16"
+				   VerticalAlignment="Center"
+				   HorizontalAlignment="Center"
+				   Source="{Binding Path=Icon}"
+				   Visibility="{Binding Path=HasIcon, Converter={Converters:BoolToVisibilityConverter}}"/>
+			<TextBlock Margin="2,0,0,0"
 					   VerticalAlignment="Center"
-					   HorizontalAlignment="Center"
-					   Source="{Binding Path=Icon}"
-					   Visibility="{Binding Path=HasIcon, Converter={Converters:BoolToVisibilityConverter}}"/>
-				<TextBlock Margin="2,0,0,0"
-						   VerticalAlignment="Center"
-						   Text="{Binding Path=Text}"
-						   Visibility="{Binding Path=HasText, Converter={Converters:BoolToVisibilityConverter}}"/>
-			</StackPanel>
-		</Border>
+					   Text="{Binding Path=Text}"
+					   Visibility="{Binding Path=HasText, Converter={Converters:BoolToVisibilityConverter}}"/>
+		</StackPanel>
 	</DataTemplate>
 </ResourceDictionary>

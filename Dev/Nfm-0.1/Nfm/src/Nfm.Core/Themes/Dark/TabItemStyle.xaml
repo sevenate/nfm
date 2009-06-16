@@ -73,6 +73,12 @@
 							<cb:Parameter Value="{Binding Mode=OneWay}" />
 						</cb:CommandMessage>
 					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.TogglePanelHeaderCommandKey}}"
+											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.TogglePanelHeaderCommandModifiers}}">
+						<cb:CommandMessage Command="{cb:Resolve Key=TogglePanelHeader}">
+							<cb:Parameter Value="{Binding Mode=OneWay}" />
+						</cb:CommandMessage>
+					</cb:GestureMessageTrigger>
 				</cb:RoutedMessageTriggerCollection>
 			</Setter.Value>
 		</Setter>

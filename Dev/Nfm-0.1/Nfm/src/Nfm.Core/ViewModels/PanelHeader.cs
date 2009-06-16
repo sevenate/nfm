@@ -11,6 +11,7 @@
 // </editor>
 // <summary>Common <see cref="IPanel"/> header.</summary>
 
+using System;
 using System.Diagnostics;
 using System.Windows.Media;
 
@@ -29,6 +30,7 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		public PanelHeader()
 		{
+			isVisible = true;
 		}
 
 		/// <summary>
@@ -39,6 +41,7 @@ namespace Nfm.Core.ViewModels
 		{
 			Icon = another.Icon;
 			Text = another.Text;
+			IsVisible = another.IsVisible;
 		}
 
 		#endregion
@@ -69,6 +72,11 @@ namespace Nfm.Core.ViewModels
 		private string text;
 
 		/// <summary>
+		/// Header visibility flag.
+		/// </summary>
+		private bool isVisible;
+
+		/// <summary>
 		/// Gets or sets header icon.
 		/// </summary>
 		public ImageSource Icon
@@ -96,6 +104,30 @@ namespace Nfm.Core.ViewModels
 				HasText = !string.IsNullOrEmpty(text);
 				OnPropertyChanged("Text");
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether header is visible.
+		/// </summary>
+		public bool IsVisible
+		{
+			get { return isVisible; }
+			set
+			{
+				OnPropertyChanging("IsVisible");
+				OnPropertyChanging("IsHidden");
+				isVisible = value;
+				OnPropertyChanged("IsHidden");
+				OnPropertyChanged("IsVisible");
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether header is hidden.
+		/// </summary>
+		public bool IsHidden
+		{
+			get { return !isVisible; }
 		}
 
 		#endregion

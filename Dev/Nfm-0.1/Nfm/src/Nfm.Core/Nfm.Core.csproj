@@ -80,6 +80,7 @@
     <Compile Include="Commands\SplitTabContainerCommand.cs" />
     <Compile Include="Commands\SwapStackContainerOrientationCommand.cs" />
     <Compile Include="Commands\SwitchThemeCommand.cs" />
+    <Compile Include="Commands\TogglePanelHeaderCommand.cs" />
     <Compile Include="Commands\WrapPanelWithTabContainerCommand.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Controls\DragDrop\PanelDragSourceAdvisor.cs" />

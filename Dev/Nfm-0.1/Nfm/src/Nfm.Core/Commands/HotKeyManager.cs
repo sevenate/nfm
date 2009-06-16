@@ -145,5 +145,19 @@ namespace Nfm.Core.Commands
 		public static ModifierKeys WrapPanelWithTabContainerCommandModifiers { get { return ModifierKeys.Control | ModifierKeys.Alt; } }
 
 		#endregion
+
+		#region Hide or show panel header command. (Ctrl + Shift + V)
+
+		/// <summary>
+		/// Gets hotkey for "WrapPanelWithTabContainerCommand" command.
+		/// </summary>
+		public static Key TogglePanelHeaderCommandKey { get { return Key.V; } }
+
+		/// <summary>
+		/// Gets hotkey modifiers for "SplitTabContainerCommand" command.
+		/// </summary>
+		public static ModifierKeys TogglePanelHeaderCommandModifiers { get { return ModifierKeys.Control | ModifierKeys.Shift; } }
+
+		#endregion
 	}
 }

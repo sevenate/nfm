@@ -30,5 +30,10 @@ namespace Nfm.Core.ViewModels
 		/// Gets or sets header text.
 		/// </summary>
 		string Text { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether header is visible.
+		/// </summary>
+		bool IsVisible { get; set; }
 	}
 }

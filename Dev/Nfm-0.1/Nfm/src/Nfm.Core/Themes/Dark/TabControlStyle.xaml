@@ -5,6 +5,8 @@
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:cb="http://www.caliburnproject.org"
+					xmlns:Converters="clr-namespace:Nfm.Core.Converters"
+					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
 					mc:Ignorable="d">
 
 	<!-- #FastTabControl Style -->
@@ -27,26 +29,6 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Controls:FastTabControl}">
-					<ControlTemplate.Resources>
-						<Storyboard x:Key="Storyboard1">
-							<ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="dockPanel" Storyboard.TargetProperty="(UIElement.Visibility)">
-								<DiscreteObjectKeyFrame KeyTime="00:00:00">
-									<DiscreteObjectKeyFrame.Value>
-										<Visibility>Visible</Visibility>
-									</DiscreteObjectKeyFrame.Value>
-								</DiscreteObjectKeyFrame>
-							</ObjectAnimationUsingKeyFrames>
-						</Storyboard>
-						<Storyboard x:Key="Storyboard2">
-							<ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="dockPanel" Storyboard.TargetProperty="(UIElement.Visibility)">
-								<DiscreteObjectKeyFrame KeyTime="00:00:00">
-									<DiscreteObjectKeyFrame.Value>
-										<Visibility>Collapsed</Visibility>
-									</DiscreteObjectKeyFrame.Value>
-								</DiscreteObjectKeyFrame>
-							</ObjectAnimationUsingKeyFrames>
-						</Storyboard>
-					</ControlTemplate.Resources>
 					<Border Background="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
 							BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
 							BorderThickness="2,2,2,2"
@@ -55,56 +37,34 @@
 							SnapsToDevicePixels="True">
 						<DockPanel LastChildFill="True">
 							<DockPanel x:Name="dockPanel"
-									   LastChildFill="True"
+									   Visibility="{Binding Path=Header.IsVisible, Converter={Converters:BoolToVisibilityConverter}, Mode=TwoWay}"
+									   DockPanel.Dock="Top"
 									   KeyboardNavigation.TabNavigation="None"
-									   DockPanel.Dock="Top">
-								<!-- Todo: Make it configurable: multiline tabs -->
-								<!--<TabPanel Panel.ZIndex="1"
-											  Margin="0,0,4,-1"
-											  IsItemsHost="True"
-											  Background="Transparent" />-->
+									   LastChildFill="True">
 								<Border Background="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
-										BorderBrush="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
-										BorderThickness="1,2,1,0"
-										Padding="0,0,0,0"
-										CornerRadius="5"
-										DockPanel.Dock="Left">
+									BorderBrush="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
+									BorderThickness="1,2,1,0"
+									CornerRadius="5">
 									<WrapPanel x:Name="Tabs"
-											   Focusable="False"
-											   FocusManager.IsFocusScope="True"
-											   KeyboardNavigation.TabNavigation="Cycle"
-											   KeyboardNavigation.IsTabStop="False"
-											   IsItemsHost="True" />
+										Focusable="False"
+										FocusManager.IsFocusScope="True"
+										KeyboardNavigation.DirectionalNavigation="Cycle"
+										KeyboardNavigation.IsTabStop="False"
+										IsItemsHost="True" />
 								</Border>
 								<Border Background="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
-										BorderBrush="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
-										BorderThickness="0,2,2,0"
-										Padding="0,0,0,0"
-										CornerRadius="5"
-										MinWidth="32">
+									BorderBrush="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
+									BorderThickness="0,2,2,0"
+									CornerRadius="5"
+									MinWidth="32"
+									HorizontalAlignment="Stretch">
 									<DockPanel x:Name="Toolbar">
-										<Button DockPanel.Dock="Right"
-												HorizontalAlignment="Right"
-												VerticalAlignment="Center"
-												Width="16"
-												Height="16"
-												Style="{DynamicResource {x:Static Themes:Theme.CloseableTabItemButtonStyleKey}}">
-											<cb:Message.Triggers>
-												<cb:RoutedMessageTriggerCollection>
-													<cb:EventMessageTrigger EventName="Click">
-														<cb:CommandMessage Command="{cb:Resolve Key=ClosePanel}">
-															<cb:Parameter Value="{Binding Mode=OneWay}" />
-														</cb:CommandMessage>
-													</cb:EventMessageTrigger>
-												</cb:RoutedMessageTriggerCollection>
-											</cb:Message.Triggers>
-										</Button>
-										<Button DockPanel.Dock="Left"
-												HorizontalAlignment="Left"
-												VerticalAlignment="Center"
-												Width="16"
-												Height="16"
-												Style="{DynamicResource {x:Static Themes:Theme.DuplicateTabItemButtonStyleKey}}">
+										<Button x:Name="Add"
+											HorizontalAlignment="Left"
+											VerticalAlignment="Center"
+											Width="16"
+											Height="16"
+											Style="{DynamicResource {x:Static Themes:Theme.DuplicateTabItemButtonStyleKey}}">
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
 													<cb:EventMessageTrigger EventName="Click">
@@ -115,59 +75,60 @@
 												</cb:RoutedMessageTriggerCollection>
 											</cb:Message.Triggers>
 										</Button>
+										<Button x:Name="Close"
+											HorizontalAlignment="Right"
+											VerticalAlignment="Center"
+											Width="16"
+											Height="16"
+											Style="{DynamicResource {x:Static Themes:Theme.CloseableTabItemButtonStyleKey}}">
+											<cb:Message.Triggers>
+												<cb:RoutedMessageTriggerCollection>
+													<cb:EventMessageTrigger EventName="Click">
+														<cb:CommandMessage Command="{cb:Resolve Key=ClosePanel}">
+															<cb:Parameter Value="{Binding Mode=OneWay}" />
+														</cb:CommandMessage>
+													</cb:EventMessageTrigger>
+												</cb:RoutedMessageTriggerCollection>
+											</cb:Message.Triggers>
+										</Button>
 									</DockPanel>
 								</Border>
 							</DockPanel>
-							<CheckBox x:Name="ToggleTabs"
-									  Content=""
-									  DockPanel.Dock="Top"
-									  Height="8"
-									  Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
-									  IsChecked="True"
-									  Focusable="False">
-								<CheckBox.Template>
-									<ControlTemplate TargetType="{x:Type CheckBox}">
+							<Button x:Name="ToggleTabs"
+								Content=""
+								DockPanel.Dock="Top"
+								Height="8"
+								Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+								Visibility="{Binding Path=Header.IsHidden, Converter={Converters:BoolToVisibilityConverter}}"
+								Focusable="False">
+								<Button.Template>
+									<ControlTemplate TargetType="{x:Type Button}">
 										<Border x:Name="ToggleBorder"
-												Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
-												BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
-												BorderThickness="0"
-												Margin="2,2,2,0"
-												CornerRadius="3" />
+											Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+											BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+											BorderThickness="0"
+											Margin="2,2,2,0"
+											CornerRadius="3" />
 										<ControlTemplate.Triggers>
-<!--											<MultiTrigger>-->
-<!--												<MultiTrigger.Conditions>-->
-<!--													<Condition Property="IsMouseOver"-->
-<!--															   Value="True" />-->
-<!--												</MultiTrigger.Conditions>-->
-<!--												<MultiTrigger.Setters>-->
-<!--													<Setter TargetName="ToggleBorder"-->
-<!--															Property="Background"-->
-<!--															Value="{DynamicResource {x:Static Themes:Theme.HoverBackgroundBrushKey}}" />-->
-<!--												</MultiTrigger.Setters>-->
-<!--											</MultiTrigger>-->
-											<MultiTrigger>
-												<MultiTrigger.Conditions>
-													<Condition Property="IsChecked"
-															   Value="True" />
-													<Condition Property="IsMouseOver"
-															   Value="False" />
-												</MultiTrigger.Conditions>
-												<MultiTrigger.Setters>
-													<Setter TargetName="ToggleBorder"
-															Property="Background"
-															Value="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}" />
-												</MultiTrigger.Setters>
-											</MultiTrigger>
 											<Trigger Property="IsMouseOver"
-													 Value="True">
+												Value="True">
 												<Setter TargetName="ToggleBorder"
-														Property="Background"
-														Value="{DynamicResource {x:Static Themes:Theme.HoverBackgroundBrushKey}}" />
+													Property="Background"
+													Value="{DynamicResource {x:Static Themes:Theme.HoverBackgroundBrushKey}}" />
 											</Trigger>
 										</ControlTemplate.Triggers>
 									</ControlTemplate>
-								</CheckBox.Template>
-							</CheckBox>
+								</Button.Template>
+								<cb:Message.Triggers>
+									<cb:RoutedMessageTriggerCollection>
+										<cb:EventMessageTrigger EventName="Click">
+											<cb:CommandMessage Command="{cb:Resolve Key=TogglePanelHeader}">
+												<cb:Parameter Value="{Binding Mode=OneWay}" />
+											</cb:CommandMessage>
+										</cb:EventMessageTrigger>
+									</cb:RoutedMessageTriggerCollection>
+								</cb:Message.Triggers>
+							</Button>
 <!--							
 							<Border x:Name="TabsTopArea"
 								Background="{TemplateBinding Background}"
@@ -178,8 +139,8 @@
 								DockPanel.Dock="Top"/>
 -->
 							<Grid x:Name="PART_ItemsHolder"
-								  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-								  Margin="2,2,2,2" />
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Margin="2,2,2,2" />
 <!--								
 							<Border x:Name="TabsContentArea"
 									Background="{TemplateBinding Background}"
@@ -198,25 +159,6 @@
 -->
 						</DockPanel>
 					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger SourceName="ToggleTabs"
-								 Property="IsChecked"
-								 Value="True" >
-							<Trigger.EnterActions>
-								<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard Storyboard="{StaticResource Storyboard2}"/>
-							</Trigger.ExitActions>
-							<Setter Property="IsChecked" TargetName="ToggleTabs" Value="True"/>
-						</Trigger>
-<!--						<DataTrigger Binding="{Binding Path=Items.Count, IsAsync=True, RelativeSource={RelativeSource Mode=Self}}"-->
-<!--							Value="1">-->
-<!--							<Setter TargetName="dockPanel"-->
-<!--								Property="Visibility"-->
-<!--								Value="Collapsed" />-->
-<!--						</DataTrigger>-->
-					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
