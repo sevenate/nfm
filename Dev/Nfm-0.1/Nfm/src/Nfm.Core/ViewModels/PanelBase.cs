@@ -12,12 +12,17 @@
 // <summary>Base <see cref="INodePanel"/> implementation.</summary>
 
 using System;
+using System.Diagnostics;
 
 namespace Nfm.Core.ViewModels
 {
 	/// <summary>
 	/// Base <see cref="IPanel"/> implementation.
 	/// </summary>
+	[DebuggerDisplay(
+		@"Header = {Header}"
+		+ @", Type = {GetType()}"
+		+ @", Parent = {Parent}")]
 	public class PanelBase : NotificationBase, IPanelContentHost
 	{
 		#region Implementation of IDisposable
@@ -66,9 +71,9 @@ namespace Nfm.Core.ViewModels
 		private bool isSelected;
 
 		/// <summary>
-		/// Gets panel header: string text or complex content.
+		/// Gets panel header.
 		/// </summary>
-		public object Header
+		public IPanelHeader Header
 		{
 			get { return panelContent.Header; }
 		}

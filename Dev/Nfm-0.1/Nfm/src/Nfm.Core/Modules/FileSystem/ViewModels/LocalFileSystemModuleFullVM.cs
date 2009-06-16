@@ -52,6 +52,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		public LocalFileSystemModuleFullVM(LocalFileSystemModule model)
 			: base(model)
 		{
+			Header = new PanelHeader();
 		}
 
 		/// <summary>
@@ -81,8 +82,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 			}
 
 			selectedChilds = selectedChildsCopy;
-
 			currentItemIndex = another.CurrentItemIndex;
+			Header = (IPanelHeader)another.Header.Clone();
 		}
 
 		#endregion
@@ -149,6 +150,15 @@ namespace Nfm.Core.ViewModels.FileSystem
 				CurrentItemIndex = 0;
 				OnPropertyChanged("CurrentItemIndex");
 			}
+
+			Header.Text = Name;
+
+//			var imageConverter = new FileToIconConverter
+//			{
+//				DefaultSize = 16
+//			};
+//
+//			Header.Icon = imageConverter.GetImage(AbsolutePath, 16);
 		}
 
 		#region Execute
@@ -272,10 +282,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// <summary>
 		/// Gets panel header: string text or complex content.
 		/// </summary>
-		public object Header
-		{
-			get { return Name; }
-		}
+		public IPanelHeader Header { get; set; }
 
 		/// <summary>
 		/// Gets or sets parent host panel.

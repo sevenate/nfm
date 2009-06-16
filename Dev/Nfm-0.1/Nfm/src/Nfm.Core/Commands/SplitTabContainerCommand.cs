@@ -47,7 +47,10 @@ namespace Nfm.Core.Commands
 				{
 					var stackContainer = new StackContainer
 					                     {
-					                     	Header = "Stack Container",
+											Header = new PanelHeader
+											{
+												Text = "Stack Container"
+											},
 					                     	Orientation = FindOptimalStackContainerOrientation(tabContainer)
 					                     	              ?? Orientation.Horizontal,
 											IsSelected = true

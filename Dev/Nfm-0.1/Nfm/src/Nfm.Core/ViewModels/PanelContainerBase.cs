@@ -62,9 +62,9 @@ namespace Nfm.Core.ViewModels
 		private bool isSelected;
 
 		/// <summary>
-		/// Gets or sets panel header: string text or complex content.
+		/// Gets or sets panel header.
 		/// </summary>
-		public object Header { get; set; }
+		public IPanelHeader Header { get; set; }
 
 		/// <summary>
 		/// Gets a value indicating whether a panel can be closed.
@@ -365,6 +365,7 @@ namespace Nfm.Core.ViewModels
 		/// </summary>
 		public PanelContainerBase()
 		{
+			Header = new PanelHeader();
 		}
 
 		/// <summary>
@@ -373,7 +374,7 @@ namespace Nfm.Core.ViewModels
 		/// <param name="another">Another <see cref="PanelContainerBase"/> instance to copy data from.</param>
 		protected PanelContainerBase(PanelContainerBase another)
 		{
-			Header = another.Header;
+			Header = (IPanelHeader)another.Header.Clone();
 			isSelected = another.isSelected;
 
 			// Detach from parent panel

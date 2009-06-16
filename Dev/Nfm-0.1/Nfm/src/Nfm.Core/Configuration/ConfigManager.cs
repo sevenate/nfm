@@ -160,7 +160,10 @@ namespace Nfm.Core.Configuration
 
 			var topStackContainer = new StackContainer
 			{
-				Header = "Root Stack Container",
+				Header = new PanelHeader
+				{
+					Text = "Root Stack Container"
+				},
 				Orientation = Orientation.Vertical
 			};
 
@@ -186,11 +189,16 @@ namespace Nfm.Core.Configuration
 			return GenerateTabContainer(panels, header, selectedIndex);
 		}
 
-		private static TabContainer GenerateTabContainer(IList<IPanel> panels, object header, int selectedIndex)
+		private static TabContainer GenerateTabContainer(IList<IPanel> panels, string header, int selectedIndex)
 		{
+			var panelHeader = new PanelHeader
+			{
+				Text = header
+			};
+
 			var container = new TabContainer
 							{
-								Header = header,
+								Header = panelHeader,
 							};
 
 			for (int i = 0; i < panels.Count; i++)
@@ -207,7 +215,7 @@ namespace Nfm.Core.Configuration
 		}
 
 		private static StackContainer GenerateStackContainer(
-			IEnumerable<IViewModel> viewModels, object header, Orientation orientation, bool wrapUpEachViewModelInTabContainer)
+			IEnumerable<IViewModel> viewModels, string header, Orientation orientation, bool wrapUpEachViewModelInTabContainer)
 		{
 			var panels = new List<IPanel>();
 
@@ -225,11 +233,16 @@ namespace Nfm.Core.Configuration
 		}
 
 		private static StackContainer GenerateStackContainer(
-			IEnumerable<IPanel> panels, object header, Orientation orientation, bool wrapUpEachPanelInTabContainer)
+			IEnumerable<IPanel> panels, string header, Orientation orientation, bool wrapUpEachPanelInTabContainer)
 		{
+			var panelHeader = new PanelHeader
+			{
+				Text = header
+			};
+
 			var stackContainer = new StackContainer
 								 {
-									 Header = header,
+									 Header = panelHeader,
 									 Orientation = orientation
 								 };
 
@@ -309,7 +322,10 @@ namespace Nfm.Core.Configuration
 
 			var workLeftTabContainer = new TabContainer
 									   {
-										   Header = "Left Tab Container"
+										   Header = new PanelHeader
+										            {
+														Text = "Left Tab Container"
+										            }
 									   };
 			workLeftTabContainer.Childs.Add(driveDPanel);
 			workLeftTabContainer.Childs.Add(musicPanel);
@@ -332,7 +348,10 @@ namespace Nfm.Core.Configuration
 
 			var workMiddleTabContainer = new StackContainer
 										 {
-											 Header = "Middle Tab Container",
+											 Header = new PanelHeader
+											          {
+														  Text = "Middle Tab Container"
+											          },
 											 Orientation = Orientation.Vertical
 										 };
 			workMiddleTabContainer.Childs.Add(workMiddlePanel);
@@ -363,19 +382,28 @@ namespace Nfm.Core.Configuration
 
 			var workRightPanel1TabContainer = new TabContainer
 											  {
-												  Header = "Work Right Top Tab Container"
+												  Header = new PanelHeader
+												           {
+															   Text = "Work Right Top Tab Container"
+												           }
 											  };
 			workRightPanel1TabContainer.Childs.Add(workRightPanel1);
 
 			var workRightPanel2TabContainer = new TabContainer
 											  {
-												  Header = "Work Right Bottom Tab Container"
+												  Header = new PanelHeader
+												           {
+															   Text = "Work Right Bottom Tab Container"
+												           }
 											  };
 			workRightPanel2TabContainer.Childs.Add(workRightPanel2);
 
 			var workRightStackContainer = new StackContainer
 										  {
-											  Header = "Right Stack Container",
+											  Header = new PanelHeader
+											           {
+														   Text = "Right Stack Container"
+											           },
 											  Orientation = Orientation.Vertical
 										  };
 			//			workRightStackContainer.Childs.Add(workRightPanel1);
@@ -397,7 +425,10 @@ namespace Nfm.Core.Configuration
 		{
 			var workStackContainer = new StackContainer
 									 {
-										 Header = "Work Stack Container"
+										 Header = new PanelHeader
+										          {
+													  Text = "Work Stack Container"
+										          }
 									 };
 			workStackContainer.Childs.Add(workLeftTabContainer);
 			//			workStackContainer.Childs.Add(workMiddlePanel);
@@ -460,7 +491,10 @@ namespace Nfm.Core.Configuration
 
 			var enterTopTabContainer = new TabContainer
 									   {
-										   Header = "Enter Container"
+										   Header = new PanelHeader
+										            {
+														Text = "Enter Container"
+										            }
 									   };
 			enterTopTabContainer.Childs.Add(topGamesPanel);
 			enterTopTabContainer.Childs.Add(topMusicPanel);
@@ -492,7 +526,10 @@ namespace Nfm.Core.Configuration
 
 			var subTabContainer2 = new TabContainer
 								   {
-									   Header = "Disks Container",
+									   Header = new PanelHeader
+									            {
+													Text = "Disks Container"
+									            },
 									   IsSelected = true
 								   };
 
@@ -511,7 +548,10 @@ namespace Nfm.Core.Configuration
 		{
 			var topTabContainer = new TabContainer
 								  {
-									  Header = "Top Tab Container",
+									  Header = new PanelHeader
+									           {
+												   Text = "Top Tab Container"
+									           },
 								  };
 			topTabContainer.Childs.Add(subTabContainer1);
 			topTabContainer.Childs.Add(subTabContainer2);
@@ -529,7 +569,10 @@ namespace Nfm.Core.Configuration
 		{
 			var mainTabContainer = new TabContainer
 								   {
-									   Header = "Main Window",
+									   Header = new PanelHeader
+									            {
+													Text = "Main Window"
+									            },
 								   };
 			mainTabContainer.Childs.Add(firstPanel);
 			mainTabContainer.Childs.Add(secondPanel);
@@ -537,7 +580,10 @@ namespace Nfm.Core.Configuration
 
 			var topStackContainer = new StackContainer
 			{
-				Header = "Root Stack Container",
+				Header = new PanelHeader
+				         {
+							 Text = "Root Stack Container"
+				         },
 				Orientation = Orientation.Vertical
 			};
 

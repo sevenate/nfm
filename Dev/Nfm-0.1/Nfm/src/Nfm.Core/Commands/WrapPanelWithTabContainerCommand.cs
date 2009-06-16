@@ -42,7 +42,10 @@ namespace Nfm.Core.Commands
 
 				var tabContainer = new TabContainer
 				{
-					Header = "Tab Container",
+					Header = new PanelHeader
+					         {
+								 Text = "Tab Container"
+					         },
 					IsSelected = true
 				};
 

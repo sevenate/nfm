@@ -21,9 +21,9 @@ namespace Nfm.Core.ViewModels
 	public interface IPanel : ICloneable
 	{
 		/// <summary>
-		/// Gets panel header: string text or complex content.
+		/// Gets panel header.
 		/// </summary>
-		object Header { get; }
+		IPanelHeader Header { get; }
 
 		/// <summary>
 		/// Gets a value indicating whether a panel can be closed.

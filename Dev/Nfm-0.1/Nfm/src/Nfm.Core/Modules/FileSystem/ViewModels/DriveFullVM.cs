@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Nfm.Core.Models.FileSystem;
+using Nfm.Core.ViewModels.FileSystem.Icons;
 
 namespace Nfm.Core.ViewModels.FileSystem
 {
@@ -28,14 +29,14 @@ namespace Nfm.Core.ViewModels.FileSystem
 	public class DriveFullVM : DriveVM, IViewModelWithChilds, IPanelContent
 	{
 		/// <summary>
-		/// Child nodes view models.
-		/// </summary>
-		private ObservableCollection<IViewModel> childs = new ObservableCollection<IViewModel>();
-
-		/// <summary>
 		/// Selected child nodes view models.
 		/// </summary>
 		private readonly ObservableCollection<IViewModel> selectedChilds = new ObservableCollection<IViewModel>();
+
+		/// <summary>
+		/// Child nodes view models.
+		/// </summary>
+		private ObservableCollection<IViewModel> childs = new ObservableCollection<IViewModel>();
 
 		/// <summary>
 		/// Current child item with keyboard focus on.
@@ -51,6 +52,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		public DriveFullVM(LocalFileSystemModule model)
 			: base(model)
 		{
+			Header = new PanelHeader();
 		}
 
 		/// <summary>
@@ -76,12 +78,12 @@ namespace Nfm.Core.ViewModels.FileSystem
 
 			foreach (IViewModel child in another.selectedChilds)
 			{
-				selectedChildsCopy.Add((IViewModel)child.Clone());
+				selectedChildsCopy.Add((IViewModel) child.Clone());
 			}
 
 			selectedChilds = selectedChildsCopy;
-
 			currentItemIndex = another.CurrentItemIndex;
+			Header = (IPanelHeader) another.Header.Clone();
 		}
 
 		#endregion
@@ -153,13 +155,13 @@ namespace Nfm.Core.ViewModels.FileSystem
 			// and make it separate in UI and code, but navigatable like always.
 			IEnumerable<IViewModel> resultList = Enumerable.Empty<IViewModel>();
 
-			var fullVM = NavigateOut();
+			IPanelContent fullVM = NavigateOut();
 			var parent = new ParentNodeVM(fullVM)
 			             {
 			             	AbsolutePath = ((IViewModel) fullVM).AbsolutePath
 			             };
 
-			resultList = Enumerable.Repeat((IViewModel)parent, 1);
+			resultList = Enumerable.Repeat((IViewModel) parent, 1);
 
 			resultList = resultList.Concat(sortedList);
 			// -- TODOEND --
@@ -175,6 +177,15 @@ namespace Nfm.Core.ViewModels.FileSystem
 				CurrentItemIndex = 0;
 				OnPropertyChanged("CurrentItemIndex");
 			}
+
+			Header.Text = Name;
+
+			var imageConverter = new FileToIconConverter
+			{
+				DefaultSize = 16
+			};
+
+			Header.Icon = imageConverter.GetImage(AbsolutePath, 16);
 		}
 
 		#region Execute
@@ -242,7 +253,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 
 			for (int i = 0; i < fullVM.Childs.Count; i++)
 			{
-				var model = fullVM.Childs[i];
+				IViewModel model = fullVM.Childs[i];
 
 				if (model.AbsolutePath.StartsWith(AbsolutePath, StringComparison.InvariantCultureIgnoreCase))
 				{
@@ -286,21 +297,19 @@ namespace Nfm.Core.ViewModels.FileSystem
 			set
 			{
 				currentItemIndex = 0 <= value && value < childs.Count
-									? value
-									: -1;
+				                   	? value
+				                   	: -1;
 			}
 		}
+
 		#endregion
 
 		#region Implementation of IPanelContent
 
 		/// <summary>
-		/// Gets panel header: string text or complex content.
+		/// Gets or sets panel header.
 		/// </summary>
-		public object Header
-		{
-			get { return Name; }
-		}
+		public IPanelHeader Header { get; set; }
 
 		/// <summary>
 		/// Gets or sets parent host panel.

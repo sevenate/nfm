@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ViewModels="clr-namespace:Nfm.Core.ViewModels"
+					xmlns:Converters="clr-namespace:Nfm.Core.Converters">
+
+	<DataTemplate DataType="{x:Type ViewModels:PanelHeader}">
+		<Border>
+			<StackPanel Orientation="Horizontal">
+				<Image x:Name="Icon"
+					   Width="16"
+					   Height="16"
+					   VerticalAlignment="Center"
+					   HorizontalAlignment="Center"
+					   Source="{Binding Path=Icon}"
+					   Visibility="{Binding Path=HasIcon, Converter={Converters:BoolToVisibilityConverter}}"/>
+				<TextBlock Margin="2,0,0,0"
+						   VerticalAlignment="Center"
+						   Text="{Binding Path=Text}"
+						   Visibility="{Binding Path=HasText, Converter={Converters:BoolToVisibilityConverter}}"/>
+			</StackPanel>
+		</Border>
+	</DataTemplate>
+</ResourceDictionary>

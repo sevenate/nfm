@@ -142,6 +142,7 @@
       <DependentUpon>MainWindowDictionary.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Theme.cs" />
+    <Compile Include="ViewModels\IPanelHeader.cs" />
     <Compile Include="ViewModels\IViewModelWithChilds.cs" />
     <Compile Include="ViewModels\IDefaultModuleViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="ViewModels\IPanel.cs" />
     <Compile Include="ViewModels\IPanelContainer.cs" />
     <Compile Include="ViewModels\PanelBase.cs" />
+    <Compile Include="ViewModels\PanelHeader.cs" />
     <Compile Include="ViewModels\ParentNodeVM.cs" />
     <Compile Include="ViewModels\RootNodeVM.cs" />
     <Compile Include="ViewModels\TabContainer.cs" />
@@ -276,6 +278,10 @@
     <Page Include="Views\PanelBase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PanelHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ParentNodeView.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -24,10 +24,10 @@
 				Value="Verdana" />
 		<Setter Property="FontSize"
 				Value="12" />
-		<Setter Property="Padding"
-				Value="5" />
 		<Setter Property="Margin"
 				Value="1" />
+		<Setter Property="Padding"
+				Value="1"/>
 		<Setter Property="IsTabStop"
 				Value="True" />
 <!--		<Setter Property="Focusable"-->
@@ -88,7 +88,7 @@
 						<DockPanel>
 							<Button x:Name="CloseButton"
 									HorizontalAlignment="Center"
-									Margin="0,0,5,0"
+									Margin="0,0,2,0"
 									VerticalAlignment="Center"
 									Width="16"
 									Height="16"
@@ -109,7 +109,7 @@
 											  VerticalAlignment="Center"
 											  HorizontalAlignment="Center"
 											  ContentSource="Header"
-											  Margin="{TemplateBinding Padding}" />
+											  Margin="2,2,2,2" />
 						</DockPanel>
 					</Border>
 					<ControlTemplate.Triggers>

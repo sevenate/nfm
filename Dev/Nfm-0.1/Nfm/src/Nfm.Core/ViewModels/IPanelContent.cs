@@ -22,9 +22,9 @@ namespace Nfm.Core.ViewModels
 	public interface IPanelContent : ICloneable
 	{
 		/// <summary>
-		/// Gets panel header: string text or complex content.
+		/// Gets panel header.
 		/// </summary>
-		object Header { get; }
+		IPanelHeader Header { get; }
 
 		/// <summary>
 		/// Gets or sets parent host panel.

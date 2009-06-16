@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Nfm.Core.Models.FileSystem;
+using Nfm.Core.ViewModels.FileSystem.Icons;
 
 namespace Nfm.Core.ViewModels.FileSystem
 {
@@ -51,6 +52,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 		public FolderFullVM(LocalFileSystemModule model)
 			: base(model)
 		{
+			Header = new PanelHeader();
 		}
 
 		/// <summary>
@@ -79,8 +81,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 			}
 
 			selectedChilds = selectedChildsCopy;
-
 			currentItemIndex = another.CurrentItemIndex;
+			Header = (IPanelHeader)another.Header.Clone();
 		}
 
 		#endregion
@@ -171,6 +173,15 @@ namespace Nfm.Core.ViewModels.FileSystem
 				CurrentItemIndex = 0;
 				OnPropertyChanged("CurrentItemIndex");
 			}
+
+			Header.Text = Name;
+
+			var imageConverter = new FileToIconConverter
+			                     {
+			                     	DefaultSize = 16
+			                     };
+
+			Header.Icon = imageConverter.GetImage(AbsolutePath, 16);
 		}
 
 		#region Execute
@@ -318,12 +329,9 @@ namespace Nfm.Core.ViewModels.FileSystem
 		#region Implementation of IPanelContent
 
 		/// <summary>
-		/// Gets panel header: string text or complex content.
+		/// Gets panel header.
 		/// </summary>
-		public object Header
-		{
-			get { return Name; }
-		}
+		public IPanelHeader Header { get; set; }
 
 		/// <summary>
 		/// Gets or sets parent host panel.
