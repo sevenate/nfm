@@ -58,17 +58,23 @@
 							DockPanel.Dock="Left"
 							VerticalAlignment="Top">
 						<!-- Todo: Add custom icon for LFS module -->
-						<Border x:Name="Icon"
-								Width="48"
-								Height="48"
-								CornerRadius="5"
-								Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
-								VerticalAlignment="Center"
-								HorizontalAlignment="Center">
-							<TextBlock Text="Icon"
-									   HorizontalAlignment="Center"
-									   VerticalAlignment="Center" />
-						</Border>
+						<Viewbox x:Name="Icon"
+								 Stretch="Uniform"
+								 Width="48"
+								 Height="48"
+								 VerticalAlignment="Center"
+								 HorizontalAlignment="Center">
+							<Border	CornerRadius="5"
+									Width="48"
+									Height="48"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Center"
+									Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}">
+								<TextBlock Text="Icon"
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center" />
+							</Border>
+						</Viewbox>
 						<cb:Message.Triggers>
 							<cb:RoutedMessageTriggerCollection>
 								<cb:EventMessageTrigger EventName="MouseLeftButtonDown">
