@@ -139,6 +139,12 @@
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
     <Compile Include="Resources\ResourceCache.cs" />
+    <Compile Include="Resources\Icons\AddIcon.xaml.cs">
+      <DependentUpon>AddIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Icons\CloseIcon.xaml.cs">
+      <DependentUpon>CloseIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Dark\MainWindowDictionary.xaml.cs">
       <DependentUpon>MainWindowDictionary.xaml</DependentUpon>
     </Compile>
@@ -220,17 +226,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Icons\AddIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Dark\CloseableTabItemButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Icons\CloseIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Dark\DarkTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Dark\DuplicateTabItemButtonStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Dark\ListBoxItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>

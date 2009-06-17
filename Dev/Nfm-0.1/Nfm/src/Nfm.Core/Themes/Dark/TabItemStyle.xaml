@@ -1,9 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:DrapDrop="clr-namespace:Nfm.Core.Controls.DragDrop"
-					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
-					xmlns:cb="http://www.caliburnproject.org">
+					xmlns:DrapDrop="clr-namespace:Nfm.Core.Controls.DragDrop"
+					xmlns:Icons="clr-namespace:Nfm.Core.Resources.Icons"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:cb="http://www.caliburnproject.org"
+					mc:Ignorable="d">
 
 	<!-- #TabItem Style -->
 	<Style x:Key="{x:Static Themes:Theme.TabItemStyleKey}"
@@ -94,12 +98,14 @@
 						<DockPanel>
 							<Button x:Name="CloseButton"
 									HorizontalAlignment="Center"
-									Margin="0,0,2,0"
 									VerticalAlignment="Center"
 									Width="16"
 									Height="16"
+									Margin="0,0,2,0"
 									DockPanel.Dock="Right"
+									ToolTip="Close"
 									Style="{DynamicResource {x:Static Themes:Theme.CloseableTabItemButtonStyleKey}}">
+								<Icons:CloseIcon />
 								<cb:Message.Triggers>
 									<cb:RoutedMessageTriggerCollection>
 										<cb:EventMessageTrigger EventName="Click">

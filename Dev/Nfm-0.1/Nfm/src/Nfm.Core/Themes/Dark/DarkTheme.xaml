@@ -5,7 +5,6 @@
 		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/Theme.xaml" />
 		
 		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/CloseableTabItemButtonStyle.xaml" />
-		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/DuplicateTabItemButtonStyle.xaml" />
 		
 		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ListBoxItemStyle.xaml" />
 		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ListBoxStyle.xaml" />

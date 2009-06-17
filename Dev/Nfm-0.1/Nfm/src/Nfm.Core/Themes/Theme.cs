@@ -164,11 +164,6 @@ namespace Nfm.Core.Themes
 			get { return new ComponentResourceKey(typeof (Theme), "CloseableTabItemButtonStyle"); }
 		}
 
-		public static ComponentResourceKey DuplicateTabItemButtonStyleKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "DuplicateTabItemButtonStyle"); }
-		}
-
 		#endregion
 
 		#region Theme Managment
