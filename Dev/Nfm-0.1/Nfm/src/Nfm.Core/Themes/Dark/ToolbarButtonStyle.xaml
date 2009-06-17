@@ -24,26 +24,62 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate.Resources>
+						<Storyboard x:Key="GrowUp">
+							<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+								<SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1.8"/>
+							</DoubleAnimationUsingKeyFrames>
+							<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+								<SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1.8"/>
+							</DoubleAnimationUsingKeyFrames>
+						</Storyboard>
+						<Storyboard x:Key="GrowDown">
+							<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+								<SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
+							</DoubleAnimationUsingKeyFrames>
+							<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+								<SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
+							</DoubleAnimationUsingKeyFrames>
+						</Storyboard>
+					</ControlTemplate.Resources>
 					<Grid SnapsToDevicePixels="True">
 						<Border Background="Transparent"
 								Opacity="0"
 								SnapsToDevicePixels="true" />
-						<ContentPresenter Margin="{TemplateBinding Padding}"
+						<ContentPresenter x:Name="contentPresenter" Margin="{TemplateBinding Padding}"
 										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  RenderTransformOrigin="0.5,0.5" >
+							<ContentPresenter.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform ScaleX="1" ScaleY="1"/>
+								</TransformGroup>
+							</ContentPresenter.RenderTransform>
+						</ContentPresenter>
 					</Grid>
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseOver"
-								 Value="True">
-							<Setter Property="Padding"
-									Value="3" />
-							<Setter Property="Foreground"
-									Value="#FFB83C3D" />
-						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver"
+										   Value="True" />
+								<Condition Property="IsPressed"
+										   Value="False" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard x:Name="GrowDown_BeginStoryboard"
+												 Storyboard="{StaticResource GrowDown}" />
+							</MultiTrigger.ExitActions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard x:Name="GrowUp_BeginStoryboard"
+												 Storyboard="{StaticResource GrowUp}" />
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.Setters>
+								<Setter Property="Foreground"
+										Value="#FFB83C3D" />
+							</MultiTrigger.Setters>
+						</MultiTrigger>
 						<Trigger Property="IsPressed"
 								 Value="True">
-							<Setter Property="Padding"
-									Value="4" />
 							<Setter Property="Foreground"
 									Value="#FF9D3838" />
 						</Trigger>
