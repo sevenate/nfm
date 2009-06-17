@@ -5,7 +5,7 @@
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					mc:Ignorable="d">
 
-	<Style x:Key="{x:Static Themes:Theme.CloseableTabItemButtonStyleKey}"
+	<Style x:Key="{x:Static Themes:Theme.ToolbarButtonStyleKey}"
 		   TargetType="{x:Type Button}">
 		<Setter Property="Foreground"
 				Value="#FF969696" />

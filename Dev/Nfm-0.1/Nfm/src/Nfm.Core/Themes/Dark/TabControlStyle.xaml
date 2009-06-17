@@ -64,7 +64,7 @@
 												Width="16"
 												Height="16"
 												ToolTip="Duplicate selected tab"
-												Style="{DynamicResource {x:Static Themes:Theme.CloseableTabItemButtonStyleKey}}">
+												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}">
 											<Icons:AddIcon />
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
@@ -82,7 +82,7 @@
 												Width="16"
 												Height="16"
 												ToolTip="Close"
-												Style="{DynamicResource {x:Static Themes:Theme.CloseableTabItemButtonStyleKey}}">
+												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}">
 											<Icons:CloseIcon />
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>

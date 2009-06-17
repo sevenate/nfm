@@ -159,9 +159,13 @@ namespace Nfm.Core.Themes
 			get { return new ComponentResourceKey(typeof (Theme), "TabItemStyle"); }
 		}
 
-		public static ComponentResourceKey CloseableTabItemButtonStyleKey
+		#endregion
+
+		#region Toolbar
+
+		public static ComponentResourceKey ToolbarButtonStyleKey
 		{
-			get { return new ComponentResourceKey(typeof (Theme), "CloseableTabItemButtonStyle"); }
+			get { return new ComponentResourceKey(typeof(Theme), "ToolbarButtonStyle"); }
 		}
 
 		#endregion
