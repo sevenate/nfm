@@ -146,9 +146,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 
 			if (CurrentItemIndex == -1 && childs.Count > 0)
 			{
-				OnPropertyChanging("CurrentItemIndex");
 				CurrentItemIndex = 0;
-				OnPropertyChanged("CurrentItemIndex");
 			}
 
 			Header.Text = Name;
@@ -269,9 +267,11 @@ namespace Nfm.Core.ViewModels.FileSystem
 			get { return currentItemIndex; }
 			set
 			{
+				OnPropertyChanging("CurrentItemIndex");
 				currentItemIndex = 0 <= value && value < childs.Count
 									? value
 									: -1;
+				OnPropertyChanged("CurrentItemIndex");
 			}
 		}
 

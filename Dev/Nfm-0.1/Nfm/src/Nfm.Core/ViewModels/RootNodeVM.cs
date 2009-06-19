@@ -138,9 +138,7 @@ namespace Nfm.Core.ViewModels
 
 			if (CurrentItemIndex == -1 && childs.Count > 0)
 			{
-				OnPropertyChanging("CurrentItemIndex");
 				CurrentItemIndex = 0;
-				OnPropertyChanged("CurrentItemIndex");
 			}
 
 			Header.Text = AbsolutePath;
@@ -248,9 +246,11 @@ namespace Nfm.Core.ViewModels
 			get { return currentItemIndex; }
 			set
 			{
+				OnPropertyChanging("CurrentItemIndex");
 				currentItemIndex = 0 <= value && value < childs.Count
 									? value
 									: -1;
+				OnPropertyChanged("CurrentItemIndex");
 			}
 		}
 
