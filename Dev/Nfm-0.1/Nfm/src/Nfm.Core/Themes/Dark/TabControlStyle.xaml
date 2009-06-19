@@ -121,7 +121,7 @@
 									Content=""
 									DockPanel.Dock="Top"
 									Height="8"
-									Background="#FF969696"
+									Background="{DynamicResource {x:Static Themes:Theme.IconBrushKey}}"
 									BorderThickness="0"
 									Visibility="{Binding Path=Header.IsHidden, Converter={Converters:BoolToVisibilityConverter}}"
 									Focusable="False"
@@ -131,12 +131,16 @@
 										<ControlTemplate.Resources>
 											<Storyboard x:Key="Hover">
 												<ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ToggleBorder" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
-													<SplineColorKeyFrame KeyTime="00:00:00.2000000" Value="#FFB83C3D"/>
+													<!-- Todo: {DynamicResource {{x:Static Themes:Theme.IconHoverBrushKey}} -->
+													<SplineColorKeyFrame KeyTime="00:00:00.2000000"
+																		 Value="#FFB83C3D"/>
 												</ColorAnimationUsingKeyFrames>
 											</Storyboard>
 											<Storyboard x:Key="Rollback">
 												<ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ToggleBorder" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
-													<SplineColorKeyFrame KeyTime="00:00:00.2000000" Value="#FF969696"/>
+													<!-- Todo: {DynamicResource {{x:Static Themes:Theme.IconBrushKey}} -->
+													<SplineColorKeyFrame KeyTime="00:00:00.2000000"
+																		 Value="#FF969696"/>
 												</ColorAnimationUsingKeyFrames>
 											</Storyboard>
 										</ControlTemplate.Resources>

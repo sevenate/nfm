@@ -93,7 +93,8 @@
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							CornerRadius="5">
-						<ScrollViewer Focusable="false">
+						<ScrollViewer Focusable="False"
+									  Style="{DynamicResource {x:Static Themes:Theme.ScrollViewerStyleKey}}">
 							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
 											Margin="{TemplateBinding Padding}"
 											Grid.IsSharedSizeScope="True" />

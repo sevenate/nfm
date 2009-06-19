@@ -138,8 +138,14 @@
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\FileToIconConverter.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
+    <Compile Include="Resources\Icons\SingleArrowIcon.xaml.cs">
+      <DependentUpon>SingleArrowIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Icons\ToggleToolbarIcon.xaml.cs">
       <DependentUpon>ToggleToolbarIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Icons\TriangleArrow.xaml.cs">
+      <DependentUpon>TriangleArrow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\ResourceCache.cs" />
     <Compile Include="Resources\Icons\AddIcon.xaml.cs">
@@ -237,7 +243,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Icons\SingleArrowIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Icons\ToggleToolbarIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons\TriangleArrow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -256,6 +270,26 @@
     <Page Include="Themes\Dark\MainWindowDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Dark\ScrollBarLineButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Dark\ScrollBarPageButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Dark\ScrollBarStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Dark\ScrollBarThumbStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Dark\ScrollViewerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Dark\TabControlStyle.xaml">
       <Generator>MSBuild:Compile</Generator>

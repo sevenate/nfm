@@ -17,8 +17,11 @@
 					 Color="#FF333333" />
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.ListItemBackgroundBrushKey}"
 					 Color="#FF595959" />
-	<SolidColorBrush x:Key="{x:Static Themes:Theme.HoverBackgroundBrushKey}"
-					 Color="#FF424242" />
+	<LinearGradientBrush x:Key="{x:Static Themes:Theme.HoverBackgroundBrushKey}"
+					 EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FF424242" Offset="0"/>
+		<GradientStop Color="#FF595959" Offset="1"/>
+	</LinearGradientBrush>
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.BorderBrushKey}"
 					 Color="#FF595959" />
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.SelectedTabBackgroundBrushKey}"
@@ -53,5 +56,16 @@
 	<!-- #Brushes: Focuse -->
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.FocusedBorderBrushKey}"
 					 Color="Red" />
+	
+	<SolidColorBrush x:Key="{x:Static Themes:Theme.IconBrushKey}"
+					 Color="#FF969696" />
+	<SolidColorBrush x:Key="{x:Static Themes:Theme.IconBorderBrushKey}"
+					 Color="#FF333333" />
+	<SolidColorBrush x:Key="{x:Static Themes:Theme.IconHoverBrushKey}"
+					 Color="#FFB83C3D" />
+	<SolidColorBrush x:Key="{x:Static Themes:Theme.IconPressedBrushKey}"
+					 Color="#FF9D3838" />
+	<SolidColorBrush x:Key="{x:Static Themes:Theme.IconDisabledBrushKey}"
+					 Color="#ADADAD" />
 
 </ResourceDictionary>

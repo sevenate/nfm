@@ -40,6 +40,8 @@
 				Value="{Binding Path=IsSelected}" />
 		<Setter Property="FocusVisualStyle"
 				Value="{x:Null}" />
+		<Setter Property="SnapsToDevicePixels"
+				Value="True" />
 		<Setter Property="DrapDrop:DragDropManager.DragSourceAdvisor"
 				Value="{DynamicResource PanelDragSourceAdvisor}"/>
 		<Setter Property="DrapDrop:DragDropManager.DropTargetAdvisor"
@@ -95,7 +97,7 @@
 							BorderThickness="{TemplateBinding BorderThickness}"
 							CornerRadius="5"
 							SnapsToDevicePixels="True">
-						<DockPanel>
+						<DockPanel SnapsToDevicePixels="True">
 							<Button x:Name="CloseButton"
 									HorizontalAlignment="Center"
 									VerticalAlignment="Center"

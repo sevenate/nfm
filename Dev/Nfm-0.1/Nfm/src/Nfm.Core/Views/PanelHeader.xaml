@@ -5,7 +5,8 @@
 
 	<DataTemplate DataType="{x:Type ViewModels:PanelHeader}">
 		<StackPanel Orientation="Horizontal"
-					Visibility="{Binding Path=IsVisible, Converter={Converters:BoolToVisibilityConverter}, Mode=TwoWay}">
+					Visibility="{Binding Path=IsVisible, Converter={Converters:BoolToVisibilityConverter}, Mode=TwoWay}"
+					SnapsToDevicePixels="True">
 			<Image x:Name="Icon"
 				   Width="16"
 				   Height="16"
