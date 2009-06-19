@@ -4,8 +4,6 @@
 
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.WorkAreaBackgroundBrushKey}"
 					 Color="#FF333333" />
-	<SolidColorBrush x:Key="{x:Static Themes:Theme.BorderBrushKey}"
-					 Color="#FF444444" />
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.ToolbarBrushKey}"
 					 Color="#FF595959"/>
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.IconBrushKey}"
@@ -24,7 +22,9 @@
 					 Color="DarkRed" />
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.SelectedBackgroundBrushKey}"
 					 Color="#33FFFF00" />
-	
+
+	<SolidColorBrush x:Key="{x:Static Themes:Theme.BorderBrushKey}"
+					 Color="#FF444444" />
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.SelectedBrushKey}"
 					 Color="#FFAAAAAA" />
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.MenuBrushKey}"

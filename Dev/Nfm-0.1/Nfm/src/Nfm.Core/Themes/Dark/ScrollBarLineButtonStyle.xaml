@@ -17,7 +17,7 @@
 		<Setter Property="BorderThickness"
 				Value="1" />
 		<Setter Property="BorderBrush"
-				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 		<Setter Property="HorizontalContentAlignment"
 				Value="Center" />
 		<Setter Property="VerticalContentAlignment"

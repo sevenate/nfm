@@ -30,11 +30,6 @@ namespace Nfm.Core.Themes
 			get { return new ComponentResourceKey(typeof(Theme), "WorkAreaBackgroundBrush"); }
 		}
 
-		public static ComponentResourceKey BorderBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "BorderBrush"); }
-		}
-
 		public static ComponentResourceKey ToolbarBrushKey
 		{
 			get { return new ComponentResourceKey(typeof(Theme), "ToolbarBrush"); }
@@ -78,6 +73,11 @@ namespace Nfm.Core.Themes
 		public static ComponentResourceKey SelectedBackgroundBrushKey
 		{
 			get { return new ComponentResourceKey(typeof (Theme), "SelectedBackgroundBrush"); }
+		}
+
+		public static ComponentResourceKey BorderBrushKey
+		{
+			get { return new ComponentResourceKey(typeof (Theme), "BorderBrush"); }
 		}
 
 		public static ComponentResourceKey SelectedBrushKey

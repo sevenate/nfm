@@ -4,15 +4,15 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:Themes="clr-namespace:Nfm.Core.Themes"
-			 x:Name="Parent"
+			 x:Name="Root"
 			 mc:Ignorable="d"
 			 d:DesignHeight="300"
 			 d:DesignWidth="300">
 	
 	<Path Stretch="Uniform"
 		  StrokeThickness="0.5"
-		  Stroke="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
-		  Fill="{Binding Path=Foreground, ElementName=Parent}"
+		  Stroke="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+		  Fill="{Binding ElementName=Root, Path=Foreground}"
 		  Data="M4.25001,0.25 L5.5833396,1.5833101 8.2499999,4.2500002 6.9166698,5.5833102 4.2499999,2.9166201 1.5833299,5.5833102 0.25,4.2500002 2.9166698,1.5833101 z"
 		  HorizontalAlignment="Stretch"
 		  VerticalAlignment="Stretch" />

@@ -47,8 +47,8 @@
 		<Border x:Name="Border"
 				Margin="1"
 				Padding="3,1,3,1"
-				Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
-				BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+				Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+				BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
 				BorderThickness="2"
 				CornerRadius="3"
 				SnapsToDevicePixels="true">
@@ -225,7 +225,7 @@
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="Background"
-						Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
+						Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>

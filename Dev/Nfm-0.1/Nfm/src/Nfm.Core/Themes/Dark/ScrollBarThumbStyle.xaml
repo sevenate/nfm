@@ -51,7 +51,7 @@
 							   VerticalAlignment="Stretch"
 							   CornerRadius="3"
 							   Background="{DynamicResource {x:Static Themes:Theme.IconBrushKey}}"
-							   BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
+							   BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
 							   BorderThickness="0" />
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver"

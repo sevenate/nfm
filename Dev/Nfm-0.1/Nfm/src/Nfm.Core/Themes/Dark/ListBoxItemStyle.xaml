@@ -123,6 +123,7 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Setter Property="Background" Value="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"/>
 	</Style>
 
 </ResourceDictionary>

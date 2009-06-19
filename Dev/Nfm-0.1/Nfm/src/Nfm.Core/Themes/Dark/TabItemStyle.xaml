@@ -17,13 +17,13 @@
 			<DrapDrop:PanelDropTargetAdvisor x:Key="PanelDropTargetAdvisor" />
 		</Style.Resources>
 		<Setter Property="BorderBrush"
-				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 		<Setter Property="BorderThickness"
 				Value="2" />
 		<Setter Property="Foreground"
 				Value="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}" />
 		<Setter Property="Background"
-				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}" />
 		<Setter Property="FontFamily"
 				Value="Verdana" />
 		<Setter Property="FontSize"
@@ -93,7 +93,7 @@
 				<ControlTemplate TargetType="{x:Type TabItem}">
 					<Border x:Name="Border"
 							BorderBrush="{TemplateBinding BorderBrush}"
-							Background="{TemplateBinding BorderBrush}"
+							Background="{TemplateBinding Background}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							CornerRadius="5"
 							SnapsToDevicePixels="True">
@@ -131,7 +131,7 @@
 								 Value="True">
 							<Setter TargetName="Border"
 									Property="Background"
-									Value="Transparent" />
+									Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 							<Setter TargetName="Border"
 									Property="BorderThickness"
 									Value="2" />
@@ -165,7 +165,7 @@
 							<MultiTrigger.Setters>
 								<Setter TargetName="Border"
 										Property="Background"
-										Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
+										Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 							</MultiTrigger.Setters>
 						</MultiTrigger>
 						<Trigger Property="IsKeyboardFocused"

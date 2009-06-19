@@ -12,9 +12,9 @@
 	<Style x:Key="{x:Static Themes:Theme.TabControlStyleKey}"
 		   TargetType="{x:Type Controls:FastTabControl}">
 		<Setter Property="Background"
-				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 		<Setter Property="BorderBrush"
-				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 		<Setter Property="BorderThickness"
 				Value="1" />
 		<Setter Property="Padding"
@@ -28,8 +28,8 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Controls:FastTabControl}">
-					<Border Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
-							BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+					<Border Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+							BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
 							BorderThickness="2,2,2,2"
 							Padding="0"
 							CornerRadius="5"
@@ -40,8 +40,8 @@
 									   DockPanel.Dock="Top"
 									   KeyboardNavigation.TabNavigation="None"
 									   LastChildFill="True">
-								<Border Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
-										BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
+								<Border Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+										BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
 										BorderThickness="1,2,1,0"
 										CornerRadius="5">
 									<WrapPanel x:Name="Tabs"
@@ -51,8 +51,8 @@
 											   KeyboardNavigation.IsTabStop="False"
 											   IsItemsHost="True" />
 								</Border>
-								<Border Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
-										BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
+								<Border Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+										BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
 										BorderThickness="0,2,2,0"
 										CornerRadius="5"
 										MinWidth="32"

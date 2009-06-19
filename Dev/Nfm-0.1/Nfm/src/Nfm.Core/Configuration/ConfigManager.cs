@@ -1,4 +1,4 @@
-// <copyright file="ConfigManager.cs" company="HD">
+﻿// <copyright file="ConfigManager.cs" company="HD">
 // 	Copyright (c) 2009 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff">
@@ -346,13 +346,14 @@ namespace Nfm.Core.Configuration
 									  PanelContent = (IPanelContent)workMiddle
 								  };
 
-			var workMiddleTabContainer = new StackContainer
+//			var workMiddleTabContainer = new StackContainer
+			var workMiddleTabContainer = new TabContainer
 										 {
 											 Header = new PanelHeader
 											          {
 														  Text = "Middle Tab Container"
 											          },
-											 Orientation = Orientation.Vertical
+//											 Orientation = Orientation.Vertical
 										 };
 			workMiddleTabContainer.Childs.Add(workMiddlePanel);
 			return workMiddleTabContainer;

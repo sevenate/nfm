@@ -5,15 +5,15 @@
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
 
 	<DataTemplate DataType="{x:Type vm:StackContainer}">
-		<Border Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
-			BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+		<Border Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+			BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
 			BorderThickness="1,1,1,1"
 			Margin="0"
 			CornerRadius="5"
 			SnapsToDevicePixels="True">
 			<ItemsControl ItemsSource="{Binding Path=Childs, IsAsync=True}"
 						  Focusable="False"
-						  Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}">
+						  Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<ctrl:UniformStack Orientation="{Binding Path=Orientation}"

@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
-
+	
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.WorkAreaBackgroundBrushKey}"
 					 Color="#FF595959" />
-	<SolidColorBrush x:Key="{x:Static Themes:Theme.BorderBrushKey}"
+	<SolidColorBrush x:Key="{x:Static Themes:Theme.ToolbarBrushKey}"
 					 Color="#FF333333" />
 
 </ResourceDictionary>
