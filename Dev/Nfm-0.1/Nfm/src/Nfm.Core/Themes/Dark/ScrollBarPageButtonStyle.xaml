@@ -22,7 +22,8 @@
 				<ControlTemplate TargetType="{x:Type RepeatButton}">
 					<Border Background="{TemplateBinding Background}"
 							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}" />
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="5" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

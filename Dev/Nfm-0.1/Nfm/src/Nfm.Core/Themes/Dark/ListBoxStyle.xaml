@@ -90,14 +90,12 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ListBox}">
 					<Border x:Name="Border"
-							SnapsToDevicePixels="true"
+							SnapsToDevicePixels="True"
 							Background="{TemplateBinding Background}"
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							CornerRadius="5">
-						<ScrollViewer Focusable="False"
-									  Style="{DynamicResource {x:Static Themes:Theme.ScrollViewerStyleKey}}">
-<!--									  CanContentScroll="False">-->
+						<ScrollViewer Style="{DynamicResource {x:Static Themes:Theme.ScrollViewerStyleKey}}">
 							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
 											Margin="{TemplateBinding Padding}"
 											Grid.IsSharedSizeScope="True" />

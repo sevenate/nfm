@@ -32,7 +32,6 @@
 
 						<RepeatButton x:Name="DecreaseRepeat"
 									  Style="{DynamicResource {x:Static Themes:Theme.ScrollBarLineButtonStyleKey}}"
-									  BorderThickness="0,0,0,1"
 									  Command="ScrollBar.LineUpCommand">
 								<Icons:SingleArrowIcon />
 						</RepeatButton>
@@ -42,14 +41,14 @@
 							   Grid.Row="1"
 							   Orientation="Vertical"
 							   IsDirectionReversed="True">
-							<Track.Thumb>
-								<Thumb Style="{DynamicResource {x:Static Themes:Theme.ScrollBarThumbStyleKey}}" />
-							</Track.Thumb>
 							<Track.IncreaseRepeatButton>
 								<RepeatButton x:Name="PageUp"
 											  Style="{DynamicResource {x:Static Themes:Theme.ScrollBarPageButtonStyleKey}}"
 											  Command="ScrollBar.PageDownCommand" />
 							</Track.IncreaseRepeatButton>
+							<Track.Thumb>
+								<Thumb Style="{DynamicResource {x:Static Themes:Theme.ScrollBarThumbStyleKey}}" />
+							</Track.Thumb>
 							<Track.DecreaseRepeatButton>
 								<RepeatButton x:Name="PageDown"
 											  Style="{DynamicResource {x:Static Themes:Theme.ScrollBarPageButtonStyleKey}}"
@@ -60,7 +59,6 @@
 						<RepeatButton x:Name="IncreaseRepeat"
 									  Grid.Row="2"
 									  Style="{DynamicResource {x:Static Themes:Theme.ScrollBarLineButtonStyleKey}}"
-									  BorderThickness="0,1,0,0"
 									  Command="ScrollBar.LineDownCommand">
 							<Icons:SingleArrowIcon RenderTransformOrigin="0.5,0.5" >
 								<Icons:SingleArrowIcon.RenderTransform>

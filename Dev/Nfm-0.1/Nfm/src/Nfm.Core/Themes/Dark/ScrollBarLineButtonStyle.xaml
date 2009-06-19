@@ -15,7 +15,7 @@
 		<Setter Property="Background"
 				Value="Transparent" />
 		<Setter Property="BorderThickness"
-				Value="0" />
+				Value="1" />
 		<Setter Property="BorderBrush"
 				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
 		<Setter Property="HorizontalContentAlignment"
@@ -78,7 +78,8 @@
 						<Border SnapsToDevicePixels="true"
 								Background="{TemplateBinding Background}"
 								BorderBrush="{TemplateBinding BorderBrush}"
-								BorderThickness="{TemplateBinding BorderThickness}" />
+								BorderThickness="{TemplateBinding BorderThickness}"
+								CornerRadius="5" />
 						<ContentPresenter x:Name="contentPresenter"
 										  Margin="{TemplateBinding Padding}"
 										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
