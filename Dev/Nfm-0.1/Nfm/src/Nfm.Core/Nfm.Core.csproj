@@ -138,11 +138,11 @@
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\FileToIconConverter.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
+    <Compile Include="Resources\Icons\DoubleArrowIcon.xaml.cs">
+      <DependentUpon>DoubleArrowIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Icons\SingleArrowIcon.xaml.cs">
       <DependentUpon>SingleArrowIcon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Icons\ToggleToolbarIcon.xaml.cs">
-      <DependentUpon>ToggleToolbarIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\Icons\TriangleArrow.xaml.cs">
       <DependentUpon>TriangleArrow.xaml</DependentUpon>
@@ -243,11 +243,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Icons\SingleArrowIcon.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Resources\Icons\DoubleArrowIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Icons\ToggleToolbarIcon.xaml">
+    <Page Include="Resources\Icons\SingleArrowIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
