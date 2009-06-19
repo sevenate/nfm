@@ -5,7 +5,7 @@
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
 
 	<DataTemplate DataType="{x:Type vm:StackContainer}">
-		<Border Background="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
+		<Border Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
 			BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
 			BorderThickness="1,1,1,1"
 			Margin="0"

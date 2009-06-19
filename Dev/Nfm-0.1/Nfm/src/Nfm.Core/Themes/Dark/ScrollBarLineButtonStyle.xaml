@@ -121,7 +121,7 @@
 						<Trigger Property="IsEnabled"
 								 Value="False">
 							<Setter Property="Foreground"
-									Value="{DynamicResource {x:Static Themes:Theme.IconDisabledBrushKey}}" />
+									Value="{DynamicResource {x:Static Themes:Theme.DisabledBrushKey}}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>

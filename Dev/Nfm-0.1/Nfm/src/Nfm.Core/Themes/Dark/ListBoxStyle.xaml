@@ -10,9 +10,11 @@
 		<Setter Property="Foreground"
 				Value="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}" />
 		<Setter Property="Background"
-				Value="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 		<Setter Property="BorderBrush"
 				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
+		<Setter Property="BorderThickness"
+				Value="0" />
 		<Setter Property="Padding"
 				Value="1" />
 <!--		<Setter Property="Focusable"-->
@@ -111,35 +113,25 @@
 <!--										 Color="Black" />-->
 <!--					</ControlTemplate.Resources>-->
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled"
-								 Value="false">
-							<Setter TargetName="Border"
-									Property="Background"
-									Value="{DynamicResource {x:Static Themes:Theme.DisabledBorderBrushKey}}" />
-							<Setter TargetName="Border"
-									Property="BorderBrush"
-									Value="{DynamicResource {x:Static Themes:Theme.DisabledBorderBrushKey}}" />
-						</Trigger>
 						<Trigger Property="IsGrouping"
-								 Value="true">
+								 Value="True">
 							<Setter Property="ScrollViewer.CanContentScroll"
-									Value="false" />
+									Value="False" />
 						</Trigger>
 <!--						<Trigger Property="IsKeyboardFocusWithin"-->
 <!--								 Value="True">-->
 <!--							<Setter Property="BorderBrush"-->
-<!--									Value="{DynamicResource {x:Static Themes:ThemeResource.FocusedBorderBrushKey}}" />-->
+<!--									Value="{DynamicResource {x:Static Themes:Theme.KeyboardFocuseBrushKey}}" />-->
 <!--						</Trigger>-->
-						<Trigger Property="IsKeyboardFocused"
-								 Value="true">
-							<Setter Property="BorderBrush"
-									Value="Blue" />
-						</Trigger>
+<!--						<Trigger Property="IsKeyboardFocused"-->
+<!--								 Value="true">-->
+<!--							<Setter Property="BorderBrush"-->
+<!--									Value="Blue" />-->
+<!--						</Trigger>-->
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="BorderThickness" Value="0,0,0,0"/>
 	</Style>
 
 </ResourceDictionary>

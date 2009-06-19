@@ -10,7 +10,7 @@
 
 	<DataTemplate DataType="{x:Type ViewModels:PanelBase}">
 		<Border Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
-			BorderBrush="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
+			BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
 			BorderThickness="0"
 			CornerRadius="5"
 			SnapsToDevicePixels="True"

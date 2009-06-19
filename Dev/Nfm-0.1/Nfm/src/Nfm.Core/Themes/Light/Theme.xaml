@@ -2,7 +2,7 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
 
-	<SolidColorBrush x:Key="{x:Static Themes:Theme.BackgroundBrushKey}"
+	<SolidColorBrush x:Key="{x:Static Themes:Theme.WorkAreaBackgroundBrushKey}"
 					 Color="#FF595959" />
 	<SolidColorBrush x:Key="{x:Static Themes:Theme.BorderBrushKey}"
 					 Color="#FF333333" />

@@ -219,7 +219,7 @@
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
 						Property="BorderBrush"
-						Value="{DynamicResource {x:Static Themes:Theme.HoverBackgroundBrushKey}}" />
+						Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>

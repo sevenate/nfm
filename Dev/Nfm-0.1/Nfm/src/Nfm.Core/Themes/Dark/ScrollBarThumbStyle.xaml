@@ -32,9 +32,9 @@
 							<ColorAnimationUsingKeyFrames BeginTime="00:00:00"
 														  Storyboard.TargetName="Border"
 														  Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
-								<!-- Todo: {DynamicResource {{x:Static Themes:Theme.BorderBrushKey}} -->
+								<!-- Todo: {DynamicResource {{x:Static Themes:Theme.IconBrushKey}} -->
 								<SplineColorKeyFrame KeyTime="00:00:00.2000000"
-													 Value="#FF595959" />
+													 Value="#FF808080" />
 							</ColorAnimationUsingKeyFrames>
 						</Storyboard>
 					</ControlTemplate.Resources>
@@ -50,8 +50,8 @@
 							   HorizontalAlignment="Stretch"
 							   VerticalAlignment="Stretch"
 							   CornerRadius="3"
-							   Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
-							   BorderBrush="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}"
+							   Background="{DynamicResource {x:Static Themes:Theme.IconBrushKey}}"
+							   BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
 							   BorderThickness="0" />
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver"

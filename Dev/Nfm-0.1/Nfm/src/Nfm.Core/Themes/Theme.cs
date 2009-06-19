@@ -25,19 +25,9 @@ namespace Nfm.Core.Themes
 	{
 		#region General
 
-		public static ComponentResourceKey ForegroundBrushKey
+		public static ComponentResourceKey WorkAreaBackgroundBrushKey
 		{
-			get { return new ComponentResourceKey(typeof (Theme), "ForegroundBrush"); }
-		}
-
-		public static ComponentResourceKey BackgroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "BackgroundBrush"); }
-		}
-
-		public static ComponentResourceKey HoverBackgroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "HoverBackgroundBrush"); }
+			get { return new ComponentResourceKey(typeof(Theme), "WorkAreaBackgroundBrush"); }
 		}
 
 		public static ComponentResourceKey BorderBrushKey
@@ -45,9 +35,59 @@ namespace Nfm.Core.Themes
 			get { return new ComponentResourceKey(typeof (Theme), "BorderBrush"); }
 		}
 
-		public static ComponentResourceKey SelectedTabBackgroundBrushKey
+		public static ComponentResourceKey ToolbarBrushKey
 		{
-			get { return new ComponentResourceKey(typeof (Theme), "SelectedTabBackgroundBrush"); }
+			get { return new ComponentResourceKey(typeof(Theme), "ToolbarBrush"); }
+		}
+
+		public static ComponentResourceKey IconBrushKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "IconBrush"); }
+		}
+
+		public static ComponentResourceKey IconHoverBrushKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "IconHoverBrush"); }
+		}
+
+		public static ComponentResourceKey IconPressedBrushKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "IconPressedBrush"); }
+		}
+
+		public static ComponentResourceKey DisabledBrushKey
+		{
+			get { return new ComponentResourceKey(typeof (Theme), "DisabledBrush"); }
+		}
+
+		public static ComponentResourceKey ForegroundBrushKey
+		{
+			get { return new ComponentResourceKey(typeof (Theme), "ForegroundBrush"); }
+		}
+
+		public static ComponentResourceKey KeyboardFocuseBrushKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "KeyboardFocuseBrush"); }
+		}
+
+		public static ComponentResourceKey LogicalFocuseBrushKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "LogicalFocuseBrush"); }
+		}
+
+		public static ComponentResourceKey SelectedBackgroundBrushKey
+		{
+			get { return new ComponentResourceKey(typeof (Theme), "SelectedBackgroundBrush"); }
+		}
+
+		public static ComponentResourceKey SelectedBrushKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "SelectedBrush"); }
+		}
+
+		public static ComponentResourceKey MenuBrushKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "MenuBrush"); }
 		}
 
 		public static ComponentResourceKey GeneralFontKey
@@ -57,53 +97,48 @@ namespace Nfm.Core.Themes
 
 		#endregion
 
-		#region Selected
-
-		public static ComponentResourceKey SelectedForegroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "SelectedForegroundBrush"); }
-		}
-
-		public static ComponentResourceKey SelectedBackgroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "SelectedBackgroundBrush"); }
-		}
-
-		public static ComponentResourceKey SelectedBorderBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "SelectedBorderBrush"); }
-		}
-
-		#endregion
-
-		#region Disabled
-
-		public static ComponentResourceKey DisabledForegroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "DisabledForegroundBrush"); }
-		}
-
-		public static ComponentResourceKey DisabledBorderBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "DisabledBorderBrush"); }
-		}
-
-		#endregion
-
-		#region Focuse
-
-		public static ComponentResourceKey FocusedBorderBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "FocusedBorderBrush"); }
-		}
-
-		#endregion
-
 		#region Window
 
 		public static ComponentResourceKey MainWindowStyleKey
 		{
 			get { return new ComponentResourceKey(typeof (Theme), "MainWindowStyle"); }
+		}
+
+		#endregion
+
+		#region TabControl
+
+		public static ComponentResourceKey TabControlStyleKey
+		{
+			get { return new ComponentResourceKey(typeof (Theme), "TabControlStyle"); }
+		}
+
+		public static ComponentResourceKey TabItemStyleKey
+		{
+			get { return new ComponentResourceKey(typeof (Theme), "TabItemStyle"); }
+		}
+
+		#endregion
+
+		#region Toolbar Button
+
+		public static ComponentResourceKey ToolbarButtonStyleKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "ToolbarButtonStyle"); }
+		}
+
+		#endregion
+
+		#region ListBox
+
+		public static ComponentResourceKey ListBoxStyleKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "ListBoxStyle"); }
+		}
+
+		public static ComponentResourceKey ListBoxItemStyleKey
+		{
+			get { return new ComponentResourceKey(typeof(Theme), "ListBoxItemStyle"); }
 		}
 
 		#endregion
@@ -133,63 +168,6 @@ namespace Nfm.Core.Themes
 		public static ComponentResourceKey ScrollBarThumbStyleKey
 		{
 			get { return new ComponentResourceKey(typeof(Theme), "ScrollBarThumbStyle"); }
-		}
-
-		#endregion
-
-		#region ListBox
-
-		public static ComponentResourceKey ListBoxStyleKey
-		{
-			get { return new ComponentResourceKey(typeof(Theme), "ListBoxStyle"); }
-		}
-
-		public static ComponentResourceKey ListBoxItemStyleKey
-		{
-			get { return new ComponentResourceKey(typeof(Theme), "ListBoxItemStyle"); }
-		}
-
-		#endregion
-
-		#region TabControl
-
-		public static ComponentResourceKey TabControlStyleKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "TabControlStyle"); }
-		}
-
-		public static ComponentResourceKey TabItemStyleKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "TabItemStyle"); }
-		}
-
-		#endregion
-
-		#region Toolbar
-
-		public static ComponentResourceKey ToolbarButtonStyleKey
-		{
-			get { return new ComponentResourceKey(typeof(Theme), "ToolbarButtonStyle"); }
-		}
-
-		public static ComponentResourceKey IconBrushKey
-		{
-			get { return new ComponentResourceKey(typeof(Theme), "IconBrush"); }
-		}
-
-		public static ComponentResourceKey IconHoverBrushKey
-		{
-			get { return new ComponentResourceKey(typeof(Theme), "IconHoverBrush"); }
-		}
-
-		public static ComponentResourceKey IconPressedBrushKey
-		{
-			get { return new ComponentResourceKey(typeof(Theme), "IconPressedBrush"); }
-		}
-
-		public static ComponentResourceKey IconDisabledBrushKey
-		{
-			get { return new ComponentResourceKey(typeof(Theme), "IconDisabledBrush"); }
 		}
 
 		#endregion

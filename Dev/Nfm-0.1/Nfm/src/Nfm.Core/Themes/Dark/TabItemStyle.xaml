@@ -21,9 +21,9 @@
 		<Setter Property="BorderThickness"
 				Value="2" />
 		<Setter Property="Foreground"
-				Value="White" />
+				Value="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}" />
 		<Setter Property="Background"
-				Value="{DynamicResource {x:Static Themes:Theme.SelectedTabBackgroundBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 		<Setter Property="FontFamily"
 				Value="Verdana" />
 		<Setter Property="FontSize"
@@ -165,14 +165,14 @@
 							<MultiTrigger.Setters>
 								<Setter TargetName="Border"
 										Property="Background"
-										Value="{DynamicResource {x:Static Themes:Theme.HoverBackgroundBrushKey}}" />
+										Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
 							</MultiTrigger.Setters>
 						</MultiTrigger>
 						<Trigger Property="IsKeyboardFocused"
 								 Value="true">
 							<Setter TargetName="Border"
 									Property="BorderBrush"
-									Value="Blue" />
+									Value="{DynamicResource {x:Static Themes:Theme.KeyboardFocuseBrushKey}}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>

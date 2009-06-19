@@ -82,16 +82,11 @@
 										  Margin="{TemplateBinding Padding}" />
 					</Grid>
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled"
-								 Value="false">
-							<Setter Property="Foreground"
-									Value="{DynamicResource {x:Static Themes:Theme.DisabledForegroundBrushKey}}" />
-						</Trigger>
 						<Trigger Property="IsFocused"
 								 Value="true">
 							<Setter TargetName="SelectedRectangle"
 									Property="Stroke"
-									Value="DarkRed" />
+									Value="{DynamicResource {x:Static Themes:Theme.LogicalFocuseBrushKey}}" />
 							<Setter TargetName="SelectedRectangle"
 									Property="StrokeThickness"
 									Value="2" />
@@ -100,7 +95,7 @@
 								 Value="true">
 							<Setter TargetName="SelectedRectangle"
 									Property="Stroke"
-									Value="{DynamicResource {x:Static Themes:Theme.FocusedBorderBrushKey}}" />
+									Value="{DynamicResource {x:Static Themes:Theme.KeyboardFocuseBrushKey}}" />
 							<Setter TargetName="SelectedRectangle"
 									Property="StrokeThickness"
 									Value="2" />
