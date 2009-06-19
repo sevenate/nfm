@@ -43,7 +43,9 @@
 <!--		</Setter>-->
 
 		<Setter Property="VirtualizingStackPanel.VirtualizationMode"
-				Value="Recycling" />
+				Value="Standard" />
+		<Setter Property="VirtualizingStackPanel.IsVirtualizing"
+				Value="True" />
 		<!-- TODO: Investigate memory consumption with WrapPanel as ListBox items panel -->
 <!--		<Setter Property="Grid.IsSharedSizeScope"-->
 <!--				Value="True" />-->
@@ -95,6 +97,7 @@
 							CornerRadius="5">
 						<ScrollViewer Focusable="False"
 									  Style="{DynamicResource {x:Static Themes:Theme.ScrollViewerStyleKey}}">
+<!--									  CanContentScroll="False">-->
 							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
 											Margin="{TemplateBinding Padding}"
 											Grid.IsSharedSizeScope="True" />
