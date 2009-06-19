@@ -103,7 +103,7 @@
 												VerticalAlignment="Center"
 												DockPanel.Dock="Right"
 												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}">
-											<Icons:ToggleToolbarIcon />
+											<Icons:DoubleArrowIcon />
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
 													<cb:EventMessageTrigger EventName="Click">
