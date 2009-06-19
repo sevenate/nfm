@@ -35,16 +35,6 @@ namespace Nfm.Core.Themes
 			get { return new ComponentResourceKey(typeof (Theme), "BackgroundBrush"); }
 		}
 
-		public static ComponentResourceKey ListBackgroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "ListBackgroundBrush"); }
-		}
-
-		public static ComponentResourceKey ListItemBackgroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "ListItemBackgroundBrush"); }
-		}
-
 		public static ComponentResourceKey HoverBackgroundBrushKey
 		{
 			get { return new ComponentResourceKey(typeof (Theme), "HoverBackgroundBrush"); }
@@ -93,11 +83,6 @@ namespace Nfm.Core.Themes
 			get { return new ComponentResourceKey(typeof (Theme), "DisabledForegroundBrush"); }
 		}
 
-		public static ComponentResourceKey DisabledBackgroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "DisabledBackgroundBrush"); }
-		}
-
 		public static ComponentResourceKey DisabledBorderBrushKey
 		{
 			get { return new ComponentResourceKey(typeof (Theme), "DisabledBorderBrush"); }
@@ -119,16 +104,6 @@ namespace Nfm.Core.Themes
 		public static ComponentResourceKey MainWindowStyleKey
 		{
 			get { return new ComponentResourceKey(typeof (Theme), "MainWindowStyle"); }
-		}
-
-		public static ComponentResourceKey WindowBackgroundBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "WindowBackgroundBrush"); }
-		}
-
-		public static ComponentResourceKey WindowBorderBrushKey
-		{
-			get { return new ComponentResourceKey(typeof (Theme), "WindowBorderBrush"); }
 		}
 
 		#endregion
@@ -200,11 +175,6 @@ namespace Nfm.Core.Themes
 		public static ComponentResourceKey IconBrushKey
 		{
 			get { return new ComponentResourceKey(typeof(Theme), "IconBrush"); }
-		}
-
-		public static ComponentResourceKey IconBorderBrushKey
-		{
-			get { return new ComponentResourceKey(typeof(Theme), "IconBorderBrush"); }
 		}
 
 		public static ComponentResourceKey IconHoverBrushKey

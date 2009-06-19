@@ -10,7 +10,7 @@
 		<Setter Property="Foreground"
 				Value="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}" />
 		<Setter Property="Background"
-				Value="{DynamicResource {x:Static Themes:Theme.ListBackgroundBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.BackgroundBrushKey}}" />
 		<Setter Property="BorderBrush"
 				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
 		<Setter Property="Padding"
@@ -115,7 +115,7 @@
 								 Value="false">
 							<Setter TargetName="Border"
 									Property="Background"
-									Value="{DynamicResource {x:Static Themes:Theme.DisabledBackgroundBrushKey}}" />
+									Value="{DynamicResource {x:Static Themes:Theme.DisabledBorderBrushKey}}" />
 							<Setter TargetName="Border"
 									Property="BorderBrush"
 									Value="{DynamicResource {x:Static Themes:Theme.DisabledBorderBrushKey}}" />
