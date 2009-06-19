@@ -9,7 +9,7 @@
 			 d:DesignHeight="300"
 			 d:DesignWidth="300">
 
-	<Path Stretch="Fill"
+	<Path Stretch="Uniform"
 		  StrokeThickness="0.5"
 		  Stroke="{DynamicResource {x:Static Themes:Theme.IconBorderBrushKey}}"
 		  Fill="{Binding ElementName=Parent, Path=Foreground}"
