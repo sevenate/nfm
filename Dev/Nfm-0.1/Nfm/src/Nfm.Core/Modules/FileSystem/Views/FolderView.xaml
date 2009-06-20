@@ -49,11 +49,11 @@
 		<!-- Border Background "hover" was: #66338833 -->
 
 		<Border x:Name="Border"
-				Margin="1"
+				Margin="0"
 				SnapsToDevicePixels="true"
 				Padding="3,1,3,1"
-				Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
-				BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
+				Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+				BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
 				BorderThickness="2"
 				CornerRadius="3">
 			<DockPanel LastChildFill="False">
@@ -189,7 +189,7 @@
 <!--										   Value="False" />-->
 				</MultiTrigger.Conditions>
 				<Setter TargetName="Border"
-						Property="Background"
+						Property="BorderBrush"
 						Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 			</MultiTrigger>
 		</DataTemplate.Triggers>

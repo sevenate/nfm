@@ -71,7 +71,7 @@ namespace Nfm.Core.Converters
 		/// <summary>
 		/// Gets or sets brush to draw normal (regulary) file extensions.
 		/// </summary>
-		public Brush NormalBrush { get { return new SolidColorBrush("#22FFFFFF".ToColor()); } }
+		public Brush NormalBrush { get { return new SolidColorBrush("#22999999".ToColor()); } }
 
 		#endregion
 	}
