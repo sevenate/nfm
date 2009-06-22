@@ -70,7 +70,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddInManager.cs" />
     <Compile Include="Commands\ClosePanelCommand.cs" />
     <Compile Include="Commands\DublicateSelectedPanelCommand.cs" />
     <Compile Include="Commands\HotKeyManager.cs" />
