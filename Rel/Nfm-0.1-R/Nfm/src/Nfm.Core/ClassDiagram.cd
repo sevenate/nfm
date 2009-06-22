@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Nfm.Core.Models.FileSystem.FileSystemEntityNode">
+    <Position X="10.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAAACAAAAIgAAQIAQAAQQAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Models\FileSystem\FileSystemEntityNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.StackContainer">
+    <Position X="4.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\StackContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.TabContainer">
+    <Position X="4.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQA=</HashCode>
+      <FileName>ViewModels\TabContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.FileSystem.FileSystemEntityNodeVM">
+    <Position X="6.25" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>FAAAAAAAACBEmIBRMAKgQoQAVICAAwCQBAAUAACAEAA=</HashCode>
+      <FileName>ViewModels\FileSystem\FileSystemEntityNodeVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.NotificationBase" Collapsed="true">
+    <Position X="4.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAACAAAAAAIEAAAQARgAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\NotificationBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.PanelContainerBase">
+    <Position X="2.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAABDAAEIBACACAQAAABAAAAgAAAAAAAACAAAA=</HashCode>
+      <FileName>ViewModels\PanelContainerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Nfm.Core.Models.INode">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAIAAAAAAQAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\INode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IPanel">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAEABAAAAAQAAABAAAAgAAAAAAAACAAAA=</HashCode>
+      <FileName>ViewModels\IPanel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IPanelContainer">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\IPanelContainer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

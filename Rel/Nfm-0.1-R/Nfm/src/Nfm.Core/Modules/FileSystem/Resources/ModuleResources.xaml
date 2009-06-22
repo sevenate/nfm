@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+
+		<!-- Default Module Theme -->
+		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Resources/ModuleTheme.xaml" />
+
+		<!-- All Module Views -->
+		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Views/LocalFileSystemModuleFullView.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Views/LocalFileSystemModuleView.xaml" />
+		
+		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Views/DriveFullView.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Views/DriveView.xaml" />
+		
+		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Views/FolderFullView.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Views/FolderView.xaml" />
+
+		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Views/FileView.xaml" />
+
+	</ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

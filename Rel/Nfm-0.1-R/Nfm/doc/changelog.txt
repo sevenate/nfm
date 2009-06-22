@@ -1,0 +1,18 @@
+
+Notes for version 0.1 (22 Jun 09)
+
+Added: Local file system browser with support of logical drives, folders and files
+Added: Launch any file to execution
+Added: Context menu for files and folders
+Added: Tabs drag'n'drop
+Added: new command "Navigate to current item",         default hot key: Enter
+Added: new command "Navigate to parent item",          default hot key: Backspace
+Added: new command "Refresh",                          default hot key: Ctrl + R
+Added: new command "Close current tab",                default hot key: Ctrl + W
+Added: new command "Duplicate current tab",            default hot key: Ctrl + T
+Added: new command "Switch default themes",            default hot key: Ctrl + Alt + T
+Added: new command "Swap parent stack container",      default hot key: Ctrl + G
+Added: new command "Split tab container",              default hot key: Ctrl + Shift + G
+Added: new command "Wrap panel with tab container",    default hot key: Ctrl + Alt + G
+Added: new command "Hide or show tabs header command", default hot key: Ctrl + Shift + V
+Known issue: After spliting tab container and removing either of original or newly created tab container, the commad "Swap parent stack container" stop working

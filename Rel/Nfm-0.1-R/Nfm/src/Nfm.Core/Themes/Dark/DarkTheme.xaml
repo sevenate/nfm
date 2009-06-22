@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/Theme.xaml" />
+		
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ToolbarButtonStyle.xaml" />
+
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ScrollBarThumbStyle.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ScrollBarPageButtonStyle.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ScrollBarLineButtonStyle.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ScrollBarStyle.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ScrollViewerStyle.xaml" />
+
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ListBoxItemStyle.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/ListBoxStyle.xaml" />
+		
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/TabItemStyle.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/TabControlStyle.xaml" />
+		
+		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/MainWindowDictionary.xaml" />
+	
+	</ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
