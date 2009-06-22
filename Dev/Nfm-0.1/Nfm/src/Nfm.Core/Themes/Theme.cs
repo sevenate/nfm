@@ -85,9 +85,9 @@ namespace Nfm.Core.Themes
 			get { return new ComponentResourceKey(typeof(Theme), "SelectedBrush"); }
 		}
 
-		public static ComponentResourceKey MenuBrushKey
+		public static ComponentResourceKey ControlBackgroundBrushKey
 		{
-			get { return new ComponentResourceKey(typeof(Theme), "MenuBrush"); }
+			get { return new ComponentResourceKey(typeof(Theme), "ControlBackgroundBrush"); }
 		}
 
 		public static ComponentResourceKey GeneralFontKey

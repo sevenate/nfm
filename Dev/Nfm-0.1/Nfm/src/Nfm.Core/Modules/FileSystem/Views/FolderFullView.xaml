@@ -8,7 +8,8 @@
 					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type FileSystem:FolderFullVM}">
-		<DockPanel>
+		<DockPanel d:DesignHeight="359.4"
+				   d:DesignWidth="300">
 			<TextBlock Text="{Binding Path=AbsolutePath}"
 					   Foreground="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}"
 					   Margin="3"
@@ -17,8 +18,7 @@
 					 Style="{DynamicResource {x:Static Themes:Theme.ListBoxStyleKey}}"
 					 ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.ListBoxItemStyleKey}}"
 					 Controls:ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
-					 Controls:ElementUtility.Dummy="{Controls:KeyboardFocusManager}">
-			</ListBox>
+					 Controls:ElementUtility.Dummy="{Controls:KeyboardFocusManager}" />
 		</DockPanel>
 	</DataTemplate>
 

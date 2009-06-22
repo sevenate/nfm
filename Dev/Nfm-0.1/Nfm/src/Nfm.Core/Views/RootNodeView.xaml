@@ -9,8 +9,7 @@
 				 Style="{DynamicResource {x:Static Themes:Theme.ListBoxStyleKey}}"
 				 ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.ListBoxItemStyleKey}}"
 				 Controls:ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
-				 Controls:ElementUtility.Dummy="{Controls:KeyboardFocusManager}">
-		</ListBox>
+				 Controls:ElementUtility.Dummy="{Controls:KeyboardFocusManager}" />
 	</DataTemplate>
 
 </ResourceDictionary>

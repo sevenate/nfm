@@ -3,17 +3,12 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
 
-	<!-- #MainWindow Style -->
 	<Style x:Key="{x:Static Themes:Theme.MainWindowStyleKey}"
 		   TargetType="{x:Type Window}">
 		<Setter Property="AllowsTransparency"
 				Value="True" />
 		<Setter Property="WindowStyle"
 				Value="None" />
-		<Setter Property="Background"
-				Value="#77505050" />
-		<Setter Property="BorderBrush"
-				Value="#77505050" />
 		<Setter Property="BorderThickness"
 				Value="0" />
 		<Setter Property="Width"
@@ -24,6 +19,10 @@
 				Value="320" />
 		<Setter Property="MinHeight"
 				Value="200" />
+		<Setter Property="Focusable"
+				Value="False"/>
+		<Setter Property="Background"
+				Value="Transparent" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Window}">
@@ -127,7 +126,6 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="Focusable" Value="False"/>
 	</Style>
 
 </ResourceDictionary>
