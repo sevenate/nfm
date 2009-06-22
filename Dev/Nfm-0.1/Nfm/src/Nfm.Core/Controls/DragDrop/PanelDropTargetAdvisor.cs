@@ -114,7 +114,6 @@ namespace Nfm.Core.Controls.DragDrop
 
 						if (insertBeforeTarget)
 						{
-							// Todo: select moved tab
 							var prev = oldIndex < targetIndex
 							           	? targetIndex - 1
 										: targetIndex;
@@ -124,7 +123,7 @@ namespace Nfm.Core.Controls.DragDrop
 						{
 							var next = oldIndex < targetIndex 
 										? targetIndex < targetParentContainer.Childs.Count - 1
-											? targetIndex + 1
+											? targetIndex
 											: targetIndex
 										: oldIndex != targetIndex
 											? targetIndex + 1
