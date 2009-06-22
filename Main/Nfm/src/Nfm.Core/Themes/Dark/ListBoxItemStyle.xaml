@@ -1,0 +1,128 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:cb="http://www.caliburnproject.org"
+					mc:Ignorable="d">
+
+	<!-- #ListBoxItem Style -->
+	<Style x:Key="{x:Static Themes:Theme.ListBoxItemStyleKey}"
+		   TargetType="{x:Type ListBoxItem}">
+		
+		<!-- General Font styles: should be used via BasedOn attribute! -->
+		<Setter Property="Control.FontFamily"
+				Value="Verdana" />
+		<Setter Property="Control.FontSize"
+				Value="12" />
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="12" />
+		
+		<Setter Property="SnapsToDevicePixels"
+				Value="true" />
+		<Setter Property="OverridesDefaultStyle"
+				Value="true" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}" />
+		<Setter Property="Padding"
+				Value="1" />
+		<Setter Property="Margin"
+				Value="0" />
+		<Setter Property="HorizontalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="VerticalContentAlignment"
+				Value="Stretch" />
+		<Setter Property="IsSelected"
+				Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+		<Setter Property="FocusVisualStyle"
+				Value="{x:Null}" />
+		<Setter Property="cb:Message.Triggers">
+			<Setter.Value>
+				<cb:RoutedMessageTriggerCollection>
+					<cb:EventMessageTrigger EventName="MouseDoubleClick">
+						<cb:EventMessageTrigger.Message>
+							<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+								<cb:Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+								<cb:Parameter Value="{Binding Mode=OneWay}" />
+							</cb:CommandMessage>
+						</cb:EventMessageTrigger.Message>
+					</cb:EventMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToCurrentNodeHotKey}}"
+										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToCurrentNodeHotKeyModifiers}}">
+						<cb:GestureMessageTrigger.Message>
+							<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+								<cb:Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+								<cb:Parameter Value="{Binding Mode=OneWay}" />
+							</cb:CommandMessage>
+						</cb:GestureMessageTrigger.Message>
+					</cb:GestureMessageTrigger>
+				</cb:RoutedMessageTriggerCollection>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ListBoxItem">
+					<Grid SnapsToDevicePixels="True">
+						<!-- TODO: Investigate memory consumption with WrapPanel as ListBox items panel -->
+<!--						<Grid.ColumnDefinitions>-->
+<!--							<ColumnDefinition SharedSizeGroup="ItemsSizeScope" />-->
+<!--						</Grid.ColumnDefinitions>-->
+						<Rectangle x:Name="SelectedRectangle"
+							RadiusX="5"
+							RadiusY="5"
+							Fill="Transparent"
+							Stroke="Transparent"
+							StrokeThickness="0"
+							SnapsToDevicePixels="True" />
+						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  Margin="{TemplateBinding Padding}" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsFocused"
+								 Value="true">
+							<Setter TargetName="SelectedRectangle"
+									Property="Stroke"
+									Value="{DynamicResource {x:Static Themes:Theme.LogicalFocuseBrushKey}}" />
+							<Setter TargetName="SelectedRectangle"
+									Property="StrokeThickness"
+									Value="1" />
+						</Trigger>
+						<Trigger Property="IsKeyboardFocused"
+								 Value="true">
+							<Setter TargetName="SelectedRectangle"
+									Property="Stroke"
+									Value="{DynamicResource {x:Static Themes:Theme.KeyboardFocuseBrushKey}}" />
+							<Setter TargetName="SelectedRectangle"
+									Property="StrokeThickness"
+									Value="1" />
+						</Trigger>
+						<Trigger Property="IsSelected"
+								 Value="True">
+							<Setter TargetName="SelectedRectangle"
+									Property="Fill"
+									Value="{DynamicResource {x:Static Themes:Theme.SelectedBackgroundBrushKey}}" />
+						</Trigger>
+<!--						<MultiTrigger>-->
+<!--							<MultiTrigger.Conditions>-->
+<!--								<Condition Property="IsMouseOver"-->
+<!--										   Value="True" />-->
+<!--								<Condition Property="IsSelected"-->
+<!--										   Value="False" />-->
+<!--							</MultiTrigger.Conditions>-->
+<!--							<MultiTrigger.Setters>-->
+<!--								<Setter TargetName="Border"-->
+<!--										Property="Background"-->
+<!--										Value="#66338833" />-->
+<!--							</MultiTrigger.Setters>-->
+<!--						</MultiTrigger>-->
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

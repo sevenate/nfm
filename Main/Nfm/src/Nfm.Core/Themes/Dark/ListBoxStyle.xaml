@@ -1,0 +1,126 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:cb="http://www.caliburnproject.org">
+
+	<!-- #ListBox Style -->
+	<Style x:Key="{x:Static Themes:Theme.ListBoxStyleKey}"
+		   TargetType="{x:Type ListBox}">
+		<Setter Property="BorderThickness"
+				Value="0,0,0,0"/>
+		<Setter Property="Padding"
+				Value="1,1,1,1"/>
+		<Setter Property="SnapsToDevicePixels"
+				Value="True" />
+<!--		<Setter Property="Focusable"-->
+<!--				Value="False" />-->
+<!--		<Setter Property="FocusVisualStyle"-->
+<!--				Value="{x:Null}" />-->
+		<Setter Property="FocusManager.IsFocusScope"
+				Value="True" />
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+				Value="Disabled" />
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+				Value="Auto" />
+
+		<!-- Set to "False" on small, but "fat" items to enable scroll to arbitrary per-pixel position -->
+		<!-- Warning: "False" value has impact on memory usage, cause VirtualizingStackPanel will be NOT used -->
+		<Setter Property="ScrollViewer.CanContentScroll"
+				Value="True" />
+
+		<Setter Property="VerticalContentAlignment"
+				Value="Center" />
+		<Setter Property="IsSynchronizedWithCurrentItem"
+				Value="False" />
+		<Setter Property="SelectionMode"
+				Value="Multiple" />
+
+<!--		<Setter Property="ScrollViewer.IsDeferredScrollingEnabled"-->
+<!--				Value="True">-->
+<!--		</Setter>-->
+
+		<Setter Property="VirtualizingStackPanel.VirtualizationMode"
+				Value="Standard" />
+		<Setter Property="VirtualizingStackPanel.IsVirtualizing"
+				Value="True" />
+		<!-- TODO: Investigate memory consumption with WrapPanel as ListBox items panel -->
+<!--		<Setter Property="Grid.IsSharedSizeScope"-->
+<!--				Value="True" />-->
+<!--		<Setter Property="ItemsPanel">-->
+<!--			<Setter.Value>-->
+<!--				<ItemsPanelTemplate>-->
+					<!-- TODO: Investigate memory consumption with UniformWrapPanel as ListBox items panel -->
+<!--					<UniformWrapPanel IsItemsHost="True" />-->
+<!--					<VirtualizingVerticalWrapPanel IsItemsHost="True" />-->
+<!--				</ItemsPanelTemplate >-->
+<!--			</Setter.Value>-->
+<!--		</Setter>-->
+		<Setter Property="cb:Message.Triggers">
+			<Setter.Value>
+				<cb:RoutedMessageTriggerCollection>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKey}}"
+										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKeyModifiers}}">
+						<cb:GestureMessageTrigger.Message>
+							<cb:CommandMessage Command="{cb:Resolve Key=RefreshChildNodes}">
+								<cb:Parameter Value="{Binding Mode=OneWay}" />
+							</cb:CommandMessage>
+						</cb:GestureMessageTrigger.Message>
+					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKey}}"
+										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKeyModifiers}}">
+						<cb:GestureMessageTrigger.Message>
+							<cb:CommandMessage Command="{cb:Resolve Key=NavigateToParentNode}">
+								<cb:Parameter Value="{Binding Mode=OneWay}" />
+							</cb:CommandMessage>
+						</cb:GestureMessageTrigger.Message>
+					</cb:GestureMessageTrigger>
+					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeKey}}"
+										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeModifiers}}">
+						<cb:GestureMessageTrigger.Message>
+							<cb:CommandMessage Command="{cb:Resolve Key=SwitchTheme}" />
+						</cb:GestureMessageTrigger.Message>
+					</cb:GestureMessageTrigger>
+				</cb:RoutedMessageTriggerCollection>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ListBox}">
+					<ScrollViewer Style="{DynamicResource {x:Static Themes:Theme.ScrollViewerStyleKey}}">
+						<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Margin="{TemplateBinding Padding}"
+										Grid.IsSharedSizeScope="True" />
+					</ScrollViewer>
+<!--					<ControlTemplate.Resources>-->
+						<!-- override the system brushes so that selected items are transparent whether the ListBox has focus or not -->
+<!--						<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"-->
+<!--										 Color="Transparent" />-->
+<!--						<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}"-->
+<!--										 Color="Transparent" />-->
+<!--						<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"-->
+<!--										 Color="Black" />-->
+<!--					</ControlTemplate.Resources>-->
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsGrouping"
+								 Value="True">
+							<Setter Property="ScrollViewer.CanContentScroll"
+									Value="False" />
+						</Trigger>
+<!--						<Trigger Property="IsKeyboardFocusWithin"-->
+<!--								 Value="True">-->
+<!--							<Setter Property="BorderBrush"-->
+<!--									Value="{DynamicResource {x:Static Themes:Theme.KeyboardFocuseBrushKey}}" />-->
+<!--						</Trigger>-->
+<!--						<Trigger Property="IsKeyboardFocused"-->
+<!--								 Value="true">-->
+<!--							<Setter Property="BorderBrush"-->
+<!--									Value="Blue" />-->
+<!--						</Trigger>-->
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

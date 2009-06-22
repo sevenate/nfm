@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Resources="clr-namespace:Nfm.Core.Modules.FileSystem.Resources">
+
+	<!-- #Styles: File extension -->
+	<Style x:Key="{x:Static Resources:ModuleTheme.FileExtensionKey}">
+		<Setter Property="Control.FontFamily"
+				Value="Verdana" />
+		<Setter Property="Control.FontSize"
+				Value="12" />
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="12" />
+	</Style>
+
+	<!-- #Styles: File modification date -->
+	<Style x:Key="{x:Static Resources:ModuleTheme.FileDateModifiedKey}">
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="10" />
+	</Style>
+
+	<!-- #Styles: File attributes -->
+	<Style x:Key="{x:Static Resources:ModuleTheme.FileAttributeKey}">
+		<Setter Property="TextBlock.FontFamily"
+				Value="Verdana" />
+		<Setter Property="TextBlock.FontSize"
+				Value="10" />
+		<Setter Property="TextBlock.Margin"
+				Value="2,1,2,1" />
+		<Setter Property="TextBlock.Padding"
+				Value="0" />
+	</Style>
+
+	<SolidColorBrush x:Key="{x:Static Resources:ModuleTheme.FileAttributeSystemBrushKey}"
+					 Color="#FF8B0000" />
+	<SolidColorBrush x:Key="{x:Static Resources:ModuleTheme.FileAttributeHiddenBrushKey}"
+					 Color="Gray" />
+	<SolidColorBrush x:Key="{x:Static Resources:ModuleTheme.FileAttributeArchiveBrushKey}"
+					 Color="DarkKhaki" />
+	<SolidColorBrush x:Key="{x:Static Resources:ModuleTheme.FileAttributeReadOnlyBrushKey}"
+					 Color="DarkOrange" />
+
+</ResourceDictionary>

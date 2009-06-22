@@ -1,0 +1,197 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:FileSystem="clr-namespace:Nfm.Core.ViewModels.FileSystem"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:ModuleResources="clr-namespace:Nfm.Core.Modules.FileSystem.Resources"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					xmlns:cb="http://www.caliburnproject.org"
+					xmlns:fs="clr-namespace:Nfm.Core.ViewModels.FileSystem.Icons"
+					xmlns:Converters="clr-namespace:Nfm.Core.Converters"
+					mc:Ignorable="d">
+
+	<DataTemplate DataType="{x:Type FileSystem:FolderVM}">
+		<DataTemplate.Resources>
+			<Storyboard x:Key="IconStoryboard">
+				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+											   Storyboard.TargetName="Icon"
+											   Storyboard.TargetProperty="(FrameworkElement.Width)">
+					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										  Value="28" />
+				</DoubleAnimationUsingKeyFrames>
+				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+											   Storyboard.TargetName="Icon"
+											   Storyboard.TargetProperty="(FrameworkElement.Height)">
+					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										  Value="28" />
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
+			<Storyboard x:Key="IconStoryboard2">
+				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+											   Storyboard.TargetName="Icon"
+											   Storyboard.TargetProperty="(FrameworkElement.Width)">
+					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										  Value="32" />
+				</DoubleAnimationUsingKeyFrames>
+				<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+											   Storyboard.TargetName="Icon"
+											   Storyboard.TargetProperty="(FrameworkElement.Height)">
+					<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										  Value="32" />
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
+			<fs:FileToIconConverter x:Key="FileToIconConverter"
+									DefaultSize="32" />
+		</DataTemplate.Resources>
+
+		<!-- Border BorderBrush was: #FF338833 -->
+		<!-- Border Background was: #22338833 -->
+		<!-- Border Background "hover" was: #66338833 -->
+
+		<Border x:Name="Border"
+				Margin="0"
+				SnapsToDevicePixels="true"
+				Padding="3,1,3,1"
+				Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+				BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+				CornerRadius="5,5,5,5">
+			<DockPanel LastChildFill="False">
+				<Border Width="32"
+						Height="32"
+						DockPanel.Dock="Left"
+						VerticalAlignment="Top">
+					<Image x:Name="Icon"
+						   Width="32"
+						   Height="32"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Center">
+						<Image.Source>
+							<MultiBinding Converter="{StaticResource FileToIconConverter}">
+								<Binding Path="AbsolutePath" />
+<!--								<Binding ElementName="slider"-->
+<!--										 Path="Value" />-->
+							</MultiBinding >
+						</Image.Source>
+					</Image>
+					<cb:Message.Triggers>
+						<cb:RoutedMessageTriggerCollection>
+							<cb:EventMessageTrigger EventName="MouseLeftButtonDown">
+								<cb:EventMessageTrigger.Message>
+									<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+										<cb:Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+										<cb:Parameter Value="{Binding Mode=OneWay}" />
+									</cb:CommandMessage>
+								</cb:EventMessageTrigger.Message>
+							</cb:EventMessageTrigger>
+						</cb:RoutedMessageTriggerCollection>
+					</cb:Message.Triggers>
+				</Border>
+				<DockPanel x:Name="BottomLine"
+						   LastChildFill="False"
+						   DockPanel.Dock="Bottom">
+					<StackPanel DockPanel.Dock="Right"
+								VerticalAlignment="Bottom"
+								Orientation="Horizontal">
+						<TextBlock x:Name="AttributeSystem"
+								   Visibility="{Binding Path=IsSystem, Converter={Converters:BoolToVisibilityConverter HiddenOnly=True}}"
+								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeSystemBrushKey}}"
+								   Text="S"
+								   ToolTip="System"
+								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+						<TextBlock x:Name="AttributeHidden"
+								   Visibility="{Binding Path=IsHidden, Converter={Converters:BoolToVisibilityConverter HiddenOnly=True}}"
+								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeHiddenBrushKey}}"
+								   Text="H"
+								   ToolTip="Hidden"
+								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+						<TextBlock x:Name="AttributeArchive"
+								   Visibility="{Binding Path=IsArchive, Converter={Converters:BoolToVisibilityConverter HiddenOnly=True}}"
+								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeArchiveBrushKey}}"
+								   Text="A"
+								   ToolTip="Archive"
+								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+						<TextBlock x:Name="AttributeReadOnly"
+								   Visibility="{Binding Path=IsReadOnly, Converter={Converters:BoolToVisibilityConverter HiddenOnly=True}}"
+								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeReadOnlyBrushKey}}"
+								   Text="R"
+								   ToolTip="Read Only"
+								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
+								   HorizontalAlignment="Right"
+								   VerticalAlignment="Center" />
+					</StackPanel>
+
+					<TextBlock x:Name="DateModified"
+							   Text="{Binding Path=DateModified, Converter={x:Static Converters:DateTimeToStringConverter.Inst}}"
+							   ToolTip="{Binding Path=DateModified}"
+							   Foreground="{Binding Path=DateModified, Converter={x:Static Converters:DateTimeToBrushConverter.Inst}}"
+							   Padding="5,1,5,1"
+							   MinWidth="160"
+							   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileDateModifiedKey}}"
+							   TextAlignment="Right"
+							   DockPanel.Dock="Right"
+							   VerticalAlignment="Bottom" />
+					<!--
+				<StackPanel x:Name="Date"
+							Orientation="Horizontal"
+							DockPanel.Dock="Right"
+							VerticalAlignment="Bottom">
+					
+					<TextBlock x:Name="CreatedDate"
+							   Text="{Binding Path=DateCreated, Converter={StaticResource DateTimeToStringConverter}}"
+							   ToolTip="{Binding Path=DateCreated}"
+							   Foreground="Gray"
+							   Padding="5,1,5,1" />
+				</StackPanel>
+				-->
+				</DockPanel>
+				<TextBlock x:Name="Name"
+						   Text="{Binding Path=Name}"
+						   TextWrapping="Wrap"
+						   Padding="5,1,5,1"
+						   DockPanel.Dock="Top" />
+			</DockPanel>
+			<cb:Action.Target>
+				<Binding />
+			</cb:Action.Target>
+			<cb:Message.Triggers>
+				<cb:RoutedMessageTriggerCollection>
+					<cb:EventMessageTrigger EventName="MouseRightButtonUp">
+						<cb:EventMessageTrigger.Message>
+							<cb:ActionMessage MethodName="ShowContextMenu" />
+						</cb:EventMessageTrigger.Message>
+					</cb:EventMessageTrigger>
+				</cb:RoutedMessageTriggerCollection>
+			</cb:Message.Triggers>
+		</Border>
+		<DataTemplate.Triggers>
+			<EventTrigger RoutedEvent="Mouse.MouseEnter"
+						  SourceName="Icon">
+				<BeginStoryboard x:Name="IconStoryboard_BeginStoryboard1"
+								 Storyboard="{StaticResource IconStoryboard}" />
+			</EventTrigger>
+			<EventTrigger RoutedEvent="Mouse.MouseLeave"
+						  SourceName="Icon">
+				<BeginStoryboard x:Name="IconStoryboard2_BeginStoryboard"
+								 Storyboard="{StaticResource IconStoryboard2}" />
+			</EventTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver"
+							   Value="True" />
+<!--					<Condition Property="IsSelected"-->
+<!--										   Value="False" />-->
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Border"
+						Property="BorderBrush"
+						Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
+			</MultiTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
+
+</ResourceDictionary>
