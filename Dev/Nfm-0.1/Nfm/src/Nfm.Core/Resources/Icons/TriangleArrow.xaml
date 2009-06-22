@@ -11,7 +11,7 @@
 	
 	<Path Stretch="Uniform"
 		  StrokeThickness="0.5"
-		  Stroke="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+		  Stroke="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
 		  Fill="{Binding ElementName=Root, Path=Foreground}"
 		  Data="M 0 0 L 4 4 L 8 0 Z"
 		  HorizontalAlignment="Stretch"

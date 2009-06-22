@@ -14,16 +14,14 @@
 				Value="{DynamicResource {x:Static Themes:Theme.IconBrushKey}}" />
 		<Setter Property="Background"
 				Value="Transparent" />
-		<Setter Property="BorderThickness"
-				Value="1" />
 		<Setter Property="BorderBrush"
-				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" />
 		<Setter Property="HorizontalContentAlignment"
-				Value="Center" />
+				Value="Stretch" />
 		<Setter Property="VerticalContentAlignment"
-				Value="Center" />
+				Value="Stretch" />
 		<Setter Property="Padding"
-				Value="4" />
+				Value="1" />
 		<Setter Property="Focusable"
 				Value="False" />
 <!--		<Setter Property="FocusVisualStyle"-->
@@ -38,13 +36,13 @@
 														   Storyboard.TargetName="contentPresenter"
 														   Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
 								<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
-													  Value="1.8" />
+													  Value="1.25" />
 							</DoubleAnimationUsingKeyFrames>
 							<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
 														   Storyboard.TargetName="contentPresenter"
 														   Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
 								<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
-													  Value="1.8" />
+													  Value="1.25" />
 							</DoubleAnimationUsingKeyFrames>
 							<ColorAnimationUsingKeyFrames BeginTime="00:00:00"
 														  Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)">
@@ -74,20 +72,21 @@
 							</ColorAnimationUsingKeyFrames>
 						</Storyboard>
 					</ControlTemplate.Resources>
-					<Grid SnapsToDevicePixels="True">
-						<Border SnapsToDevicePixels="true"
-								Background="{TemplateBinding Background}"
-								BorderBrush="{TemplateBinding BorderBrush}"
-								BorderThickness="{TemplateBinding BorderThickness}"
-								CornerRadius="5" />
+					<Grid SnapsToDevicePixels="False">
+						<Rectangle Fill="{TemplateBinding Background}"
+								   Stroke="{TemplateBinding BorderBrush}"
+								   StrokeThickness="0"
+								   RadiusX="5"
+								   RadiusY="5" />
 						<ContentPresenter x:Name="contentPresenter"
-										  Margin="{TemplateBinding Padding}"
 										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  Margin="{TemplateBinding Padding}"
 										  Content="{TemplateBinding Content}"
 										  ContentTemplate="{TemplateBinding ContentTemplate}"
 										  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-										  RenderTransformOrigin="0.5,0.5">
+										  RenderTransformOrigin="0.5,0.5"
+										  SnapsToDevicePixels="True">
 							<ContentPresenter.RenderTransform>
 								<TransformGroup>
 									<ScaleTransform ScaleX="1"

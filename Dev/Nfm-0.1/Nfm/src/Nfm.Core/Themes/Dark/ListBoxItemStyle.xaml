@@ -89,7 +89,7 @@
 									Value="{DynamicResource {x:Static Themes:Theme.LogicalFocuseBrushKey}}" />
 							<Setter TargetName="SelectedRectangle"
 									Property="StrokeThickness"
-									Value="2" />
+									Value="1" />
 						</Trigger>
 						<Trigger Property="IsKeyboardFocused"
 								 Value="true">
@@ -98,7 +98,7 @@
 									Value="{DynamicResource {x:Static Themes:Theme.KeyboardFocuseBrushKey}}" />
 							<Setter TargetName="SelectedRectangle"
 									Property="StrokeThickness"
-									Value="2" />
+									Value="1" />
 						</Trigger>
 						<Trigger Property="IsSelected"
 								 Value="True">
@@ -123,7 +123,6 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="Background" Value="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"/>
 	</Style>
 
 </ResourceDictionary>

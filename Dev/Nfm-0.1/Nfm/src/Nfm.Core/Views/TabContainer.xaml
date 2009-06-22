@@ -1,20 +1,24 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:vm="clr-namespace:Nfm.Core.ViewModels"
 					xmlns:Controls="clr-namespace:Nfm.Core.Controls"
-					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type vm:TabContainer}">
 		<Controls:FastTabControl ItemsSource="{Binding Path=Childs}"
 					Style="{DynamicResource {x:Static Themes:Theme.TabControlStyleKey}}"
-					ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.TabItemStyleKey}}">
-			<TabControl.ItemTemplate>
+					ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.TabItemStyleKey}}"
+					d:DesignWidth="300"
+					d:DesignHeight="300">
+			<Controls:FastTabControl.ItemTemplate>
 				<DataTemplate>
 					<ContentControl Content="{Binding Path=Header}"
-									Focusable="False">
-					</ContentControl>
+									Focusable="False"/>
 				</DataTemplate>
-			</TabControl.ItemTemplate>
+			</Controls:FastTabControl.ItemTemplate>
 		</Controls:FastTabControl>
 	</DataTemplate>
 

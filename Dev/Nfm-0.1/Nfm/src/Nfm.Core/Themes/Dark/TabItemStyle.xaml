@@ -16,14 +16,8 @@
 			<DrapDrop:PanelDragSourceAdvisor x:Key="PanelDragSourceAdvisor" />
 			<DrapDrop:PanelDropTargetAdvisor x:Key="PanelDropTargetAdvisor" />
 		</Style.Resources>
-		<Setter Property="BorderBrush"
-				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
-		<Setter Property="BorderThickness"
-				Value="2" />
 		<Setter Property="Foreground"
 				Value="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}" />
-		<Setter Property="Background"
-				Value="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}" />
 		<Setter Property="FontFamily"
 				Value="Verdana" />
 		<Setter Property="FontSize"
@@ -31,17 +25,13 @@
 		<Setter Property="Margin"
 				Value="1" />
 		<Setter Property="Padding"
-				Value="1"/>
+				Value="4" />
 		<Setter Property="IsTabStop"
 				Value="True" />
-<!--		<Setter Property="Focusable"-->
-<!--				Value="False" />-->
 		<Setter Property="IsSelected"
 				Value="{Binding Path=IsSelected}" />
 		<Setter Property="FocusVisualStyle"
 				Value="{x:Null}" />
-		<Setter Property="SnapsToDevicePixels"
-				Value="True" />
 		<Setter Property="DrapDrop:DragDropManager.DragSourceAdvisor"
 				Value="{DynamicResource PanelDragSourceAdvisor}"/>
 		<Setter Property="DrapDrop:DragDropManager.DropTargetAdvisor"
@@ -91,13 +81,14 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TabItem}">
-					<Border x:Name="Border"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							Background="{TemplateBinding Background}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							CornerRadius="5"
-							SnapsToDevicePixels="True">
-						<DockPanel SnapsToDevicePixels="True">
+					<Grid SnapsToDevicePixels="True">
+						<Rectangle x:Name="Border"
+								   Fill="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+								   Stroke="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
+								   StrokeThickness="2"
+								   RadiusX="5"
+								   RadiusY="5" />
+						<DockPanel>
 							<Button x:Name="CloseButton"
 									HorizontalAlignment="Center"
 									VerticalAlignment="Center"
@@ -118,43 +109,42 @@
 									</cb:RoutedMessageTriggerCollection>
 								</cb:Message.Triggers>
 							</Button>
-							<ContentPresenter x:Name="ContentSite"
-											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+							<ContentPresenter x:Name="Content"
+											  SnapsToDevicePixels="True"
 											  VerticalAlignment="Center"
 											  HorizontalAlignment="Center"
 											  ContentSource="Header"
-											  Margin="2,2,2,2" />
+											  Margin="{TemplateBinding Padding}" />
 						</DockPanel>
+					</Grid>
+<!--
+					<Border 
+							BorderBrush="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
+							Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}"
+							BorderThickness="2"
+							CornerRadius="5"
+							SnapsToDevicePixels="True"
+							d:DesignHeight="84"
+							d:DesignWidth="300">
 					</Border>
+-->
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected"
 								 Value="True">
 							<Setter TargetName="Border"
-									Property="Background"
+									Property="Fill"
 									Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
-							<Setter TargetName="Border"
-									Property="BorderThickness"
-									Value="2" />
 							<!-- Todo: Make it configurable: multiline tabs appearence -->
 							<!--<Setter Property="Margin"
 									Value="0" />-->
 							<!--<Setter TargetName="Border"
 									Property="CornerRadius"
 									Value="5,5,0,0" />-->
-							<Setter TargetName="Border"
-									Property="CornerRadius"
-									Value="5,5,5,5" />
 							<!--Todo: Make it configurable: tab close button visibility -->
 <!--							<Setter TargetName="CloseButton"-->
 <!--									Property="Visibility"-->
 <!--									Value="Visible" />-->
 						</Trigger>
-<!--						<Trigger Property="IsSelected"-->
-<!--								 Value="False">-->
-<!--							<Setter TargetName="Border"-->
-<!--									Property="Background"-->
-<!--									Value="{DynamicResource SelectedTabBackgroundBrush}" />-->
-<!--						</Trigger>-->
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
 								<Condition Property="IsMouseOver"
@@ -164,14 +154,14 @@
 							</MultiTrigger.Conditions>
 							<MultiTrigger.Setters>
 								<Setter TargetName="Border"
-										Property="Background"
+										Property="Fill"
 										Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
 							</MultiTrigger.Setters>
 						</MultiTrigger>
 						<Trigger Property="IsKeyboardFocused"
 								 Value="true">
 							<Setter TargetName="Border"
-									Property="BorderBrush"
+									Property="Stroke"
 									Value="{DynamicResource {x:Static Themes:Theme.KeyboardFocuseBrushKey}}" />
 						</Trigger>
 					</ControlTemplate.Triggers>

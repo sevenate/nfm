@@ -9,12 +9,8 @@
 		   TargetType="{x:Type Thumb}"
 		   BasedOn="{x:Null}"
 		   d:IsControlPart="True">
-		
 		<Setter Property="Focusable"
 				Value="False" />
-		<Setter Property="Margin"
-				Value="1,0,1,0" />
-		
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Thumb}">
@@ -49,10 +45,12 @@
 					<Border x:Name="Border"
 							   HorizontalAlignment="Stretch"
 							   VerticalAlignment="Stretch"
-							   CornerRadius="3"
+							   CornerRadius="5,5,5,5"
 							   Background="{DynamicResource {x:Static Themes:Theme.IconBrushKey}}"
 							   BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
-							   BorderThickness="0" />
+							   BorderThickness="0"
+							   d:DesignHeight="300"
+							   d:DesignWidth="300" />
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver"
 								 Value="True">

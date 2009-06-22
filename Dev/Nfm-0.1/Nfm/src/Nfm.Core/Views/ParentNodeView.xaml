@@ -39,13 +39,10 @@
 				</Storyboard>
 			</DataTemplate.Resources>
 		<Border x:Name="Border"
-				Margin="0"
-				Padding="1,1,1,1"
-				Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
-				BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
-				BorderThickness="2"
-				CornerRadius="3"
 				SnapsToDevicePixels="true"
+				Padding="3,3,3,3"
+				Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+				CornerRadius="5,5,5,5"
 				d:DesignWidth="300"
 				d:DesignHeight="300">
 			<DockPanel VerticalAlignment="Stretch"
@@ -53,7 +50,8 @@
 				<Border Width="32"
 						Height="32"
 						DockPanel.Dock="Left"
-						VerticalAlignment="Top" HorizontalAlignment="Left">
+						VerticalAlignment="Top"
+						HorizontalAlignment="Left">
 					<cb:Message.Triggers>
 						<cb:RoutedMessageTriggerCollection>
 							<cb:EventMessageTrigger EventName="MouseLeftButtonDown">
@@ -75,8 +73,7 @@
 								Width="32"
 								Height="32"
 								VerticalAlignment="Center"
-								HorizontalAlignment="Center"
-								Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}">
+								HorizontalAlignment="Center">
 							<TextBlock Text="Up"
 									   FontSize="16"
 									   HorizontalAlignment="Center"

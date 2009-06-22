@@ -64,7 +64,8 @@
 												ToolTip="Duplicate selected tab"
 												HorizontalAlignment="Left"
 												VerticalAlignment="Center"
-												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}">
+												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}"
+												Padding="3,3,3,3">
 											<Icons:AddIcon />
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
@@ -83,7 +84,8 @@
 												HorizontalAlignment="Right"
 												VerticalAlignment="Center"
 												DockPanel.Dock="Right"
-												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}">
+												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}"
+												Padding="3,3,3,3">
 											<Icons:CloseIcon />
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
@@ -102,7 +104,8 @@
 												HorizontalAlignment="Right"
 												VerticalAlignment="Center"
 												DockPanel.Dock="Right"
-												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}">
+												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}"
+												Padding="3,3,3,3">
 											<Icons:DoubleArrowIcon />
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
@@ -130,17 +133,21 @@
 									<ControlTemplate TargetType="{x:Type Button}">
 										<ControlTemplate.Resources>
 											<Storyboard x:Key="Hover">
-												<ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ToggleBorder" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+												<ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+																			  Storyboard.TargetName="ToggleBorder"
+																			  Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
 													<!-- Todo: {DynamicResource {{x:Static Themes:Theme.IconHoverBrushKey}} -->
 													<SplineColorKeyFrame KeyTime="00:00:00.2000000"
-																		 Value="#FFB83C3D"/>
+																		 Value="#FFB83C3D" />
 												</ColorAnimationUsingKeyFrames>
 											</Storyboard>
 											<Storyboard x:Key="Rollback">
-												<ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ToggleBorder" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+												<ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+																			  Storyboard.TargetName="ToggleBorder"
+																			  Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
 													<!-- Todo: {DynamicResource {{x:Static Themes:Theme.IconBrushKey}} -->
 													<SplineColorKeyFrame KeyTime="00:00:00.2000000"
-																		 Value="#FF969696"/>
+																		 Value="#FF969696" />
 												</ColorAnimationUsingKeyFrames>
 											</Storyboard>
 										</ControlTemplate.Resources>
@@ -153,10 +160,12 @@
 											<Trigger Property="IsMouseOver"
 													 Value="True">
 												<Trigger.ExitActions>
-													<BeginStoryboard x:Name="Rollback_BeginStoryboard" Storyboard="{StaticResource Rollback}"/>
+													<BeginStoryboard x:Name="Rollback_BeginStoryboard"
+																	 Storyboard="{StaticResource Rollback}" />
 												</Trigger.ExitActions>
 												<Trigger.EnterActions>
-													<BeginStoryboard x:Name="Hover_BeginStoryboard" Storyboard="{StaticResource Hover}"/>
+													<BeginStoryboard x:Name="Hover_BeginStoryboard"
+																	 Storyboard="{StaticResource Hover}" />
 												</Trigger.EnterActions>
 											</Trigger>
 										</ControlTemplate.Triggers>
@@ -172,34 +181,26 @@
 									</cb:RoutedMessageTriggerCollection>
 								</cb:Message.Triggers>
 							</Button>
-<!--							
-							<Border x:Name="TabsTopArea"
-								Background="{TemplateBinding Background}"
-								BorderBrush="{TemplateBinding BorderBrush}"
-								BorderThickness="2"
-								Padding="{TemplateBinding Padding}"
-								CornerRadius="5"
-								DockPanel.Dock="Top"/>
--->
-							<Grid x:Name="PART_ItemsHolder"
-								  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-								  Margin="2,2,2,2" />
-<!--								
-							<Border x:Name="TabsContentArea"
+							<Border Margin="1,1,1,1"
+									CornerRadius="5,5,5,5"
+									Background="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}">
+
+								<Grid x:Name="PART_ItemsHolder"
+									  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+							</Border>
+<!-- 
+								<Border x:Name="TabsContentArea"
 									Background="{TemplateBinding Background}"
 									BorderBrush="{TemplateBinding BorderBrush}"
 									BorderThickness="{TemplateBinding BorderThickness}"
 									Padding="0"
-									CornerRadius="5">
+									CornerRadius="5" />
 -->
 <!-- Note: TabControlEx to display selected tab content use grid insted of content presenter -->
 <!--							<ContentPresenter x:Name="PART_SelectedContentHost"-->
 <!--											  ContentSource="SelectedContent"-->
 <!--											  Margin="{TemplateBinding Padding}"-->
 <!--											  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />-->
-<!--							
-							</Border>
--->
 						</DockPanel>
 					</Border>
 				</ControlTemplate>

@@ -45,9 +45,8 @@
 				Margin="0"
 				Padding="3"
 				Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
-				BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
-				BorderThickness="2"
-				CornerRadius="3"
+				BorderBrush="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}"
+				CornerRadius="5,5,5,5"
 				SnapsToDevicePixels="true">
 			<DockPanel LastChildFill="True">
 				<DockPanel x:Name="PrimaryInfo"
@@ -122,7 +121,8 @@
 								 Foreground="White"
 								 Background="Transparent"
 								 BorderThickness="0"
-								 VerticalAlignment="Top" />
+								 VerticalAlignment="Top"
+								 IsTabStop="False" />
 						<TextBox x:Name="Version"
 								 Grid.Column="1"
 								 Grid.Row="1"
@@ -133,7 +133,8 @@
 								 Foreground="LightGreen"
 								 Background="Transparent"
 								 BorderThickness="0"
-								 VerticalAlignment="Top" />
+								 VerticalAlignment="Top"
+								 IsTabStop="False" />
 					</Grid>
 				</DockPanel>
 				<Grid x:Name="AdditionalInfo"
@@ -189,7 +190,7 @@
 							 Foreground="White"
 							 Background="Transparent"
 							 BorderThickness="0"
-							 VerticalAlignment="Top" />
+							 VerticalAlignment="Top" IsTabStop="False" />
 					<TextBox x:Name="Author"
 							 Grid.Column="1"
 							 Grid.Row="1"
@@ -200,7 +201,8 @@
 							 Foreground="White"
 							 Background="Transparent"
 							 BorderThickness="0"
-							 VerticalAlignment="Top" />
+							 VerticalAlignment="Top"
+							 IsTabStop="False" />
 					<TextBox x:Name="Copyright"
 							 Grid.Column="1"
 							 Grid.Row="2"
@@ -211,7 +213,8 @@
 							 Foreground="White"
 							 Background="Transparent"
 							 BorderThickness="0"
-							 VerticalAlignment="Top" />
+							 VerticalAlignment="Top"
+							 IsTabStop="False" />
 					<TextBlock x:Name="Homepage"
 							   Grid.Column="1"
 							   Grid.Row="3"
@@ -249,7 +252,7 @@
 						 IsReadOnly="True"
 						 Foreground="White"
 						 Background="Transparent"
-						 BorderThickness="0" />
+						 BorderThickness="0" IsTabStop="False" />
 			</DockPanel>
 		</Border>
 		<DataTemplate.Triggers>

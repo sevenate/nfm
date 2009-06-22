@@ -7,16 +7,12 @@
 	<!-- #ListBox Style -->
 	<Style x:Key="{x:Static Themes:Theme.ListBoxStyleKey}"
 		   TargetType="{x:Type ListBox}">
-		<Setter Property="Foreground"
-				Value="{DynamicResource {x:Static Themes:Theme.ForegroundBrushKey}}" />
-		<Setter Property="Background"
-				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
-		<Setter Property="BorderBrush"
-				Value="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}" />
 		<Setter Property="BorderThickness"
-				Value="0" />
+				Value="0,0,0,0"/>
 		<Setter Property="Padding"
-				Value="1" />
+				Value="1,1,1,1"/>
+		<Setter Property="SnapsToDevicePixels"
+				Value="True" />
 <!--		<Setter Property="Focusable"-->
 <!--				Value="False" />-->
 <!--		<Setter Property="FocusVisualStyle"-->
@@ -91,18 +87,11 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ListBox}">
-					<Border x:Name="Border"
-							SnapsToDevicePixels="True"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							CornerRadius="5">
-						<ScrollViewer Style="{DynamicResource {x:Static Themes:Theme.ScrollViewerStyleKey}}">
-							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-											Margin="{TemplateBinding Padding}"
-											Grid.IsSharedSizeScope="True" />
-						</ScrollViewer>
-					</Border>
+					<ScrollViewer Style="{DynamicResource {x:Static Themes:Theme.ScrollViewerStyleKey}}">
+						<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Margin="{TemplateBinding Padding}"
+										Grid.IsSharedSizeScope="True" />
+					</ScrollViewer>
 <!--					<ControlTemplate.Resources>-->
 						<!-- override the system brushes so that selected items are transparent whether the ListBox has focus or not -->
 <!--						<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"-->

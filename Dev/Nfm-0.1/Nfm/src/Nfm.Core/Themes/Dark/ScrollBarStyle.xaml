@@ -11,7 +11,7 @@
 		<Setter Property="Stylus.IsFlicksEnabled"
 				Value="False" />
 		<Setter Property="Foreground"
-				Value="{DynamicResource {x:Static Themes:Theme.WorkAreaBackgroundBrushKey}}" />
+				Value="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}" />
 		
 		<Setter Property="SnapsToDevicePixels"
 				Value="True" />
@@ -23,7 +23,8 @@
 				<ControlTemplate TargetType="{x:Type ScrollBar}">
 					<Grid x:Name="GridRoot"
 						  Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"
-						  Background="{TemplateBinding Background}">
+						  Background="{TemplateBinding Background}"
+						  SnapsToDevicePixels="True">
 						<Grid.RowDefinitions>
 							<RowDefinition MaxHeight="18" />
 							<RowDefinition Height="0.00001*" />
@@ -33,40 +34,44 @@
 						<RepeatButton x:Name="DecreaseRepeat"
 									  Style="{DynamicResource {x:Static Themes:Theme.ScrollBarLineButtonStyleKey}}"
 									  Command="ScrollBar.LineUpCommand">
-								<Icons:SingleArrowIcon />
+								<Icons:TriangleArrow RenderTransformOrigin="0.5,0.5" >
+								<Icons:TriangleArrow.RenderTransform>
+									<TransformGroup>
+										<RotateTransform Angle="180"/>
+									</TransformGroup>
+								</Icons:TriangleArrow.RenderTransform>
+							</Icons:TriangleArrow>
 						</RepeatButton>
+						<Border Grid.Row="1" Background="{DynamicResource {x:Static Themes:Theme.BorderBrushKey}}" CornerRadius="5,5,5,5" Margin="0,0,0,0">
+
+							<!-- Track is a special layout container which sizes the thumb and the repeat button which do jump scrolling either side of it -->
+							<Track x:Name="PART_Track"
+								Orientation="Vertical"
+								IsDirectionReversed="True">
+								<Track.IncreaseRepeatButton>
+									<RepeatButton x:Name="PageUp"
+										Style="{DynamicResource {x:Static Themes:Theme.ScrollBarPageButtonStyleKey}}"
+										Command="ScrollBar.PageDownCommand" />
+								</Track.IncreaseRepeatButton>
+								<Track.Thumb>
+									<Thumb Style="{DynamicResource {x:Static Themes:Theme.ScrollBarThumbStyleKey}}" />
+								</Track.Thumb>
+								<Track.DecreaseRepeatButton>
+									<RepeatButton x:Name="PageDown"
+										Style="{DynamicResource {x:Static Themes:Theme.ScrollBarPageButtonStyleKey}}"
+										Command="ScrollBar.PageUpCommand" />
+								</Track.DecreaseRepeatButton>
+							</Track>
+
+						</Border>
 
 						<!-- Track is a special layout container which sizes the thumb and the repeat button which do jump scrolling either side of it -->
-						<Track x:Name="PART_Track"
-							   Grid.Row="1"
-							   Orientation="Vertical"
-							   IsDirectionReversed="True">
-							<Track.IncreaseRepeatButton>
-								<RepeatButton x:Name="PageUp"
-											  Style="{DynamicResource {x:Static Themes:Theme.ScrollBarPageButtonStyleKey}}"
-											  Command="ScrollBar.PageDownCommand" />
-							</Track.IncreaseRepeatButton>
-							<Track.Thumb>
-								<Thumb Style="{DynamicResource {x:Static Themes:Theme.ScrollBarThumbStyleKey}}" />
-							</Track.Thumb>
-							<Track.DecreaseRepeatButton>
-								<RepeatButton x:Name="PageDown"
-											  Style="{DynamicResource {x:Static Themes:Theme.ScrollBarPageButtonStyleKey}}"
-											  Command="ScrollBar.PageUpCommand" />
-							</Track.DecreaseRepeatButton>
-						</Track>
 
 						<RepeatButton x:Name="IncreaseRepeat"
 									  Grid.Row="2"
 									  Style="{DynamicResource {x:Static Themes:Theme.ScrollBarLineButtonStyleKey}}"
 									  Command="ScrollBar.LineDownCommand">
-							<Icons:SingleArrowIcon RenderTransformOrigin="0.5,0.5" >
-								<Icons:SingleArrowIcon.RenderTransform>
-									<TransformGroup>
-										<RotateTransform Angle="180"/>
-									</TransformGroup>
-								</Icons:SingleArrowIcon.RenderTransform>
-							</Icons:SingleArrowIcon>
+							<Icons:TriangleArrow />
 						</RepeatButton>
 					</Grid>
 
