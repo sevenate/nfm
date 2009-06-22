@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Nfm.TestViewNodeAddIn")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Test Add-in")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Nfm.TestViewNodeAddIn")]
+[assembly: AssemblyCompany("HD")]
+[assembly: AssemblyProduct("NFM")]
 [assembly: AssemblyCopyright("Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.310.2123")]
-[assembly: AssemblyFileVersion("1.0.310.2123")]
+[assembly: AssemblyVersion("0.1.202.1239")]
+[assembly: AssemblyFileVersion("0.1.202.1239")]
