@@ -349,7 +349,7 @@ namespace Nfm.Core.ViewModels
 		{
 			if (panel.IsSelected && panel != Active)
 			{
-				if (Active != null)
+				if (Active != null && Active.Parent == this)
 				{
 					Active.IsSelected = false;
 				}
