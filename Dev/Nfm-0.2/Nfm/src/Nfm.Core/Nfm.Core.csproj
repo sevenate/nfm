@@ -353,13 +353,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nfm.HostView\Nfm.HostView.csproj">
-      <Project>{CA3758DD-8F75-4CA2-8AA5-15A089104D9B}</Project>
-      <Name>Nfm.HostView</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>

@@ -3,18 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.Core", "src\Nfm.Core\Nfm.Core.csproj", "{0783CA39-53C3-412F-AA6C-B9530288050E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.Contract", "src\Nfm.Contract\Nfm.Contract.csproj", "{586B2B8A-76A1-450F-AEB5-5D4B6CB2E5CC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.AddInView", "src\Nfm.AddInView\Nfm.AddInView.csproj", "{F6A3BAB8-B44A-431D-866C-63257FD7AE30}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.TestViewNodeAddIn", "src\Nfm.TestViewNodeAddIn\Nfm.TestViewNodeAddIn.csproj", "{FBEEC925-B30B-4697-98B1-00566E01B1F1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.AddInSideAdapter", "src\Nfm.AddInSideAdapter\Nfm.AddInSideAdapter.csproj", "{28DE0F6C-1B13-46C7-B1BA-76EA437BD9DE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.HostView", "src\Nfm.HostView\Nfm.HostView.csproj", "{CA3758DD-8F75-4CA2-8AA5-15A089104D9B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.HostSideAdapter", "src\Nfm.HostSideAdapter\Nfm.HostSideAdapter.csproj", "{9EBE41B9-907E-4697-84FE-38177442A128}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.Loader", "src\Nfm.Loader\Nfm.Loader.csproj", "{ED43A4D0-A8B8-4996-B7C4-16D55CA7310F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.Core.Tests", "src\Nfm.Core.Tests\Nfm.Core.Tests.csproj", "{909DD011-CE0D-4678-A603-9B26C9CB631D}"
@@ -29,30 +17,6 @@ Global
 		{0783CA39-53C3-412F-AA6C-B9530288050E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0783CA39-53C3-412F-AA6C-B9530288050E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0783CA39-53C3-412F-AA6C-B9530288050E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{586B2B8A-76A1-450F-AEB5-5D4B6CB2E5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{586B2B8A-76A1-450F-AEB5-5D4B6CB2E5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{586B2B8A-76A1-450F-AEB5-5D4B6CB2E5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{586B2B8A-76A1-450F-AEB5-5D4B6CB2E5CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6A3BAB8-B44A-431D-866C-63257FD7AE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6A3BAB8-B44A-431D-866C-63257FD7AE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6A3BAB8-B44A-431D-866C-63257FD7AE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6A3BAB8-B44A-431D-866C-63257FD7AE30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBEEC925-B30B-4697-98B1-00566E01B1F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBEEC925-B30B-4697-98B1-00566E01B1F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBEEC925-B30B-4697-98B1-00566E01B1F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBEEC925-B30B-4697-98B1-00566E01B1F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28DE0F6C-1B13-46C7-B1BA-76EA437BD9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28DE0F6C-1B13-46C7-B1BA-76EA437BD9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28DE0F6C-1B13-46C7-B1BA-76EA437BD9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28DE0F6C-1B13-46C7-B1BA-76EA437BD9DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA3758DD-8F75-4CA2-8AA5-15A089104D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA3758DD-8F75-4CA2-8AA5-15A089104D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA3758DD-8F75-4CA2-8AA5-15A089104D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA3758DD-8F75-4CA2-8AA5-15A089104D9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9EBE41B9-907E-4697-84FE-38177442A128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9EBE41B9-907E-4697-84FE-38177442A128}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9EBE41B9-907E-4697-84FE-38177442A128}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9EBE41B9-907E-4697-84FE-38177442A128}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED43A4D0-A8B8-4996-B7C4-16D55CA7310F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED43A4D0-A8B8-4996-B7C4-16D55CA7310F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED43A4D0-A8B8-4996-B7C4-16D55CA7310F}.Release|Any CPU.ActiveCfg = Release|Any CPU
