@@ -22,10 +22,12 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Base <see cref="IPanelContainer"/> with childs close notifications.
 	/// </summary>
-	[DebuggerDisplay(
-		@"Header = {Header}"
-		+ @", Type = {GetType()}"
-		+ @", Childs = {Childs.Count}")]
+	[DebuggerDisplay("{GetType().Name}:"
+					+ " {Header.Text}"
+					+ " {IsSelected}"
+					+ " {Childs.Count}"
+					+ " Active={Active != null ? Active.Header.Text : null}"
+					+ " Parent={Parent != null ? Parent.Header.Text : null}")]
 	public class PanelContainerBase : NotificationBase, IPanelContainer
 	{
 		#region Implementation of IDisposable

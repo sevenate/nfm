@@ -19,10 +19,10 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Base <see cref="IPanel"/> implementation.
 	/// </summary>
-	[DebuggerDisplay(
-		@"Header = {Header}"
-		+ @", Type = {GetType()}"
-		+ @", Parent = {Parent}")]
+	[DebuggerDisplay("{GetType().Name}:"
+					+ " {Header.Text}"
+					+ " {IsSelected}"
+					+ " Parent={Parent.Header.Text}")]
 	public class PanelBase : NotificationBase, IPanelContentHost
 	{
 		#region Implementation of IDisposable

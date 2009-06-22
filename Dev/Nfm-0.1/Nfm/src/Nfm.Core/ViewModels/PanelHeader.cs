@@ -11,7 +11,6 @@
 // </editor>
 // <summary>Common <see cref="IPanel"/> header.</summary>
 
-using System;
 using System.Diagnostics;
 using System.Windows.Media;
 
@@ -20,7 +19,7 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Common <see cref="IPanel"/> header.
 	/// </summary>
-	[DebuggerDisplay("Text = {Text}")]
+	[DebuggerDisplay("{Text}")]
 	public class PanelHeader : NotificationBase, IPanelHeader
 	{
 		#region .Ctors
