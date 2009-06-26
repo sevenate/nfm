@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<translation name="English (US)" culture="en-US" version="0.2" author="Nfm Team" updateurl="http://localhost/English.xml">
+	
+	<!-- Panels -->
+	
+	<item key="Close" value="Close" />
+	<item key="DuplicateSelectedTab" value="Duplicate selected tab" />
+	<item key="CollapseHeader" value="Collapse header" />
+	<item key="ExpandHeader" value="Expand header" />
+
+	<!-- Drives -->
+
+	<item key="DriveType" value="Drive Type" />
+	<item key="TotalSize" value="Total Size" />
+	<item key="AvailableFreeSpace" value="Available Free Space" />
+	<item key="DriveFormat" value="Drive Format" />
+	<item key="UsedCapacity" value="Used Capacity" />
+	
+	<!-- Folders -->
+
+	<item key="System" value="System" />
+	<item key="Hidden" value="Hidden" />
+	<item key="Archive" value="Archive" />
+	<item key="ReadOnly" value="Read Only" />
+
+	<!-- Local File System Module -->
+	
+	<item key="Name" value="Module Name:" />
+	<item key="Version" value="Version:" />
+	
+	<item key="Id" value="ID:" />
+	<item key="Authors" value="Author(s):" />
+	<item key="Copyright" value="Copyright:" />
+	<item key="Homepage" value="Homepage:" />
+	<item key="Email" value="Email:" />
+	
+	<item key="GoToModuleHomePage" value="Go to module home page" />
+	<item key="SendEmailToModuleAuthor" value="Send email to author(s)" />
+	<item key="Description" value="Description" />
+	
+</translation>
