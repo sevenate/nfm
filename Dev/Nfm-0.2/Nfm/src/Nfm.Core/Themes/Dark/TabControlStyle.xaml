@@ -5,6 +5,7 @@
 					xmlns:Controls="clr-namespace:Nfm.Core.Controls"
 					xmlns:Converters="clr-namespace:Nfm.Core.Converters"
 					xmlns:Icons="clr-namespace:Nfm.Core.Resources.Icons"
+					xmlns:Localization="clr-namespace:Nfm.Core.Localization"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:cb="http://www.caliburnproject.org"
 					mc:Ignorable="d">
@@ -61,7 +62,7 @@
 										<Button x:Name="Add"
 												Width="16"
 												Height="16"
-												ToolTip="Duplicate selected tab"
+												ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.DuplicateSelectedTab}}"
 												HorizontalAlignment="Left"
 												VerticalAlignment="Center"
 												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}"
@@ -80,7 +81,7 @@
 										<Button x:Name="Close"
 												Width="16"
 												Height="16"
-												ToolTip="Close"
+												ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.Close}}"
 												HorizontalAlignment="Right"
 												VerticalAlignment="Center"
 												DockPanel.Dock="Right"
@@ -100,7 +101,7 @@
 										<Button x:Name="Toggle"
 												Width="16"
 												Height="16"
-												ToolTip="Collapse header"
+												ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.CollapseHeader}}"
 												HorizontalAlignment="Right"
 												VerticalAlignment="Center"
 												DockPanel.Dock="Right"
@@ -128,7 +129,7 @@
 									BorderThickness="0"
 									Visibility="{Binding Path=Header.IsHidden, Converter={Converters:BoolToVisibilityConverter}}"
 									Focusable="False"
-									ToolTip="Expand header">
+									ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.ExpandHeader}}">
 								<Button.Template>
 									<ControlTemplate TargetType="{x:Type Button}">
 										<ControlTemplate.Resources>

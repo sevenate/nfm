@@ -7,6 +7,7 @@
 					xmlns:Icons="clr-namespace:Nfm.Core.Resources.Icons"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:cb="http://www.caliburnproject.org"
+					xmlns:Localization="clr-namespace:Nfm.Core.Localization"
 					mc:Ignorable="d">
 
 	<!-- #TabItem Style -->
@@ -96,7 +97,7 @@
 									Height="16"
 									Margin="0,0,2,0"
 									DockPanel.Dock="Right"
-									ToolTip="Close"
+									ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.Close}}"
 									Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}">
 								<Icons:CloseIcon />
 								<cb:Message.Triggers>

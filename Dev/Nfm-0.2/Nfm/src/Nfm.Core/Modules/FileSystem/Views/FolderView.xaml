@@ -8,6 +8,7 @@
 					xmlns:cb="http://www.caliburnproject.org"
 					xmlns:fs="clr-namespace:Nfm.Core.ViewModels.FileSystem.Icons"
 					xmlns:Converters="clr-namespace:Nfm.Core.Converters"
+					xmlns:Localization="clr-namespace:Nfm.Core.Localization"
 					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type FileSystem:FolderVM}">
@@ -96,7 +97,7 @@
 								   Visibility="{Binding Path=IsSystem, Converter={Converters:BoolToVisibilityConverter HiddenOnly=True}}"
 								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeSystemBrushKey}}"
 								   Text="S"
-								   ToolTip="System"
+								   ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.System}}"
 								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
@@ -104,7 +105,7 @@
 								   Visibility="{Binding Path=IsHidden, Converter={Converters:BoolToVisibilityConverter HiddenOnly=True}}"
 								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeHiddenBrushKey}}"
 								   Text="H"
-								   ToolTip="Hidden"
+								   ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.Hidden}}"
 								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
@@ -112,7 +113,7 @@
 								   Visibility="{Binding Path=IsArchive, Converter={Converters:BoolToVisibilityConverter HiddenOnly=True}}"
 								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeArchiveBrushKey}}"
 								   Text="A"
-								   ToolTip="Archive"
+								   ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.Archive}}"
 								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />
@@ -120,7 +121,7 @@
 								   Visibility="{Binding Path=IsReadOnly, Converter={Converters:BoolToVisibilityConverter HiddenOnly=True}}"
 								   Foreground="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeReadOnlyBrushKey}}"
 								   Text="R"
-								   ToolTip="Read Only"
+								   ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.ReadOnly}}"
 								   Style="{DynamicResource {x:Static ModuleResources:ModuleTheme.FileAttributeKey}}"
 								   HorizontalAlignment="Right"
 								   VerticalAlignment="Center" />

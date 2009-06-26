@@ -4,7 +4,8 @@
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:cb="http://www.caliburnproject.org"
 					xmlns:fs="clr-namespace:Nfm.Core.ViewModels.FileSystem.Icons"
-					xmlns:Converters="clr-namespace:Nfm.Core.Converters">
+					xmlns:Converters="clr-namespace:Nfm.Core.Converters"
+					xmlns:Localization="clr-namespace:Nfm.Core.Localization">
 
 	<DataTemplate DataType="{x:Type FileSystem:DriveVM}">
 		<DataTemplate.Resources>
@@ -103,7 +104,7 @@
 						<TextBlock x:Name="DriveType"
 								   Foreground="Gray"
 								   Text="{Binding Path=DriveType}"
-								   ToolTip="Drive Type"
+								   ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.DriveType}}"
 								   Padding="5,1,5,1"
 								   TextAlignment="Right" />
 					</Grid>
@@ -124,14 +125,16 @@
 							<!-- <ToolTip Content="{Binding Path=TotalSize, Converter={x:Static Converters:FileSizeToFullStringConverter.Inst}}" /> -->
 							<ToolTip>
 								<ToolTip.Content>
-									<TextBlock>
-										<TextBlock.Text>
-											<MultiBinding StringFormat="{}Total Size: {0}">
-											<Binding Path="TotalSize"
-													 Converter="{x:Static Converters:FileSizeToFullStringConverter.Inst}" />
-										</MultiBinding>
-										</TextBlock.Text>
-									</TextBlock>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Localization:Translate {x:Static Localization:LocalizationKeys.TotalSize}}" />
+										<TextBlock>
+											<TextBlock.Text>
+												<Binding Path="TotalSize"
+														 StringFormat="{}: {0}"
+														 Converter="{x:Static Converters:FileSizeToFullStringConverter.Inst}" />
+											</TextBlock.Text>
+										</TextBlock>
+									</StackPanel>
 								</ToolTip.Content>
 							</ToolTip>
 						</TextBlock.ToolTip>
@@ -154,14 +157,16 @@
 							<!-- <ToolTip Content="{Binding Path=AvailableFreeSpace, Converter={x:Static Converters:FileSizeToFullStringConverter.Inst}}" /> -->
 							<ToolTip>
 								<ToolTip.Content>
-									<TextBlock>
-										<TextBlock.Text>
-											<MultiBinding StringFormat="{}Available Free Space: {0}">
-											<Binding Path="AvailableFreeSpace"
-													 Converter="{x:Static Converters:FileSizeToFullStringConverter.Inst}" />
-										</MultiBinding>
-										</TextBlock.Text>
-									</TextBlock>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Localization:Translate {x:Static Localization:LocalizationKeys.AvailableFreeSpace}}" />
+										<TextBlock>
+											<TextBlock.Text>
+												<Binding Path="AvailableFreeSpace"
+														 StringFormat="{}: {0}"
+														 Converter="{x:Static Converters:FileSizeToFullStringConverter.Inst}" />
+											</TextBlock.Text>
+										</TextBlock>
+									</StackPanel>
 								</ToolTip.Content>
 							</ToolTip>
 						</TextBlock.ToolTip>
@@ -171,7 +176,7 @@
 							   Visibility="{Binding Path=IsReady, Converter={Converters:BoolToVisibilityConverter}}"
 							   Foreground="DarkGray"
 							   Text="{Binding Path=DriveFormat}"
-							   ToolTip="Drive Format"
+							   ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.DriveFormat}}"
 							   Padding="5,1,5,1"
 							   TextAlignment="Right"
 							   DockPanel.Dock="Right"
@@ -181,18 +186,15 @@
 						   Visibility="{Binding Path=IsReady, Converter={Converters:BoolToVisibilityConverter}}"
 						   TextWrapping="Wrap"
 						   Padding="5,1,5,1"
-						   DockPanel.Dock="Top">
-					<TextBlock.Text>
-						<Binding Path="VolumeLabel" StringFormat="{}{0}" />
-					</TextBlock.Text>
-				</TextBlock>
+						   DockPanel.Dock="Top"
+						   Text="{Binding Path=VolumeLabel}" />
 				<DockPanel DockPanel.Dock="Top"
 						   LastChildFill="True"
 						   Visibility="{Binding Path=IsReady, Converter={Converters:BoolToVisibilityConverter}}">
 					<TextBlock DockPanel.Dock="Right"
 							   Padding="5,1,5,1"
 							   Foreground="Aqua"
-							   ToolTip="Used Capacity">
+							   ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.UsedCapacity}}">
 						<TextBlock.Text>
 							<Binding Path="UsedCapacity" StringFormat="{}{0:F1}%" />
 						</TextBlock.Text>
