@@ -1,41 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<translation name="English (US)" culture="en-US" version="0.2" author="Nfm Team" updateurl="http://localhost/English.xml">
+<translation name="Русский" culture="ru-RU" version="0.2" author="Nfm Team" updateurl="http://localhost/English.xml">
 	
 	<!-- Panels -->
 	
-	<item key="Close" value="Close" />
-	<item key="DuplicateSelectedTab" value="Duplicate selected tab" />
-	<item key="CollapseHeader" value="Collapse header" />
-	<item key="ExpandHeader" value="Expand header" />
+	<item key="Close" value="Закрыть" />
+	<item key="DuplicateSelectedTab" value="Создать копию текущей вкладки" />
+	<item key="CollapseHeader" value="Свернуть заголовок" />
+	<item key="ExpandHeader" value="Развернуть заголовок" />
 
 	<!-- Drives -->
 
-	<item key="DriveType" value="Drive Type" />
-	<item key="TotalSize" value="Total Size" />
-	<item key="AvailableFreeSpace" value="Available Free Space" />
-	<item key="DriveFormat" value="Drive Format" />
-	<item key="UsedCapacity" value="Used Capacity" />
+	<item key="DriveType" value="Тип диска" />
+	<item key="TotalSize" value="Общий объем" />
+	<item key="AvailableFreeSpace" value="Свободно" />
+	<item key="DriveFormat" value="Формат диска" />
+	<item key="UsedCapacity" value="Коэффициент заполнения" />
 	
 	<!-- Folders -->
 
-	<item key="System" value="System" />
-	<item key="Hidden" value="Hidden" />
-	<item key="Archive" value="Archive" />
-	<item key="ReadOnly" value="Read Only" />
+	<item key="System" value="Системный" />
+	<item key="Hidden" value="Скрытый" />
+	<item key="Archive" value="Архивный" />
+	<item key="ReadOnly" value="Только для чтения" />
 
 	<!-- Local File System Module -->
 	
-	<item key="Name" value="Module Name:" />
-	<item key="Version" value="Version:" />
+	<item key="Name" value="Название модуля:" />
+	<item key="Version" value="Версия:" />
 	
-	<item key="Id" value="ID:" />
-	<item key="Authors" value="Author(s):" />
-	<item key="Copyright" value="Copyright:" />
-	<item key="Homepage" value="Homepage:" />
-	<item key="Email" value="Email:" />
+	<item key="Id" value="Уникальный номер:" />
+	<item key="Authors" value="Автор(ы):" />
+	<item key="Copyright" value="Авторское право:" />
+	<item key="Homepage" value="Домашняя страница:" />
+	<item key="Email" value="Электронная почта:" />
 	
-	<item key="GoToModuleHomePage" value="Go to module home page" />
-	<item key="SendEmailToModuleAuthor" value="Send email to author(s)" />
-	<item key="Description" value="Description" />
+	<item key="GoToModuleHomePage" value="Перейти на домашнюю страницу модуля" />
+	<item key="SendEmailToModuleAuthor" value="Отправить письмо автору(ам)" />
+	<item key="Description" value="Описание" />
 	
 </translation>
