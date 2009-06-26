@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Resources;
 using System.Threading;
 
 namespace Nfm.Core.Localization

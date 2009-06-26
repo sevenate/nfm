@@ -130,6 +130,7 @@ namespace Nfm.Core.Configuration
 			container.RegisterSingleton<SplitTabContainerCommand>("SplitTabContainer");
 			container.RegisterSingleton<WrapPanelWithTabContainerCommand>("WrapPanelWithTabContainer");
 			container.RegisterSingleton<TogglePanelHeaderCommand>("TogglePanelHeader");
+			container.RegisterSingleton<ChangeLocalizationCommand>("ChangeLocalization");
 		}
 
 		#endregion

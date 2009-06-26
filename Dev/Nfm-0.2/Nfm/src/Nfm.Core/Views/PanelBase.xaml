@@ -55,6 +55,12 @@
 								<cb:Parameter Value="{Binding Mode=OneWay}" />
 							</cb:CommandMessage>
 						</cb:GestureMessageTrigger>
+						<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.ChangeLocalizationCommandKey}}"
+												  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.ChangeLocalizationCommandModifiers}}">
+							<cb:CommandMessage Command="{cb:Resolve Key=ChangeLocalization}">
+								<cb:Parameter Value="{x:Null}" />
+							</cb:CommandMessage>
+						</cb:GestureMessageTrigger>
 					</cb:RoutedMessageTriggerCollection>
 				</cb:Message.Triggers>
 			</ContentControl>
