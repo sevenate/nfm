@@ -26,7 +26,7 @@ namespace Nfm.Core.Commands
 		/// Close specific panel.
 		/// </summary>
 		/// <param name="panel">Panel to close.</param>
-		[Preview("CanExecute")]
+		[Preview("CanExecute", AffectsTriggers = false)]
 		public void Execute(IPanel panel)
 		{
 			if (panel == null)
