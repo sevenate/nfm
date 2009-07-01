@@ -26,7 +26,7 @@ namespace Nfm.Core.Commands
 		/// Toggle header visibility of specific panel.
 		/// </summary>
 		/// <param name="panel">Specific panel.</param>
-		[Preview("CanExecute")]
+		[Preview("CanExecute", AffectsTriggers = false)]
 		public void Execute(IPanel panel)
 		{
 			if (panel == null)
