@@ -1,0 +1,30 @@
+﻿<!--
+***********************************************************************************************
+Nfm.MsBuild.targets
+
+This file defines the common steps in each NFM project build process.
+
+Copyright (C) HD. All rights reserved.
+***********************************************************************************************
+-->
+
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+  Move out "obj\" subfolder from project folder to keep clean "src" with source and ploject files only.
+  -->
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>..\..\obj\$(TargetName)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>..\..\obj\$(TargetName)\$(Configuration)\</IntermediateOutputPath>
+    <UseHostCompilerIfAvailable>false</UseHostCompilerIfAvailable>
+    <ObjDirectory>obj\</ObjDirectory>
+  </PropertyGroup>
+
+  <!--
+  Delete "obj\debug\TempPE" folder created by Visual Studio during opening project.
+  -->
+  <Target Name="BeforeBuild">
+    <RemoveDir Condition="Exists('$(ObjDirectory)')" Directories="$(ObjDirectory);" />
+  </Target>
+
+</Project>

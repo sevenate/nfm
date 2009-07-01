@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<translation name="Русский" culture="ru-RU" version="0.2" author="Nfm Team" updateurl="http://localhost/English.xml">
+	
+	<!-- Panels -->
+	
+	<item key="Close" value="Закрыть" />
+	<item key="DuplicateSelectedTab" value="Создать копию текущей вкладки" />
+	<item key="CollapseHeader" value="Свернуть заголовок" />
+	<item key="ExpandHeader" value="Развернуть заголовок" />
+
+	<!-- Drives -->
+
+	<item key="DriveType" value="Тип диска" />
+	<item key="TotalSize" value="Общий объем" />
+	<item key="AvailableFreeSpace" value="Свободно" />
+	<item key="DriveFormat" value="Формат диска" />
+	<item key="UsedCapacity" value="Коэффициент заполнения" />
+	
+	<!-- Folders -->
+
+	<item key="System" value="Системный" />
+	<item key="Hidden" value="Скрытый" />
+	<item key="Archive" value="Архивный" />
+	<item key="ReadOnly" value="Только для чтения" />
+
+	<!-- Local File System Module -->
+	
+	<item key="Name" value="Название модуля:" />
+	<item key="Version" value="Версия:" />
+	
+	<item key="Id" value="Уникальный номер:" />
+	<item key="Authors" value="Автор(ы):" />
+	<item key="Copyright" value="Авторское право:" />
+	<item key="Homepage" value="Домашняя страница:" />
+	<item key="Email" value="Электронная почта:" />
+	
+	<item key="GoToModuleHomePage" value="Перейти на домашнюю страницу модуля" />
+	<item key="SendEmailToModuleAuthor" value="Отправить письмо автору(ам)" />
+	<item key="Description" value="Описание" />
+	
+</translation>

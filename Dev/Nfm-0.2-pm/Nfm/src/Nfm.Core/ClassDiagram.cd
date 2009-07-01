@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Nfm.Core.ViewModels.StackContainer" Collapsed="true">
+    <Position X="1.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>ViewModels\StackContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.TabContainer" Collapsed="true">
+    <Position X="3.75" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>ViewModels\TabContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.NotificationBase" Collapsed="true">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAACAAAAAAIEAAAQARgAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\NotificationBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.PanelContainerBase" Collapsed="true">
+    <Position X="2.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAQDDAAEIBACACAQAAABAAAAgAgAAAAYACBABA=</HashCode>
+      <FileName>ViewModels\PanelContainerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.PanelBase" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAQCCAAEABAAAAAQAAABAAAAgBAAAAAQACAABA=</HashCode>
+      <FileName>ViewModels\PanelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.PanelHeader" Collapsed="true">
+    <Position X="4.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAFAIAAAAAAAAAAAIAUAICAEAEBA=</HashCode>
+      <FileName>ViewModels\PanelHeader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.RootNodeVM" Collapsed="true">
+    <Position X="6.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAhAYAAhQEIYAAECAAAgAAAAAKAAAAQgAAAAAABA=</HashCode>
+      <FileName>ViewModels\RootNodeVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.ParentNodeVM" Collapsed="true">
+    <Position X="8" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAQAABAEAYAAEAAAAgAAAAAIAAAAQAAAAAACBA=</HashCode>
+      <FileName>ViewModels\ParentNodeVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Nfm.Core.ViewModels.IPanel" Collapsed="true">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAACAAAEABAAAAAQAAABAAAAgAAAAAAQACAAAA=</HashCode>
+      <FileName>ViewModels\IPanel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IPanelContainer" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\IPanelContainer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IPanelContent" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\IPanelContent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IPanelContentHost" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>ViewModels\IPanelContentHost.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IViewModel" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAABAEAYAAEAAAAgAAAAAIAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\IViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IViewModelWithChilds" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgQAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\IViewModelWithChilds.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IDefaultModuleViewModel" Collapsed="true">
+    <Position X="7.25" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\IDefaultModuleViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IPanelHeader" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAACAEAAAA=</HashCode>
+      <FileName>ViewModels\IPanelHeader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
