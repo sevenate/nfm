@@ -20,6 +20,8 @@ namespace Nfm.Core.ViewModels
 	/// </summary>
 	public class StackContainer : PanelContainerBase
 	{
+		#region Binding Properties
+
 		/// <summary>
 		/// Orientation for stacked panels.
 		/// </summary>
@@ -38,6 +40,8 @@ namespace Nfm.Core.ViewModels
 				OnPropertyChanged("Orientation");
 			}
 		}
+
+		#endregion
 
 		#region .Ctors
 
