@@ -376,7 +376,11 @@ namespace Nfm.Core.ViewModels
 		/// <param name="another">Another <see cref="PanelContainerBase"/> instance to copy data from.</param>
 		protected PanelContainerBase(PanelContainerBase another)
 		{
-			Header = (IPanelHeader)another.Header.Clone();
+			if (another.Header != null)
+			{
+				Header = (IPanelHeader)another.Header.Clone();
+			}
+
 			isSelected = another.isSelected;
 
 			// Detach from parent panel
@@ -393,7 +397,7 @@ namespace Nfm.Core.ViewModels
 			// See defect #18.
 			childsCopy.CollectionChanged += OnChildsChanged;
 
-			foreach (IPanel child in another.childs)
+			foreach (IPanel child in another.Childs)
 			{
 				var newChild = (IPanel) child.Clone();
 				childsCopy.Add(newChild);

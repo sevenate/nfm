@@ -191,7 +191,10 @@ namespace Nfm.Core.ViewModels
 			CanClose = another.CanClose;
 			isSelected = another.isSelected;
 
-			PanelContent = (IPanelContent) another.PanelContent.Clone();
+			if (another.PanelContent != null)
+			{
+				PanelContent = (IPanelContent) another.PanelContent.Clone();
+			}
 
 			// Detach from parent panel
 			//	Parent = null;
