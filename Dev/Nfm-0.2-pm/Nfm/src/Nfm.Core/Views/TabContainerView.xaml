@@ -5,13 +5,13 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:Controls="clr-namespace:Nfm.Core.Controls"
 			 xmlns:Themes="clr-namespace:Nfm.Core.Themes"
-			 mc:Ignorable="d">
+			 mc:Ignorable="d"
+			 d:DesignWidth="300"
+			 d:DesignHeight="300">
 	<Grid>
 		<Controls:FastTabControl ItemsSource="{Binding Path=Childs}"
 					Style="{DynamicResource {x:Static Themes:Theme.TabControlStyleKey}}"
-					ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.TabItemStyleKey}}"
-					d:DesignWidth="300"
-					d:DesignHeight="300">
+					ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.TabItemStyleKey}}">
 			<Controls:FastTabControl.ItemTemplate>
 				<DataTemplate>
 					<ContentControl Content="{Binding Path=Header}"
