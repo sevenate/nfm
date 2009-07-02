@@ -3,8 +3,14 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:Controls="clr-namespace:Nfm.Core.Controls"
+			 xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 			 mc:Ignorable="d">
 	<Grid>
-
+		<ListBox ItemsSource="{Binding Path=Childs, IsAsync=True}"
+				 Style="{DynamicResource {x:Static Themes:Theme.ListBoxStyleKey}}"
+				 ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.ListBoxItemStyleKey}}"
+				 Controls:ListBoxExt.SelectedItemsSource="{Binding Path=SelectedItems, IsAsync=True}"
+				 Controls:ElementUtility.Dummy="{Controls:KeyboardFocusManager}" />
 	</Grid>
 </UserControl>
