@@ -3,8 +3,20 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d">
+			 xmlns:ctrl="clr-namespace:Nfm.Core.Controls"
+			 mc:Ignorable="d"
+			 d:DesignWidth="300"
+			 d:DesignHeight="300">
 	<Grid>
-
+		<ItemsControl ItemsSource="{Binding Path=Childs, IsAsync=True}"
+					  Focusable="False"
+					  SnapsToDevicePixels="True">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<ctrl:UniformStack Orientation="{Binding Path=Orientation}"
+									   Focusable="False" />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
 	</Grid>
 </UserControl>
