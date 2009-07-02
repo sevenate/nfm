@@ -146,6 +146,22 @@
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\FileToIconConverter.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\ShellContextMenu.cs" />
     <Compile Include="Modules\FileSystem\ViewModels\Unsafe\SysImageList.cs" />
+    <Compile Include="Presenters\Interfaces\IDefaultModuleViewModel.cs" />
+    <Compile Include="Presenters\Interfaces\IPanel.cs" />
+    <Compile Include="Presenters\Interfaces\IPanelContainer.cs" />
+    <Compile Include="Presenters\Interfaces\IPanelContent.cs" />
+    <Compile Include="Presenters\Interfaces\IPanelContentHost.cs" />
+    <Compile Include="Presenters\Interfaces\IPanelHeader.cs" />
+    <Compile Include="Presenters\Interfaces\IViewModel.cs" />
+    <Compile Include="Presenters\Interfaces\IViewModelWithChilds.cs" />
+    <Compile Include="Presenters\NotificationBase.cs" />
+    <Compile Include="Presenters\PanelBase.cs" />
+    <Compile Include="Presenters\PanelContainerBase.cs" />
+    <Compile Include="Presenters\PanelHeader.cs" />
+    <Compile Include="Presenters\ParentNodeVM.cs" />
+    <Compile Include="Presenters\RootNodeVM.cs" />
+    <Compile Include="Presenters\StackContainer.cs" />
+    <Compile Include="Presenters\TabContainer.cs" />
     <Compile Include="Resources\Icons\DoubleArrowIcon.xaml.cs">
       <DependentUpon>DoubleArrowIcon.xaml</DependentUpon>
     </Compile>
@@ -166,22 +182,6 @@
       <DependentUpon>MainWindowDictionary.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Theme.cs" />
-    <Compile Include="ViewModels\IPanelHeader.cs" />
-    <Compile Include="ViewModels\IViewModelWithChilds.cs" />
-    <Compile Include="ViewModels\IDefaultModuleViewModel.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
-    <Compile Include="ViewModels\IPanelContentHost.cs" />
-    <Compile Include="ViewModels\IPanelContent.cs" />
-    <Compile Include="ViewModels\IPanel.cs" />
-    <Compile Include="ViewModels\IPanelContainer.cs" />
-    <Compile Include="ViewModels\PanelBase.cs" />
-    <Compile Include="ViewModels\PanelHeader.cs" />
-    <Compile Include="ViewModels\ParentNodeVM.cs" />
-    <Compile Include="ViewModels\RootNodeVM.cs" />
-    <Compile Include="ViewModels\TabContainer.cs" />
-    <Compile Include="ViewModels\PanelContainerBase.cs" />
-    <Compile Include="ViewModels\StackContainer.cs" />
-    <Compile Include="ViewModels\NotificationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
