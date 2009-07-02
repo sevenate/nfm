@@ -3,8 +3,21 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:Controls="clr-namespace:Nfm.Core.Controls"
+			 xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 			 mc:Ignorable="d">
 	<Grid>
-
+		<Controls:FastTabControl ItemsSource="{Binding Path=Childs}"
+					Style="{DynamicResource {x:Static Themes:Theme.TabControlStyleKey}}"
+					ItemContainerStyle="{DynamicResource {x:Static Themes:Theme.TabItemStyleKey}}"
+					d:DesignWidth="300"
+					d:DesignHeight="300">
+			<Controls:FastTabControl.ItemTemplate>
+				<DataTemplate>
+					<ContentControl Content="{Binding Path=Header}"
+									Focusable="False"/>
+				</DataTemplate>
+			</Controls:FastTabControl.ItemTemplate>
+		</Controls:FastTabControl>
 	</Grid>
 </UserControl>
