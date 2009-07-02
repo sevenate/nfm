@@ -7,8 +7,8 @@
 		<ResourceDictionary Source="/Nfm.Core;component/Views/TabContainer.xaml" />
 		<ResourceDictionary Source="/Nfm.Core;component/Views/StackContainer.xaml" />
 
-		<ResourceDictionary Source="/Nfm.Core;component/Views/RootNodeView.xaml" />
-		<ResourceDictionary Source="/Nfm.Core;component/Views/ParentNodeView.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Views/RootNode.xaml" />
+		<ResourceDictionary Source="/Nfm.Core;component/Views/ParentNode.xaml" />
 
 	</ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
