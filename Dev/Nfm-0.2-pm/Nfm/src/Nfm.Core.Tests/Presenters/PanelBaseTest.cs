@@ -35,7 +35,7 @@ namespace Nfm.Core.Tests.ViewModels
 
 			var clonePanelBase = (PanelBase)panelBase.Clone();
 
-			Assert.Equal(clonePanelBase.IsSelected, panelBase.IsSelected);
+			Assert.NotEqual(clonePanelBase.PanelContent, panelBase.PanelContent);
 		}
 	}
 }
