@@ -72,33 +72,20 @@
             <param name="message">The message.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.IAction.HasTriggerEffects(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
-            <summary>
-            Determines whether this action can affect triggers
-            </summary>
-            <param name="target">The target.</param>
-            <param name="actionMessage">The action message.</param>
-            <param name="handlingNode">The node.</param>
-            <returns>
-            	<c>true</c> if can affect triggers; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.IAction.ShouldTriggerBeAvailable(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.Actions.IAction.ShouldTriggerBeAvailable(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
             <summary>
             Determines how this instance affects trigger availability.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <returns>
             	<c>true</c> if this instance enables triggers; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.IAction.Execute(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.Actions.IAction.Execute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Executes the specified action on the specified target.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="context">The context.</param>
@@ -120,12 +107,12 @@
             </summary>
             <value>The filters.</value>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.#ctor(Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IMethodBinder,Caliburn.PresentationFramework.Filters.IFilterManager)">
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.#ctor(Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IMessageBinder,Caliburn.PresentationFramework.Filters.IFilterManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Actions.ActionBase"/> class.
             </summary>
             <param name="method">The method.</param>
-            <param name="methodBinder">The method binder.</param>
+            <param name="messageBinder">The method binder.</param>
             <param name="filters">The filters.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.Matches(Caliburn.PresentationFramework.Actions.ActionMessage)">
@@ -135,51 +122,36 @@
             <param name="message">The message.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.HasTriggerEffects(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
-            <summary>
-            Determines whether this action can affect triggers
-            </summary>
-            <param name="target">The target.</param>
-            <param name="actionMessage">The action message.</param>
-            <param name="handlingNode">The node.</param>
-            <returns>
-            	<c>true</c> if can affect triggers; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.ShouldTriggerBeAvailable(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.ShouldTriggerBeAvailable(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
             <summary>
             Determines how this instance affects trigger availability.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <returns>
             	<c>true</c> if this instance enables triggers; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.Execute(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.Execute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Executes the specified this action on the specified target.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="context">The context.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.ApplyRescueOrFail(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object,System.Exception)">
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.ApplyRescueOrFail(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Exception)">
             <summary>
             Applies the rescue or fails.
             </summary>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The handling node.</param>
-            <param name="target">The target.</param>
             <param name="ex">The exception.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.DoExecute(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object[])">
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.DoExecute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object[])">
             <summary>
             Executes the core logic, specific to the action type.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="parameters">The parameters.</param>
@@ -223,12 +195,12 @@
             <param name="host">The host.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionFactory.#ctor(Caliburn.Core.Invocation.IMethodFactory,Caliburn.PresentationFramework.IMethodBinder)">
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionFactory.#ctor(Caliburn.Core.Invocation.IMethodFactory,Caliburn.PresentationFramework.IMessageBinder)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Actions.ActionFactory"/> class.
             </summary>
             <param name="methodFactory">The method factory.</param>
-            <param name="methodBinder">The parameter binder used by actions.</param>
+            <param name="messageBinder">The parameter binder used by actions.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.ActionFactory.CreateFor(Caliburn.PresentationFramework.Actions.IActionHost)">
             <summary>
@@ -261,15 +233,6 @@
             <summary>
             Hosts instances of <see cref="T:Caliburn.PresentationFramework.Actions.IAction"/> and related metadata.
             </summary>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.IActionHost.HasAction(Caliburn.PresentationFramework.Actions.ActionMessage)">
-            <summary>
-            Determines whether the host supports the specified action.
-            </summary>
-            <param name="message">The action message.</param>
-            <returns>
-            	<c>true</c> if supported; otherwise, <c>false</c>.
-            </returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.IActionHost.GetAction(Caliburn.PresentationFramework.Actions.ActionMessage)">
             <summary>
@@ -304,15 +267,6 @@
             <param name="targetType">Type of the target.</param>
             <param name="factory">The factory.</param>
             <param name="serviceLocator">The container</param>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionHost.HasAction(Caliburn.PresentationFramework.Actions.ActionMessage)">
-            <summary>
-            Determines whether the host supports the specified action.
-            </summary>
-            <param name="message">The action message.</param>
-            <returns>
-            	<c>true</c> if supported; otherwise, <c>false</c>.
-            </returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.ActionHost.GetAction(Caliburn.PresentationFramework.Actions.ActionMessage)">
             <summary>
@@ -361,9 +315,9 @@
             An <see cref="T:Caliburn.PresentationFramework.IRoutedMessage"/> for actions.
             </summary>
         </member>
-        <member name="T:Caliburn.PresentationFramework.IMessageSuppportingMethodBinding">
+        <member name="T:Caliburn.PresentationFramework.IRoutedMessageWithOutcome">
             <summary>
-            Allows am <see cref="T:Caliburn.PresentationFramework.IMethodBinder"/> to bind return values.
+            Allows am <see cref="T:Caliburn.PresentationFramework.IMessageBinder"/> to bind return values.
             </summary>
         </member>
         <member name="T:Caliburn.PresentationFramework.IRoutedMessage">
@@ -400,15 +354,15 @@
             Occurs when the message is invalidated.
             </summary>
         </member>
-        <member name="P:Caliburn.PresentationFramework.IMessageSuppportingMethodBinding.ReturnPath">
+        <member name="P:Caliburn.PresentationFramework.IRoutedMessageWithOutcome.OutcomePath">
             <summary>
-            Gets or sets the path to use in binding the return value.
+            Gets or sets the path to use in binding the <see cref="T:Caliburn.PresentationFramework.MessageProcessingOutcome"/>.
             </summary>
-            <value>The return path.</value>
+            <value>The outcome path.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.IMessageSuppportingMethodBinding.DefaultElementReturn">
+        <member name="P:Caliburn.PresentationFramework.IRoutedMessageWithOutcome.DefaultOutcomeElement">
             <summary>
-            Gets the default element to bind to if no return path is specified.
+            Gets the default element to bind to if no outcome path is specified.
             </summary>
             <value>The default element.</value>
         </member>
@@ -422,7 +376,7 @@
             Represents the method name of an action message.
             </summary>
         </member>
-        <member name="F:Caliburn.PresentationFramework.Actions.ActionMessage.ReturnPathProperty">
+        <member name="F:Caliburn.PresentationFramework.Actions.ActionMessage.OutcomePathProperty">
             <summary>
             Represents the return path of an action message.
             </summary>
@@ -472,13 +426,13 @@
             </summary>
             <value>The name of the method.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Actions.ActionMessage.ReturnPath">
+        <member name="P:Caliburn.PresentationFramework.Actions.ActionMessage.OutcomePath">
             <summary>
             Gets or sets the path to use in binding the return value.
             </summary>
             <value>The return path.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Actions.ActionMessage.DefaultElementReturn">
+        <member name="P:Caliburn.PresentationFramework.Actions.ActionMessage.DefaultOutcomeElement">
             <summary>
             Gets the default element to bind to if no return path is specified.
             </summary>
@@ -600,6 +554,12 @@
             </summary>
             <param name="trigger">The trigger.</param>
         </member>
+        <member name="P:Caliburn.PresentationFramework.Actions.ActionMessageHandler.Host">
+            <summary>
+            Gets the host.
+            </summary>
+            <value>The host.</value>
+        </member>
         <member name="T:Caliburn.PresentationFramework.Actions.ActionMessageParser">
             <summary>
             An implementation of <see cref="T:Caliburn.PresentationFramework.Actions.ActionMessage"/> for <see cref="T:Caliburn.PresentationFramework.Parsers.IMessageParser"/>.
@@ -679,7 +639,7 @@
             Designates an action as asynchronous.
             </summary>
         </member>
-        <member name="T:Caliburn.PresentationFramework.Filters.IInitializableFilter">
+        <member name="T:Caliburn.PresentationFramework.Filters.IInitializable">
             <summary>
             An <see cref="T:Caliburn.PresentationFramework.Filters.IFilter"/> that requires initialization.
             </summary>
@@ -696,7 +656,7 @@
             <remarks>Higher numbers are evaluated first.</remarks>
             <value>The order.</value>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.IInitializableFilter.Initialize(System.Type,Caliburn.Core.Metadata.IMetadataContainer,Microsoft.Practices.ServiceLocation.IServiceLocator)">
+        <member name="M:Caliburn.PresentationFramework.Filters.IInitializable.Initialize(System.Type,Caliburn.Core.Metadata.IMetadataContainer,Microsoft.Practices.ServiceLocation.IServiceLocator)">
             <summary>
             Initializes the filter.
             </summary>
@@ -704,21 +664,18 @@
             <param name="metadataContainer">The metadata container.</param>
             <param name="serviceLocator">The serviceLocator.</param>
         </member>
-        <member name="T:Caliburn.PresentationFramework.Filters.IPostExecuteFilter">
+        <member name="T:Caliburn.PresentationFramework.Filters.IPostProcessor">
             <summary>
             A filter that is executed after something.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.IPostExecuteFilter.Execute(System.Object,Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode,System.Object@)">
+        <member name="M:Caliburn.PresentationFramework.Filters.IPostProcessor.Execute(Caliburn.PresentationFramework.IRoutedMessage,Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.MessageProcessingOutcome)">
             <summary>
             Executes the filter.
             </summary>
-            <param name="target">The target.</param>
-            <param name="method">The method.</param>
-            <param name="result">The result.</param>
-            <param name="sourceNode">The source node.</param>
+            <param name="outcome">The outcome of processing the message</param>
+            <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
-            <returns>The new result type.</returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.AsyncActionAttribute.Initialize(System.Type,Caliburn.Core.Metadata.IMetadataContainer,Microsoft.Practices.ServiceLocation.IServiceLocator)">
             <summary>
@@ -728,16 +685,13 @@
             <param name="metadataContainer">The metadata container.</param>
             <param name="serviceLocator">The service locator.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.AsyncActionAttribute.Execute(System.Object,Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode,System.Object@)">
+        <member name="M:Caliburn.PresentationFramework.Actions.AsyncActionAttribute.Execute(Caliburn.PresentationFramework.IRoutedMessage,Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.MessageProcessingOutcome)">
             <summary>
             Executes the filter.
             </summary>
-            <param name="target">The target.</param>
-            <param name="method">The method.</param>
-            <param name="result">The result.</param>
-            <param name="sourceNode">The source node.</param>
+            <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
-            <returns></returns>
+            <param name="outcome">The outcome of processing the message</param>
         </member>
         <member name="P:Caliburn.PresentationFramework.Actions.AsyncActionAttribute.BlockInteraction">
             <summary>
@@ -762,47 +716,43 @@
             An asynchronous <see cref="T:Caliburn.PresentationFramework.Actions.IAction"/>.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.#ctor(Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IMethodBinder,Caliburn.PresentationFramework.Filters.IFilterManager,System.Boolean)">
+        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.#ctor(Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IMessageBinder,Caliburn.PresentationFramework.Filters.IFilterManager,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Actions.AsynchronousAction"/> class.
             </summary>
             <param name="method">The method.</param>
-            <param name="methodBinder">The method binder.</param>
+            <param name="messageBinder">The method binder.</param>
             <param name="filters">The filters.</param>
             <param name="blockInteraction">if set to <c>true</c> [block interaction].</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.Execute(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.Execute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Executes the specified this action on the specified target.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="context">The context.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.DoExecute(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object[])">
+        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.DoExecute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object[])">
             <summary>
             Executes the core logic, specific to the action type.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="parameters">The parameters.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.ApplyRescueOrFail(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object,System.Exception)">
+        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.ApplyRescueOrFail(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Exception)">
             <summary>
             Applies the rescue or fails.
             </summary>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The handling node.</param>
-            <param name="target">The target.</param>
             <param name="ex">The exception.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.TryUpdateTrigger(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Boolean)">
+        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.TryUpdateTrigger(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Boolean)">
             <summary>
             Tries to update trigger.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The handling node.</param>
             <param name="forceDisabled">if set to <c>true</c> [force disabled].</param>
@@ -818,6 +768,20 @@
             Gets a value indicating whether to block intaction with the trigger during async execution.
             </summary>
             <value><c>true</c> if should block; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Caliburn.PresentationFramework.Actions.ExtensionMethods">
+            <summary>
+            Hosts extension methods related to actions.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Actions.ExtensionMethods.HasTriggerEffects(Caliburn.PresentationFramework.Actions.IAction)">
+            <summary>
+            Determines whether the action has trigger effects.
+            </summary>
+            <param name="action">The action.</param>
+            <returns>
+            	<c>true</c> if has trigger effects; otherwise, <c>false</c>.
+            </returns>
         </member>
         <member name="T:Caliburn.PresentationFramework.Actions.OverloadedAction">
             <summary>
@@ -850,33 +814,20 @@
             <param name="message">The message.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.OverloadedAction.HasTriggerEffects(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
-            <summary>
-            Determines whether this action can affect triggers
-            </summary>
-            <param name="target">The target.</param>
-            <param name="actionMessage">The action message.</param>
-            <param name="handlingNode">The node.</param>
-            <returns>
-            	<c>true</c> if can affect triggers; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.OverloadedAction.ShouldTriggerBeAvailable(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.Actions.OverloadedAction.ShouldTriggerBeAvailable(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode)">
             <summary>
             Determines how this instance affects trigger availability.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <returns>
             	<c>true</c> if this instance enables triggers; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.OverloadedAction.Execute(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.Actions.OverloadedAction.Execute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Executes the specified this action on the specified target.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="context">The context.</param>
@@ -924,19 +875,18 @@
             A synchronous <see cref="T:Caliburn.PresentationFramework.Actions.IAction"/>.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.SynchronousAction.#ctor(Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IMethodBinder,Caliburn.PresentationFramework.Filters.IFilterManager)">
+        <member name="M:Caliburn.PresentationFramework.Actions.SynchronousAction.#ctor(Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IMessageBinder,Caliburn.PresentationFramework.Filters.IFilterManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Actions.SynchronousAction"/> class.
             </summary>
             <param name="method">The method.</param>
-            <param name="methodBinder">The method binder.</param>
+            <param name="messageBinder">The method binder.</param>
             <param name="filters">The filters.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.SynchronousAction.DoExecute(System.Object,Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object[])">
+        <member name="M:Caliburn.PresentationFramework.Actions.SynchronousAction.DoExecute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object[])">
             <summary>
             Executes the core logic, specific to the action type.
             </summary>
-            <param name="target">The target.</param>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="parameters">The parameters.</param>
@@ -1053,6 +1003,13 @@
             </summary>
             <param name="assembly">The assembly.</param>
         </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.AddNamespaceAlias(System.String,System.String)">
+            <summary>
+            Allows for the explicit mapping of a model's namespace to a view's namespace. This overrides the implicit mapping.
+            </summary>
+            <param name="modelNamespace">The namespace that the model resides in.</param>
+            <param name="viewNamespace">the namespace that the view resides in.</param>
+        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.GetView(System.Object,System.Windows.DependencyObject,System.Object)">
             <summary>
             Gets the view for displaying the specified model.
@@ -1061,6 +1018,14 @@
             <param name="displayLocation">The control into which the view will be injected.</param>
             <param name="context">Some additional context used to select the proper view.</param>
             <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.GetOrCreateViewFromType(System.Type)">
+            <summary>
+            Queries the service locator for a view matching the type. If one is not found, it attempts to instantiate the type.
+            If both options fail, it returns null.
+            </summary>
+            <param name="type">The candidate type for the view.</param>
+            <returns>An instance of a view or null.</returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.GetTypeNamesToCheck(System.Type)">
             <summary>
@@ -1086,7 +1051,7 @@
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.MakeNamespacePart(System.String)">
             <summary>
-            Makes a type name part into namespace part.
+            Makes a type name part into a namespace part.
             </summary>
             <param name="part">The part.</param>
             <returns></returns>
@@ -1573,6 +1538,12 @@
             <param name="presenter">The presenter.</param>
             <param name="completed">Called when the open action is finished.</param>
         </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenter.Add(Caliburn.PresentationFramework.ApplicationModel.IPresenter)">
+            <summary>
+            Adds the specified presenter without triggering the lifecyle.
+            </summary>
+            <param name="presenter">The presenter.</param>
+        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenter.Shutdown(Caliburn.PresentationFramework.ApplicationModel.IPresenter,System.Action{System.Boolean})">
             <summary>
             Shuts down the specified presenter.
@@ -1640,6 +1611,12 @@
             </summary>
             <param name="presenter">The presenter.</param>
             <param name="completed">Called when the open action is finished.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenterManager.Add(Caliburn.PresentationFramework.ApplicationModel.IPresenter)">
+            <summary>
+            Adds the specified presenter without triggering the lifecyle.
+            </summary>
+            <param name="presenter">The presenter.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenterManager.ShutdownCurrent(System.Action{System.Boolean})">
             <summary>
@@ -1771,7 +1748,17 @@
             Navigates forward.
             </summary>
         </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.Forward">
+            <summary>
+            Navigates forward.
+            </summary>
+        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.Back(System.Action{System.Boolean})">
+            <summary>
+            Navigates back.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.Back">
             <summary>
             Navigates back.
             </summary>
@@ -1808,6 +1795,14 @@
             </summary>
             <value>
             	<c>true</c> if this instance can go forward; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.ApplicationModel.Navigator.CanClearHistory">
+            <summary>
+            Gets a value indicating whether the history can be cleared.
+            </summary>
+            <value>
+            	<c>true</c> if the history can be cleared; otherwise, <c>false</c>.
             </value>
         </member>
         <member name="T:Caliburn.PresentationFramework.ApplicationModel.Presenter">
@@ -1875,6 +1870,20 @@
             A base collection class that supports automatic UI thread marshalling.
             </summary>
             <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.BindableCollection`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.BindableCollection`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.BindableCollection`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.BindableCollection`1"/> class.
+            </summary>
+            <param name="collection">The collection from which the elements are copied.</param>
+            <exception cref="T:System.ArgumentNullException">
+            The <paramref name="collection"/> parameter cannot be null.
+            </exception>
         </member>
         <member name="M:Caliburn.PresentationFramework.BindableCollection`1.OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs)">
             <summary>
@@ -1963,6 +1972,25 @@
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.View.SetContext(System.Windows.DependencyObject,System.Object)">
             <summary>
             Sets the context.
+            </summary>
+            <param name="d">The d.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.ApplicationModel.View.StrategyProperty">
+            <summary>
+            A dependency property for assigning an <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IViewStrategy"/> to a UI element.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.View.GetStrategy(System.Windows.DependencyObject)">
+            <summary>
+            Gets the <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IViewStrategy"/>.
+            </summary>
+            <param name="d">The d.</param>
+            <returns>The strategy.</returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.View.SetStrategy(System.Windows.DependencyObject,Caliburn.PresentationFramework.ApplicationModel.IViewStrategy)">
+            <summary>
+            Sets the <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IViewStrategy"/>.
             </summary>
             <param name="d">The d.</param>
             <param name="value">The value.</param>
@@ -2184,6 +2212,13 @@
             <param name="decoratedType">The decorated type.</param>
             <returns></returns>
         </member>
+        <member name="M:Caliburn.PresentationFramework.Commands.CommandAttribute.GetCommandName(System.Type)">
+            <summary>
+            Gets the name of the command, inferring it if no name was given.
+            </summary>
+            <param name="commandType">The command type.</param>
+            <returns>The command name.</returns>
+        </member>
         <member name="M:Caliburn.PresentationFramework.Commands.CommandAttribute.InferCommandName(System.Type)">
             <summary>
             Infers the name of the command.
@@ -2217,7 +2252,7 @@
             Represents the parent of the command.
             </summary>
         </member>
-        <member name="F:Caliburn.PresentationFramework.Commands.CommandMessage.ReturnPathProperty">
+        <member name="F:Caliburn.PresentationFramework.Commands.CommandMessage.OutcomePathProperty">
             <summary>
             Represents the return path of an command message.
             </summary>
@@ -2335,13 +2370,13 @@
             Occurs when the command has completed executing.
             </summary>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Commands.CommandMessage.ReturnPath">
+        <member name="P:Caliburn.PresentationFramework.Commands.CommandMessage.OutcomePath">
             <summary>
             Gets or sets the path to use in binding the return value.
             </summary>
             <value>The return path.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Commands.CommandMessage.DefaultElementReturn">
+        <member name="P:Caliburn.PresentationFramework.Commands.CommandMessage.DefaultOutcomeElement">
             <summary>
             Gets the default element to bind to if no return path is specified.
             </summary>
@@ -2429,18 +2464,18 @@
             A filter capable of updating trigger availability based on CommandManager notifications.
             </summary>
         </member>
-        <member name="T:Caliburn.PresentationFramework.Filters.IInstanceAwareFilter">
+        <member name="T:Caliburn.PresentationFramework.Filters.IHandlerAware">
             <summary>
             A filter that is aware individual <see cref="T:Caliburn.PresentationFramework.IMessageTrigger"/> and <see cref="T:Caliburn.PresentationFramework.IRoutedMessageHandler"/> instances.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.IInstanceAwareFilter.MakeAwareOf(Caliburn.PresentationFramework.IRoutedMessageHandler)">
+        <member name="M:Caliburn.PresentationFramework.Filters.IHandlerAware.MakeAwareOf(Caliburn.PresentationFramework.IRoutedMessageHandler)">
             <summary>
             Makes the filter aware of the <see cref="T:Caliburn.PresentationFramework.IRoutedMessageHandler"/>.
             </summary>
             <param name="messageHandler">The message handler.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.IInstanceAwareFilter.MakeAwareOf(Caliburn.PresentationFramework.IRoutedMessageHandler,Caliburn.PresentationFramework.IMessageTrigger)">
+        <member name="M:Caliburn.PresentationFramework.Filters.IHandlerAware.MakeAwareOf(Caliburn.PresentationFramework.IRoutedMessageHandler,Caliburn.PresentationFramework.IMessageTrigger)">
             <summary>
             Makes the filter aware of the <see cref="T:Caliburn.PresentationFramework.IMessageTrigger"/>.
             </summary>
@@ -2521,34 +2556,26 @@
             <param name="filterManager">The filter manager.</param>
             <returns>A new filter manager representing the filter combinations.</returns>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.IFilterManager.HasTriggerEffects">
-            <summary>
-            Gets a value indicating whether the target object has trigger affecting filters.
-            </summary>
-            <value>
-            	<c>true</c> if this instance has trigger effects; otherwise, <c>false</c>.
-            </value>
-        </member>
         <member name="P:Caliburn.PresentationFramework.Filters.IFilterManager.TriggerEffects">
             <summary>
             Gets the trigger affecting filters.
             </summary>
             <value>The trigger effects.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.IFilterManager.PreExecute">
+        <member name="P:Caliburn.PresentationFramework.Filters.IFilterManager.PreProcessors">
             <summary>
             
             Gets the filters that execute before something else.
             </summary>
             <value>The pre execute.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.IFilterManager.PostExecute">
+        <member name="P:Caliburn.PresentationFramework.Filters.IFilterManager.PostProcessors">
             <summary>
             Gets the filters that execute after something else.
             </summary>
             <value>The post execute.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.IFilterManager.InstanceAwareFilters">
+        <member name="P:Caliburn.PresentationFramework.Filters.IFilterManager.HandlerAware">
             <summary>
             Gets the instance aware filters.
             </summary>
@@ -2568,7 +2595,7 @@
             <param name="metadataContainer">The metadata container.</param>
             <param name="serviceLocator">The serviceLocator.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.FilterManager.#ctor(System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IPreExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IPreExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IPostExecuteFilter},System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IInstanceAwareFilter},System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IRescueFilter})">
+        <member name="M:Caliburn.PresentationFramework.Filters.FilterManager.#ctor(System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IPreProcessor},System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IPreProcessor},System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IPostProcessor},System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IHandlerAware},System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.Filters.IRescue})">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Filters.FilterManager"/> class.
             </summary>
@@ -2591,19 +2618,11 @@
             <param name="filterManager">The filter manager.</param>
             <returns>A new filter manager representing the filter combinations.</returns>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.FilterManager.PreExecute">
+        <member name="P:Caliburn.PresentationFramework.Filters.FilterManager.PreProcessors">
             <summary>
             Gets the filters that execute before something else.
             </summary>
             <value>The pre execute.</value>
-        </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.FilterManager.HasTriggerEffects">
-            <summary>
-            Gets a value indicating whether the target object has trigger affecting filters.
-            </summary>
-            <value>
-            	<c>true</c> if this instance has trigger effects; otherwise, <c>false</c>.
-            </value>
         </member>
         <member name="P:Caliburn.PresentationFramework.Filters.FilterManager.TriggerEffects">
             <summary>
@@ -2611,13 +2630,13 @@
             </summary>
             <value>The trigger effects.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.FilterManager.PostExecute">
+        <member name="P:Caliburn.PresentationFramework.Filters.FilterManager.PostProcessors">
             <summary>
             Gets the filters that execute after something else.
             </summary>
             <value>The post execute.</value>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.FilterManager.InstanceAwareFilters">
+        <member name="P:Caliburn.PresentationFramework.Filters.FilterManager.HandlerAware">
             <summary>
             Gets the instance aware filters.
             </summary>
@@ -2629,40 +2648,37 @@
             </summary>
             <value>The rescue.</value>
         </member>
-        <member name="T:Caliburn.PresentationFramework.Filters.IPreExecuteFilter">
+        <member name="T:Caliburn.PresentationFramework.Filters.IPreProcessor">
             <summary>
             A <see cref="T:Caliburn.PresentationFramework.Filters.IFilter"/> that is executing before something.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.IPreExecuteFilter.Execute(System.Object,Caliburn.Core.Invocation.IMethod,System.Object[],Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.Filters.IPreProcessor.Execute(Caliburn.PresentationFramework.IRoutedMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object[])">
             <summary>
             Executes the filter.
             </summary>
-            <param name="target">The target.</param>
-            <param name="method">The method.</param>
+            <param name="message">The message.</param>
             <param name="parameters">The parameters.</param>
-            <param name="sourceNode">The source node.</param>
             <param name="handlingNode">The handling node.</param>
             <returns></returns>
         </member>
-        <member name="P:Caliburn.PresentationFramework.Filters.IPreExecuteFilter.AffectsTriggers">
+        <member name="P:Caliburn.PresentationFramework.Filters.IPreProcessor.AffectsTriggers">
             <summary>
             Gets a value indicating whether this filter affects triggers.
             </summary>
             <value><c>true</c> if affects triggers; otherwise, <c>false</c>.</value>
         </member>
-        <member name="T:Caliburn.PresentationFramework.Filters.IRescueFilter">
+        <member name="T:Caliburn.PresentationFramework.Filters.IRescue">
             <summary>
             A <see cref="T:Caliburn.PresentationFramework.Filters.IFilter"/> that performs a rescue.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.IRescueFilter.Handle(System.Object,System.Exception,Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.Filters.IRescue.Handle(Caliburn.PresentationFramework.IRoutedMessage,Caliburn.PresentationFramework.IInteractionNode,System.Exception)">
             <summary>
             Handles an <see cref="T:System.Exception"/>.
             </summary>
-            <param name="target">The target.</param>
             <param name="exception">The exception.</param>
-            <param name="sourceNode">The source node.</param>
+            <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
             <returns>true if the exception was handled, false otherwise</returns>
         </member>
@@ -2719,15 +2735,13 @@
             </summary>
             <param name="method">The method.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.PreviewAttribute.Execute(System.Object,Caliburn.Core.Invocation.IMethod,System.Object[],Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.Filters.PreviewAttribute.Execute(Caliburn.PresentationFramework.IRoutedMessage,Caliburn.PresentationFramework.IInteractionNode,System.Object[])">
             <summary>
             Executes the filter.
             </summary>
-            <param name="target">The target.</param>
-            <param name="method">The method.</param>
-            <param name="parameters">The parameters.</param>
-            <param name="sourceNode">The source node.</param>
+            <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
+            <param name="parameters">The parameters.</param>
             <returns></returns>
         </member>
         <member name="P:Caliburn.PresentationFramework.Filters.PreviewAttribute.AffectsTriggers">
@@ -2748,14 +2762,13 @@
             </summary>
             <param name="methodName">Name of the method.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Filters.RescueAttribute.Handle(System.Object,System.Exception,Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.Filters.RescueAttribute.Handle(Caliburn.PresentationFramework.IRoutedMessage,Caliburn.PresentationFramework.IInteractionNode,System.Exception)">
             <summary>
             Handles an <see cref="T:System.Exception"/>.
             </summary>
-            <param name="target">The target.</param>
-            <param name="exception">The exception.</param>
-            <param name="sourceNode">The source node.</param>
+            <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
+            <param name="exception">The exception.</param>
             <returns>
             true if the exception was handled, false otherwise
             </returns>
@@ -2808,7 +2821,7 @@
             </summary>
             <param name="uiAction">The UI action.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Metadata.ExtensionMethods.GetView``1(Caliburn.Core.Metadata.IMetadataContainer)">
+        <member name="M:Caliburn.PresentationFramework.Metadata.ExtensionMethods.GetView``1(Caliburn.Core.Metadata.IMetadataContainer,System.Object)">
             <summary>
             Gets the view from metadata.
             </summary>
@@ -2816,7 +2829,7 @@
             <param name="container">The container.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Metadata.ExtensionMethods.SetView(Caliburn.Core.Metadata.IMetadataContainer,System.Object,System.Boolean)">
+        <member name="M:Caliburn.PresentationFramework.Metadata.ExtensionMethods.SetView(Caliburn.Core.Metadata.IMetadataContainer,System.Object,System.Object,System.Boolean)">
             <summary>
             Stores the view in metadata.
             </summary>
@@ -2829,25 +2842,19 @@
             Metadata that stores the current view over a model.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Metadata.ViewMetadata.SetView(System.Object,System.Boolean)">
+        <member name="M:Caliburn.PresentationFramework.Metadata.ViewMetadata.SetView(System.Object,System.Object,System.Boolean)">
             <summary>
             Sets the view.
             </summary>
             <param name="view">The view.</param>
             <param name="useWeakReference">if set to <c>true</c> uses a weak reference.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Metadata.ViewMetadata.GetTypedView``1">
+        <member name="M:Caliburn.PresentationFramework.Metadata.ViewMetadata.GetView``1(System.Object)">
             <summary>
             Gets a strongly typed view.
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
-        </member>
-        <member name="P:Caliburn.PresentationFramework.Metadata.ViewMetadata.View">
-            <summary>
-            Gets the view.
-            </summary>
-            <value>The view.</value>
         </member>
         <member name="T:Caliburn.PresentationFramework.Parsers.CommandTriggerParser">
             <summary>
@@ -3395,49 +3402,49 @@
             The conversion cannot be performed.
             </exception>
         </member>
-        <member name="T:Caliburn.PresentationFramework.DefaultResultBehavior">
+        <member name="T:Caliburn.PresentationFramework.DefaultResult">
             <summary>
             The default behavior for handling return values of bound methods.
             </summary>
         </member>
-        <member name="T:Caliburn.PresentationFramework.IExecutableResult">
+        <member name="T:Caliburn.PresentationFramework.IResult">
             <summary>
             Allows custom code to execute after the return of a method.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.IExecutableResult.Execute(Caliburn.PresentationFramework.IMessageSuppportingMethodBinding,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.IResult.Execute(Caliburn.PresentationFramework.IRoutedMessageWithOutcome,Caliburn.PresentationFramework.IInteractionNode)">
             <summary>
             Executes the custom code.
             </summary>
             <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
         </member>
-        <member name="E:Caliburn.PresentationFramework.IExecutableResult.Completed">
+        <member name="E:Caliburn.PresentationFramework.IResult.Completed">
             <summary>
             Occurs when execution has completed.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.DefaultResultBehavior.#ctor(System.Object)">
+        <member name="M:Caliburn.PresentationFramework.DefaultResult.#ctor(Caliburn.PresentationFramework.MessageProcessingOutcome)">
             <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.DefaultResultBehavior"/> class.
+            Initializes a new instance of the <see cref="!:DefaultResultBehavior"/> class.
             </summary>
-            <param name="result">The result.</param>
+            <param name="outcome">The outcome of processing the message.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.DefaultResultBehavior.#ctor(Caliburn.PresentationFramework.IRoutedMessageController,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.DefaultResult.#ctor(Caliburn.PresentationFramework.IRoutedMessageController,Caliburn.PresentationFramework.MessageProcessingOutcome)">
             <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.DefaultResultBehavior"/> class.
+            Initializes a new instance of the <see cref="!:DefaultResultBehavior"/> class.
             </summary>
             <param name="routedMessageController">The routed message controller.</param>
-            <param name="result">The result.</param>
+            <param name="outcome">The outcome of processing the message.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.DefaultResultBehavior.Execute(Caliburn.PresentationFramework.IMessageSuppportingMethodBinding,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.DefaultResult.Execute(Caliburn.PresentationFramework.IRoutedMessageWithOutcome,Caliburn.PresentationFramework.IInteractionNode)">
             <summary>
             Executes the custom code.
             </summary>
             <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.DefaultResultBehavior.FindPropertySetter(System.Object,System.String[])">
+        <member name="M:Caliburn.PresentationFramework.DefaultResult.FindPropertySetter(System.Object,System.String[])">
             <summary>
             Finds the property setter.
             </summary>
@@ -3445,12 +3452,12 @@
             <param name="propertyPath">The property path.</param>
             <returns></returns>
         </member>
-        <member name="E:Caliburn.PresentationFramework.DefaultResultBehavior.Completed">
+        <member name="E:Caliburn.PresentationFramework.DefaultResult.Completed">
             <summary>
             Occurs when execution has completed.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ExtensionMethods.WireTo(System.Object,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.ExtensionMethods.WireTo(System.Object,System.Object,System.Object)">
             <summary>
             Wires the model to the view through Action.Target and <see cref="T:Caliburn.PresentationFramework.Metadata.ViewMetadata"/>.
             </summary>
@@ -3657,30 +3664,28 @@
             </summary>
             <value>The UI element.</value>
         </member>
-        <member name="T:Caliburn.PresentationFramework.IMethodBinder">
+        <member name="T:Caliburn.PresentationFramework.IMessageBinder">
             <summary>
             A service that is capable of properly binding values to a methods parameters and return.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.IMethodBinder.DetermineParameters(Caliburn.Core.Invocation.IMethod,System.Collections.Generic.IList{Caliburn.PresentationFramework.Parameter},Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.IMessageBinder.DetermineParameters(Caliburn.PresentationFramework.IRoutedMessage,System.Collections.Generic.IList{Caliburn.PresentationFramework.RequiredParameter},Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Determines the parameters that a method should be invoked with.
             </summary>
-            <param name="targetMethod">The target method.</param>
-            <param name="providedParameters">The provided parameters.</param>
-            <param name="sourceNode">The source node.</param>
+            <param name="message">The message to determine the parameters for.</param>
+            <param name="requiredParameters">The requirements for method binding.</param>
             <param name="handlingNode">The handling node.</param>
             <param name="context">The context.</param>
             <returns>The actual parameters</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.IMethodBinder.BindReturnValue(Caliburn.PresentationFramework.IMessageSuppportingMethodBinding,Caliburn.PresentationFramework.IInteractionNode,System.Type,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.IMessageBinder.BindOutcome(Caliburn.PresentationFramework.IRoutedMessageWithOutcome,Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.MessageProcessingOutcome)">
             <summary>
             Binds the return value to the UI.
             </summary>
-            <param name="message">The originiating message.</param>
+            <param name="message">The processed message.</param>
             <param name="handlingNode">The handling node.</param>
-            <param name="finalReturnType">The actual return type.</param>
-            <param name="result">The result.</param>
+            <param name="outcome">The outcome of processing the message.</param>
         </member>
         <member name="T:Caliburn.PresentationFramework.InteractionNode">
             <summary>
@@ -3761,7 +3766,7 @@
             </summary>
             <param name="uiElement">The UI element.</param>
             <param name="handler">The message handler.</param>
-            <param name="setContext">if set to <c>true</c> the handler will also be stored in the element's DataContext and ViewMetadata will be set.</param>
+            <param name="setContext">if set to <c>true</c> the handler will also be stored in the element's DataContext.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.IRoutedMessageController.AttachTrigger(System.Windows.DependencyObject,Caliburn.PresentationFramework.IMessageTrigger)">
             <summary>
@@ -3859,38 +3864,36 @@
             <param name="d">The d.</param>
             <returns></returns>
         </member>
-        <member name="T:Caliburn.PresentationFramework.MethodBinder">
+        <member name="T:Caliburn.PresentationFramework.MessageBinder">
             <summary>
-            The default implementation of <see cref="T:Caliburn.PresentationFramework.IMethodBinder"/>.
+            The default implementation of <see cref="T:Caliburn.PresentationFramework.IMessageBinder"/>.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.#ctor(Caliburn.PresentationFramework.IRoutedMessageController)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.#ctor(Caliburn.PresentationFramework.IRoutedMessageController)">
             <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.MethodBinder"/> class.
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.MessageBinder"/> class.
             </summary>
             <param name="routedMessageController">The routed message controller.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.DetermineParameters(Caliburn.Core.Invocation.IMethod,System.Collections.Generic.IList{Caliburn.PresentationFramework.Parameter},Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.DetermineParameters(Caliburn.PresentationFramework.IRoutedMessage,System.Collections.Generic.IList{Caliburn.PresentationFramework.RequiredParameter},Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Determines the parameters that a method should be invoked with.
             </summary>
-            <param name="targetMethod">The target method.</param>
-            <param name="providedParameters">The provided parameters.</param>
-            <param name="sourceNode">The source node.</param>
+            <param name="message">The message to determine the parameters for.</param>
+            <param name="requiredParameters">The requirements for method binding.</param>
             <param name="handlingNode">The handling node.</param>
             <param name="context">The context.</param>
             <returns>The actual parameters</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.BindReturnValue(Caliburn.PresentationFramework.IMessageSuppportingMethodBinding,Caliburn.PresentationFramework.IInteractionNode,System.Type,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.BindOutcome(Caliburn.PresentationFramework.IRoutedMessageWithOutcome,Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.MessageProcessingOutcome)">
             <summary>
             Binds the return value to the UI.
             </summary>
             <param name="message">The originiating message.</param>
             <param name="handlingNode">The handling node.</param>
-            <param name="finalReturnType">The actual return type.</param>
-            <param name="result">The result.</param>
+            <param name="outcome">The outcome or processing the message.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.LocateAndCoerceValues(System.Reflection.ParameterInfo[],Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.LocateAndCoerceValues(System.Collections.Generic.IList{Caliburn.PresentationFramework.RequiredParameter},Caliburn.PresentationFramework.IInteractionNode,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Locates and perofrms type coercion for the required parameters.
             </summary>
@@ -3900,7 +3903,7 @@
             <param name="context">The context.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.CoerceValues(System.Reflection.ParameterInfo[],System.Object[],Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.CoerceValues(System.Collections.Generic.IList{Caliburn.PresentationFramework.RequiredParameter},System.Object[],Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Coerces the values.
             </summary>
@@ -3910,7 +3913,7 @@
             <param name="context">The context.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.DetermineSpecialValue(System.String,Caliburn.PresentationFramework.IInteractionNode,System.Object,System.Object@)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.DetermineSpecialValue(System.String,Caliburn.PresentationFramework.IInteractionNode,System.Object,System.Object@)">
             <summary>
             Determines if the key is a special value.
             </summary>
@@ -3920,7 +3923,7 @@
             <param name="value">The value.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.ResolveSpecialValue(System.String,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.ResolveSpecialValue(System.String,Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Resolves the special value.
             </summary>
@@ -3929,7 +3932,7 @@
             <param name="context">The context.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.CoerceParameter(System.Reflection.ParameterInfo,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.CoerceParameter(Caliburn.PresentationFramework.RequiredParameter,System.Object)">
             <summary>
             Coerces the parameter.
             </summary>
@@ -3937,7 +3940,7 @@
             <param name="providedValue">The provided value.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.CoerceValueCore(System.Type,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.CoerceValueCore(System.Type,System.Object)">
             <summary>
             Coerces the provided value to the destination type.
             </summary>
@@ -3945,12 +3948,43 @@
             <param name="providedValue">The provided value.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.MethodBinder.GetDefaultValue(System.Type)">
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.GetDefaultValue(System.Type)">
             <summary>
             Gets the default value for a type.
             </summary>
             <param name="type">The type.</param>
             <returns></returns>
+        </member>
+        <member name="T:Caliburn.PresentationFramework.MessageProcessingOutcome">
+            <summary>
+            The outcome of processing a message.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.MessageProcessingOutcome.#ctor(System.Object,System.Type,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.MessageProcessingOutcome"/> class.
+            </summary>
+            <param name="result">The result.</param>
+            <param name="resultType">Type of the result.</param>
+            <param name="wasCancelled">if set to <c>true</c> [was cancelled].</param>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.MessageProcessingOutcome.WasCancelled">
+            <summary>
+            Gets or sets a value indicating whether message processing was cancelled.
+            </summary>
+            <value><c>true</c> if cancelled; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.MessageProcessingOutcome.ResultType">
+            <summary>
+            Gets or sets the type of the result.
+            </summary>
+            <value>The type of the result.</value>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.MessageProcessingOutcome.Result">
+            <summary>
+            Gets or sets the result.
+            </summary>
+            <value>The result.</value>
         </member>
         <member name="F:Caliburn.PresentationFramework.Parameter.ValueProperty">
             <summary>
@@ -4003,7 +4037,7 @@
             <typeparam name="T">The routed message controller type.</typeparam>
             <returns>The configuration.</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.UsingMethodBinder``1">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.UsingMessageBinder``1">
             <summary>
             Customizes the method binder used by Caliburn.
             </summary>
@@ -4061,6 +4095,30 @@
             <value>
             	<c>true</c> if the framework is in design mode; otherwise, <c>false</c>.
             </value>
+        </member>
+        <member name="T:Caliburn.PresentationFramework.RequiredParameter">
+            <summary>
+            Represents a parameter that is required for message binding.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.RequiredParameter.#ctor(System.String,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.RequiredParameter"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="type">The type.</param>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.RequiredParameter.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.RequiredParameter.Type">
+            <summary>
+            Gets or sets the type.
+            </summary>
+            <value>The type.</value>
         </member>
         <member name="T:Caliburn.PresentationFramework.ResolveExtension">
             <summary>
@@ -4163,16 +4221,16 @@
         </member>
         <member name="T:Caliburn.PresentationFramework.SequentialResult">
             <summary>
-            An implementation of <see cref="T:Caliburn.PresentationFramework.IExecutableResult"/> that enables execution of multiple results.
+            An implementation of <see cref="T:Caliburn.PresentationFramework.IResult"/> that enables execution of multiple results.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.SequentialResult.#ctor(Caliburn.PresentationFramework.IExecutableResult[])">
+        <member name="M:Caliburn.PresentationFramework.SequentialResult.#ctor(System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.IResult})">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.SequentialResult"/> class.
             </summary>
             <param name="children">The children.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.SequentialResult.Execute(Caliburn.PresentationFramework.IMessageSuppportingMethodBinding,Caliburn.PresentationFramework.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.SequentialResult.Execute(Caliburn.PresentationFramework.IRoutedMessageWithOutcome,Caliburn.PresentationFramework.IInteractionNode)">
             <summary>
             Executes the custom code.
             </summary>

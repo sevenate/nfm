@@ -197,6 +197,11 @@
             </summary>
             <value><c>true</c> if cancellation is pending; otherwise, <c>false</c>.</value>
         </member>
+        <member name="E:Caliburn.Core.Threading.IBackgroundTask.Starting">
+            <summary>
+            Occurs on the background thread just prior to the execution of work.
+            </summary>
+        </member>
         <member name="E:Caliburn.Core.Threading.IBackgroundTask.ProgressChanged">
             <summary>
             Occurs when the background task indicates that progress has changed.
@@ -235,6 +240,11 @@
             Gets a value indicating whether this task's cancellation is pending.
             </summary>
             <value><c>true</c> if cancellation is pending; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="E:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.Starting">
+            <summary>
+            Occurs on the background thread just prior to the execution of work.
+            </summary>
         </member>
         <member name="E:Caliburn.Core.Invocation.Execute.SimpleDispatcher.ForegroundTask.ProgressChanged">
             <summary>
@@ -923,7 +933,11 @@
             <param name="key">The key.</param>
             <param name="comparer">The comparer.</param>
         </member>
-        <!-- Некорректный комментарий в формате XML для члена "T:Caliburn.Core.Metadata.CustomAttribute" проигнорирован -->
+        <member name="T:Caliburn.Core.Metadata.CustomAttribute">
+            <summary>
+            An attribute that directs Caliburn to register the component with a custom lifetime.
+            </summary>
+        </member>
         <member name="T:Caliburn.Core.Metadata.RegisterAttribute">
             <summary>
             An attribute that gives directions to Caliburn concerning component registration.
@@ -1045,6 +1059,11 @@
             Gets a value indicating whether this task's cancellation is pending.
             </summary>
             <value><c>true</c> if cancellation is pending; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="E:Caliburn.Core.Threading.BackgroundTask.Starting">
+            <summary>
+            Occurs on the background thread just prior to the execution of work.
+            </summary>
         </member>
         <member name="E:Caliburn.Core.Threading.BackgroundTask.ProgressChanged">
             <summary>
@@ -1237,6 +1256,22 @@
             <summary>
             Configures this module.
             </summary>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnConfiguration.Singleton(System.Object,System.Type)">
+            <summary>
+            Creates a <see cref="T:Caliburn.Core.ComponentInfo"/> with a Singleton lifetime.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnConfiguration.PerRequest(System.Object,System.Type)">
+            <summary>
+            Creates a <see cref="T:Caliburn.Core.ComponentInfo"/> with a PerRequest lifetime.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Core.CaliburnConfiguration.Core">
+            <summary>
+            Expose the core configuration to inheritors
+            </summary>
+            <value>The core configuration.</value>
         </member>
         <member name="P:Caliburn.Core.CaliburnConfiguration.Caliburn#Core#IConfigurationHook#Core">
             <summary>
@@ -1520,6 +1555,14 @@
             <param name="key">The service key.</param>
             <param name="implementation">The implementation.</param>
         </member>
+        <member name="M:Caliburn.Core.SimpleContainer.Register(System.Type,System.Type,System.String)">
+            <summary>
+            Registers the specified service.
+            </summary>
+            <param name="service">The service type.</param>
+            <param name="implementation">The implementation.</param>
+            <param name="key">The service key.</param>
+        </member>
         <member name="M:Caliburn.Core.SimpleContainer.Register``1(System.String)">
             <summary>
             Registers the specified service.
@@ -1611,11 +1654,12 @@
             <param name="serviceType">Type of service requested.</param>
             <returns>Sequence of service instance objects.</returns>
         </member>
-        <member name="M:Caliburn.Core.SimpleContainer.GetInstance(System.String)">
+        <member name="M:Caliburn.Core.SimpleContainer.GetInstance(System.String,System.Type[])">
             <summary>
             Resolves the service by key.
             </summary>
             <param name="key">The key.</param>
+            <param name="typeArguments">The type arguments for to inject into an open generic type.</param>
             <returns>
             A configured instance of the resolved service.
             </returns>
