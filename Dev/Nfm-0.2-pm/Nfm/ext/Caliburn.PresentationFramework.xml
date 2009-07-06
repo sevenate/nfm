@@ -1137,6 +1137,11 @@
             The 'P' in MVP.
             </summary>
         </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.IPresenter.Initialize">
+            <summary>
+            Initializes this instance.
+            </summary>
+        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.IPresenter.CanShutdown">
             <summary>
             Determines whether this instance can shutdown.
@@ -1144,11 +1149,6 @@
             <returns>
             	<c>true</c> if this instance can shutdown; otherwise, <c>false</c>.
             </returns>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.IPresenter.Initialize">
-            <summary>
-            Initializes this instance.
-            </summary>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.IPresenter.Shutdown">
             <summary>
@@ -1164,12 +1164,6 @@
             <summary>
             Deactivates this instance.
             </summary>
-        </member>
-        <member name="P:Caliburn.PresentationFramework.ApplicationModel.IPresenter.DisplayName">
-            <summary>
-            Gets the display name.
-            </summary>
-            <value>The display name.</value>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.IPresenterHost.Open(Caliburn.PresentationFramework.ApplicationModel.IPresenter,System.Action{System.Boolean})">
             <summary>
@@ -1401,6 +1395,44 @@
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.ApplicationModel.PresenterBase"/> class.
             </summary>
         </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.Execute(System.Object,Caliburn.PresentationFramework.IResult)">
+            <summary>
+            Executes the specified <see cref="T:Caliburn.PresentationFramework.IResult"/> on the <see cref="T:Caliburn.PresentationFramework.IInteractionNode"/> 
+            associated with the view tied to the context.
+            </summary>
+            <param name="viewContext">The view context.</param>
+            <param name="result">The result.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.Execute(Caliburn.PresentationFramework.IResult)">
+            <summary>
+            Executes the specified <see cref="T:Caliburn.PresentationFramework.IResult"/> on the <see cref="T:Caliburn.PresentationFramework.IInteractionNode"/>
+            associated with the default view.
+            </summary>
+            <param name="result">The result.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.Execute(System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.IResult})">
+            <summary>
+            Executes the specified instances of <see cref="T:Caliburn.PresentationFramework.IResult"/> on the <see cref="T:Caliburn.PresentationFramework.IInteractionNode"/> 
+            associated with the default view.
+            </summary>
+            <param name="results">The results to execute.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.Execute(System.Object,System.Collections.Generic.IEnumerable{Caliburn.PresentationFramework.IResult})">
+            <summary>
+            Executes the specified instances of <see cref="T:Caliburn.PresentationFramework.IResult"/> on the <see cref="T:Caliburn.PresentationFramework.IInteractionNode"/> 
+            associated with the view tied to the context.
+            </summary>
+            <param name="viewContext">The view context.</param>
+            <param name="results">The results to execute.</param>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.ExecuteCore">
+            <summary>
+            Executes the specified instances of <see cref="T:Caliburn.PresentationFramework.IResult"/> on the <see cref="T:Caliburn.PresentationFramework.IInteractionNode"/> 
+            associated with the view tied to the context and <see cref="T:Caliburn.Core.Metadata.IMetadataContainer"/>.
+            This delegate is provided in order to facilitate Unit Testing.  Set it to hijack
+            the execution of results.
+            </summary>
+        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.CanShutdown">
             <summary>
             Determines whether this instance can shutdown.
@@ -1538,12 +1570,6 @@
             <param name="presenter">The presenter.</param>
             <param name="completed">Called when the open action is finished.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenter.Add(Caliburn.PresentationFramework.ApplicationModel.IPresenter)">
-            <summary>
-            Adds the specified presenter without triggering the lifecyle.
-            </summary>
-            <param name="presenter">The presenter.</param>
-        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenter.Shutdown(Caliburn.PresentationFramework.ApplicationModel.IPresenter,System.Action{System.Boolean})">
             <summary>
             Shuts down the specified presenter.
@@ -1612,17 +1638,18 @@
             <param name="presenter">The presenter.</param>
             <param name="completed">Called when the open action is finished.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenterManager.Add(Caliburn.PresentationFramework.ApplicationModel.IPresenter)">
-            <summary>
-            Adds the specified presenter without triggering the lifecyle.
-            </summary>
-            <param name="presenter">The presenter.</param>
-        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenterManager.ShutdownCurrent(System.Action{System.Boolean})">
             <summary>
             Shuts down the current presenter.
             </summary>
             <param name="completed">Called when the shutdown action is finished.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenterManager.DetermineNextPresenterToActivate(System.Int32)">
+            <summary>
+            Gets the next presenter to activate after another presenter is shutdown.
+            </summary>
+            <param name="lastIndex">The index of the previously removed presenter.</param>
+            <returns>The presenter to activate or null if none.</returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.MultiPresenterManager.Shutdown(Caliburn.PresentationFramework.ApplicationModel.IPresenter,System.Action{System.Boolean})">
             <summary>
@@ -3497,13 +3524,14 @@
             <param name="element">The element.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ExtensionMethods.FindNameOrFail``1(System.Windows.FrameworkElement,System.String)">
+        <member name="M:Caliburn.PresentationFramework.ExtensionMethods.FindName``1(System.Windows.FrameworkElement,System.String,System.Boolean)">
             <summary>
             Finds an element by name or fails.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="element">The element.</param>
             <param name="name">The name.</param>
+            <param name="shouldFail">Indicates whether an exception should be throw if the named item is not found.</param>
             <returns></returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.ExtensionMethods.FindNameOrFail``1(System.Windows.FrameworkContentElement,System.String)">
@@ -3810,6 +3838,21 @@
             A property definition representing a single trigger/message attachment.
             </summary>
         </member>
+        <member name="F:Caliburn.PresentationFramework.Message.Attach2ndProperty">
+            <summary>
+            A property definition representing a single trigger/message attachment.
+            </summary>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.Message.Attach3rdProperty">
+            <summary>
+            A property definition representing a single trigger/message attachment.
+            </summary>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.Message.Attach4thProperty">
+            <summary>
+            A property definition representing a single trigger/message attachment.
+            </summary>
+        </member>
         <member name="F:Caliburn.PresentationFramework.Message.AvailabilityEffectProperty">
             <summary>
             A property representing the availability effect of a given message.
@@ -3844,6 +3887,48 @@
             <param name="attachText">The attach text.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.Message.GetAttach(System.Windows.DependencyObject)">
+            <summary>
+            Gets the attached trigger/message.
+            </summary>
+            <param name="d">The d.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Message.SetAttach2nd(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Sets the attached trigger/message.
+            </summary>
+            <param name="d">The d.</param>
+            <param name="attachText">The attach text.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Message.GetAttach2nd(System.Windows.DependencyObject)">
+            <summary>
+            Gets the attached trigger/message.
+            </summary>
+            <param name="d">The d.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Message.SetAttach3rd(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Sets the attached trigger/message.
+            </summary>
+            <param name="d">The d.</param>
+            <param name="attachText">The attach text.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Message.GetAttach3rd(System.Windows.DependencyObject)">
+            <summary>
+            Gets the attached trigger/message.
+            </summary>
+            <param name="d">The d.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Message.SetAttach4th(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Sets the attached trigger/message.
+            </summary>
+            <param name="d">The d.</param>
+            <param name="attachText">The attach text.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Message.GetAttach4th(System.Windows.DependencyObject)">
             <summary>
             Gets the attached trigger/message.
             </summary>
