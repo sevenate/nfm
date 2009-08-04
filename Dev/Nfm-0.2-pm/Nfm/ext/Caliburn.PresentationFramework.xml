@@ -107,6 +107,26 @@
             </summary>
             <value>The filters.</value>
         </member>
+        <member name="F:Caliburn.PresentationFramework.Actions.ActionBase._method">
+            <summary>
+            The method.
+            </summary>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.Actions.ActionBase._messageBinder">
+            <summary>
+            The binder.
+            </summary>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.Actions.ActionBase._filters">
+            <summary>
+            The filters.
+            </summary>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.Actions.ActionBase._requirements">
+            <summary>
+            The required parameters.
+            </summary>
+        </member>
         <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.#ctor(Caliburn.Core.Invocation.IMethod,Caliburn.PresentationFramework.IMessageBinder,Caliburn.PresentationFramework.Filters.IFilterManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Actions.ActionBase"/> class.
@@ -223,6 +243,13 @@
             <param name="host">The host.</param>
             <param name="methodInfo">The method info.</param>
             <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionFactory.TryAddCanExecute(Caliburn.PresentationFramework.Filters.IFilterManager,Caliburn.Core.Invocation.IMethod)">
+            <summary>
+            Searches for a "CanExecute" method and add the Preview if found.
+            </summary>
+            <param name="manager">The manager.</param>
+            <param name="method">The method.</param>
         </member>
         <member name="T:Caliburn.PresentationFramework.Actions.ActionHost">
             <summary>
@@ -583,15 +610,16 @@
             <param name="messageText">The message text.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Parsers.MessageParserBase`1.#ctor">
+        <member name="M:Caliburn.PresentationFramework.Parsers.MessageParserBase`1.#ctor(Caliburn.PresentationFramework.IMessageBinder)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Parsers.MessageParserBase`1"/> class.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Parsers.MessageParserBase`1.#ctor(System.Windows.Data.UpdateSourceTrigger)">
+        <member name="M:Caliburn.PresentationFramework.Parsers.MessageParserBase`1.#ctor(Caliburn.PresentationFramework.IMessageBinder,System.Windows.Data.UpdateSourceTrigger)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Parsers.MessageParserBase`1"/> class.
             </summary>
+            <param name="messageBinder">The message binder.</param>
             <param name="defaultTrigger">The default trigger.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.Parsers.MessageParserBase`1.Parse(System.Windows.DependencyObject,System.String)">
@@ -617,6 +645,19 @@
             <param name="messageText">The message text.</param>
             <param name="message">The message.</param>
             <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionMessageParser.#ctor(Caliburn.PresentationFramework.IMessageBinder)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Actions.ActionMessageParser"/> class.
+            </summary>
+            <param name="messageBinder"></param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionMessageParser.#ctor(Caliburn.PresentationFramework.IMessageBinder,System.Windows.Data.UpdateSourceTrigger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Actions.ActionMessageParser"/> class.
+            </summary>
+            <param name="messageBinder">The message binder.</param>
+            <param name="defaultTrigger">The default trigger.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.ActionMessageParser.ParseHeadAndTail(System.String,Caliburn.PresentationFramework.Actions.ActionMessage)">
             <summary>
@@ -740,14 +781,6 @@
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="parameters">The parameters.</param>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.ApplyRescueOrFail(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Exception)">
-            <summary>
-            Applies the rescue or fails.
-            </summary>
-            <param name="actionMessage">The action message.</param>
-            <param name="handlingNode">The handling node.</param>
-            <param name="ex">The exception.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.AsynchronousAction.TryUpdateTrigger(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.IInteractionNode,System.Boolean)">
             <summary>
@@ -916,13 +949,6 @@
             </summary>
             <param name="rootModel">The root model.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.CaliburnApplication.OnShutdownAttempted(Caliburn.PresentationFramework.ApplicationModel.IPresenter,System.ComponentModel.CancelEventArgs)">
-            <summary>
-            Called when shutdown attempted.
-            </summary>
-            <param name="rootModel">The root model.</param>
-            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
-        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.CaliburnApplication.ExecuteShutdownModel(Caliburn.PresentationFramework.ApplicationModel.ISubordinate,System.Action)">
             <summary>
             Executes the shutdown model.
@@ -954,11 +980,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.CaliburnApplication.ConfigurePresentationFramework(Caliburn.PresentationFramework.PresentationFrameworkConfiguration)">
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.CaliburnApplication.ConfigurePresentationFramework(Caliburn.PresentationFramework.PresentationFrameworkModule)">
             <summary>
             Configures the presentation framework.
             </summary>
-            <param name="configuration">The configuration.</param>
+            <param name="module">The configuration.</param>
         </member>
         <member name="P:Caliburn.PresentationFramework.ApplicationModel.CaliburnApplication.Container">
             <summary>
@@ -985,23 +1011,12 @@
             <param name="context">Some additional context used to select the proper view.</param>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.IViewStrategy.AddViewSearchLocation(System.Reflection.Assembly)">
-            <summary>
-            Adds the view location.
-            </summary>
-            <param name="assembly">The assembly.</param>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.#ctor(Microsoft.Practices.ServiceLocation.IServiceLocator)">
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.#ctor(Caliburn.Core.IAssemblySource,Microsoft.Practices.ServiceLocation.IServiceLocator)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy"/> class.
             </summary>
+            <param name="assemblySource">The assembly source.</param>
             <param name="serviceLocator">The service locator.</param>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.AddViewSearchLocation(System.Reflection.Assembly)">
-            <summary>
-            Adds the view location.
-            </summary>
-            <param name="assembly">The assembly.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultViewStrategy.AddNamespaceAlias(System.String,System.String)">
             <summary>
@@ -1056,6 +1071,82 @@
             <param name="part">The part.</param>
             <returns></returns>
         </member>
+        <member name="T:Caliburn.PresentationFramework.ApplicationModel.DefaultWindowManager">
+            <summary>
+            An implementation of <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IWindowManager"/>.
+            </summary>
+        </member>
+        <member name="T:Caliburn.PresentationFramework.ApplicationModel.IWindowManager">
+            <summary>
+            A service that manages windows.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.IWindowManager.Show(System.Object,System.Object,System.Action{Caliburn.PresentationFramework.ApplicationModel.ISubordinate,System.Action})">
+            <summary>
+            Shows a window for the specified model.
+            </summary>
+            <param name="rootModel">The root model.</param>
+            <param name="context">The context.</param>
+            <param name="handleShutdownModel">The handle shutdown model.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.IWindowManager.ShowDialog(System.Object,System.Object,System.Action{Caliburn.PresentationFramework.ApplicationModel.ISubordinate,System.Action})">
+            <summary>
+            Shows a modal dialog for the specified model.
+            </summary>
+            <param name="rootModel">The root model.</param>
+            <param name="context">The context.</param>
+            <param name="handleShutdownModel">The handle shutdown model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultWindowManager.#ctor(Caliburn.PresentationFramework.ApplicationModel.IViewStrategy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.ApplicationModel.DefaultWindowManager"/> class.
+            </summary>
+            <param name="viewStrategy">The view strategy.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultWindowManager.ShowDialog(System.Object,System.Object,System.Action{Caliburn.PresentationFramework.ApplicationModel.ISubordinate,System.Action})">
+            <summary>
+            Shows the dialog.
+            </summary>
+            <param name="rootModel">The root model.</param>
+            <param name="context">The context.</param>
+            <param name="handleShutdownModel">The handle shutdown model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultWindowManager.Show(System.Object,System.Object,System.Action{Caliburn.PresentationFramework.ApplicationModel.ISubordinate,System.Action})">
+            <summary>
+            Shows a window for the specified model.
+            </summary>
+            <param name="rootModel">The root model.</param>
+            <param name="context">The context.</param>
+            <param name="handleShutdownModel">The handle shutdown model.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultWindowManager.CreateWindow(System.Object,System.Object,System.Action{Caliburn.PresentationFramework.ApplicationModel.ISubordinate,System.Action})">
+            <summary>
+            Creates the window.
+            </summary>
+            <param name="rootModel">The root model.</param>
+            <param name="context">The context.</param>
+            <param name="handleShutdownModel">The handle shutdown model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultWindowManager.EnsureWindow(System.Object,System.Object)">
+            <summary>
+            Ensures the that the view is a window or provides one.
+            </summary>
+            <param name="model">The model.</param>
+            <param name="view">The view.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.DefaultWindowManager.OnShutdownAttempted(Caliburn.PresentationFramework.ApplicationModel.IPresenter,System.Windows.Window,System.Action{Caliburn.PresentationFramework.ApplicationModel.ISubordinate,System.Action},System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Called when shutdown attempted.
+            </summary>
+            <param name="rootModel">The root model.</param>
+            <param name="view">The view.</param>
+            <param name="handleShutdownModel">The handler for the shutdown model.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+        </member>
         <member name="T:Caliburn.PresentationFramework.ApplicationModel.ExtensionMethods">
             <summary>
             Hosts extension methods for presenter related classes.
@@ -1097,6 +1188,36 @@
             <param name="navigator">The navigator.</param>
             <param name="function">The function.</param>
         </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.ExtensionMethods.Show(Caliburn.PresentationFramework.ApplicationModel.IWindowManager,System.Object)">
+            <summary>
+            Shows the window for the model.
+            </summary>
+            <param name="manager">The manager.</param>
+            <param name="rootModel">The root model.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.ExtensionMethods.ShowDialog(Caliburn.PresentationFramework.ApplicationModel.IWindowManager,System.Object)">
+            <summary>
+            Shows the dialog for the model.
+            </summary>
+            <param name="manager">The manager.</param>
+            <param name="rootModel">The root model.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.ExtensionMethods.Show(Caliburn.PresentationFramework.ApplicationModel.IWindowManager,System.Object,System.Object)">
+            <summary>
+            Shows the windwo for the model.
+            </summary>
+            <param name="manager">The manager.</param>
+            <param name="rootModel">The root model.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.ExtensionMethods.ShowDialog(Caliburn.PresentationFramework.ApplicationModel.IWindowManager,System.Object,System.Object)">
+            <summary>
+            Shows the dialog for the model.
+            </summary>
+            <param name="manager">The manager.</param>
+            <param name="rootModel">The root model.</param>
+            <param name="context">The context.</param>
+        </member>
         <member name="T:Caliburn.PresentationFramework.ApplicationModel.ILifecycleNotifier">
             <summary>
             A class capable of notifying subscribers of events related to the lifecycle of an <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter"/>.
@@ -1132,6 +1253,11 @@
             An <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter"/> capable of managing other presenters.
             </summary>
         </member>
+        <member name="T:Caliburn.PresentationFramework.ApplicationModel.IPresenterHost">
+            <summary>
+            Represents an <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter"/> that hosts other instances of <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter"/>.
+            </summary>
+        </member>
         <member name="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter">
             <summary>
             The 'P' in MVP.
@@ -1164,6 +1290,12 @@
             <summary>
             Deactivates this instance.
             </summary>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.ApplicationModel.IPresenter.DisplayName">
+            <summary>
+            Gets or sets the display name.
+            </summary>
+            <value>The display name.</value>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.IPresenterHost.Open(Caliburn.PresentationFramework.ApplicationModel.IPresenter,System.Action{System.Boolean})">
             <summary>
@@ -1234,6 +1366,17 @@
             	<c>true</c> if this instance can go forward; otherwise, <c>false</c>.
             </value>
         </member>
+        <member name="T:Caliburn.PresentationFramework.ApplicationModel.IPresenterNode">
+            <summary>
+            An <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter"/> that is aware of its position within a hierarchy.
+            </summary>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.ApplicationModel.IPresenterNode.Parent">
+            <summary>
+            Gets or sets the parent.
+            </summary>
+            <value>The parent.</value>
+        </member>
         <member name="T:Caliburn.PresentationFramework.ApplicationModel.IsolatedStorageStateManager">
             <summary>
             An implementation of <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IStateManager"/> that uses isolated storage as its backing store.
@@ -1298,7 +1441,7 @@
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.IsolatedStorageStateManager.CommitChanges(System.String)">
             <summary>
-            Commits the cha dnges.
+            Commits the changes.
             </summary>
             <param name="stateName">Name of the state.</param>
             <returns></returns>
@@ -1385,10 +1528,27 @@
             	<c>true</c> if this instance can shutdown; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="T:Caliburn.PresentationFramework.ApplicationModel.MultiPresenter">
+            <summary>
+            An <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter"/> that hosts multiple other <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter"/> without designating any one as current.
+            </summary>
+        </member>
         <member name="T:Caliburn.PresentationFramework.ApplicationModel.PresenterBase">
             <summary>
             Implements common functionality used by all implementors of <see cref="T:Caliburn.PresentationFramework.ApplicationModel.IPresenter"/>.
             </summary>
+        </member>
+        <member name="T:Caliburn.PresentationFramework.IViewAware">
+            <summary>
+            Indicates the a model/presenter should be made aware of its view.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.IViewAware.ViewLoaded(System.Object,System.Object)">
+            <summary>
+            Called when the implementor's view is loaded.
+            </summary>
+            <param name="view">The view.</param>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.#ctor">
             <summary>
@@ -1494,6 +1654,24 @@
             </summary>
             <param name="model">The model.</param>
             <param name="completed">Called when the shutdown model is finished executing.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.ViewLoaded(System.Object,System.Object)">
+            <summary>
+            Called when the presenter's view is loaded.
+            </summary>
+            <param name="view">The view.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.Close">
+            <summary>
+            Closes this instance by asking its Parent to initiate shutdown or by asking it's corresponding default view to close.
+            </summary>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.Parent">
+            <summary>
+            Gets or sets the parent.
+            </summary>
+            <value>The parent.</value>
         </member>
         <member name="P:Caliburn.PresentationFramework.ApplicationModel.PresenterBase.IsInitialized">
             <summary>
@@ -1775,17 +1953,7 @@
             Navigates forward.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.Forward">
-            <summary>
-            Navigates forward.
-            </summary>
-        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.Back(System.Action{System.Boolean})">
-            <summary>
-            Navigates back.
-            </summary>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.Back">
             <summary>
             Navigates back.
             </summary>
@@ -1802,11 +1970,42 @@
             Clears the navigation history.
             </summary>
         </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.Forward">
+            <summary>
+            Navigates forward.
+            </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.Back">
+            <summary>
+            Navigates back.
+            </summary>
+        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.Navigator.NotifyOfPropertyChange(System.String)">
             <summary>
             Notifies subscribers of the property change.
             </summary>
             <param name="propertyName">Name of the property.</param>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.ApplicationModel.Navigator.CanClearHistory">
+            <summary>
+            Gets a value indicating whether the history can be cleared.
+            </summary>
+            <value>
+            	<c>true</c> if the history can be cleared; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.ApplicationModel.Navigator.Count">
+            <summary>
+            Gets the total number of actions tracked by the navigator 
+            </summary>
+        </member>
+        <member name="P:Caliburn.PresentationFramework.ApplicationModel.Navigator.CurrentPosition">
+            <summary>
+            Gets the position of the current action
+            </summary>
+            <remarks>
+            This is intended for display within a UI.
+            </remarks>
         </member>
         <member name="P:Caliburn.PresentationFramework.ApplicationModel.Navigator.CanGoBack">
             <summary>
@@ -1822,14 +2021,6 @@
             </summary>
             <value>
             	<c>true</c> if this instance can go forward; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:Caliburn.PresentationFramework.ApplicationModel.Navigator.CanClearHistory">
-            <summary>
-            Gets a value indicating whether the history can be cleared.
-            </summary>
-            <value>
-            	<c>true</c> if the history can be cleared; otherwise, <c>false</c>.
             </value>
         </member>
         <member name="T:Caliburn.PresentationFramework.ApplicationModel.Presenter">
@@ -1895,6 +2086,12 @@
         <member name="T:Caliburn.PresentationFramework.BindableCollection`1">
             <summary>
             A base collection class that supports automatic UI thread marshalling.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Caliburn.PresentationFramework.IObservableCollection`1">
+            <summary>
+            Represents a collection that is observable.
             </summary>
             <typeparam name="T"></typeparam>
         </member>
@@ -2048,12 +2245,6 @@
             <param name="context">Some additional context used to select the proper view.</param>
             <returns>The view.</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.ViewStrategyAttribute.AddViewSearchLocation(System.Reflection.Assembly)">
-            <summary>
-            Adds the view location.
-            </summary>
-            <param name="assembly">The assembly.</param>
-        </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.ViewAttribute.#ctor(System.Type)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.ApplicationModel.ViewAttribute"/> class.
@@ -2077,12 +2268,6 @@
             <param name="displayLocation">The control into which the view will be injected.</param>
             <param name="context">Some additional context used to select the proper view.</param>
             <returns>The view.</returns>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.ViewAttribute.AddViewSearchLocation(System.Reflection.Assembly)">
-            <summary>
-            Adds the view location.
-            </summary>
-            <param name="assembly">The assembly.</param>
         </member>
         <member name="P:Caliburn.PresentationFramework.ApplicationModel.ViewAttribute.Key">
             <summary>
@@ -2437,16 +2622,18 @@
             An implementation of <see cref="T:Caliburn.PresentationFramework.Parsers.IMessageParser"/> for commands.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Commands.CommandMessageParser.#ctor(Caliburn.PresentationFramework.Commands.CommandSource)">
+        <member name="M:Caliburn.PresentationFramework.Commands.CommandMessageParser.#ctor(Caliburn.PresentationFramework.IMessageBinder,Caliburn.PresentationFramework.Commands.CommandSource)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Commands.CommandMessageParser"/> class.
             </summary>
+            <param name="messageBinder">The message binder.</param>
             <param name="commandSource">The location that the parser will use to get the command.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Commands.CommandMessageParser.#ctor(System.Windows.Data.UpdateSourceTrigger,Caliburn.PresentationFramework.Commands.CommandSource)">
+        <member name="M:Caliburn.PresentationFramework.Commands.CommandMessageParser.#ctor(Caliburn.PresentationFramework.IMessageBinder,System.Windows.Data.UpdateSourceTrigger,Caliburn.PresentationFramework.Commands.CommandSource)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Commands.CommandMessageParser"/> class.
             </summary>
+            <param name="messageBinder">The binder.</param>
             <param name="defaultTrigger">The default trigger.</param>
             <param name="commandSource">The location that the parser will use to get the command.</param>
         </member>
@@ -2714,6 +2901,11 @@
             A base class for filters that make method calls.
             </summary>
         </member>
+        <member name="F:Caliburn.PresentationFramework.Filters.MethodCallFilterBase._method">
+            <summary>
+            The method.
+            </summary>
+        </member>
         <member name="M:Caliburn.PresentationFramework.Filters.MethodCallFilterBase.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.Filters.MethodCallFilterBase"/> class.
@@ -2848,12 +3040,18 @@
             </summary>
             <param name="uiAction">The UI action.</param>
         </member>
+        <member name="T:Caliburn.PresentationFramework.Metadata.ExtensionMethods">
+            <summary>
+            Extension methods realted to metadata.
+            </summary>
+        </member>
         <member name="M:Caliburn.PresentationFramework.Metadata.ExtensionMethods.GetView``1(Caliburn.Core.Metadata.IMetadataContainer,System.Object)">
             <summary>
             Gets the view from metadata.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="container">The container.</param>
+            <param name="context">The context.</param>
             <returns></returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.Metadata.ExtensionMethods.SetView(Caliburn.Core.Metadata.IMetadataContainer,System.Object,System.Object,System.Boolean)">
@@ -2862,6 +3060,7 @@
             </summary>
             <param name="container">The container.</param>
             <param name="view">The view.</param>
+            <param name="context">The context.</param>
             <param name="useWeakReference">Indicates whether the view should be referenced weakly.</param>
         </member>
         <member name="T:Caliburn.PresentationFramework.Metadata.ViewMetadata">
@@ -2874,6 +3073,7 @@
             Sets the view.
             </summary>
             <param name="view">The view.</param>
+            <param name="context">The context</param>
             <param name="useWeakReference">if set to <c>true</c> uses a weak reference.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.Metadata.ViewMetadata.GetView``1(System.Object)">
@@ -3453,13 +3653,13 @@
         </member>
         <member name="M:Caliburn.PresentationFramework.DefaultResult.#ctor(Caliburn.PresentationFramework.MessageProcessingOutcome)">
             <summary>
-            Initializes a new instance of the <see cref="!:DefaultResultBehavior"/> class.
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.DefaultResult"/> class.
             </summary>
             <param name="outcome">The outcome of processing the message.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.DefaultResult.#ctor(Caliburn.PresentationFramework.IRoutedMessageController,Caliburn.PresentationFramework.MessageProcessingOutcome)">
             <summary>
-            Initializes a new instance of the <see cref="!:DefaultResultBehavior"/> class.
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.DefaultResult"/> class.
             </summary>
             <param name="routedMessageController">The routed message controller.</param>
             <param name="outcome">The outcome of processing the message.</param>
@@ -3471,7 +3671,7 @@
             <param name="message">The message.</param>
             <param name="handlingNode">The handling node.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.DefaultResult.FindPropertySetter(System.Object,System.String[])">
+        <member name="M:Caliburn.PresentationFramework.DefaultResult.CreateSetter(System.Object,System.String[])">
             <summary>
             Finds the property setter.
             </summary>
@@ -3484,12 +3684,18 @@
             Occurs when execution has completed.
             </summary>
         </member>
+        <member name="T:Caliburn.PresentationFramework.ExtensionMethods">
+            <summary>
+            Extension methods related to the PresentationFramework classes.
+            </summary>
+        </member>
         <member name="M:Caliburn.PresentationFramework.ExtensionMethods.WireTo(System.Object,System.Object,System.Object)">
             <summary>
-            Wires the model to the view through Action.Target and <see cref="T:Caliburn.PresentationFramework.Metadata.ViewMetadata"/>.
+            Wires the model to the view through Action.Target and <see cref="T:Caliburn.PresentationFramework.Metadata.ViewMetadata"/>.  Wires the <see cref="T:Caliburn.PresentationFramework.IViewAware"/> interface.
             </summary>
             <param name="model">The model.</param>
             <param name="view">The view.</param>
+            <param name="context">The context.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.ExtensionMethods.GetResource``1(System.Windows.FrameworkElement,System.Object)">
             <summary>
@@ -3696,6 +3902,22 @@
             <summary>
             A service that is capable of properly binding values to a methods parameters and return.
             </summary>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.IMessageBinder.IsSpecialValue(System.String)">
+            <summary>
+            Determines whether the supplied value is recognized as a specialy treated value.
+            </summary>
+            <param name="potential">The potential value.</param>
+            <returns>
+            	<c>true</c> if a special value; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.IMessageBinder.AddValueHandler(System.String,System.Func{Caliburn.PresentationFramework.IInteractionNode,System.Object,System.Object})">
+            <summary>
+            Identifies a special value along with its handler.
+            </summary>
+            <param name="specialValue">The special value.</param>
+            <param name="handler">The handler.</param>
         </member>
         <member name="M:Caliburn.PresentationFramework.IMessageBinder.DetermineParameters(Caliburn.PresentationFramework.IRoutedMessage,System.Collections.Generic.IList{Caliburn.PresentationFramework.RequiredParameter},Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
@@ -3960,6 +4182,22 @@
             </summary>
             <param name="routedMessageController">The routed message controller.</param>
         </member>
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.IsSpecialValue(System.String)">
+            <summary>
+            Determines whether the supplied value is recognized as a specialy treated value.
+            </summary>
+            <param name="potential">The potential value.</param>
+            <returns>
+            	<c>true</c> if a special value; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.AddValueHandler(System.String,System.Func{Caliburn.PresentationFramework.IInteractionNode,System.Object,System.Object})">
+            <summary>
+            Identifies a special value along with its handler.
+            </summary>
+            <param name="specialValue">The special value.</param>
+            <param name="handler">The handler.</param>
+        </member>
         <member name="M:Caliburn.PresentationFramework.MessageBinder.DetermineParameters(Caliburn.PresentationFramework.IRoutedMessage,System.Collections.Generic.IList{Caliburn.PresentationFramework.RequiredParameter},Caliburn.PresentationFramework.IInteractionNode,System.Object)">
             <summary>
             Determines the parameters that a method should be invoked with.
@@ -4012,7 +4250,7 @@
             <summary>
             Resolves the special value.
             </summary>
-            <param name="possibleSpecialValue">The possible special value.</param>
+            <param name="potential">The possible special value.</param>
             <param name="sourceNode">The source node.</param>
             <param name="context">The context.</param>
             <returns></returns>
@@ -4021,7 +4259,7 @@
             <summary>
             Coerces the parameter.
             </summary>
-            <param name="info">The info.</param>
+            <param name="parameter">The required parameter.</param>
             <param name="providedValue">The provided value.</param>
             <returns></returns>
         </member>
@@ -4038,6 +4276,20 @@
             Gets the default value for a type.
             </summary>
             <param name="type">The type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.InitializeDefaultValueHandlers">
+            <summary>
+            Creates the default value handlers.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.MessageBinder.CreateGetter(System.Object,System.String[])">
+            <summary>
+            Finds the property setter.
+            </summary>
+            <param name="target">The target.</param>
+            <param name="propertyPath">The property path.</param>
             <returns></returns>
         </member>
         <member name="T:Caliburn.PresentationFramework.MessageProcessingOutcome">
@@ -4070,6 +4322,11 @@
             Gets or sets the result.
             </summary>
             <value>The result.</value>
+        </member>
+        <member name="T:Caliburn.PresentationFramework.Parameter">
+            <summary>
+            Represents a parameter of a message.
+            </summary>
         </member>
         <member name="F:Caliburn.PresentationFramework.Parameter.ValueProperty">
             <summary>
@@ -4104,76 +4361,83 @@
             Occurs when [value changed].
             </summary>
         </member>
-        <member name="T:Caliburn.PresentationFramework.PresentationFrameworkConfiguration">
+        <member name="T:Caliburn.PresentationFramework.PresentationFrameworkModule">
             <summary>
             The configuration for the routed UI messaging mechanism.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.#ctor(Caliburn.Core.IConfigurationHook)">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.#ctor(Caliburn.Core.IConfigurationHook)">
             <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.PresentationFrameworkConfiguration"/> class.
+            Initializes a new instance of the <see cref="T:Caliburn.PresentationFramework.PresentationFrameworkModule"/> class.
             </summary>
             <param name="hook">The hook.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.UsingRoutedMessageController``1">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.UsingRoutedMessageController``1">
             <summary>
             Customizes the routed message controller used by Caliburn.
             </summary>
             <typeparam name="T">The routed message controller type.</typeparam>
             <returns>The configuration.</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.UsingMessageBinder``1">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.UsingMessageBinder``1">
             <summary>
             Customizes the method binder used by Caliburn.
             </summary>
             <typeparam name="T">The method binder type.</typeparam>
             <returns>The configuration.</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.UsingParser``1">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.UsingParser``1">
             <summary>
             Customizes the message parser used by Caliburn.
             </summary>
             <typeparam name="T">The message parser type.</typeparam>
             <returns>The configuration.</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.UsingDispatcher``1">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.UsingDispatcher``1">
             <summary>
             Customizes the dispatcher implementation.
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.UsingActionFactory``1">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.UsingActionFactory``1">
             <summary>
             Customizes the action factory used by Caliburn.
             </summary>
             <typeparam name="T">The action factory type.</typeparam>
             <returns>The configuration.</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.UsingViewStrategy``1">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.UsingViewStrategy``1">
             <summary>
             Customizes the view strategy used by Caliburn.
             </summary>
             <typeparam name="T">The view strategy type.</typeparam>
             <returns>The configuration.</returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.GetComponents">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.UsingWindowManager``1">
+            <summary>
+            Customizes the window manager used by Caliburn.
+            </summary>
+            <typeparam name="T">The window manager type.</typeparam>
+            <returns>The configuration.</returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.GetComponents">
             <summary>
             Gets the component information for this module.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.Configure">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.Initialize">
             <summary>
-            Configures this module.
+            Initializes this module.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.SetupDefaultInteractions">
+        <member name="M:Caliburn.PresentationFramework.PresentationFrameworkModule.SetupDefaultInteractions">
             <summary>
             Sets up the default interactions.
             </summary>
         </member>
-        <member name="P:Caliburn.PresentationFramework.PresentationFrameworkConfiguration.IsInDesignMode">
+        <member name="P:Caliburn.PresentationFramework.PresentationFrameworkModule.IsInDesignMode">
             <summary>
             Gets a value indicating whether the framework is in design mode.
             </summary>

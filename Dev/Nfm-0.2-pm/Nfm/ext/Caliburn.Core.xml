@@ -80,6 +80,19 @@
             </summary>
             <param name="action">The action.</param>
         </member>
+        <member name="M:Caliburn.Core.Invocation.EventHandlerFactory.GenericEventHandler`2.SetActualHandler(System.Action{System.Object[]})">
+            <summary>
+            Sets the actual handler for the event.
+            </summary>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:Caliburn.Core.Invocation.EventHandlerFactory.GenericEventHandler`2.Invoke(`0,`1)">
+            <summary>
+            Invokes the handler.
+            </summary>
+            <param name="argT">The arg T.</param>
+            <param name="argK">The arg K.</param>
+        </member>
         <member name="T:Caliburn.Core.Invocation.Execute">
             <summary>
             Utility methods supporting various forms of method execution.
@@ -642,6 +655,17 @@
             </summary>
             <value></value>
         </member>
+        <member name="F:Caliburn.Core.MemoryManagement.BaseDictionary`2.Collection`1.dictionary">
+            <summary>
+            the inner dictionary
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.Collection`1.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.MemoryManagement.BaseDictionary`2.Collection`1"/> class.
+            </summary>
+            <param name="dictionary">The dictionary.</param>
+        </member>
         <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.Collection`1.CopyTo(`2[],System.Int32)">
             <summary>
             Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
@@ -703,6 +727,13 @@
             An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
             </returns>
         </member>
+        <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.Collection`1.GetItem(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Gets the item.
+            </summary>
+            <param name="pair">The pair.</param>
+            <returns></returns>
+        </member>
         <member name="P:Caliburn.Core.MemoryManagement.BaseDictionary`2.Collection`1.Count">
             <summary>
             Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
@@ -716,6 +747,19 @@
             </summary>
             <value></value>
             <returns>true if the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only; otherwise, false.</returns>
+        </member>
+        <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.KeyCollection.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.MemoryManagement.BaseDictionary`2.KeyCollection"/> class.
+            </summary>
+            <param name="dictionary">The dictionary.</param>
+        </member>
+        <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.KeyCollection.GetItem(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Gets the item.
+            </summary>
+            <param name="pair">The pair.</param>
+            <returns></returns>
         </member>
         <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.KeyCollection.Contains(`0)">
             <summary>
@@ -731,6 +775,13 @@
             Initializes a new instance of the <see cref="T:Caliburn.Core.MemoryManagement.BaseDictionary`2.ValueCollection"/> class.
             </summary>
             <param name="dictionary">The dictionary.</param>
+        </member>
+        <member name="M:Caliburn.Core.MemoryManagement.BaseDictionary`2.ValueCollection.GetItem(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            Gets the item.
+            </summary>
+            <param name="pair">The pair.</param>
+            <returns></returns>
         </member>
         <member name="T:Caliburn.Core.MemoryManagement.WeakReference`1">
             <summary>
@@ -958,8 +1009,23 @@
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.CustomAttribute"/> class.
             </summary>
-            <param name="typeKey">The type key.</param>
+            <param name="service">The type key.</param>
             <param name="customLifetimeType">The custom lifetime type.</param>
+        </member>
+        <member name="M:Caliburn.Core.Metadata.CustomAttribute.#ctor(System.String,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.CustomAttribute"/> class.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="customLifetimeType">Type of the custom lifetime.</param>
+        </member>
+        <member name="M:Caliburn.Core.Metadata.CustomAttribute.#ctor(System.String,System.Type,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.CustomAttribute"/> class.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="service">The service.</param>
+            <param name="customLifetimeType">Type of the custom lifetime.</param>
         </member>
         <member name="M:Caliburn.Core.Metadata.CustomAttribute.GetComponentInfo(System.Type)">
             <summary>
@@ -967,11 +1033,17 @@
             </summary>
             <param name="decoratedType">The decorated type.</param>
         </member>
-        <member name="P:Caliburn.Core.Metadata.CustomAttribute.TypeKey">
+        <member name="P:Caliburn.Core.Metadata.CustomAttribute.Service">
             <summary>
-            Gets the type key.
+            Gets the service type.
             </summary>
-            <value>The type key.</value>
+            <value>The service type.</value>
+        </member>
+        <member name="P:Caliburn.Core.Metadata.CustomAttribute.Key">
+            <summary>
+            Gets the key.
+            </summary>
+            <value>The key.</value>
         </member>
         <member name="P:Caliburn.Core.Metadata.CustomAttribute.CustomLifetimeType">
             <summary>
@@ -988,7 +1060,20 @@
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.PerRequestAttribute"/> class.
             </summary>
-            <param name="typeKey">The type key.</param>
+            <param name="service">The type key.</param>
+        </member>
+        <member name="M:Caliburn.Core.Metadata.PerRequestAttribute.#ctor(System.String,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.PerRequestAttribute"/> class.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="service">The type key.</param>
+        </member>
+        <member name="M:Caliburn.Core.Metadata.PerRequestAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.SingletonAttribute"/> class.
+            </summary>
+            <param name="key">The key.</param>
         </member>
         <member name="M:Caliburn.Core.Metadata.PerRequestAttribute.GetComponentInfo(System.Type)">
             <summary>
@@ -996,11 +1081,17 @@
             </summary>
             <param name="decoratedType">The decorated type.</param>
         </member>
-        <member name="P:Caliburn.Core.Metadata.PerRequestAttribute.TypeKey">
+        <member name="P:Caliburn.Core.Metadata.PerRequestAttribute.Service">
             <summary>
-            Gets the type key.
+            Gets the service type.
             </summary>
-            <value>The type key.</value>
+            <value>The service type.</value>
+        </member>
+        <member name="P:Caliburn.Core.Metadata.PerRequestAttribute.Key">
+            <summary>
+            Gets the key.
+            </summary>
+            <value>The key.</value>
         </member>
         <member name="T:Caliburn.Core.Metadata.SingletonAttribute">
             <summary>
@@ -1011,7 +1102,20 @@
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.SingletonAttribute"/> class.
             </summary>
-            <param name="typeKey">The type key.</param>
+            <param name="service">The type key.</param>
+        </member>
+        <member name="M:Caliburn.Core.Metadata.SingletonAttribute.#ctor(System.String,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.SingletonAttribute"/> class.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="service">The service.</param>
+        </member>
+        <member name="M:Caliburn.Core.Metadata.SingletonAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.Metadata.SingletonAttribute"/> class.
+            </summary>
+            <param name="key">The key.</param>
         </member>
         <member name="M:Caliburn.Core.Metadata.SingletonAttribute.GetComponentInfo(System.Type)">
             <summary>
@@ -1019,11 +1123,17 @@
             </summary>
             <param name="decoratedType">The decorated type.</param>
         </member>
-        <member name="P:Caliburn.Core.Metadata.SingletonAttribute.TypeKey">
+        <member name="P:Caliburn.Core.Metadata.SingletonAttribute.Service">
             <summary>
-            Gets the type key.
+            Gets the service type.
             </summary>
-            <value>The type key.</value>
+            <value>The service type.</value>
+        </member>
+        <member name="P:Caliburn.Core.Metadata.SingletonAttribute.Key">
+            <summary>
+            Gets the key.
+            </summary>
+            <value>The key.</value>
         </member>
         <member name="T:Caliburn.Core.Threading.BackgroundTask">
             <summary>
@@ -1220,71 +1330,6 @@
             <param name="callback">The work callback.</param>
             <returns></returns>
         </member>
-        <member name="T:Caliburn.Core.CaliburnConfiguration">
-            <summary>
-            A base class used by Caliburn modules to extend the configuration mechanism.
-            </summary>
-        </member>
-        <member name="T:Caliburn.Core.IConfigurationHook">
-            <summary>
-            Enables other Caliburn modules to hook into the core configuration.
-            </summary>
-        </member>
-        <member name="P:Caliburn.Core.IConfigurationHook.Core">
-            <summary>
-            Gets the core configuration.
-            </summary>
-            <value>The core configuration.</value>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnConfiguration.#ctor(Caliburn.Core.IConfigurationHook)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.Core.CaliburnConfiguration"/> class.
-            </summary>
-            <param name="hook">The hook.</param>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnConfiguration.Start">
-            <summary>
-            Starts the application.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnConfiguration.GetComponents">
-            <summary>
-            Gets the component information for this module.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnConfiguration.Configure">
-            <summary>
-            Configures this module.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnConfiguration.Singleton(System.Object,System.Type)">
-            <summary>
-            Creates a <see cref="T:Caliburn.Core.ComponentInfo"/> with a Singleton lifetime.
-            </summary>
-        </member>
-        <member name="M:Caliburn.Core.CaliburnConfiguration.PerRequest(System.Object,System.Type)">
-            <summary>
-            Creates a <see cref="T:Caliburn.Core.ComponentInfo"/> with a PerRequest lifetime.
-            </summary>
-        </member>
-        <member name="P:Caliburn.Core.CaliburnConfiguration.Core">
-            <summary>
-            Expose the core configuration to inheritors
-            </summary>
-            <value>The core configuration.</value>
-        </member>
-        <member name="P:Caliburn.Core.CaliburnConfiguration.Caliburn#Core#IConfigurationHook#Core">
-            <summary>
-            Gets the core configuration.
-            </summary>
-            <value>The core configuration.</value>
-        </member>
-        <member name="P:Caliburn.Core.CaliburnConfiguration.ServiceLocator">
-            <summary>
-            Gets the service locator.
-            </summary>
-            <value>The service locator.</value>
-        </member>
         <member name="T:Caliburn.Core.CaliburnException">
             <summary>
             The general exception thrown by the Caliburn framework.
@@ -1345,39 +1390,93 @@
         </member>
         <member name="M:Caliburn.Core.CaliburnFramework.ConfigureCore(Microsoft.Practices.ServiceLocation.IServiceLocator,System.Action{System.Collections.Generic.IEnumerable{Caliburn.Core.ComponentInfo}})">
             <summary>
-            Caliburn with the specified <see cref="T:Microsoft.Practices.ServiceLocation.IServiceLocator"/> and configurator method.
+            Configures Caliburn with the specified <see cref="T:Microsoft.Practices.ServiceLocation.IServiceLocator"/> and configurator method.
             </summary>
             <param name="serviceLocator">The service locator.</param>
             <param name="configurator">The configurator.</param>
             <returns></returns>
+        </member>
+        <member name="T:Caliburn.Core.CaliburnModule">
+            <summary>
+            A base class used by Caliburn modules to tie into the configuration process.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Core.IConfigurationHook">
+            <summary>
+            Enables other Caliburn modules to hook into the core configuration.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Core.IConfigurationHook.Core">
+            <summary>
+            Gets the core configuration.
+            </summary>
+            <value>The core configuration.</value>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnModule.#ctor(Caliburn.Core.IConfigurationHook)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Core.CaliburnModule"/> class.
+            </summary>
+            <param name="hook">The hook.</param>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnModule.Start">
+            <summary>
+            Starts the application if it has not already been started.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnModule.GetComponents">
+            <summary>
+            Gets the component information for this module.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnModule.Initialize">
+            <summary>
+            Initializes this module.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnModule.Singleton(System.Type,System.Type)">
+            <summary>
+            Creates a <see cref="T:Caliburn.Core.ComponentInfo"/> with a Singleton lifetime.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.CaliburnModule.PerRequest(System.Type,System.Type)">
+            <summary>
+            Creates a <see cref="T:Caliburn.Core.ComponentInfo"/> with a PerRequest lifetime.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Core.CaliburnModule.Core">
+            <summary>
+            Expose the core configuration to inheritors
+            </summary>
+            <value>The core configuration.</value>
+        </member>
+        <member name="P:Caliburn.Core.CaliburnModule.Caliburn#Core#IConfigurationHook#Core">
+            <summary>
+            Gets the core configuration.
+            </summary>
+            <value>The core configuration.</value>
+        </member>
+        <member name="P:Caliburn.Core.CaliburnModule.ServiceLocator">
+            <summary>
+            Gets the service locator.
+            </summary>
+            <value>The service locator.</value>
         </member>
         <member name="T:Caliburn.Core.ComponentInfo">
             <summary>
             Used to provide component info to a container configurator.
             </summary>
         </member>
-        <member name="M:Caliburn.Core.ComponentInfo.#ctor(System.Object,System.Type,Caliburn.Core.ComponentLifetime)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.Core.ComponentInfo"/> class.
-            </summary>
-            <param name="key">The key.</param>
-            <param name="implementation">The implementation.</param>
-            <param name="lifetime">The lifetime.</param>
-        </member>
-        <member name="M:Caliburn.Core.ComponentInfo.#ctor(System.Object,System.Type,Caliburn.Core.ComponentLifetime,System.Type)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Caliburn.Core.ComponentInfo"/> class.
-            </summary>
-            <param name="key">The key.</param>
-            <param name="implementation">The implementation.</param>
-            <param name="lifetime">The lifetime.</param>
-            <param name="customeLifetimeType">The custom lifetime type.</param>
-        </member>
         <member name="P:Caliburn.Core.ComponentInfo.Key">
             <summary>
             Gets or sets the key.
             </summary>
             <value>The key.</value>
+        </member>
+        <member name="P:Caliburn.Core.ComponentInfo.Service">
+            <summary>
+            Gets or sets the service.
+            </summary>
+            <value>The service.</value>
         </member>
         <member name="P:Caliburn.Core.ComponentInfo.Implementation">
             <summary>
@@ -1457,11 +1556,18 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:Caliburn.Core.CoreConfiguration.Add(Caliburn.Core.CaliburnConfiguration)">
+        <member name="M:Caliburn.Core.CoreConfiguration.UsingAssemblySource``1">
             <summary>
-            Adds the specified child configuration.
+            Usings the assembly source.
             </summary>
-            <param name="childConfiguration">The child configuration.</param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Core.CoreConfiguration.Add(Caliburn.Core.CaliburnModule)">
+            <summary>
+            Adds the specified module.
+            </summary>
+            <param name="module">The module.</param>
         </member>
         <member name="M:Caliburn.Core.CoreConfiguration.WithAssemblies(System.Reflection.Assembly[])">
             <summary>
@@ -1481,17 +1587,68 @@
             </summary>
             <value>The core configuration.</value>
         </member>
-        <member name="P:Caliburn.Core.CoreConfiguration.AssembliesToInspect">
-            <summary>
-            Gets the assemblies to inspect.
-            </summary>
-            <value>The assemblies to inspect.</value>
-        </member>
         <member name="P:Caliburn.Core.CoreConfiguration.ServiceLocator">
             <summary>
             Gets the service locator.
             </summary>
             <value>The service locator.</value>
+        </member>
+        <member name="T:Caliburn.Core.DefaultAssemblySource">
+            <summary>
+            The default implementation of <see cref="T:Caliburn.Core.IAssemblySource"/>
+            </summary>
+        </member>
+        <member name="T:Caliburn.Core.IAssemblySource">
+            <summary>
+            A source of assemblies that are inspectable by the framework.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.IAssemblySource.Add(System.Reflection.Assembly)">
+            <summary>
+            Adds the specified assembly.
+            </summary>
+            <param name="assembly">The assembly.</param>
+        </member>
+        <member name="M:Caliburn.Core.IAssemblySource.Remove(System.Reflection.Assembly)">
+            <summary>
+            Removes the specified assembly.
+            </summary>
+            <param name="assembly">The assembly.</param>
+            <returns></returns>
+        </member>
+        <member name="E:Caliburn.Core.IAssemblySource.AssemblyAdded">
+            <summary>
+            Occurs when an assembly is added.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Core.DefaultAssemblySource.InsertItem(System.Int32,System.Reflection.Assembly)">
+            <summary>
+            Inserts an element into the <see cref="T:System.Collections.ObjectModel.Collection`1"/> at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param>
+            <param name="item">The object to insert. The value can be null for reference types.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            	<paramref name="index"/> is less than zero.
+            -or-
+            <paramref name="index"/> is greater than <see cref="P:System.Collections.ObjectModel.Collection`1.Count"/>.
+            </exception>
+        </member>
+        <member name="M:Caliburn.Core.DefaultAssemblySource.SetItem(System.Int32,System.Reflection.Assembly)">
+            <summary>
+            Replaces the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to replace.</param>
+            <param name="item">The new value for the element at the specified index. The value can be null for reference types.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            	<paramref name="index"/> is less than zero.
+            -or-
+            <paramref name="index"/> is greater than <see cref="P:System.Collections.ObjectModel.Collection`1.Count"/>.
+            </exception>
+        </member>
+        <member name="E:Caliburn.Core.DefaultAssemblySource.AssemblyAdded">
+            <summary>
+            Occurs when an assembly is added.
+            </summary>
         </member>
         <member name="T:Caliburn.Core.ExtensionMethods">
             <summary>
@@ -1533,6 +1690,12 @@
             <summary>
             Initializes a new instance of the <see cref="T:Caliburn.Core.SimpleContainer"/> class.
             </summary>
+        </member>
+        <member name="M:Caliburn.Core.SimpleContainer.ConfigureWith(System.Collections.Generic.IEnumerable{Caliburn.Core.ComponentInfo})">
+            <summary>
+            Configures the container with the provided components.
+            </summary>
+            <param name="components">The components.</param>
         </member>
         <member name="M:Caliburn.Core.SimpleContainer.Register``2">
             <summary>
@@ -1663,12 +1826,6 @@
             <returns>
             A configured instance of the resolved service.
             </returns>
-        </member>
-        <member name="M:Caliburn.Core.SimpleContainer.ConfigureWith(System.Collections.Generic.IEnumerable{Caliburn.Core.ComponentInfo})">
-            <summary>
-            Configures the container with the provided components.
-            </summary>
-            <param name="components">The components.</param>
         </member>
     </members>
 </doc>
