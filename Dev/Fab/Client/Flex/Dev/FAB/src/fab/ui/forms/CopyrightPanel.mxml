@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" height="30" width="100%"
+	verticalAlign="middle" horizontalAlign="center"
+	horizontalGap="0">
+	
+	<mx:Script source="CopyrightPanelAS.as" />
+	
+	<mx:Label text="Copyright © 2010"/>
+	<mx:LinkButton label="My company" styleName="customLinkButton" click="linkBtnHandler();" id="lblCompany"/>
+	<mx:Label text="All Rights Reserved. version "/>
+	<mx:Label text="1.0" id="lblVersionNumber"/>
+		
+</mx:HBox>

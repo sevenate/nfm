@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="436" height="32" xmlns:ns1="fab.ui.forms.*">
+	<mx:Script source="LabelDateFieldsContainerAS.as"/>
+	<ns1:LabelDateField left="0" top="0" id="ldfFrom">
+	</ns1:LabelDateField>
+	<ns1:LabelDateField y="0" left="167" id="ldfTo">
+	</ns1:LabelDateField>
+	<mx:Button x="361" y="5" label="Show" id="btnShow" width="70"/>
+	
+</mx:Canvas>

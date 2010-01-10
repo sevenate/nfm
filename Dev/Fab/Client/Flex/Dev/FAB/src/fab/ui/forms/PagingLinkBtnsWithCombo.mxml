@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="402" height="26">
+	<mx:HBox width="298" left="10">
+		<mx:Button width="22" id="btnFirst"/>
+		<mx:Button width="22" id="btnPrevious"/>
+		<mx:LinkButton label="1" id="lbtn1"/>
+		<mx:LinkButton label="2" id="lbtn2"/>
+		<mx:LinkButton label="3" id="lbtn3"/>
+		<mx:LinkButton label="4" id="lbtn4"/>
+		<mx:LinkButton label="5" id="lbtn5"/>
+		<mx:Button width="22" id="btnNext"/>
+		<mx:Button width="22" id="btnLast"/>
+	</mx:HBox>
+	<mx:ComboBox editable="false" dataProvider="[10, 20, 30, 40, 50]" selectedIndex="0" toolTip="Records number per page" y="0" right="0" id="cmbRecordPerPage"></mx:ComboBox>
+	
+</mx:Canvas>

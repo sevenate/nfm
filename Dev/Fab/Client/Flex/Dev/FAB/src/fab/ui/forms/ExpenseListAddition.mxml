@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="435" height="309" xmlns:ns1="fab.ui.forms.*">
+	<mx:states>
+		<mx:State name="EditView">
+			<mx:SetProperty target="{expenseWindow}" name="title" value="Edit new expense"/>
+			<mx:SetProperty target="{btnApply}" name="label" value="Edit"/>
+			<mx:SetProperty target="{btnApply}" name="width" value="70"/>
+			<mx:SetProperty target="{btnCancel}" name="width" value="70"/>
+		</mx:State>
+	</mx:states>
+	<mx:TitleWindow x="0" y="0" width="100%" height="100%" layout="absolute" title="Add new expense" showCloseButton="false" id="expenseWindow">
+		<mx:Form x="0" y="0" width="100%" height="100%">
+			<mx:FormItem label="Expense groups:" width="100%" id="fiExpenseGroups">
+				<mx:ComboBox width="100%" id="cmbExpenseGroups" editable="false"></mx:ComboBox>
+			</mx:FormItem>
+			<mx:FormItem label="Name:" width="100%" id="fiName">
+				<mx:TextInput width="100%" id="txtName"/>
+			</mx:FormItem>
+			<mx:FormItem label="Cost:" width="100%" id="fiCost">
+				<mx:TextInput width="100%" id="txtCost"/>
+			</mx:FormItem>
+			<mx:FormItem label="Date:" width="100%" id="fiDate">
+				<mx:DateField width="100%" id="dfDate"/>
+			</mx:FormItem>
+			<mx:FormItem label="Description:" width="100%" id="fiMemo">
+				<mx:TextArea width="100%" height="75" id="taMemo"/>
+			</mx:FormItem>
+		</mx:Form>
+		<mx:HBox width="100%" x="0" y="213" horizontalAlign="center">
+			<mx:Button label="Add" id="btnApply" width="70"/>
+			<mx:Button label="Cancel" id="btnCancel" width="70"/>
+		</mx:HBox>
+	</mx:TitleWindow>
+</mx:Canvas>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="fab.ui.forms.*" width="100%" height="100%" xmlns:ns2="fab.ui.forms.*">
+	<mx:states>
+			<mx:State name="ExpenseView">
+					<mx:SetProperty target="{linkbutton1}" name="enabled" value="true"/>
+					<mx:SetProperty target="{linkbutton1}" name="selected" value="true"/>
+					<mx:RemoveChild target="{mainrevenuepanel1}"/>
+					<mx:AddChild relativeTo="{copyrightpanel1}" position="before">
+							<ns1:MainExpensePanel width="100%" height="100%">
+							</ns1:MainExpensePanel>
+					</mx:AddChild>
+					<mx:SetProperty target="{linkbutton2}" name="selected" value="false"/>
+			</mx:State>
+			<mx:State name="BalanceView">
+					<mx:RemoveChild target="{mainrevenuepanel1}"/>
+					<mx:SetProperty target="{linkbutton2}" name="selected" value="false"/>
+					<mx:SetProperty target="{linkbutton1}" name="enabled" value="true"/>
+					<mx:SetProperty target="{linkbutton3}" name="enabled" value="true"/>
+					<mx:SetProperty target="{linkbutton3}" name="selected" value="true"/>
+			</mx:State>
+	</mx:states>
+
+	<mx:Script source="FabAS.as"/>
+	
+	<mx:VBox width="100%" height="100%">
+		<mx:ApplicationControlBar width="100%" height="36">
+			<mx:LinkButton label="Revenue" enabled="true" selected="true" id="linkbutton2"/>
+			<mx:LinkButton label="Expense" id="linkbutton1"/>
+			<mx:LinkButton label="Balance" id="linkbutton3"/>
+		</mx:ApplicationControlBar>
+		<ns1:MainRevenuePanel width="100%" height="100%" id="mainrevenuepanel1">
+		</ns1:MainRevenuePanel>
+		<ns1:CopyrightPanel width="100%" height="32" id="copyrightpanel1">
+		</ns1:CopyrightPanel>
+	</mx:VBox>
+		
+</mx:Application>

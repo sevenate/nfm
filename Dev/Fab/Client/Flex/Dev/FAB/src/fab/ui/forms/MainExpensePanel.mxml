@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HDividedBox xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="0" width="100%" height="100%" xmlns:ns1="fab.ui.forms.*">
+	<mx:VDividedBox height="100%" width="50%">
+		<mx:Panel width="100%" height="100%" layout="absolute" title="Expense list" id="expenseListPanel">
+			<mx:VBox height="100%" width="100%">
+				<mx:AdvancedDataGrid id="adgExpenseList" designViewDataType="flat" width="100%" height="100%">
+					<mx:columns>
+						<mx:AdvancedDataGridColumn headerText="Column 1" dataField="col1"/>
+						<mx:AdvancedDataGridColumn headerText="Column 2" dataField="col2"/>
+						<mx:AdvancedDataGridColumn headerText="Column 3" dataField="col3"/>
+					</mx:columns>
+				</mx:AdvancedDataGrid>
+				<ns1:PagingLinkBtnsWithCombo left="10" bottom="2" id="pagingExpenseDG">
+				</ns1:PagingLinkBtnsWithCombo>
+			</mx:VBox>
+		</mx:Panel>
+	</mx:VDividedBox>
+	<mx:VDividedBox height="100%" width="50%">
+		<mx:HBox width="100%" height="310" id="hbox2">
+			<ns1:ExpenseListAddition width="100%" id="expenseAddWindow">
+			</ns1:ExpenseListAddition>
+			<ns1:ExpenseFilterPanel width="100%" id="expenseFilterWindow">
+			</ns1:ExpenseFilterPanel>
+		</mx:HBox>
+		<mx:VBox width="100%" height="100%">
+			<mx:HBox width="100%" height="100%" id="hbox3">
+				<mx:PieChart x="649" y="815" id="piechartExpense">
+					<mx:series>
+						<mx:PieSeries displayName="Series 2" field=""/>
+					</mx:series>
+				</mx:PieChart>
+				<mx:Legend dataProvider="{piechartExpense}" id="expenseLegend"/>
+			</mx:HBox>
+			<ns1:LabelDateFieldsContainer id="ldfContainer">
+			</ns1:LabelDateFieldsContainer>
+		</mx:VBox>
+	</mx:VDividedBox>
+</mx:HDividedBox>
