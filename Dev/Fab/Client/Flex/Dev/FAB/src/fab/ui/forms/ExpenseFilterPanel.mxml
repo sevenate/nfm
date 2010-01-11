@@ -8,7 +8,7 @@
 			<mx:ComboBox width="100%" id="cmbExpenseGroups"></mx:ComboBox>
 		</mx:FormItem>
 		<mx:FormItem label="Name:" width="100%" id="fiName">
-			<mx:TextInput width="100%" id="txtName"/>
+			<mx:TextInput width="100%" id="txtName" maxChars="50"/>
 		</mx:FormItem>
 	</mx:Form>
 	<mx:Button label="Apply" horizontalCenter="0" top="140" id="btnApply" width="70"/>
