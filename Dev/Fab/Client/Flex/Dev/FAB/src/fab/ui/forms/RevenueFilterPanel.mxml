@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="422" height="210" xmlns:ns1="fab.ui.forms.*">
-	<mx:TitleWindow width="100%" height="100%" layout="absolute" title="Filter revenue" id="revenueFilter">
-		<mx:Form x="0" y="0" width="100%" height="100%">
-			<mx:FormItem label="Hide removed records:" width="100%" id="fiHideRemovedRecords">
-				<mx:CheckBox selected="true" id="chkHideRecords"/>
-			</mx:FormItem>
-			<mx:FormItem label="Revenue groups:" width="100%" id="fiRevenueGroups">
-				<mx:ComboBox width="100%" id="cmbRevenueGroups"></mx:ComboBox>
-			</mx:FormItem>
-			<mx:FormItem label="Source name:" width="100%" id="fiSourceName">
-				<mx:ComboBox width="100%" id="cmbSourceName"></mx:ComboBox>
-			</mx:FormItem>
-		</mx:Form>
-		<mx:Button label="Apply" horizontalCenter="0" top="140" id="btnApply" width="70"/>
-		<mx:HBox width="100%" horizontalAlign="center" top="97">
-			<ns1:LabelDateField width="50%" id="ldfFrom">
-			</ns1:LabelDateField>
-			<ns1:LabelDateField width="50%" id="ldfTo">
-			</ns1:LabelDateField>
-		</mx:HBox>
-	</mx:TitleWindow>
-	
-</mx:Canvas>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" layout="absolute" title="Filter revenue" xmlns:ns1="fab.ui.forms.*">
+	<mx:Form x="0" y="0" width="100%" height="100%">
+		<mx:FormItem label="Hide removed records:" width="100%" id="fiHideRemovedRecords">
+			<mx:CheckBox selected="true" id="chkHideRecords"/>
+		</mx:FormItem>
+		<mx:FormItem label="Revenue groups:" width="100%" id="fiRevenueGroups">
+			<mx:ComboBox width="100%" id="cmbRevenueGroups"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="Source name:" width="100%" id="fiSourceName">
+			<mx:ComboBox width="100%" id="cmbSourceName"></mx:ComboBox>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Button label="Apply" horizontalCenter="0" top="140" id="btnApply" width="70"/>
+	<mx:HBox width="100%" horizontalAlign="center" top="97">
+		<ns1:LabelDateField width="50%" id="ldfFrom">
+		</ns1:LabelDateField>
+		<ns1:LabelDateField width="50%" id="ldfTo">
+		</ns1:LabelDateField>
+	</mx:HBox>
+</mx:TitleWindow>
