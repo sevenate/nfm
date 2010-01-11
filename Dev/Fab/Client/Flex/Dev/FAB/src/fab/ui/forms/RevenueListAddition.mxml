@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="0" layout="absolute" title="Add new revenue" width="100%" height="100%" currentState="AddView">
+
+	<mx:Script source="RevenueListAdditionAS.as"/>
+
 	<mx:states>
 		<mx:State name="AddView">
 			<mx:SetProperty target="{txtSourceName}" name="maxChars" value="50"/>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="218" height="26">
-	<mx:Button top="2" width="22" bottom="2" left="2" id="btnFirst"/>
-	<mx:Button width="22" left="34" top="2" id="btnPrevious"/>
-	<mx:Button x="130" width="22" top="2" id="btnNext"/>
-	<mx:Button x="160" width="22" top="2" id="btnLast"/>
-	<mx:Button width="22" top="2" right="2" id="btnAddNew"/>
-	<mx:TextInput x="64" width="58" top="2" id="txtRecordNumber"/>
-	
-</mx:Canvas>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" x="22" y="32" width="100%">
+	<mx:Button width="22" id="btnPrevious"/>
+	<mx:Button width="22" id="btnFirst"/>
+	<mx:TextInput width="58" id="txtRecordNumber"/>
+	<mx:Button width="22" id="btnNext"/>
+	<mx:Button width="22" id="btnLast"/>
+	<mx:Button width="22" id="btnAddNew"/>
+</mx:HBox>

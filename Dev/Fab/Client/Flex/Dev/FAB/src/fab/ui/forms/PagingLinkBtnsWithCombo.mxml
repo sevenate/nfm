@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="402" height="26">
+
+	<mx:Script source="PagingLinkBtnsWithComboAS.as"/>
+
 	<mx:HBox width="298" left="10">
 		<mx:Button width="22" id="btnFirst"/>
 		<mx:Button width="22" id="btnPrevious"/>
