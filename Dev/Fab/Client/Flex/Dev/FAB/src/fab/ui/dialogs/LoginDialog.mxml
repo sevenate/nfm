@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+	title="Login"
+	horizontalAlign="left" verticalAlign="top" 
+	showCloseButton="false" 
+	 xmlns:ns1="com.eclipsesp.ets.ui.components.*"
+	 creationComplete="handleCreationComplete();" xmlns:ns2="fab.ui.components.*">
+	
+	<mx:Script source="LoginDialogAS.as" />
+	
+	<mx:Form id="loginForm" defaultButton="{loginBtn}">
+		<mx:FormItem label="Email:">
+			<mx:TextInput id="txtEmail"/>
+		</mx:FormItem>
+		<mx:FormItem label="Password:">
+			<mx:TextInput id="txtPassword"/>
+		</mx:FormItem>
+		<mx:FormItem horizontalAlign="right" width="100%" height="25" direction="horizontal">
+			<mx:Button label="Login" id="loginBtn" click="validateAndSubmit();"/>
+			<mx:Button label="Reset" id="resetBtn" click="clearInputFields();"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<mx:EmailValidator id="loginEmailValidator" property="text"
+		source="{txtEmail}" />
+		
+	<mx:StringValidator id="passwordValidator" property="text"
+    	source="{txtPassword}" minLength="8" maxLength="30"/>
+</mx:TitleWindow>
