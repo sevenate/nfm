@@ -13,7 +13,7 @@
 			<mx:TextInput id="txtEmail"/>
 		</mx:FormItem>
 		<mx:FormItem label="Password:">
-			<mx:TextInput id="txtPassword"/>
+			<mx:TextInput id="txtPassword" displayAsPassword="true"/>
 		</mx:FormItem>
 		<mx:FormItem horizontalAlign="right" width="100%" height="25" direction="horizontal">
 			<mx:Button label="Login" id="btnLogin" click="validateAndSubmit();"/>

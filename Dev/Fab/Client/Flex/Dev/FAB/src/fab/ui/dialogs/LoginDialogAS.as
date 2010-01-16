@@ -12,6 +12,8 @@ private function handleCreationComplete():void
 	this.txtEmail.setFocus();
 	this.txtEmail.maxChars = 30;
 	this.txtPassword.maxChars = 20;
+	this.txtEmail.text = "tmp@adres.com";
+	this.txtPassword.text = "qwertyuiop";
 }
 
 private function handleKeyDown(event:KeyboardEvent):void
