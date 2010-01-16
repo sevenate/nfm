@@ -9,30 +9,29 @@ private var vResult:ValidationResultEvent;
 private function handleCreationComplete():void 
 {
 	this.addEventListener(KeyboardEvent.KEY_UP, handleKeyDown);
-	//this.txtEmail.setFocus();
-	//this.txtEmail.maxChars = 30;
-	//this.txtPassword.maxChars = 20;
-	//this.txtPassword.width = this.txtEmail.width;
+	this.txtEmail.setFocus();
+	this.txtEmail.maxChars = 30;
+	this.txtPassword.maxChars = 20;
 }
 
 private function handleKeyDown(event:KeyboardEvent):void
 {
     if (event.charCode == Keyboard.ENTER)
 	{
-		//this.validateAndSubmit();
+		this.validateAndSubmit();
 	}
 }
 
 public function validateAndSubmit():void 
 {
-	/*vResult = loginEmailValidator.validate();
+	vResult = loginEmailValidator.validate();
     if (vResult.type==ValidationResultEvent.INVALID) 
         return;
 
     vResult = passwordValidator.validate();
     if (vResult.type==ValidationResultEvent.INVALID) 
         return;
-   
+   /*
 	//var url: String = "http://geneva/timeserver/services/ETS?wsdl";
 	var etsService: ETSService = new ETSService();
 	
@@ -45,14 +44,13 @@ public function validateAndSubmit():void
 	etsService.addETSServiceFaultEventListener(this.faultHandler);
 	
 	etsService.login_send();*/
-	
+	FAB(this.parentApplication).switchStateTo(FAB.STATE_REVENUE_VIEW);
 }
 
 /*private function loginEventHandler(e: LoginResultEvent):void
 {
-	EclipseTimeServer(this.parentApplication).iProjectMatrix.account = e.result as Account;
-	EclipseTimeServer(this.parentApplication).switchStateTo(EclipseTimeServer.STATE_PROJECT_MATRIX); 
-	//EclipseTimeServer(this.parentApplication).switchStateTo(EclipseTimeServer.STATE_TIME_REPORTS);
+	
+FAB(this.parentApplication).switchStateTo(FAB.STATE_REVENUE_VIEW);
 }
 */
 
@@ -63,6 +61,6 @@ private function faultHandler(e: FaultEvent):void
 
 private function clearInputFields():void
 {
-	//this.txtEmail.text = "";
-	//this.txtPassword.text = "";
+	this.txtEmail.text = "";
+	this.txtPassword.text = "";
 }

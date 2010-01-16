@@ -1,39 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="fab.ui.forms.*" width="100%" height="100%" xmlns:ns2="fab.ui.forms.*" 
-	creationComplete="creationCompleteHandler(event);" currentState="RevenueView">
+	creationComplete="creationCompleteHandler(event);" currentState="Login" xmlns:ns3="fab.ui.dialogs.*">
 	<mx:states>
-			<mx:State name="ExpenseView">
-					<mx:SetProperty target="{lbtnExpense}" name="enabled" value="true"/>
-					<mx:SetProperty target="{lbtnExpense}" name="selected" value="true"/>
-					<mx:RemoveChild target="{mainrevenuepanel1}"/>
+			<mx:State name="Login">
+					<mx:AddChild position="lastChild">
+							<ns3:LoginDialog horizontalCenter="0" verticalCenter="0">
+							</ns3:LoginDialog>
+					</mx:AddChild>
+					<mx:SetProperty target="{lbtnRevenue}" name="enabled" value="false"/>
+					<mx:SetProperty target="{lbtnExpense}" name="enabled" value="false"/>
+					<mx:SetProperty target="{lbtnBalance}" name="enabled" value="false"/>
+			</mx:State>
+			<mx:State name="VBox_MenuCopyright">
+					<mx:AddChild position="lastChild">
+							<mx:VBox height="100%" id="vbox1" width="100%">
+							</mx:VBox>
+					</mx:AddChild>
+					<mx:SetStyle target="{applicationcontrolbar1}" name="horizontalCenter"/>
+					<mx:SetStyle target="{applicationcontrolbar1}" name="top"/>
+					<mx:RemoveChild target="{applicationcontrolbar1}"/>
+					<mx:AddChild relativeTo="{vbox1}" position="lastChild" target="{applicationcontrolbar1}"/>
+					<mx:SetStyle target="{copyrightpanel1}" name="horizontalCenter"/>
+					<mx:SetStyle target="{copyrightpanel1}" name="bottom"/>
+					<mx:RemoveChild target="{copyrightpanel1}"/>
+					<mx:AddChild relativeTo="{vbox1}" position="lastChild" target="{copyrightpanel1}"/>
+			</mx:State>
+			<mx:State name="RevenueView" basedOn="VBox_MenuCopyright">
 					<mx:AddChild relativeTo="{copyrightpanel1}" position="before">
-							<ns1:MainExpensePanel width="100%" height="100%">
+							<ns1:MainRevenuePanel id="mainRevenuePanel">
+							</ns1:MainRevenuePanel>
+					</mx:AddChild>
+			</mx:State>
+			<mx:State name="ExpenseView" basedOn="VBox_MenuCopyright">
+					<mx:AddChild relativeTo="{copyrightpanel1}" position="before">
+							<ns1:MainExpensePanel id="mainExpensePanel">
 							</ns1:MainExpensePanel>
 					</mx:AddChild>
+					<mx:SetProperty target="{lbtnExpense}" name="selected" value="true"/>
 					<mx:SetProperty target="{lbtnRevenue}" name="selected" value="false"/>
 			</mx:State>
-			<mx:State name="BalanceView">
-					<mx:RemoveChild target="{mainrevenuepanel1}"/>
-					<mx:SetProperty target="{lbtnRevenue}" name="selected" value="false"/>
-					<mx:SetProperty target="{lbtnExpense}" name="enabled" value="true"/>
-					<mx:SetProperty target="{lbtnBalance}" name="enabled" value="true"/>
+			<mx:State name="BalanceView" basedOn="VBox_MenuCopyright">
 					<mx:SetProperty target="{lbtnBalance}" name="selected" value="true"/>
+					<mx:SetProperty target="{lbtnRevenue}" name="selected" value="false"/>
 			</mx:State>
-			<mx:State name="RevenueView"/>
 	</mx:states>
 
 	<mx:Script source="FabAS.as"/>
 	
-	<mx:VBox width="100%" height="100%">
-		<mx:ApplicationControlBar width="100%" height="36">
+		<mx:ApplicationControlBar width="100%" height="36" horizontalCenter="0" top="0" id="applicationcontrolbar1">
 			<mx:LinkButton label="Revenue" enabled="true" selected="true" id="lbtnRevenue" />
 			<mx:LinkButton label="Expense" id="lbtnExpense"/>
 			<mx:LinkButton label="Balance" id="lbtnBalance"/>
 		</mx:ApplicationControlBar>
-		<ns1:MainRevenuePanel width="100%" height="100%" id="mainrevenuepanel1">
-		</ns1:MainRevenuePanel>
-		<ns1:CopyrightPanel width="100%" height="32" id="copyrightpanel1">
+		<ns1:CopyrightPanel width="100%" height="32" id="copyrightpanel1" bottom="0" horizontalCenter="0">
 		</ns1:CopyrightPanel>
-	</mx:VBox>
 		
 </mx:Application>

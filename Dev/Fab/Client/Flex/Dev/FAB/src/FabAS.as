@@ -1,7 +1,9 @@
 // ActionScript file
 import flash.events.MouseEvent;
 import mx.events.FlexEvent;
-
+public static var STATE_REVENUE_VIEW: String = "RevenueView";
+public static var STATE_EXPENSE_VIEW: String = "ExpenseView";
+public static var STATE_BALANCE_VIEW: String = "BalanceView";
 
 private function clickHandler(me: MouseEvent): void
 {
@@ -22,6 +24,25 @@ private function clickHandler(me: MouseEvent): void
 	}
 	
 } 
+
+public function switchStateTo(state: String):void
+{
+	this.currentState = state;
+	
+	switch(this.currentState)
+	{
+		case STATE_REVENUE_VIEW:
+			//this.initProjects();
+			break;
+		case STATE_REVENUE_VIEW:
+			//this.initReports();
+			break;
+		case STATE_BALANCE_VIEW:
+			//this.initReports();
+			break;
+		//add here other states
+	}
+}
 
 private function creationCompleteHandler(event:FlexEvent):void
 {

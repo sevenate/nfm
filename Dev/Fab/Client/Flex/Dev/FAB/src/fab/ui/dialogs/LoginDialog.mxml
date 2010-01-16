@@ -8,7 +8,7 @@
 	
 	<mx:Script source="LoginDialogAS.as" />
 	
-	<mx:Form id="loginForm" defaultButton="{loginBtn}">
+	<mx:Form id="loginForm" defaultButton="{btnLogin}">
 		<mx:FormItem label="Email:">
 			<mx:TextInput id="txtEmail"/>
 		</mx:FormItem>
@@ -16,8 +16,8 @@
 			<mx:TextInput id="txtPassword"/>
 		</mx:FormItem>
 		<mx:FormItem horizontalAlign="right" width="100%" height="25" direction="horizontal">
-			<mx:Button label="Login" id="loginBtn" click="validateAndSubmit();"/>
-			<mx:Button label="Reset" id="resetBtn" click="clearInputFields();"/>
+			<mx:Button label="Login" id="btnLogin" click="validateAndSubmit();"/>
+			<mx:Button label="Reset" id="btnReset" click="clearInputFields();"/>
 		</mx:FormItem>
 	</mx:Form>
 	
