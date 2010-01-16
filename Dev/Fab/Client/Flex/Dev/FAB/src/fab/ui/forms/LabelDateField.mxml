@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="168" height="32">
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle">
+<mx:Script source="LabelDateFieldAS.as"/>
+	<mx:Label text="Label" id="lbl" width="49" fontWeight="normal" textAlign="right"/>
+	<mx:DateField id="dateField" 
+		showToday="true" minYear="2000" formatString="DD.MM.YYYY" 
+		creationComplete="creationCompleteHandler();"/>
 	<mx:Button label="Icon Button" width="16" id="btnReset" height="16" click="resetToDafeultDate(event)" 
-		top="7" left="146" fontStyle="normal" 
+		fontStyle="normal" 
 		fontWeight="normal" textAlign="center"
 		icon="@Embed(source='../../../../assets/delete_.gif')" >
 	</mx:Button>
-	<mx:Label x="0" y="7" text="Label" id="lbl" width="49" fontWeight="normal" textAlign="right"/>
-	<mx:DateField id="dateField" 
-		showToday="true" minYear="2000" formatString="DD.MM.YYYY" 
-		creationComplete="creationCompleteHandler();" left="53" top="5"/>
-	
-	<mx:Script source="LabelDateFieldAS.as"/>
-</mx:Canvas>
+</mx:HBox>
