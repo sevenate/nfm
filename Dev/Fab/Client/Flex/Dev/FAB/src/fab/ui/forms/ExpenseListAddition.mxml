@@ -15,7 +15,7 @@
 	
 	<mx:Script source="ExpenseListAdditionAS.as"/>
 
-	<mx:Form x="0" y="0" width="100%" height="100%">
+	<mx:Form width="100%" height="100%" defaultButton="{btnApply}" id="addExpenseForm">
 		<mx:FormItem label="Expense groups:" width="100%" id="fiExpenseGroups">
 			<mx:ComboBox width="100%" id="cmbExpenseGroups" editable="false"></mx:ComboBox>
 		</mx:FormItem>
@@ -31,10 +31,10 @@
 		<mx:FormItem label="Description:" width="100%" id="fiMemo">
 			<mx:TextArea width="100%" height="75" id="txtMemo"/>
 		</mx:FormItem>
+		<mx:FormItem horizontalAlign="right" direction="horizontal" width="100%">
+			<mx:Button label="Add" id="btnApply" width="70"/>
+			<mx:Button label="Cancel" id="btnCancel" width="70"/>
+		</mx:FormItem>
 	</mx:Form>
-	<mx:HBox width="100%" x="0" y="213" horizontalAlign="center">
-		<mx:Button label="Add" id="btnApply" width="70"/>
-		<mx:Button label="Cancel" id="btnCancel" width="70"/>
-	</mx:HBox>
 </mx:TitleWindow>
 
