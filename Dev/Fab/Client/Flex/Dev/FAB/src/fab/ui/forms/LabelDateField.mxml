@@ -5,9 +5,9 @@
 	<mx:DateField id="dateField" 
 		showToday="true" minYear="2000" formatString="DD.MM.YYYY" 
 		creationComplete="creationCompleteHandler();"/>
-	<mx:Button label="Icon Button" width="16" id="btnReset" height="16" click="resetToDafeultDate(event)" 
+	<mx:Button width="16" id="btnReset" height="16" click="resetToDafeultDate(event)" 
 		fontStyle="normal" 
 		fontWeight="normal" textAlign="center"
-		icon="@Embed(source='../../../../assets/delete_.gif')" >
+		icon="@Embed(source='../../../../assets/delete_.gif')"  toolTip="Reset date">
 	</mx:Button>
 </mx:HBox>
