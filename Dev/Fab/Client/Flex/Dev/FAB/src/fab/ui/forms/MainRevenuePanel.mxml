@@ -19,10 +19,10 @@
 		</mx:Panel>
 	</mx:VDividedBox>
 	<mx:VDividedBox width="50%" height="100%">
-		<mx:HBox width="100%" height="310" id="hbox1">
-			<ns1:RevenueListAddition width="50%" height="100%" id="revenueAddWindow">
+		<mx:HBox width="100%" height="100%" id="hbox1">
+			<ns1:RevenueListAddition width="100%" id="revenueAddWindow" height="100%">
 			</ns1:RevenueListAddition>
-			<ns1:RevenueFilterPanel height="100%" width="50%" id="revenueFilterWindow">
+			<ns1:RevenueFilterPanel width="100%" id="revenueFilterWindow" height="100%">
 			</ns1:RevenueFilterPanel>
 		</mx:HBox>
 		<mx:VBox width="100%" height="100%">
