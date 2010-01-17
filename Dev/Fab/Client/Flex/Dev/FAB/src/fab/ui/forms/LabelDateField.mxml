@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle">
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle" horizontalGap="0">
 <mx:Script source="LabelDateFieldAS.as"/>
-	<mx:Label text="Label" id="lbl" width="49" fontWeight="normal" textAlign="right"/>
+	<mx:Label text="Label" id="lbl" fontWeight="normal" textAlign="right" width="50"/>
 	<mx:DateField id="dateField" 
 		showToday="true" minYear="2000" formatString="DD.MM.YYYY" 
 		creationComplete="creationCompleteHandler();"/>
+	<mx:Spacer width="4"/>
 	<mx:Button width="16" id="btnReset" height="16" click="resetToDafeultDate(event)" 
 		fontStyle="normal" 
 		fontWeight="normal" textAlign="center"

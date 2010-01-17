@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" layout="absolute" title="Filter expense" xmlns:ns1="fab.ui.forms.*">
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" layout="absolute" 
+title="Filter expense" xmlns:ns1="fab.ui.forms.*" creationComplete="creationCompleteHandler(event);">
 
 	<mx:Script source="ExpenseFilterPanelAS.as"/>
 	

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow x="0" y="0" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" layout="absolute"
-	 title="Add new expense" showCloseButton="false" xmlns:ns1="fab.ui.forms.*" currentState="AddView">
+	 title="Add new expense" showCloseButton="false" xmlns:ns1="fab.ui.forms.*" currentState="AddView"
+	 creationComplete="creationCompleteHandler(event);">
 	<mx:states>
 		<mx:State name="EditView">
 			<mx:SetProperty name="title" value="Edit new expense"/>
