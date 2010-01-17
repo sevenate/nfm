@@ -12,9 +12,11 @@
 			<mx:SetProperty target="{txtMemo}" name="maxChars" value="256"/>
 			<mx:RemoveChild target="{dfDate}"/>
 			<mx:AddChild relativeTo="{fiDate}" position="lastChild">
-				<ns1:LabelDateField width="100%">
+				<ns1:LabelDateField id="ldfDate">
 				</ns1:LabelDateField>
 			</mx:AddChild>
+			<mx:SetProperty name="height"/>
+			<mx:SetProperty target="{addExpenseForm}" name="height"/>
 		</mx:State>
 	</mx:states>
 	
