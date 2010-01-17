@@ -19,10 +19,10 @@
 		</mx:Panel>
 	</mx:VDividedBox>
 	<mx:VDividedBox height="100%" width="50%">
-		<mx:HBox width="100%" height="310" id="hbox2">
-			<ns1:ExpenseListAddition width="100%" id="expenseAddWindow">
+		<mx:HBox width="100%" height="100%" id="hbox2">
+			<ns1:ExpenseListAddition width="100%" id="expenseAddWindow" height="100%">
 			</ns1:ExpenseListAddition>
-			<ns1:ExpenseFilterPanel width="100%" id="expenseFilterWindow">
+			<ns1:ExpenseFilterPanel width="100%" id="expenseFilterWindow" height="100%">
 			</ns1:ExpenseFilterPanel>
 		</mx:HBox>
 		<mx:VBox width="100%" height="100%">

@@ -8,6 +8,8 @@
 			<mx:SetProperty target="{txtSourceName}" name="maxChars" value="50"/>
 			<mx:SetProperty target="{txtAmount}" name="maxChars" value="20"/>
 			<mx:SetProperty target="{txtRate}" name="maxChars" value="4"/>
+			<mx:SetProperty name="height"/>
+			<mx:SetProperty target="{form1}" name="height"/>
 		</mx:State>
 		<mx:State name="EditView">
 			<mx:SetProperty name="title" value="Edit new revenue"/>
