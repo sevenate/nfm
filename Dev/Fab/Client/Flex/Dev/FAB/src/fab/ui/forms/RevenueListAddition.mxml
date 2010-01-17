@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="0" layout="absolute" title="Add new revenue" width="100%" height="100%" currentState="AddView">
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="0" layout="absolute" title="Add new revenue" width="100%" height="100%" currentState="AddView" xmlns:ns1="fab.ui.forms.*">
 
 	<mx:Script source="RevenueListAdditionAS.as"/>
 
@@ -8,17 +8,13 @@
 			<mx:SetProperty target="{txtSourceName}" name="maxChars" value="50"/>
 			<mx:SetProperty target="{txtAmount}" name="maxChars" value="20"/>
 			<mx:SetProperty target="{txtRate}" name="maxChars" value="4"/>
-			<mx:RemoveChild target="{txtDate}"/>
-			<mx:AddChild relativeTo="{fiDate}" position="lastChild">
-				<mx:DateField id="dfDate" width="100%"/>
-			</mx:AddChild>
 		</mx:State>
 		<mx:State name="EditView">
 			<mx:SetProperty name="title" value="Edit new revenue"/>
 			<mx:SetProperty target="{btnApply}" name="label" value="Edit"/>
 		</mx:State>
 	</mx:states>
-	<mx:Form x="0" y="0" width="100%" height="100%">
+	<mx:Form x="0" y="0" width="100%" height="100%" defaultButton="{btnApply}" id="form1">
 		<mx:FormItem label="Revenue group:" width="100%" id="fiRevenueGroups">
 			<mx:ComboBox width="100%" id="cmbRevenueGroups"></mx:ComboBox>
 		</mx:FormItem>
@@ -29,7 +25,8 @@
 			<mx:TextInput width="100%" id="txtAmount"/>
 		</mx:FormItem>
 		<mx:FormItem label="Date:" width="100%" id="fiDate">
-			<mx:TextInput width="100%" id="txtDate"/>
+			<ns1:LabelDateField id="ldfDate">
+			</ns1:LabelDateField>
 		</mx:FormItem>
 		<mx:FormItem label="Description:" width="100%" id="fiMemo">
 			<mx:TextArea maxChars="256" width="100%" id="txtMemo"/>
@@ -40,10 +37,10 @@
 		<mx:FormItem label="Exchange rate currency:" width="100%" id="fiRateCurrency">
 			<mx:ComboBox editable="false" width="100%" id="cmbRateCurrency"></mx:ComboBox>
 		</mx:FormItem>
+		<mx:FormItem horizontalAlign="right" direction="horizontal" width="100%">
+			<mx:Button label="Add" id="btnApply" width="70"/>
+			<mx:Button label="Cancel" id="btnCancel" width="70"/>
+		</mx:FormItem>
 	</mx:Form>
-	<mx:HBox width="100%" horizontalCenter="0" horizontalAlign="center" top="239">
-		<mx:Button label="Add" id="btnApply" width="70"/>
-		<mx:Button label="Cancel" id="btnCancel" width="70"/>
-	</mx:HBox>
 </mx:TitleWindow>
 
