@@ -64,6 +64,7 @@
     </Content>
     <None Include="Database\Create.sql" />
     <Content Include="AccountingService.svc" />
+    <Content Include="Database\Fill.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

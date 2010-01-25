@@ -1,6 +1,6 @@
 
 -- --------------------------------------------------
--- Date Created: 01/25/2010 02:54:01
+-- Date Created: 01/26/2010 00:19:35
 -- Generated from EDMX file: B:\Workspace\Dev\Fab\Server\src\Fab.Server\Core\Model.edmx
 -- --------------------------------------------------
 
@@ -8,7 +8,7 @@ SET QUOTED_IDENTIFIER OFF;
 SET ANSI_NULLS ON;
 GO
 
-USE [Database]
+--USE [Database]
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]')
 GO
@@ -77,33 +77,34 @@ GO
 
 -- Creating table 'UserSet'
 CREATE TABLE [dbo].[UserSet] (
-    [Id] int  NOT NULL,
-    [Email] nvarchar(256)  NULL,
+    [Id] uniqueidentifier  NOT NULL  DEFAULT (newid()),
+    [Login] nvarchar(50)  NOT NULL,
     [Password] nvarchar(256)  NOT NULL,
-    [Registered] datetime  NOT NULL,
-    [IsDisabled] bit  NOT NULL,
-    [Login] nvarchar(50)  NOT NULL
+    [Email] nvarchar(256)  NULL,
+    [Registered] datetime  NOT NULL  DEFAULT (getdate()),
+    [LastAccess] datetime  NULL,
+    [IsDisabled] bit  NOT NULL  DEFAULT (0)
 );
 GO
 -- Creating table 'AccountSet'
 CREATE TABLE [dbo].[AccountSet] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(50)  NOT NULL,
-    [Created] datetime  NOT NULL,
-    [IsDeleted] bit  NOT NULL,
-    [User_Id] int  NOT NULL
+    [Created] datetime  NOT NULL  DEFAULT (getdate()),
+    [IsDeleted] bit  NOT NULL  DEFAULT (0),
+    [User_Id] uniqueidentifier  NOT NULL
 );
 GO
 -- Creating table 'AssetTypeSet'
 CREATE TABLE [dbo].[AssetTypeSet] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(50)  NOT NULL
 );
 GO
 -- Creating table 'PostingSet'
 CREATE TABLE [dbo].[PostingSet] (
-    [Id] int  NOT NULL,
-    [Date] datetime  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Date] datetime  NOT NULL  DEFAULT (getdate()),
     [Amount] money  NOT NULL,
     [Account_Id] int  NOT NULL,
     [AssetType_Id] int  NOT NULL,
@@ -112,31 +113,31 @@ CREATE TABLE [dbo].[PostingSet] (
 GO
 -- Creating table 'JournalSet'
 CREATE TABLE [dbo].[JournalSet] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [JournalType_Id] int  NOT NULL
 );
 GO
 -- Creating table 'JournalTypeSet'
 CREATE TABLE [dbo].[JournalTypeSet] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Type] nvarchar(50)  NOT NULL
 );
 GO
 -- Creating table 'CategorySet'
 CREATE TABLE [dbo].[CategorySet] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(50)  NOT NULL,
-    [User_Id] int  NOT NULL
+    [User_Id] uniqueidentifier  NOT NULL
 );
 GO
 -- Creating table 'JournalSet_Transaction'
 CREATE TABLE [dbo].[JournalSet_Transaction] (
-    [Comment] nvarchar(256)  NULL,
-    [Price] money  NULL,
-    [Quantity] smallmoney  NULL,
-    [IsDeleted] bit  NOT NULL,
     [Id] int  NOT NULL,
-    [Category_Id] int  NOT NULL
+    [Quantity] smallmoney  NULL,
+    [Price] money  NULL,
+    [Comment] nvarchar(256)  NULL,
+    [IsDeleted] bit  NOT NULL  DEFAULT (0),
+    [Category_Id] int  NULL
 );
 GO
 

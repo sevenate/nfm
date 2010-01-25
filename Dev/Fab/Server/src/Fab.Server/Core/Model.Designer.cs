@@ -268,14 +268,12 @@ namespace Fab.Server.Core
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="created">Initial value of the Created property.</param>
-        /// <param name="isDeleted">Initial value of the IsDeleted property.</param>
-        public static Account CreateAccount(global::System.Int32 id, global::System.String name, global::System.DateTime created, global::System.Boolean isDeleted)
+        public static Account CreateAccount(global::System.Int32 id, global::System.String name, global::System.DateTime created)
         {
             Account account = new Account();
             account.Id = id;
             account.Name = name;
             account.Created = created;
-            account.IsDeleted = isDeleted;
             return account;
         }
 
@@ -377,7 +375,7 @@ namespace Fab.Server.Core
                 OnIsDeletedChanged();
             }
         }
-        private global::System.Boolean _IsDeleted;
+        private global::System.Boolean _IsDeleted = false;
         partial void OnIsDeletedChanging(global::System.Boolean value);
         partial void OnIsDeletedChanged();
 
@@ -1161,12 +1159,10 @@ namespace Fab.Server.Core
         /// Create a new Transaction object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="isDeleted">Initial value of the IsDeleted property.</param>
-        public static Transaction CreateTransaction(global::System.Int32 id, global::System.Boolean isDeleted)
+        public static Transaction CreateTransaction(global::System.Int32 id)
         {
             Transaction transaction = new Transaction();
             transaction.Id = id;
-            transaction.IsDeleted = isDeleted;
             return transaction;
         }
 
@@ -1265,7 +1261,7 @@ namespace Fab.Server.Core
                 OnIsDeletedChanged();
             }
         }
-        private global::System.Boolean _IsDeleted;
+        private global::System.Boolean _IsDeleted = false;
         partial void OnIsDeletedChanging(global::System.Boolean value);
         partial void OnIsDeletedChanged();
 
@@ -1330,15 +1326,13 @@ namespace Fab.Server.Core
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="password">Initial value of the Password property.</param>
         /// <param name="registered">Initial value of the Registered property.</param>
-        /// <param name="isDisabled">Initial value of the IsDisabled property.</param>
         /// <param name="login">Initial value of the Login property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String password, global::System.DateTime registered, global::System.Boolean isDisabled, global::System.String login)
+        public static User CreateUser(global::System.Guid id, global::System.String password, global::System.DateTime registered, global::System.String login)
         {
             User user = new User();
             user.Id = id;
             user.Password = password;
             user.Registered = registered;
-            user.IsDisabled = isDisabled;
             user.Login = login;
             return user;
         }
@@ -1351,7 +1345,7 @@ namespace Fab.Server.Core
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.Guid Id
         {
             get
             {
@@ -1369,8 +1363,8 @@ namespace Fab.Server.Core
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
         partial void OnIdChanged();
     
         /// <summary>
@@ -1465,7 +1459,7 @@ namespace Fab.Server.Core
                 OnIsDisabledChanged();
             }
         }
-        private global::System.Boolean _IsDisabled;
+        private global::System.Boolean _IsDisabled = false;
         partial void OnIsDisabledChanging(global::System.Boolean value);
         partial void OnIsDisabledChanged();
     
@@ -1492,6 +1486,30 @@ namespace Fab.Server.Core
         private global::System.String _Login;
         partial void OnLoginChanging(global::System.String value);
         partial void OnLoginChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastAccess
+        {
+            get
+            {
+                return _LastAccess;
+            }
+            set
+            {
+                OnLastAccessChanging(value);
+                ReportPropertyChanging("LastAccess");
+                _LastAccess = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastAccess");
+                OnLastAccessChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastAccess;
+        partial void OnLastAccessChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastAccessChanged();
 
         #endregion
     
