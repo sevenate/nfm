@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+*************************************************************
+  This file defines common settings and tasks for projects.
+*************************************************************
+-->
+
+<Project DefaultTargets="Build"
+		 xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!--
+	Move out "obj\" subfolder from project folder to keep clean "src" with source and ploject files only.
+	-->
+	<PropertyGroup>
+		<BaseIntermediateOutputPath>..\..\obj\$(ProjectName)\</BaseIntermediateOutputPath>
+		<IntermediateOutputPath>..\..\obj\$(ProjectName)\$(Configuration)\</IntermediateOutputPath>
+		<EntityDeployIntermediateResourcePath>..\..\obj\$(ProjectName)\$(Configuration)\edmxResourcesToEmbed\</EntityDeployIntermediateResourcePath>
+		<UseHostCompilerIfAvailable>false</UseHostCompilerIfAvailable>
+		<ObjDirectory>obj\</ObjDirectory>
+	</PropertyGroup>
+	
+<!--
+	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+		<OutputPath>..\..\test\$(MSBuildProjectName)\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<OutputPath>..\..\bin\$(MSBuildProjectName)\</OutputPath>
+	</PropertyGroup>
+-->
+	
+	<!--
+	Delete "obj\debug\TempPE" folder created by Visual Studio during opening project.
+	 -->
+	<Target Name="BeforeBuild">
+		<RemoveDir Condition="Exists('$(ObjDirectory)')"
+				   Directories="$(ObjDirectory);" />
+	</Target>
+
+</Project>

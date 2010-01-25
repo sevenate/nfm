@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="UserSet" EntityType="Model.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AccountSet" EntityType="Model.Store.AccountSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AssetTypeSet" EntityType="Model.Store.AssetTypeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PostingSet" EntityType="Model.Store.PostingSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JournalSet" EntityType="Model.Store.JournalSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JournalTypeSet" EntityType="Model.Store.JournalTypeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CategorySet" EntityType="Model.Store.CategorySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JournalSet_Transaction" EntityType="Model.Store.JournalSet_Transaction" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserAccount" Association="Model.Store.UserAccount">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Account" EntitySet="AccountSet" />
+    </AssociationSet>
+    <AssociationSet Name="AccountPosting" Association="Model.Store.AccountPosting">
+      <End Role="Account" EntitySet="AccountSet" />
+      <End Role="Posting" EntitySet="PostingSet" />
+    </AssociationSet>
+    <AssociationSet Name="PostingAssetType" Association="Model.Store.PostingAssetType">
+      <End Role="Postings" EntitySet="PostingSet" />
+      <End Role="AssetType" EntitySet="AssetTypeSet" />
+    </AssociationSet>
+    <AssociationSet Name="TransactionPosting" Association="Model.Store.JournalPosting">
+      <End Role="Journal" EntitySet="JournalSet" />
+      <End Role="Posting" EntitySet="PostingSet" />
+    </AssociationSet>
+    <AssociationSet Name="JournalTypeJournal" Association="Model.Store.JournalTypeJournal">
+      <End Role="JournalType" EntitySet="JournalTypeSet" />
+      <End Role="Journal" EntitySet="JournalSet" />
+    </AssociationSet>
+    <AssociationSet Name="CategoryTransaction" Association="Model.Store.CategoryTransaction">
+      <End Role="Category" EntitySet="CategorySet" />
+      <End Role="Transaction" EntitySet="JournalSet_Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CategoryUser" Association="Model.Store.FK_CategoryUser">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Category" EntitySet="CategorySet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_inherits_Journal" Association="Model.Store.FK_Transaction_inherits_Journal">
+      <End Role="Journal" EntitySet="JournalSet" />
+      <End Role="Transaction" EntitySet="JournalSet_Transaction" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="256" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="Registered" Type="datetime" Nullable="false" />
+    <Property Name="IsDisabled" Type="bit" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AccountSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AssetTypeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PostingSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
+    <Property Name="Account_Id" Type="int" Nullable="false" />
+    <Property Name="AssetType_Id" Type="int" Nullable="false" />
+    <Property Name="Journal_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JournalSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="JournalType_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JournalTypeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CategorySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JournalSet_Transaction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Comment" Type="nvarchar" Nullable="true" MaxLength="256" />
+    <Property Name="Price" Type="decimal" Nullable="true" />
+    <Property Name="Quantity" Type="decimal" Nullable="true" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Category_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserAccount">
+    <End Role="User" Type="Model.Store.UserSet" Multiplicity="1" />
+    <End Role="Account" Type="Model.Store.AccountSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AccountPosting">
+    <End Role="Account" Type="Model.Store.AccountSet" Multiplicity="1" />
+    <End Role="Posting" Type="Model.Store.PostingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Posting">
+        <PropertyRef Name="Account_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PostingAssetType">
+    <End Role="Postings" Type="Model.Store.PostingSet" Multiplicity="*" />
+    <End Role="AssetType" Type="Model.Store.AssetTypeSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="AssetType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Postings">
+        <PropertyRef Name="AssetType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JournalPosting">
+    <End Role="Journal" Type="Model.Store.JournalSet" Multiplicity="1" />
+    <End Role="Posting" Type="Model.Store.PostingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Journal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Posting">
+        <PropertyRef Name="Journal_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JournalTypeJournal">
+    <End Role="JournalType" Type="Model.Store.JournalTypeSet" Multiplicity="1" />
+    <End Role="Journal" Type="Model.Store.JournalSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JournalType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Journal">
+        <PropertyRef Name="JournalType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CategoryTransaction">
+    <End Role="Category" Type="Model.Store.CategorySet" Multiplicity="1" />
+    <End Role="Transaction" Type="Model.Store.JournalSet_Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CategoryUser">
+    <End Role="User" Type="Model.Store.UserSet" Multiplicity="1" />
+    <End Role="Category" Type="Model.Store.CategorySet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Category">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_inherits_Journal">
+    <End Role="Journal" Type="Model.Store.JournalSet" Multiplicity="1" />
+    <End Role="Transaction" Type="Model.Store.JournalSet_Transaction" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Journal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ModelContainer">
+          <EntitySet Name="UserSet" EntityType="Model.User" />
+          <EntitySet Name="AccountSet" EntityType="Model.Account" />
+          <AssociationSet Name="UserAccount" Association="Model.UserAccount">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Account" EntitySet="AccountSet" /></AssociationSet>
+          <EntitySet Name="AssetTypeSet" EntityType="Model.AssetType" />
+          <AssociationSet Name="AccountPosting" Association="Model.AccountPosting">
+            <End Role="Account" EntitySet="AccountSet" />
+            <End Role="Posting" EntitySet="PostingSet" /></AssociationSet>
+          <AssociationSet Name="PostingAssetType" Association="Model.PostingAssetType">
+            <End Role="Postings" EntitySet="PostingSet" />
+            <End Role="AssetType" EntitySet="AssetTypeSet" /></AssociationSet>
+          <AssociationSet Name="TransactionPosting" Association="Model.JournalPosting">
+            <End Role="Journal" EntitySet="JournalSet" />
+            <End Role="Posting" EntitySet="PostingSet" /></AssociationSet>
+          <EntitySet Name="PostingSet" EntityType="Model.Posting" />
+          <EntitySet Name="JournalSet" EntityType="Model.Journal" />
+          <EntitySet Name="JournalTypeSet" EntityType="Model.JournalType" />
+          <AssociationSet Name="JournalTypeJournal" Association="Model.JournalTypeJournal">
+            <End Role="JournalType" EntitySet="JournalTypeSet" />
+            <End Role="Journal" EntitySet="JournalSet" /></AssociationSet>
+          <EntitySet Name="CategorySet" EntityType="Model.Category" />
+          <AssociationSet Name="CategoryTransaction" Association="Model.CategoryTransaction">
+            <End Role="Category" EntitySet="CategorySet" />
+            <End Role="Transaction" EntitySet="JournalSet" /></AssociationSet>
+          <AssociationSet Name="FK_CategoryUser" Association="Model.FK_CategoryUser">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Category" EntitySet="CategorySet" /></AssociationSet>
+          </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Model.UserAccount" FromRole="User" ToRole="Account" />
+          <Property Type="String" Name="Email" Unicode="true" Nullable="true" MaxLength="256" FixedLength="false" />
+          <Property Type="String" Name="Password" Nullable="false" Unicode="true" MaxLength="256" FixedLength="false" />
+          <Property Type="DateTime" Name="Registered" Nullable="false" />
+          <Property Type="Boolean" Name="IsDisabled" Nullable="false" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Categories" Relationship="Model.FK_CategoryUser" FromRole="User" ToRole="Category" /></EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Model.UserAccount" FromRole="Account" ToRole="User" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <NavigationProperty Name="Postings" Relationship="Model.AccountPosting" FromRole="Account" ToRole="Posting" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          </EntityType>
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <NavigationProperty Name="Postings" Relationship="Model.JournalPosting" FromRole="Journal" ToRole="Posting" />
+          <NavigationProperty Name="JournalType" Relationship="Model.JournalTypeJournal" FromRole="Journal" ToRole="JournalType" />
+          </EntityType>
+        <Association Name="UserAccount">
+          <End Type="Model.User" Role="User" Multiplicity="1" />
+          <End Type="Model.Account" Role="Account" Multiplicity="*" /></Association>
+        <EntityType Name="AssetType">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Postings" Relationship="Model.PostingAssetType" FromRole="AssetType" ToRole="Postings" /></EntityType>
+        <EntityType Name="Posting">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Model.AccountPosting" FromRole="Posting" ToRole="Account" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <NavigationProperty Name="AssetType" Relationship="Model.PostingAssetType" FromRole="Postings" ToRole="AssetType" />
+          <NavigationProperty Name="Journal" Relationship="Model.JournalPosting" FromRole="Posting" ToRole="Journal" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" /></EntityType>
+        <Association Name="AccountPosting">
+          <End Type="Model.Account" Role="Account" Multiplicity="1" />
+          <End Type="Model.Posting" Role="Posting" Multiplicity="*" /></Association>
+        <Association Name="PostingAssetType">
+          <End Type="Model.Posting" Role="Postings" Multiplicity="*" />
+          <End Type="Model.AssetType" Role="AssetType" Multiplicity="1" /></Association>
+        <Association Name="JournalPosting">
+          <End Type="Model.Journal" Role="Journal" Multiplicity="1" />
+          <End Type="Model.Posting" Role="Posting" Multiplicity="*" /></Association>
+        <EntityType Name="Transaction" BaseType="Model.Journal">
+          <Property Type="String" Name="Comment" Nullable="true" MaxLength="256" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Category" Relationship="Model.CategoryTransaction" FromRole="Transaction" ToRole="Category" />
+          <Property Type="Decimal" Name="Price" Nullable="true" />
+          <Property Type="Decimal" Name="Quantity" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" /></EntityType>
+        <EntityType Name="JournalType">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Journals" Relationship="Model.JournalTypeJournal" FromRole="JournalType" ToRole="Journal" /></EntityType>
+        <Association Name="JournalTypeJournal">
+          <End Type="Model.JournalType" Role="JournalType" Multiplicity="1" />
+          <End Type="Model.Journal" Role="Journal" Multiplicity="*" /></Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Transactions" Relationship="Model.CategoryTransaction" FromRole="Category" ToRole="Transaction" />
+          <NavigationProperty Name="User" Relationship="Model.FK_CategoryUser" FromRole="Category" ToRole="User" /></EntityType>
+        <Association Name="CategoryTransaction">
+          <End Type="Model.Category" Role="Category" Multiplicity="1" />
+          <End Type="Model.Transaction" Role="Transaction" Multiplicity="*" /></Association>
+        <Association Name="FK_CategoryUser">
+          <End Type="Model.User" Role="User" Multiplicity="1" />
+          <End Type="Model.Category" Role="Category" Multiplicity="*" /></Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Registered" ColumnName="Registered" />
+          <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccountSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Account)">
+        <MappingFragment StoreEntitySet="AccountSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssetTypeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AssetType)">
+        <MappingFragment StoreEntitySet="AssetTypeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Posting)">
+        <MappingFragment StoreEntitySet="PostingSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JournalSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Journal)">
+        <MappingFragment StoreEntitySet="JournalSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Transaction)">
+        <MappingFragment StoreEntitySet="JournalSet_Transaction">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JournalTypeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.JournalType)">
+        <MappingFragment StoreEntitySet="JournalTypeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategorySet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Category)">
+        <MappingFragment StoreEntitySet="CategorySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserAccount" TypeName="Model.UserAccount" StoreEntitySet="AccountSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Account">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AccountPosting" TypeName="Model.AccountPosting" StoreEntitySet="PostingSet">
+      <EndProperty Name="Account">
+        <ScalarProperty Name="Id" ColumnName="Account_Id" />
+      </EndProperty>
+      <EndProperty Name="Posting">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PostingAssetType" TypeName="Model.PostingAssetType" StoreEntitySet="PostingSet">
+      <EndProperty Name="AssetType">
+        <ScalarProperty Name="Id" ColumnName="AssetType_Id" />
+      </EndProperty>
+      <EndProperty Name="Postings">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TransactionPosting" TypeName="Model.JournalPosting" StoreEntitySet="PostingSet">
+      <EndProperty Name="Journal">
+        <ScalarProperty Name="Id" ColumnName="Journal_Id" />
+      </EndProperty>
+      <EndProperty Name="Posting">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="JournalTypeJournal" TypeName="Model.JournalTypeJournal" StoreEntitySet="JournalSet">
+      <EndProperty Name="JournalType">
+        <ScalarProperty Name="Id" ColumnName="JournalType_Id" />
+      </EndProperty>
+      <EndProperty Name="Journal">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CategoryTransaction" TypeName="Model.CategoryTransaction" StoreEntitySet="JournalSet_Transaction">
+      <EndProperty Name="Category">
+        <ScalarProperty Name="Id" ColumnName="Category_Id" />
+      </EndProperty>
+      <EndProperty Name="Transaction">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_CategoryUser" TypeName="Model.FK_CategoryUser" StoreEntitySet="CategorySet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Category">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model" ShowGrid="false" DisplayType="true" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+        <EntityTypeShape EntityType="Model.User" Width="1.75" PointX="0.5" PointY="0.5" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="Model.Account" Width="1.75" PointX="0.5" PointY="3.625" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Model.Journal" Width="1.5" PointX="5" PointY="3.625" Height="1.59568359375" />
+        <AssociationConnector Association="Model.UserAccount">
+          <ConnectorPoint PointX="1.375" PointY="3.0571907552083331" />
+          <ConnectorPoint PointX="1.375" PointY="3.625" /></AssociationConnector>
+        <EntityTypeShape EntityType="Model.AssetType" Width="1.5" PointX="2.875" PointY="6.5" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Model.Posting" Width="1.5" PointX="2.875" PointY="3.625" Height="2.172587890625" />
+        <AssociationConnector Association="Model.AccountPosting">
+          <ConnectorPoint PointX="2.25" PointY="4.7112939453125" />
+          <ConnectorPoint PointX="2.875" PointY="4.7112939453125" />
+          </AssociationConnector>
+        <AssociationConnector Association="Model.PostingAssetType">
+          <ConnectorPoint PointX="3.625" PointY="5.797587890625" />
+          <ConnectorPoint PointX="3.625" PointY="6.5" /></AssociationConnector>
+        <AssociationConnector Association="Model.JournalPosting">
+          <ConnectorPoint PointX="5" PointY="4.422841796875" />
+          <ConnectorPoint PointX="4.375" PointY="4.422841796875" />
+          </AssociationConnector>
+        <EntityTypeShape EntityType="Model.Transaction" Width="1.75" PointX="7.125" PointY="3.625" Height="1.9802864583333335" />
+        <InheritanceConnector EntityType="Model.Transaction" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.5" PointY="4.422841796875" />
+          <ConnectorPoint PointX="7.125" PointY="4.422841796875" />
+          </InheritanceConnector>
+        <InheritanceConnector EntityType="Model.Transaction">
+          <ConnectorPoint PointX="6.25" PointY="3.7016910807291667" />
+          <ConnectorPoint PointX="6.875" PointY="3.7016910807291667" />
+          </InheritanceConnector>
+        <EntityTypeShape EntityType="Model.JournalType" Width="1.5" PointX="5" PointY="6.5" Height="1.5956835937499996" />
+        <AssociationConnector Association="Model.JournalTypeJournal">
+          <ConnectorPoint PointX="5.75" PointY="6.5" />
+          <ConnectorPoint PointX="5.75" PointY="5.22068359375" />
+          </AssociationConnector>
+        <EntityTypeShape EntityType="Model.Category" Width="1.5" PointX="7.125" PointY="1" Height="1.7879850260416657" />
+        <AssociationConnector Association="Model.CategoryTransaction">
+          <ConnectorPoint PointX="7.875" PointY="2.7879850260416656" />
+          <ConnectorPoint PointX="7.875" PointY="3.625" />
+          </AssociationConnector>
+        <AssociationConnector Association="Model.FK_CategoryUser" >
+          <ConnectorPoint PointX="2.25" PointY="1.8939925130208328" />
+          <ConnectorPoint PointX="7.125" PointY="1.8939925130208328" />
+          </AssociationConnector>
+        </Diagram></edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
