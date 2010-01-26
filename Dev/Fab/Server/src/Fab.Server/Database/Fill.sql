@@ -9,7 +9,7 @@ SET ANSI_NULLS ON;
 GO
 
 --USE [Database]
-GO
+--GO
 
 INSERT INTO [dbo].[UserSet]
            ([Id]
@@ -29,4 +29,15 @@ INSERT INTO [dbo].[AccountSet]
      VALUES
            ('CASH'
            ,'6184b6dd-26d0-4d06-ba2c-95c850ccfebe')
+GO
+
+INSERT INTO [dbo].[JournalTypeSet] ([Name]) VALUES ('Deposit')
+INSERT INTO [dbo].[JournalTypeSet] ([Name]) VALUES ('Withdrawal')
+INSERT INTO [dbo].[JournalTypeSet] ([Name]) VALUES ('Transfer')
+Go
+
+INSERT INTO [dbo].[AssetTypeSet] ([Name]) VALUES ('UAH')
+INSERT INTO [dbo].[AssetTypeSet] ([Name]) VALUES ('USD')
+INSERT INTO [dbo].[AssetTypeSet] ([Name]) VALUES ('EUR')
+INSERT INTO [dbo].[AssetTypeSet] ([Name]) VALUES ('RUR')
 GO

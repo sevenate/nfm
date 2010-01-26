@@ -120,7 +120,7 @@ GO
 -- Creating table 'JournalTypeSet'
 CREATE TABLE [dbo].[JournalTypeSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Type] nvarchar(50)  NOT NULL
+    [Name] nvarchar(50)  NOT NULL
 );
 GO
 -- Creating table 'CategorySet'
