@@ -11,10 +11,10 @@ namespace Fab.Server
         {
             using (var mc = new ModelContainer())
             {
-                var journalType = mc.JournalTypeSet.Where(t => t.Id == value).SingleOrDefault();
+                var journalType = mc.JournalTypes.Where(t => t.Id == value).SingleOrDefault();
                 
                 return journalType != null
-                           ? journalType.Type
+                           ? journalType.Name
                            : string.Empty;
             }
         }
@@ -23,7 +23,7 @@ namespace Fab.Server
         {
             using (var mc = new ModelContainer())
             {
-                return mc.JournalTypeSet.Where(t => t.Id == value).SingleOrDefault();
+                return mc.JournalTypes.Where(t => t.Id == value).SingleOrDefault();
             }
         }
 

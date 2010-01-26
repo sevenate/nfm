@@ -11,7 +11,7 @@ GO
 --USE [Database]
 --GO
 
-INSERT INTO [dbo].[UserSet]
+INSERT INTO [dbo].[User]
            ([Id]
            ,[Login]
            ,[Password]
@@ -23,7 +23,7 @@ INSERT INTO [dbo].[UserSet]
            ,1)
 GO
 
-INSERT INTO [dbo].[AccountSet]
+INSERT INTO [dbo].[Account]
            ([Name]
            ,[User_Id])
      VALUES
@@ -31,13 +31,13 @@ INSERT INTO [dbo].[AccountSet]
            ,'6184b6dd-26d0-4d06-ba2c-95c850ccfebe')
 GO
 
-INSERT INTO [dbo].[JournalTypeSet] ([Name]) VALUES ('Deposit')
-INSERT INTO [dbo].[JournalTypeSet] ([Name]) VALUES ('Withdrawal')
-INSERT INTO [dbo].[JournalTypeSet] ([Name]) VALUES ('Transfer')
+INSERT INTO [dbo].[JournalType] ([Name]) VALUES ('Deposit')
+INSERT INTO [dbo].[JournalType] ([Name]) VALUES ('Withdrawal')
+INSERT INTO [dbo].[JournalType] ([Name]) VALUES ('Transfer')
 Go
 
-INSERT INTO [dbo].[AssetTypeSet] ([Name]) VALUES ('UAH')
-INSERT INTO [dbo].[AssetTypeSet] ([Name]) VALUES ('USD')
-INSERT INTO [dbo].[AssetTypeSet] ([Name]) VALUES ('EUR')
-INSERT INTO [dbo].[AssetTypeSet] ([Name]) VALUES ('RUR')
+INSERT INTO [dbo].[AssetType] ([Name]) VALUES ('UAH')
+INSERT INTO [dbo].[AssetType] ([Name]) VALUES ('USD')
+INSERT INTO [dbo].[AssetType] ([Name]) VALUES ('EUR')
+INSERT INTO [dbo].[AssetType] ([Name]) VALUES ('RUR')
 GO
