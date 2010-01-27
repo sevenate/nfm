@@ -1,8 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using System.ServiceModel;
-using Fab.Server.Core;
 
-namespace Fab.Server
+namespace Fab.Server.Core
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IAccountingService" in both code and config file together.
     [ServiceContract]

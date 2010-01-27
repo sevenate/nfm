@@ -74,6 +74,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\IAccountingService.cs" />
+    <Compile Include="Core\ICategoryService.cs" />
+    <Compile Include="Core\IReportService.cs" />
+    <Compile Include="Core\ITransactionService.cs" />
     <Compile Include="Core\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,7 +86,7 @@
     <Compile Include="AccountingService.svc.cs">
       <DependentUpon>AccountingService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IAccountingService.cs" />
+    <Compile Include="Core\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
