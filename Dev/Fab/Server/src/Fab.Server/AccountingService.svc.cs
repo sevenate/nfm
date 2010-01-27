@@ -3,9 +3,9 @@ using Fab.Server.Core;
 
 namespace Fab.Server
 {
-    public class AccountingService : IAccountingService
+    public class AccountService : IAccountService
     {
-        #region IAccountingService Members
+        #region IAccountService Members
 
         public string GetJournalTypeName(int value)
         {

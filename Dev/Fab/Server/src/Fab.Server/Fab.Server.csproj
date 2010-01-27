@@ -74,7 +74,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\IAccountingService.cs" />
+    <Compile Include="Core\IAccountService.cs" />
     <Compile Include="Core\ICategoryService.cs" />
     <Compile Include="Core\IReportService.cs" />
     <Compile Include="Core\ITransactionService.cs" />

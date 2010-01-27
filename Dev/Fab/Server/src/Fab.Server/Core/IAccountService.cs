@@ -3,9 +3,8 @@ using System.ServiceModel;
 
 namespace Fab.Server.Core
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IAccountingService" in both code and config file together.
     [ServiceContract]
-    public interface IAccountingService
+    public interface IAccountService
     {
         [OperationContract]
         string GetJournalTypeName(int value);
@@ -16,7 +15,6 @@ namespace Fab.Server.Core
         // TODO: Add your service operations here
     }
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]
     public class CompositeType
     {
