@@ -11,8 +11,6 @@ namespace Fab.Server.Core
 
         [OperationContract]
         JournalType GetJournalType(int value);
-
-        // TODO: Add your service operations here
     }
 
     [DataContract]

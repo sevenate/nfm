@@ -3,7 +3,7 @@ using Fab.Server.Core;
 
 namespace Fab.Server
 {
-    public class AccountService : IAccountService
+    public class ApiService : IAccountService
     {
         #region IAccountService Members
 
