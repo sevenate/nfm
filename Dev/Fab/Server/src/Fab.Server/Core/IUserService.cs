@@ -12,13 +12,28 @@
 // <summary>User service.</summary>
 
 
+using System;
+using System.Collections.Generic;
+using System.ServiceModel;
+
 namespace Fab.Server.Core
 {
     /// <summary>
     /// User service.
     /// </summary>
+    [ServiceContract]
     public interface IUserService
     {
-        
+        [OperationContract]
+        string GenerateUniqueLogin();
+
+        [OperationContract]
+        void Register(string login, string password);
+
+        [OperationContract]
+        void Update(string password, string email);
+
+        [OperationContract]
+        void ResetPassword(string login);
     }
 }
