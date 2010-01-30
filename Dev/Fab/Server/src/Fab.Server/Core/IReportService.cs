@@ -11,13 +11,15 @@
 // </editor>
 // <summary>Report service.</summary>
 
+using System.ServiceModel;
+
 namespace Fab.Server.Core
 {
     /// <summary>
     /// Report service.
     /// </summary>
+    [ServiceContract]
     public interface IReportService
     {
-        
     }
 }

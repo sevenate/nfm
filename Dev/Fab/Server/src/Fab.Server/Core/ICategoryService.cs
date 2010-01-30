@@ -11,13 +11,15 @@
 // </editor>
 // <summary>Category service.</summary>
 
+using System.ServiceModel;
+
 namespace Fab.Server.Core
 {
     /// <summary>
     /// Category service.
     /// </summary>
+    [ServiceContract]
     public interface ICategoryService
     {
-        
     }
 }
