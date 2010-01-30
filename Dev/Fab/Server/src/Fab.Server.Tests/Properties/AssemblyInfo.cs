@@ -1,16 +1,28 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿// <copyright file="AssemblyInfo.cs" company="HD">
+// 	Copyright (c) 2010 HD. All rights reserved.
+// </copyright>
+// <author name="Andrew Levshoff">
+// 	<email>alevshoff@hd.com</email>
+// 	<date>2010-01-30</date>
+// </author>
+// <editor name="Andrew Levshoff">
+// 	<email>alevshoff@hd.com</email>
+// 	<date>2010-01-30</date>
+// </editor>
+// <summary>Assembly information.</summary>
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Fab.Server.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("FAB WCF Service Unit Tests")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Fab.Server.Tests")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
+[assembly: AssemblyCompany("HD")]
+[assembly: AssemblyProduct("FAB")]
+[assembly: AssemblyCopyright("Copyright © HD 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
