@@ -70,6 +70,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="User_Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Journal">
@@ -271,7 +272,8 @@
           <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Transactions" Relationship="Model.FK_CategoryTransaction" FromRole="Category" ToRole="Transaction" />
-          <NavigationProperty Name="User" Relationship="Model.FK_CategoryUser" FromRole="Category" ToRole="User" /></EntityType>
+          <NavigationProperty Name="User" Relationship="Model.FK_CategoryUser" FromRole="Category" ToRole="User" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" /></EntityType>
         <EntityType Name="Journal">
           <Key>
             <PropertyRef Name="Id" /></Key>
@@ -355,6 +357,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="Model.Category">
               <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Journals">

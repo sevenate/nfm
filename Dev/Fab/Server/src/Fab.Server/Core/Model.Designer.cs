@@ -569,11 +569,13 @@ namespace Fab.Server.Core
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="name">Initial value of the Name property.</param>
-        public static Category CreateCategory(global::System.Int32 id, global::System.String name)
+        /// <param name="isDeleted">Initial value of the IsDeleted property.</param>
+        public static Category CreateCategory(global::System.Int32 id, global::System.String name, global::System.Boolean isDeleted)
         {
             Category category = new Category();
             category.Id = id;
             category.Name = name;
+            category.IsDeleted = isDeleted;
             return category;
         }
 
@@ -630,6 +632,30 @@ namespace Fab.Server.Core
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsDeleted
+        {
+            get
+            {
+                return _IsDeleted;
+            }
+            set
+            {
+                OnIsDeletedChanging(value);
+                ReportPropertyChanging("IsDeleted");
+                _IsDeleted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsDeleted");
+                OnIsDeletedChanged();
+            }
+        }
+        private global::System.Boolean _IsDeleted;
+        partial void OnIsDeletedChanging(global::System.Boolean value);
+        partial void OnIsDeletedChanged();
 
         #endregion
     
