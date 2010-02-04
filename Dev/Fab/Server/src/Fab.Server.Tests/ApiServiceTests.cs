@@ -11,6 +11,7 @@
 // </editor>
 // <summary>Unit tests for ApiService.</summary>
 
+using System;
 using System.Linq;
 using Fab.Server;
 using Xunit;
@@ -27,47 +28,60 @@ namespace Fab.Server.Tests
         [Fact]
         public void GenerateUniqueUserLogin()
         {
-            Assert.True(false);
+            var service = new ApiService();
+            string uniqueLogin = service.GenerateUniqueLogin();
+
+            bool isAvailable = service.IsLoginAvailable(uniqueLogin);
+
+            Assert.True(isAvailable);
         }
 
         [Fact]
-        public void CheckIsUserLoginUnique()
+        public void CheckIsLoginAvailable()
         {
-            Assert.True(false);
+            var service = new ApiService();
+
+            bool isAvailable = service.IsLoginAvailable(Guid.NewGuid().ToString());
+
+            Assert.True(isAvailable);
+        }
+
+        [Fact]
+        public void CheckIsLoginNotAvailable()
+        {
+            var service = new ApiService();
+            service.Register("testUser", "testPassword");
+
+            bool isAvailable = service.IsLoginAvailable("testUser");
+
+            Assert.False(isAvailable);
         }
 
         [Fact]
         public void RegisterNewUser()
         {
-            Assert.True(false);
+            var service = new ApiService();
+
+            service.Register("testUser", "testPassword");
         }
 
         [Fact]
         public void UpdateUser()
         {
-            Assert.True(false);
+            var service = new ApiService();
+            service.Register("testUser", "testPassword");
+
+            service.Update("testUser", "testPassword", "newTestPassword", "new@email");
         }
 
         [Fact]
-        public void ResetUserPassword()
+        public void ResetPassword()
         {
-            Assert.True(false);
-        }
+            var service = new ApiService();
+            service.Register("testUser", "testPassword");
+            service.Update("testUser", "testPassword", "newTestPassword", "new@email");
 
-        #endregion
-
-        #region Admin Service
-
-        [Fact]
-        public void GetAllUsers()
-        {
-            Assert.True(false);
-        }
-
-        [Fact]
-        public void DisableUser()
-        {
-            Assert.True(false);
+            service.ResetPassword("testUser", "new@email");
         }
 
         #endregion
@@ -77,7 +91,7 @@ namespace Fab.Server.Tests
         [Fact]
         public void GetAllAssetTypes()
         {
-            ApiService service = new ApiService();
+            var service = new ApiService();
 
             var assets = service.GetAllAssetTypes();
 
@@ -87,7 +101,7 @@ namespace Fab.Server.Tests
         [Fact]
         public void GetAllJournalTypes()
         {
-            ApiService service = new ApiService();
+            var service = new ApiService();
 
             var journals = service.GetAllJournalTypes();
 

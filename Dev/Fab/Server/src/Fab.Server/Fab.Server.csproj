@@ -58,6 +58,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminService.svc" />
     <Content Include="ApiService.svc" />
     <Content Include="App_Data\Database.mdf" />
     <Content Include="App_Data\Database_log.ldf">
@@ -74,6 +75,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminService.svc.cs">
+      <DependentUpon>AdminService.svc</DependentUpon>
+    </Compile>
     <Compile Include="ApiService.svc.cs">
       <DependentUpon>ApiService.svc</DependentUpon>
     </Compile>
