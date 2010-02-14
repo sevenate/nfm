@@ -31,19 +31,34 @@ namespace Fab.Server
 		/// <returns>Unique login name.</returns>
 		public string GenerateUniqueLogin()
 		{
-			throw new NotImplementedException();
+			// Todo: use more sophisticate algorithm for uniqueness login generation 
+			return "a" + Guid.NewGuid().GetHashCode();
 		}
 
 		/// <summary>
-		/// Check new user login name for uniqueness.
+		/// Check user login name for uniqueness.
 		/// </summary>
 		/// <param name="login">User login.</param>
 		/// <returns><c>True</c> if user login name is unique.</returns>
 		public bool IsLoginAvailable(string login)
 		{
+			if (login == null)
+			{
+				throw new ArgumentNullException("login");
+			}
+
+			// Remove leading and closing spaces (user typo)
+			string newLogin = login.Trim();
+
+			// Check login min & max length
+			if (newLogin.Length < 5 || newLogin.Length > 50)
+			{
+				return false;
+			}
+
 			using (var mc = new ModelContainer())
 			{
-				return mc.Users.Where(u => u.Login == login).SingleOrDefault() == null;
+				return IsLoginAvailable(mc, newLogin);
 			}
 		}
 
@@ -52,32 +67,126 @@ namespace Fab.Server
 		/// </summary>
 		/// <param name="login">User login name.</param>
 		/// <param name="password">User password.</param>
-		public void Register(string login, string password)
+		/// <returns>Created user ID.</returns>
+		public Guid Register(string login, string password)
 		{
+			if (login == null)
+			{
+				throw new ArgumentNullException("login");
+			}
+
+			if (password == null)
+			{
+				throw new ArgumentNullException("password");
+			}
+
+			// Remove leading and closing spaces (user typo)
+			string newLogin = login.Trim();
+
+			// Check login min & max length
+			if (newLogin.Length < 5 || newLogin.Length > 50)
+			{
+				return Guid.Empty;
+			}
+
+			// Check password min & max length
+			if (password.Length < 5 || password.Length > 256)
+			{
+				return Guid.Empty;
+			}
+
 			using (var mc = new ModelContainer())
 			{
-				User user = mc.Users.CreateObject();
-				
-				user.Login = login;
-				// Todo: use hash algorithm instead of plain text here!
-				user.Password = password.Trim();
-				user.Registered = DateTime.UtcNow;
+				// Check login uniqueness
+				if (!IsLoginAvailable(mc, newLogin))
+				{
+					return Guid.Empty;
+				}
 
-				mc.AddToUsers(user);
+				var user = new User
+				           {
+							Id = Guid.NewGuid(),
+							Login = newLogin,
+							Password = password,	// Todo: use hash algorithm instead of plain text here!
+				           	Registered = DateTime.UtcNow,
+							IsDisabled = false
+				           };
+
+				mc.Users.AddObject(user);
 				mc.SaveChanges();
+
+				return user.Id;
 			}
 		}
 
 		/// <summary>
 		/// Change user password or email to new values.
 		/// </summary>
-		/// <param name="login">User login name.</param>
+		/// <param name="userId">User unique ID.</param>
 		/// <param name="oldPassword">User old password.</param>
 		/// <param name="newPassword">User new password.</param>
 		/// <param name="newEmail">User new email.</param>
-		public void Update(string login, string oldPassword, string newPassword, string newEmail)
+		public void Update(Guid userId, string oldPassword, string newPassword, string newEmail)
 		{
-			throw new NotImplementedException();
+			if (oldPassword == null)
+			{
+				throw new ArgumentNullException("oldPassword");
+			}
+			
+			if (newPassword == null)
+			{
+				throw new ArgumentNullException("newPassword");
+			}
+
+			// Check password min length
+			if (newPassword.Length < 5)
+			{
+				throw new Exception("New password is too short.");
+			}
+
+			// Check password max length
+			if (newPassword.Length > 256)
+			{
+				throw new Exception("New password is too long.");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				var user = mc.Users.Where(u => u.Id == userId).SingleOrDefault();
+
+				if (user == null)
+				{
+					throw new Exception("User with ID \"" + userId + "\" not found.");
+				}
+
+				if (user.Password != oldPassword)
+				{
+					throw new Exception("Old password is incorrect.");
+				}
+
+				user.Password = newPassword;
+				user.Email = newEmail != null ? newEmail.Trim() : null;
+
+				mc.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// Get user ID by unique login name.
+		/// </summary>
+		/// <param name="login">User unique login name.</param>
+		/// <returns>User unique ID.</returns>
+		public Guid GetUserId(string login)
+		{
+			if (login == null)
+			{
+				throw new ArgumentNullException("login");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				return mc.Users.Where(u => u.Login == login.Trim()).Select(u => u.Id).SingleOrDefault();
+			}
 		}
 
 		/// <summary>
@@ -89,6 +198,16 @@ namespace Fab.Server
 		/// <param name="email">User email.</param>
 		public void ResetPassword(string login, string email)
 		{
+			if (login == null)
+			{
+				throw new ArgumentNullException("login");
+			}
+
+			if (email == null)
+			{
+				throw new ArgumentNullException("email");
+			}
+
 			throw new NotImplementedException();
 		}
 
@@ -118,6 +237,21 @@ namespace Fab.Server
 			{
 				return mc.JournalTypes.ToList();
 			}
+		}
+
+		#endregion
+
+		#region Private Methods
+		
+		/// <summary>
+		/// Check is user <paramref name="login"/> name is not used by some one else.
+		/// </summary>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="login">User login name.</param>
+		/// <returns><c>True</c> if user login name is unique.</returns>
+		private static bool IsLoginAvailable(ModelContainer mc, string login)
+		{
+			return mc.Users.Where(u => u.Login == login).SingleOrDefault() == null;
 		}
 
 		#endregion

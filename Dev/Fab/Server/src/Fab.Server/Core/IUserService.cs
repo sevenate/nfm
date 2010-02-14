@@ -11,6 +11,7 @@
 // </editor>
 // <summary>User service.</summary>
 
+using System;
 using System.ServiceModel;
 
 namespace Fab.Server.Core
@@ -41,18 +42,27 @@ namespace Fab.Server.Core
         /// </summary>
         /// <param name="login">User login name.</param>
         /// <param name="password">User password.</param>
+		/// <returns>Created user ID.</returns>
         [OperationContract]
-        void Register(string login, string password);
+        Guid Register(string login, string password);
 
         /// <summary>
         /// Change user password or email to new values.
         /// </summary>
-        /// <param name="login">User login name.</param>
+		/// <param name="userId">User unique ID.</param>
         /// <param name="oldPassword">User old password.</param>
         /// <param name="newPassword">User new password.</param>
         /// <param name="newEmail">User new email.</param>
         [OperationContract]
-        void Update(string login, string oldPassword, string newPassword, string newEmail);
+        void Update(Guid userId, string oldPassword, string newPassword, string newEmail);
+
+		/// <summary>
+		/// Get user ID by unique login name.
+		/// </summary>
+		/// <param name="login">User unique login name.</param>
+		/// <returns>User unique ID.</returns>
+		[OperationContract]
+    	Guid GetUserId(string login);
 
         /// <summary>
         /// If user with specified login name have email and this email is match to specified email,
