@@ -13,6 +13,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Fab.Server.Core;
 
 namespace Fab.Server
@@ -28,9 +29,12 @@ namespace Fab.Server
         /// Retrieve all registered users from the system.
         /// </summary>
         /// <returns>All users.</returns>
-        public IEnumerable<User> GetAll()
+		public IList<User> GetAll()
         {
-            throw new NotImplementedException();
+			using (var mc = new ModelContainer())
+			{
+				return mc.Users.OrderBy(u => u.Registered).ToList();
+			}
         }
 
         /// <summary>
@@ -39,7 +43,12 @@ namespace Fab.Server
         /// <param name="userId">User ID to disable.</param>
         public void Disable(Guid userId)
         {
-            throw new NotImplementedException();
+			using (var mc = new ModelContainer())
+			{
+				var user = ModelHelper.GetUserById(mc, userId);
+				user.IsDisabled = true;
+				mc.SaveChanges();
+			}
         }
 
         #endregion

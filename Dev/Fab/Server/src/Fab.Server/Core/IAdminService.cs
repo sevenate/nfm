@@ -28,7 +28,7 @@ namespace Fab.Server.Core
         /// </summary>
         /// <returns>All users.</returns>
         [OperationContract]
-        IEnumerable<User> GetAll();
+		IList<User> GetAll();
 
         /// <summary>
         /// Disable login for specific user by his internal unique ID.

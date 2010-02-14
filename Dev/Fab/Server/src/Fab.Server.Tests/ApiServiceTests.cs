@@ -90,7 +90,24 @@ namespace Fab.Server.Tests
 			service.Update(userId, "testPassword", "newTestPassword", "new@email");
         }
 
-		/// <summary>
+    	/// <summary>
+    	/// Test <see cref="ApiService.GetUserId"/> method.
+    	/// </summary>
+    	[Fact]
+    	public void GetUserId()
+    	{
+    		string login = "testUser" + Guid.NewGuid();
+    		var service = new ApiService();
+    		Guid userId = service.Register(login, "testPassword");
+
+    		Guid actualUserId = service.GetUserId(login);
+
+    		Assert.True(userId != Guid.Empty);
+    		Assert.True(actualUserId != Guid.Empty);
+    		Assert.True(userId == actualUserId);
+    	}
+
+    	/// <summary>
 		/// Test <see cref="ApiService.ResetPassword"/> method.
 		/// </summary>
         [Fact]
@@ -104,24 +121,7 @@ namespace Fab.Server.Tests
 			service.ResetPassword(login, "new@email");
         }
 
-		/// <summary>
-		/// Test <see cref="ApiService.GetUserId"/> method.
-		/// </summary>
-    	[Fact]
-    	public void GetUserId()
-    	{
-			string login = "testUser" + Guid.NewGuid();
-			var service = new ApiService();
-			Guid userId = service.Register(login, "testPassword");
-
-			Guid actualUserId = service.GetUserId(login);
-
-			Assert.True(userId != Guid.Empty);
-			Assert.True(actualUserId != Guid.Empty);
-			Assert.True(userId == actualUserId);
-    	}
-
-        #endregion
+    	#endregion
 
         #region Transaction Service
 

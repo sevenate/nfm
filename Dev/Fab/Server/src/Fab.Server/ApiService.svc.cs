@@ -58,7 +58,7 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				return IsLoginAvailable(mc, newLogin);
+				return ModelHelper.IsLoginAvailable(mc, newLogin);
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace Fab.Server
 			using (var mc = new ModelContainer())
 			{
 				// Check login uniqueness
-				if (!IsLoginAvailable(mc, newLogin))
+				if (!ModelHelper.IsLoginAvailable(mc, newLogin))
 				{
 					return Guid.Empty;
 				}
@@ -152,12 +152,7 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				var user = mc.Users.Where(u => u.Id == userId).SingleOrDefault();
-
-				if (user == null)
-				{
-					throw new Exception("User with ID \"" + userId + "\" not found.");
-				}
+				User user = ModelHelper.GetUserById(mc, userId);
 
 				if (user.Password != oldPassword)
 				{
@@ -237,21 +232,6 @@ namespace Fab.Server
 			{
 				return mc.JournalTypes.ToList();
 			}
-		}
-
-		#endregion
-
-		#region Private Methods
-		
-		/// <summary>
-		/// Check is user <paramref name="login"/> name is not used by some one else.
-		/// </summary>
-		/// <param name="mc">Entity Framework model container.</param>
-		/// <param name="login">User login name.</param>
-		/// <returns><c>True</c> if user login name is unique.</returns>
-		private static bool IsLoginAvailable(ModelContainer mc, string login)
-		{
-			return mc.Users.Where(u => u.Login == login).SingleOrDefault() == null;
 		}
 
 		#endregion
