@@ -21,7 +21,7 @@ namespace Fab.Server
 	/// <summary>
 	/// Represent public server API available for clients.
 	/// </summary>
-	public class ApiService : IUserService, ITransactionService
+	public class ApiService : IUserService, IAccountService, ITransactionService
 	{
 		#region Implementation of IUserService
 
@@ -203,6 +203,51 @@ namespace Fab.Server
 				throw new ArgumentNullException("email");
 			}
 
+			throw new NotImplementedException();
+		}
+
+		#endregion
+
+		#region Implementation of IAccountService
+
+		/// <summary>
+		/// Create new acount.
+		/// </summary>
+		/// <param name="userId">User unique ID for which this account is created.</param>
+		/// <param name="name">Account name.</param>
+		/// <returns>Created account ID.</returns>
+		public int CreateAccount(Guid userId, string name)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Update account details to new values.
+		/// </summary>
+		/// <param name="userId">User unique ID.</param>
+		/// <param name="accountId">Account ID.</param>
+		/// <param name="name">Account new name.</param>
+		public void UpdateAccount(Guid userId, int accountId, string name)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Mark account as "deleted".
+		/// </summary>
+		/// <param name="userId">User unique ID.</param>
+		/// <param name="accountId">Account ID to mark as deleted.</param>
+		public void DeleteAccount(Guid userId, int accountId)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Retrieve all accounts for user.
+		/// </summary>
+		/// <returns>All accounts.</returns>
+		public IList<User> GetAllAccounts()
+		{
 			throw new NotImplementedException();
 		}
 

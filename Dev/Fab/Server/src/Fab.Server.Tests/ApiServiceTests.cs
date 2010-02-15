@@ -123,34 +123,74 @@ namespace Fab.Server.Tests
 
     	#endregion
 
-        #region Transaction Service
+    	#region Account Service
 
 		/// <summary>
-		/// Test <see cref="ApiService.GetAllAssetTypes"/> method.
+		/// Test <see cref="ApiService.CreateAccount"/> method.
 		/// </summary>
-        [Fact]
-        public void GetAllAssetTypes()
-        {
-            var service = new ApiService();
-
-            var assets = service.GetAllAssetTypes();
-
-            Assert.True(assets.Count == 4);
-        }
+    	[Fact]
+    	public void CreateAccount()
+    	{
+			Assert.True(false);
+    	}
 
 		/// <summary>
-		/// Test <see cref="ApiService.GetAllJournalTypes"/> method.
+		/// Test <see cref="ApiService.UpdateAccount"/> method.
 		/// </summary>
-        [Fact]
-        public void GetAllJournalTypes()
-        {
-            var service = new ApiService();
+    	[Fact]
+    	public void UpdateAccount()
+    	{
+			Assert.True(false);
+    	}
 
-            var journals = service.GetAllJournalTypes();
+		/// <summary>
+		/// Test <see cref="ApiService.DeleteAccount"/> method.
+		/// </summary>
+		[Fact]
+		public void DeleteAccount()
+		{
+			Assert.True(false);
+		}
 
-            Assert.True(journals.Count == 3);
-        }
+		/// <summary>
+		/// Test <see cref="ApiService.GetAllAccounts"/> method.
+		/// </summary>
+		[Fact]
+		public void GetAllAccounts()
+		{
+			Assert.True(false);
+		}
 
-        #endregion
+    	#endregion
+
+    	#region Transaction Service
+
+    	/// <summary>
+    	/// Test <see cref="ApiService.GetAllAssetTypes"/> method.
+    	/// </summary>
+    	[Fact]
+    	public void GetAllAssetTypes()
+    	{
+    		var service = new ApiService();
+
+    		var assets = service.GetAllAssetTypes();
+
+    		Assert.True(assets.Count == 4);
+    	}
+
+    	/// <summary>
+    	/// Test <see cref="ApiService.GetAllJournalTypes"/> method.
+    	/// </summary>
+    	[Fact]
+    	public void GetAllJournalTypes()
+    	{
+    		var service = new ApiService();
+
+    		var journals = service.GetAllJournalTypes();
+
+    		Assert.True(journals.Count == 3);
+    	}
+
+    	#endregion
     }
 }
