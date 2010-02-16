@@ -71,10 +71,10 @@ namespace Fab.Server.Tests
     	public void GenerateUniqueUserLogin()
     	{
     		var service = new ApiService();
-    		string uniqueLogin = service.GenerateUniqueLogin();
+    		
+			string uniqueLogin = service.GenerateUniqueLogin();
 
     		bool isAvailable = service.IsLoginAvailable(uniqueLogin);
-
     		Assert.True(isAvailable);
     	}
 
@@ -131,7 +131,15 @@ namespace Fab.Server.Tests
     	[Fact]
     	public void CreateAccount()
     	{
-			Assert.True(false);
+			string accountName = "Test Account";
+			var service = new ApiService();
+			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+
+			service.CreateAccount(userId, accountName);
+
+			var accounts = service.GetAllAccounts(userId);
+			Assert.Equal(accounts.Count, 1);
+			Assert.Equal(accounts[0].Name, accountName);
     	}
 
 		/// <summary>
@@ -140,7 +148,18 @@ namespace Fab.Server.Tests
     	[Fact]
     	public void UpdateAccount()
     	{
-			Assert.True(false);
+			string accountName = "Test Account";
+			string newAccountName = "Renamed Account";
+			var service = new ApiService();
+			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId, accountName);
+			var accounts = service.GetAllAccounts(userId);
+
+			service.UpdateAccount(userId, accounts[0].Id, newAccountName);
+
+			accounts = service.GetAllAccounts(userId);
+			Assert.Equal(accounts.Count, 1);
+			Assert.Equal(accounts[0].Name, newAccountName);
     	}
 
 		/// <summary>
@@ -149,7 +168,16 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void DeleteAccount()
 		{
-			Assert.True(false);
+			string accountName = "Test Account";
+			var service = new ApiService();
+			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId, accountName);
+			var accounts = service.GetAllAccounts(userId);
+
+			service.DeleteAccount(userId, accounts[0].Id);
+
+			accounts = service.GetAllAccounts(userId);
+			Assert.Equal(accounts.Count, 0);
 		}
 
 		/// <summary>
@@ -158,7 +186,15 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void GetAllAccounts()
 		{
-			Assert.True(false);
+			string accountName = "Test Account";
+			var service = new ApiService();
+			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId, accountName);
+
+			var accounts = service.GetAllAccounts(userId);
+
+			Assert.Equal(accounts.Count, 1);
+			Assert.Equal(accounts[0].Name, accountName);
 		}
 
     	#endregion

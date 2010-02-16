@@ -22,23 +22,23 @@ namespace Fab.Server.Core
 	internal static class ModelHelper
 	{
 		/// <summary>
-		/// Check is user <paramref name="login"/> name is not used by some one else.
+		/// Check is user <paramref name="login" /> name is not used by some one else.
 		/// </summary>
 		/// <param name="mc">Entity Framework model container.</param>
 		/// <param name="login">User login name.</param>
 		/// <returns><c>True</c> if user login name is unique.</returns>
-		public static bool IsLoginAvailable(ModelContainer mc, string login)
+		internal static bool IsLoginAvailable(ModelContainer mc, string login)
 		{
 			return mc.Users.Where(u => u.Login == login).SingleOrDefault() == null;
 		}
 
 		/// <summary>
-		/// Get <see cref="User"/> from database by unique ID.
+		/// Get <see cref="User" /> from model container by unique ID.
 		/// </summary>
 		/// <param name="mc">Entity Framework model container.</param>
 		/// <param name="userId">Unique user ID.</param>
-		/// <returns>Fount user object or null otherwise.</returns>
-		public static User GetUserById(ModelContainer mc, Guid userId)
+		/// <returns>Found user object or null otherwise.</returns>
+		internal static User GetUserById(ModelContainer mc, Guid userId)
 		{
 			var user = mc.Users.Where(u => u.Id == userId).SingleOrDefault();
 
@@ -48,6 +48,25 @@ namespace Fab.Server.Core
 			}
 
 			return user;
+		}
+
+		/// <summary>
+		/// Get <see cref="Account" /> from model container by unique ID.
+		/// </summary>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="userId">Unique user ID.</param>
+		/// <param name="accountId">Account ID.</param>
+		/// <returns>Found account object or null otherwise.</returns>
+		internal static Account GetAccountById(ModelContainer mc, Guid userId, int accountId)
+		{
+			var account = mc.Accounts.Where(a => a.Id == accountId && a.User.Id == userId).SingleOrDefault();
+
+			if (account == null)
+			{
+				throw new Exception("Account with ID = \"" + accountId + "\" for user \"" + userId + "\" not found.");
+			}
+
+			return account;
 		}
 	}
 }

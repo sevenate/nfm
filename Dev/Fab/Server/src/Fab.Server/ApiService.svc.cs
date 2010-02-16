@@ -1,5 +1,5 @@
 ﻿// <copyright file="ApiService.svc.cs" company="HD">
-// 	Copyright (c) 2010 HD. All rights reserved.
+//  Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff">
 // 	<email>alevshoff@hd.com</email>
@@ -28,7 +28,9 @@ namespace Fab.Server
 		/// <summary>
 		/// Generate unique login name for new user.
 		/// </summary>
-		/// <returns>Unique login name.</returns>
+		/// <returns>
+		/// Unique login name.
+		/// </returns>
 		public string GenerateUniqueLogin()
 		{
 			// Todo: use more sophisticate algorithm for uniqueness login generation 
@@ -38,13 +40,17 @@ namespace Fab.Server
 		/// <summary>
 		/// Check user login name for uniqueness.
 		/// </summary>
-		/// <param name="login">User login.</param>
-		/// <returns><c>True</c> if user login name is unique.</returns>
+		/// <param name="login">
+		/// User login.
+		/// </param>
+		/// <returns>
+		/// <c>True</c> if user login name is unique.
+		/// </returns>
 		public bool IsLoginAvailable(string login)
 		{
-			if (login == null)
+			if (string.IsNullOrWhiteSpace(login))
 			{
-				throw new ArgumentNullException("login");
+				throw new ArgumentException("Login must not be empty.");
 			}
 
 			// Remove leading and closing spaces (user typo)
@@ -65,19 +71,25 @@ namespace Fab.Server
 		/// <summary>
 		/// Register new user with unique login name and password.
 		/// </summary>
-		/// <param name="login">User login name.</param>
-		/// <param name="password">User password.</param>
-		/// <returns>Created user ID.</returns>
+		/// <param name="login">
+		/// User login name.
+		/// </param>
+		/// <param name="password">
+		/// User password.
+		/// </param>
+		/// <returns>
+		/// Created user ID.
+		/// </returns>
 		public Guid Register(string login, string password)
 		{
-			if (login == null)
+			if (string.IsNullOrWhiteSpace(login))
 			{
-				throw new ArgumentNullException("login");
+				throw new ArgumentException("Login must not be empty.");
 			}
 
-			if (password == null)
+			if (string.IsNullOrWhiteSpace(password))
 			{
-				throw new ArgumentNullException("password");
+				throw new ArgumentException("Password must not be empty.");
 			}
 
 			// Remove leading and closing spaces (user typo)
@@ -105,11 +117,11 @@ namespace Fab.Server
 
 				var user = new User
 				           {
-							Id = Guid.NewGuid(),
-							Login = newLogin,
-							Password = password,	// Todo: use hash algorithm instead of plain text here!
-				           	Registered = DateTime.UtcNow,
-							IsDisabled = false
+				           	Id = Guid.NewGuid(), 
+				           	Login = newLogin, 
+				           	Password = password, // Todo: use hash algorithm instead of plain text here!
+				           	Registered = DateTime.UtcNow, 
+				           	IsDisabled = false
 				           };
 
 				mc.Users.AddObject(user);
@@ -122,20 +134,33 @@ namespace Fab.Server
 		/// <summary>
 		/// Change user password or email to new values.
 		/// </summary>
-		/// <param name="userId">User unique ID.</param>
-		/// <param name="oldPassword">User old password.</param>
-		/// <param name="newPassword">User new password.</param>
-		/// <param name="newEmail">User new email.</param>
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <param name="oldPassword">
+		/// User old password.
+		/// </param>
+		/// <param name="newPassword">
+		/// User new password.
+		/// </param>
+		/// <param name="newEmail">
+		/// User new email.
+		/// </param>
 		public void Update(Guid userId, string oldPassword, string newPassword, string newEmail)
 		{
-			if (oldPassword == null)
+			if (userId == Guid.Empty)
 			{
-				throw new ArgumentNullException("oldPassword");
+				throw new ArgumentException("User ID must not be empty.");
 			}
-			
-			if (newPassword == null)
+
+			if (string.IsNullOrWhiteSpace(oldPassword))
 			{
-				throw new ArgumentNullException("newPassword");
+				throw new ArgumentException("Old password must not be empty.");
+			}
+
+			if (string.IsNullOrWhiteSpace(newPassword))
+			{
+				throw new ArgumentException("New password must not be empty.");
 			}
 
 			// Check password min length
@@ -160,7 +185,9 @@ namespace Fab.Server
 				}
 
 				user.Password = newPassword;
-				user.Email = newEmail != null ? newEmail.Trim() : null;
+				user.Email = newEmail != null
+				             	? newEmail.Trim()
+				             	: null;
 
 				mc.SaveChanges();
 			}
@@ -169,13 +196,17 @@ namespace Fab.Server
 		/// <summary>
 		/// Get user ID by unique login name.
 		/// </summary>
-		/// <param name="login">User unique login name.</param>
-		/// <returns>User unique ID.</returns>
+		/// <param name="login">
+		/// User unique login name.
+		/// </param>
+		/// <returns>
+		/// User unique ID.
+		/// </returns>
 		public Guid GetUserId(string login)
 		{
-			if (login == null)
+			if (string.IsNullOrWhiteSpace(login))
 			{
-				throw new ArgumentNullException("login");
+				throw new ArgumentException("Login must not be empty.");
 			}
 
 			using (var mc = new ModelContainer())
@@ -189,18 +220,22 @@ namespace Fab.Server
 		/// then system will reset current password for this user to autogenerated new one
 		/// and sent it to the specified email.
 		/// </summary>
-		/// <param name="login">User login name.</param>
-		/// <param name="email">User email.</param>
+		/// <param name="login">
+		/// User login name.
+		/// </param>
+		/// <param name="email">
+		/// User email.
+		/// </param>
 		public void ResetPassword(string login, string email)
 		{
-			if (login == null)
+			if (string.IsNullOrWhiteSpace(login))
 			{
-				throw new ArgumentNullException("login");
+				throw new ArgumentException("Login must not be empty.");
 			}
 
-			if (email == null)
+			if (string.IsNullOrWhiteSpace(email))
 			{
-				throw new ArgumentNullException("email");
+				throw new ArgumentException("Email must not be empty.");
 			}
 
 			throw new NotImplementedException();
@@ -213,42 +248,116 @@ namespace Fab.Server
 		/// <summary>
 		/// Create new acount.
 		/// </summary>
-		/// <param name="userId">User unique ID for which this account is created.</param>
-		/// <param name="name">Account name.</param>
-		/// <returns>Created account ID.</returns>
-		public int CreateAccount(Guid userId, string name)
+		/// <param name="userId">
+		/// User unique ID for which this account is created.
+		/// </param>
+		/// <param name="name">
+		/// Account name.
+		/// </param>
+		public void CreateAccount(Guid userId, string name)
 		{
-			throw new NotImplementedException();
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				throw new ArgumentException("Account name must not be empty.");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				User user = ModelHelper.GetUserById(mc, userId);
+
+				var account = new Account
+				              {
+				              	Name = name.Trim(), 
+				              	Created = DateTime.UtcNow, 
+				              	IsDeleted = false, 
+				              	User = user
+				              };
+
+				mc.Accounts.AddObject(account);
+				mc.SaveChanges();
+			}
 		}
 
 		/// <summary>
 		/// Update account details to new values.
 		/// </summary>
-		/// <param name="userId">User unique ID.</param>
-		/// <param name="accountId">Account ID.</param>
-		/// <param name="name">Account new name.</param>
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <param name="accountId">
+		/// Account ID.
+		/// </param>
+		/// <param name="name">
+		/// Account new name.
+		/// </param>
 		public void UpdateAccount(Guid userId, int accountId, string name)
 		{
-			throw new NotImplementedException();
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				throw new ArgumentException("Account name must not be empty.");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				Account account = ModelHelper.GetAccountById(mc, userId, accountId);
+
+				account.Name = name.Trim();
+
+				mc.SaveChanges();
+			}
 		}
 
 		/// <summary>
 		/// Mark account as "deleted".
 		/// </summary>
-		/// <param name="userId">User unique ID.</param>
-		/// <param name="accountId">Account ID to mark as deleted.</param>
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <param name="accountId">
+		/// Account ID to mark as deleted.
+		/// </param>
 		public void DeleteAccount(Guid userId, int accountId)
 		{
-			throw new NotImplementedException();
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				Account account = ModelHelper.GetAccountById(mc, userId, accountId);
+
+				account.IsDeleted = true;
+
+				mc.SaveChanges();
+			}
 		}
 
 		/// <summary>
 		/// Retrieve all accounts for user.
 		/// </summary>
-		/// <returns>All accounts.</returns>
-		public IList<User> GetAllAccounts()
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <returns>
+		/// All accounts.
+		/// </returns>
+		public IList<Account> GetAllAccounts(Guid userId)
 		{
-			throw new NotImplementedException();
+			using (var mc = new ModelContainer())
+			{
+				return mc.Accounts.Where(a => a.User.Id == userId && a.IsDeleted == false).OrderBy(a => a.Created).ToList();
+			}
 		}
 
 		#endregion
@@ -258,7 +367,9 @@ namespace Fab.Server
 		/// <summary>
 		/// Gets all available asset types (i.e. "currency names").
 		/// </summary>
-		/// <returns>Asset types presented in the system.</returns>
+		/// <returns>
+		/// Asset types presented in the system.
+		/// </returns>
 		public IList<AssetType> GetAllAssetTypes()
 		{
 			using (var mc = new ModelContainer())
@@ -270,7 +381,9 @@ namespace Fab.Server
 		/// <summary>
 		/// Gets all available journal types (i.e. "Deposit", "Withdrawal", "Transfer" etc.).
 		/// </summary>
-		/// <returns>Journal types presented in the system.</returns>
+		/// <returns>
+		/// Journal types presented in the system.
+		/// </returns>
 		public IList<JournalType> GetAllJournalTypes()
 		{
 			using (var mc = new ModelContainer())

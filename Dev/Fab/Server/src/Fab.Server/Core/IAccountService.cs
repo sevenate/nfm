@@ -28,9 +28,8 @@ namespace Fab.Server.Core
     	/// </summary>
 		/// <param name="userId">User unique ID for which this account is created.</param>
 		/// <param name="name">Account name.</param>
-    	/// <returns>Created account ID.</returns>
     	[OperationContract]
-		int CreateAccount(Guid userId, string name);
+		void CreateAccount(Guid userId, string name);
 
 		/// <summary>
 		/// Update account details to new values.
@@ -49,11 +48,12 @@ namespace Fab.Server.Core
 		[OperationContract]
 		void DeleteAccount(Guid userId, int accountId);
 
-		/// <summary>
-		/// Retrieve all accounts for user.
-		/// </summary>
-		/// <returns>All accounts.</returns>
-		[OperationContract]
-		IList<User> GetAllAccounts();
+    	/// <summary>
+    	/// Retrieve all accounts for user.
+    	/// </summary>
+		/// <param name="userId">User unique ID.</param>
+    	/// <returns>All accounts.</returns>
+    	[OperationContract]
+		IList<Account> GetAllAccounts(Guid userId);
     }
 }
