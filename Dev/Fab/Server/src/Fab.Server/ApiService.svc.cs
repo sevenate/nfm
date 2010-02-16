@@ -9,7 +9,9 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2010-01-28</date>
 // </editor>
-// <summary>Represent public server API available for clients.</summary>
+// <summary>
+//   Represent public server API available for clients.
+// </summary>
 
 using System;
 using System.Collections.Generic;
@@ -249,7 +251,7 @@ namespace Fab.Server
 		/// Create new acount.
 		/// </summary>
 		/// <param name="userId">
-		/// User unique ID for which this account is created.
+		/// User unique ID for which this account should be created.
 		/// </param>
 		/// <param name="name">
 		/// Account name.
