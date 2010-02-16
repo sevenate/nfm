@@ -23,7 +23,7 @@ namespace Fab.Server
 	/// <summary>
 	/// Represent public server API available for clients.
 	/// </summary>
-	public class ApiService : IUserService, IAccountService, ITransactionService
+	public class ApiService : IUserService, IAccountService, ICategoryService, ITransactionService
 	{
 		#region Implementation of IUserService
 
@@ -359,6 +359,124 @@ namespace Fab.Server
 			using (var mc = new ModelContainer())
 			{
 				return mc.Accounts.Where(a => a.User.Id == userId && a.IsDeleted == false).OrderBy(a => a.Created).ToList();
+			}
+		}
+
+		#endregion
+
+		#region Implementation of ICategoryService
+
+		/// <summary>
+		/// Create new category.
+		/// </summary>
+		/// <param name="userId">
+		/// User unique ID for which this category should be created.
+		/// </param>
+		/// <param name="name">
+		/// Category name.
+		/// </param>
+		public void CreateCategory(Guid userId, string name)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				throw new ArgumentException("Category name must not be empty.");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				User user = ModelHelper.GetUserById(mc, userId);
+
+				var category = new Category
+				               {
+				               	Name = name.Trim(), 
+				               	IsDeleted = false, 
+				               	User = user
+				               };
+
+				mc.Categories.AddObject(category);
+				mc.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// Update category details to new values.
+		/// </summary>
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <param name="categoryId">
+		/// Category ID.
+		/// </param>
+		/// <param name="name">
+		/// Category new name.
+		/// </param>
+		public void UpdateCategory(Guid userId, int categoryId, string name)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				throw new ArgumentException("Category name must not be empty.");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				Category category = ModelHelper.GetCategoryById(mc, userId, categoryId);
+
+				category.Name = name.Trim();
+
+				mc.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// Mark category as "deleted".
+		/// </summary>
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <param name="categoryId">
+		/// Category ID to mark as deleted.
+		/// </param>
+		public void DeleteCategory(Guid userId, int categoryId)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				Category category = ModelHelper.GetCategoryById(mc, userId, categoryId);
+
+				category.IsDeleted = true;
+
+				mc.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// Retrieve all categories for user.
+		/// </summary>
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <returns>
+		/// All categories.
+		/// </returns>
+		public IList<Category> GetAllCategories(Guid userId)
+		{
+			using (var mc = new ModelContainer())
+			{
+				return mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false).OrderBy(c => c.Name).ToList();
 			}
 		}
 
