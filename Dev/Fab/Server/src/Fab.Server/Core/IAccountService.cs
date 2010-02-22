@@ -34,8 +34,11 @@ namespace Fab.Server.Core
 		/// <param name="name">
 		/// Account name.
 		/// </param>
+		/// <param name="assetTypeId">
+		/// The asset type ID.
+		/// </param>
 		[OperationContract]
-		void CreateAccount(Guid userId, string name);
+		void CreateAccount(Guid userId, string name, int assetTypeId);
 
 		/// <summary>
 		/// Update account details to new values.
@@ -49,8 +52,11 @@ namespace Fab.Server.Core
 		/// <param name="name">
 		/// Account new name.
 		/// </param>
+		/// <param name="assetTypeId">
+		/// The asset type ID.
+		/// </param>
 		[OperationContract]
-		void UpdateAccount(Guid userId, int accountId, string name);
+		void UpdateAccount(Guid userId, int accountId, string name, int assetTypeId);
 
 		/// <summary>
 		/// Mark account as "deleted".

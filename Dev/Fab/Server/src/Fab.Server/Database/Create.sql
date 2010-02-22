@@ -1,82 +1,134 @@
 
 -- --------------------------------------------------
--- Date Created: 01/26/2010 00:19:35
+-- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
+-- --------------------------------------------------
+-- Date Created: 02/22/2010 02:33:06
 -- Generated from EDMX file: B:\Workspace\Dev\Fab\Server\src\Fab.Server\Core\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
-SET ANSI_NULLS ON;
 GO
-
---USE [Database]
+--USE [Database];
 GO
-IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]')
+IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
 
 -- --------------------------------------------------
--- Dropping existing FK constraints
+-- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_AccountAssetType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountAssetType];
+GO
 IF OBJECT_ID(N'[dbo].[FK_AccountPosting]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Posting] DROP CONSTRAINT [FK_AccountPosting]
+    ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_AccountPosting];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CategoryTransaction]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Transaction] DROP CONSTRAINT [FK_CategoryTransaction]
+    ALTER TABLE [dbo].[Journals_Transaction] DROP CONSTRAINT [FK_CategoryTransaction];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CategoryUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Category] DROP CONSTRAINT [FK_CategoryUser]
+    ALTER TABLE [dbo].[Categories] DROP CONSTRAINT [FK_CategoryUser];
 GO
 IF OBJECT_ID(N'[dbo].[FK_JournalPosting]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Posting] DROP CONSTRAINT [FK_JournalPosting]
+    ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_JournalPosting];
 GO
 IF OBJECT_ID(N'[dbo].[FK_JournalTypeJournal]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Journal] DROP CONSTRAINT [FK_JournalTypeJournal]
+    ALTER TABLE [dbo].[Journals] DROP CONSTRAINT [FK_JournalTypeJournal];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PostingAssetType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Posting] DROP CONSTRAINT [FK_PostingAssetType]
-GO
-IF OBJECT_ID(N'[dbo].[FK_Transaction_inherits_Journal]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Transaction] DROP CONSTRAINT [FK_Transaction_inherits_Journal]
+    ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_PostingAssetType];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserAccount]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Account] DROP CONSTRAINT [FK_UserAccount]
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_UserAccount];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Account]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Account];
+IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Accounts];
 GO
-IF OBJECT_ID(N'[dbo].[AssetType]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AssetType];
+IF OBJECT_ID(N'[dbo].[AssetTypes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AssetTypes];
 GO
-IF OBJECT_ID(N'[dbo].[Category]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Category];
+IF OBJECT_ID(N'[dbo].[Categories]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Categories];
 GO
-IF OBJECT_ID(N'[dbo].[Journal]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Journal];
+IF OBJECT_ID(N'[dbo].[Journals_Transaction]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Journals_Transaction];
 GO
-IF OBJECT_ID(N'[dbo].[Transaction]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Transaction];
+IF OBJECT_ID(N'[dbo].[Journals]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Journals];
 GO
-IF OBJECT_ID(N'[dbo].[JournalType]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[JournalType];
+IF OBJECT_ID(N'[dbo].[JournalTypes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JournalTypes];
 GO
-IF OBJECT_ID(N'[dbo].[Posting]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Posting];
+IF OBJECT_ID(N'[dbo].[Postings]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Postings];
 GO
-IF OBJECT_ID(N'[dbo].[User]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[User];
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
 GO
 
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
 
--- Creating table 'User'
-CREATE TABLE [dbo].[User] (
+-- Creating table 'Accounts'
+CREATE TABLE [dbo].[Accounts] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [Created] datetime  NOT NULL  DEFAULT (getdate()),
+    [IsDeleted] bit  NOT NULL  DEFAULT (0),
+    [User_Id] uniqueidentifier  NOT NULL,
+    [AssetType_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'AssetTypes'
+CREATE TABLE [dbo].[AssetTypes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NOT NULL
+);
+GO
+
+-- Creating table 'Categories'
+CREATE TABLE [dbo].[Categories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [IsDeleted] bit  NOT NULL  DEFAULT (0),
+    [User_Id] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Journals'
+CREATE TABLE [dbo].[Journals] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [JournalType_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'JournalTypes'
+CREATE TABLE [dbo].[JournalTypes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NOT NULL
+);
+GO
+
+-- Creating table 'Postings'
+CREATE TABLE [dbo].[Postings] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Date] datetime  NOT NULL  DEFAULT (getdate()),
+    [Amount] money  NOT NULL,
+    [Account_Id] int  NOT NULL,
+    [AssetType_Id] int  NOT NULL,
+    [Journal_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'Users'
+CREATE TABLE [dbo].[Users] (
     [Id] uniqueidentifier  NOT NULL  DEFAULT (newid()),
     [Login] nvarchar(50)  NOT NULL,
     [Password] nvarchar(256)  NOT NULL,
@@ -86,56 +138,12 @@ CREATE TABLE [dbo].[User] (
     [IsDisabled] bit  NOT NULL  DEFAULT (0)
 );
 GO
--- Creating table 'Account'
-CREATE TABLE [dbo].[Account] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(50)  NOT NULL,
-    [Created] datetime  NOT NULL  DEFAULT (getdate()),
-    [IsDeleted] bit  NOT NULL  DEFAULT (0),
-    [User_Id] uniqueidentifier  NOT NULL
-);
-GO
--- Creating table 'AssetType'
-CREATE TABLE [dbo].[AssetType] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(50)  NOT NULL
-);
-GO
--- Creating table 'Posting'
-CREATE TABLE [dbo].[Posting] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Date] datetime  NOT NULL  DEFAULT (getdate()),
-    [Amount] money  NOT NULL,
-    [Account_Id] int  NOT NULL,
-    [AssetType_Id] int  NOT NULL,
-    [Journal_Id] int  NOT NULL
-);
-GO
--- Creating table 'Journal'
-CREATE TABLE [dbo].[Journal] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [JournalType_Id] int  NOT NULL
-);
-GO
--- Creating table 'JournalType'
-CREATE TABLE [dbo].[JournalType] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(50)  NOT NULL
-);
-GO
--- Creating table 'Category'
-CREATE TABLE [dbo].[Category] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(50)  NOT NULL,
-    [IsDeleted] bit  NOT NULL  DEFAULT (0),
-    [User_Id] uniqueidentifier  NOT NULL
-);
-GO
--- Creating table 'Transaction'
-CREATE TABLE [dbo].[Transaction] (
+
+-- Creating table 'Journals_Transaction'
+CREATE TABLE [dbo].[Journals_Transaction] (
     [Id] int  NOT NULL,
-    [Quantity] smallmoney  NULL,
-    [Price] money  NULL,
+    [Quantity] smallmoney  NOT NULL,
+    [Price] money  NOT NULL,
     [Comment] nvarchar(256)  NULL,
     [IsDeleted] bit  NOT NULL  DEFAULT (0),
     [Category_Id] int  NULL
@@ -143,125 +151,180 @@ CREATE TABLE [dbo].[Transaction] (
 GO
 
 -- --------------------------------------------------
--- Creating all Primary Key Constraints
+-- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id] in table 'User'
-ALTER TABLE [dbo].[User] WITH NOCHECK 
-ADD CONSTRAINT [PK_User]
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-    ON [PRIMARY]
+-- Creating primary key on [Id] in table 'Accounts'
+ALTER TABLE [dbo].[Accounts]
+ADD CONSTRAINT [PK_Accounts]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
--- Creating primary key on [Id] in table 'Account'
-ALTER TABLE [dbo].[Account] WITH NOCHECK 
-ADD CONSTRAINT [PK_Account]
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-    ON [PRIMARY]
+
+-- Creating primary key on [Id] in table 'AssetTypes'
+ALTER TABLE [dbo].[AssetTypes]
+ADD CONSTRAINT [PK_AssetTypes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
--- Creating primary key on [Id] in table 'AssetType'
-ALTER TABLE [dbo].[AssetType] WITH NOCHECK 
-ADD CONSTRAINT [PK_AssetType]
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-    ON [PRIMARY]
+
+-- Creating primary key on [Id] in table 'Categories'
+ALTER TABLE [dbo].[Categories]
+ADD CONSTRAINT [PK_Categories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
--- Creating primary key on [Id] in table 'Posting'
-ALTER TABLE [dbo].[Posting] WITH NOCHECK 
-ADD CONSTRAINT [PK_Posting]
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-    ON [PRIMARY]
+
+-- Creating primary key on [Id] in table 'Journals'
+ALTER TABLE [dbo].[Journals]
+ADD CONSTRAINT [PK_Journals]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
--- Creating primary key on [Id] in table 'Journal'
-ALTER TABLE [dbo].[Journal] WITH NOCHECK 
-ADD CONSTRAINT [PK_Journal]
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-    ON [PRIMARY]
+
+-- Creating primary key on [Id] in table 'JournalTypes'
+ALTER TABLE [dbo].[JournalTypes]
+ADD CONSTRAINT [PK_JournalTypes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);   
 GO
--- Creating primary key on [Id] in table 'JournalType'
-ALTER TABLE [dbo].[JournalType] WITH NOCHECK 
-ADD CONSTRAINT [PK_JournalType]
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-    ON [PRIMARY]
+
+-- Creating primary key on [Id] in table 'Postings'
+ALTER TABLE [dbo].[Postings]
+ADD CONSTRAINT [PK_Postings]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
--- Creating primary key on [Id] in table 'Category'
-ALTER TABLE [dbo].[Category] WITH NOCHECK 
-ADD CONSTRAINT [PK_Category]
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-    ON [PRIMARY]
+
+-- Creating primary key on [Id] in table 'Users'
+ALTER TABLE [dbo].[Users]
+ADD CONSTRAINT [PK_Users]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
--- Creating primary key on [Id] in table 'Transaction'
-ALTER TABLE [dbo].[Transaction] WITH NOCHECK 
-ADD CONSTRAINT [PK_Transaction]
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-    ON [PRIMARY]
+
+-- Creating primary key on [Id] in table 'Journals_Transaction'
+ALTER TABLE [dbo].[Journals_Transaction]
+ADD CONSTRAINT [PK_Journals_Transaction]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
--- Creating all Foreign Key Constraints
+-- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [User_Id] in table 'Account'
-ALTER TABLE [dbo].[Account] WITH NOCHECK 
-ADD CONSTRAINT [FK_UserAccount]
-    FOREIGN KEY ([User_Id])
-    REFERENCES [dbo].[User]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION
-GO
--- Creating foreign key on [Account_Id] in table 'Posting'
-ALTER TABLE [dbo].[Posting] WITH NOCHECK 
+-- Creating foreign key on [Account_Id] in table 'Postings'
+ALTER TABLE [dbo].[Postings]
 ADD CONSTRAINT [FK_AccountPosting]
     FOREIGN KEY ([Account_Id])
-    REFERENCES [dbo].[Account]
+    REFERENCES [dbo].[Accounts]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AccountPosting'
+CREATE INDEX [IX_FK_AccountPosting]
+ON [dbo].[Postings]
+    ([Account_Id]);
 GO
--- Creating foreign key on [AssetType_Id] in table 'Posting'
-ALTER TABLE [dbo].[Posting] WITH NOCHECK 
+
+-- Creating foreign key on [User_Id] in table 'Accounts'
+ALTER TABLE [dbo].[Accounts]
+ADD CONSTRAINT [FK_UserAccount]
+    FOREIGN KEY ([User_Id])
+    REFERENCES [dbo].[Users]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserAccount'
+CREATE INDEX [IX_FK_UserAccount]
+ON [dbo].[Accounts]
+    ([User_Id]);
+GO
+
+-- Creating foreign key on [AssetType_Id] in table 'Postings'
+ALTER TABLE [dbo].[Postings]
 ADD CONSTRAINT [FK_PostingAssetType]
     FOREIGN KEY ([AssetType_Id])
-    REFERENCES [dbo].[AssetType]
+    REFERENCES [dbo].[AssetTypes]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PostingAssetType'
+CREATE INDEX [IX_FK_PostingAssetType]
+ON [dbo].[Postings]
+    ([AssetType_Id]);
 GO
--- Creating foreign key on [Journal_Id] in table 'Posting'
-ALTER TABLE [dbo].[Posting] WITH NOCHECK 
-ADD CONSTRAINT [FK_JournalPosting]
-    FOREIGN KEY ([Journal_Id])
-    REFERENCES [dbo].[Journal]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION
-GO
--- Creating foreign key on [JournalType_Id] in table 'Journal'
-ALTER TABLE [dbo].[Journal] WITH NOCHECK 
-ADD CONSTRAINT [FK_JournalTypeJournal]
-    FOREIGN KEY ([JournalType_Id])
-    REFERENCES [dbo].[JournalType]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION
-GO
--- Creating foreign key on [Category_Id] in table 'Transaction'
-ALTER TABLE [dbo].[Transaction] WITH NOCHECK 
+
+-- Creating foreign key on [Category_Id] in table 'Journals_Transaction'
+ALTER TABLE [dbo].[Journals_Transaction]
 ADD CONSTRAINT [FK_CategoryTransaction]
     FOREIGN KEY ([Category_Id])
-    REFERENCES [dbo].[Category]
+    REFERENCES [dbo].[Categories]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CategoryTransaction'
+CREATE INDEX [IX_FK_CategoryTransaction]
+ON [dbo].[Journals_Transaction]
+    ([Category_Id]);
 GO
--- Creating foreign key on [User_Id] in table 'Category'
-ALTER TABLE [dbo].[Category] WITH NOCHECK 
+
+-- Creating foreign key on [User_Id] in table 'Categories'
+ALTER TABLE [dbo].[Categories]
 ADD CONSTRAINT [FK_CategoryUser]
     FOREIGN KEY ([User_Id])
-    REFERENCES [dbo].[User]
+    REFERENCES [dbo].[Users]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CategoryUser'
+CREATE INDEX [IX_FK_CategoryUser]
+ON [dbo].[Categories]
+    ([User_Id]);
 GO
--- Creating foreign key on [Id] in table 'Transaction'
-ALTER TABLE [dbo].[Transaction] WITH NOCHECK 
+
+-- Creating foreign key on [Journal_Id] in table 'Postings'
+ALTER TABLE [dbo].[Postings]
+ADD CONSTRAINT [FK_JournalPosting]
+    FOREIGN KEY ([Journal_Id])
+    REFERENCES [dbo].[Journals]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JournalPosting'
+CREATE INDEX [IX_FK_JournalPosting]
+ON [dbo].[Postings]
+    ([Journal_Id]);
+GO
+
+-- Creating foreign key on [JournalType_Id] in table 'Journals'
+ALTER TABLE [dbo].[Journals]
+ADD CONSTRAINT [FK_JournalTypeJournal]
+    FOREIGN KEY ([JournalType_Id])
+    REFERENCES [dbo].[JournalTypes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JournalTypeJournal'
+CREATE INDEX [IX_FK_JournalTypeJournal]
+ON [dbo].[Journals]
+    ([JournalType_Id]);
+GO
+
+-- Creating foreign key on [AssetType_Id] in table 'Accounts'
+ALTER TABLE [dbo].[Accounts]
+ADD CONSTRAINT [FK_AccountAssetType]
+    FOREIGN KEY ([AssetType_Id])
+    REFERENCES [dbo].[AssetTypes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AccountAssetType'
+CREATE INDEX [IX_FK_AccountAssetType]
+ON [dbo].[Accounts]
+    ([AssetType_Id]);
+GO
+
+-- Creating foreign key on [Id] in table 'Journals_Transaction'
+ALTER TABLE [dbo].[Journals_Transaction]
 ADD CONSTRAINT [FK_Transaction_inherits_Journal]
     FOREIGN KEY ([Id])
-    REFERENCES [dbo].[Journal]
+    REFERENCES [dbo].[Journals]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- --------------------------------------------------

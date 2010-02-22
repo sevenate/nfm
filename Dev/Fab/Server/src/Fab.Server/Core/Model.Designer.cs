@@ -25,6 +25,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "FK_CategoryUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Fab.Server.Core.User), "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Fab.Server.Core.Category))]
 [assembly: EdmRelationshipAttribute("Model", "FK_JournalPosting", "Journal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Fab.Server.Core.Journal), "Posting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Fab.Server.Core.Posting))]
 [assembly: EdmRelationshipAttribute("Model", "FK_JournalTypeJournal", "JournalType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Fab.Server.Core.JournalType), "Journal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Fab.Server.Core.Journal))]
+[assembly: EdmRelationshipAttribute("Model", "FK_AccountAssetType", "AssetType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Fab.Server.Core.AssetType), "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Fab.Server.Core.Account))]
 
 #endregion
 
@@ -444,6 +445,44 @@ namespace Fab.Server.Core
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_AccountAssetType", "AssetType")]
+        public AssetType AssetType
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AssetType>("Model.FK_AccountAssetType", "AssetType").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AssetType>("Model.FK_AccountAssetType", "AssetType").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<AssetType> AssetTypeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AssetType>("Model.FK_AccountAssetType", "AssetType");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<AssetType>("Model.FK_AccountAssetType", "AssetType", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -547,6 +586,28 @@ namespace Fab.Server.Core
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Posting>("Model.FK_PostingAssetType", "Posting", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_AccountAssetType", "Account")]
+        public EntityCollection<Account> Accounts
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Account>("Model.FK_AccountAssetType", "Account");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Account>("Model.FK_AccountAssetType", "Account", value);
                 }
             }
         }
@@ -731,22 +792,8 @@ namespace Fab.Server.Core
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     [KnownTypeAttribute(typeof(Transaction))]
-    public partial class Journal : EntityObject
+    public abstract partial class Journal : EntityObject
     {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Journal object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static Journal CreateJournal(global::System.Int32 id)
-        {
-            Journal journal = new Journal();
-            journal.Id = id;
-            return journal;
-        }
-
-        #endregion
         #region Primitive Properties
     
         /// <summary>
@@ -1187,11 +1234,15 @@ namespace Fab.Server.Core
         /// Create a new Transaction object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="quantity">Initial value of the Quantity property.</param>
+        /// <param name="price">Initial value of the Price property.</param>
         /// <param name="isDeleted">Initial value of the IsDeleted property.</param>
-        public static Transaction CreateTransaction(global::System.Int32 id, global::System.Boolean isDeleted)
+        public static Transaction CreateTransaction(global::System.Int32 id, global::System.Decimal quantity, global::System.Decimal price, global::System.Boolean isDeleted)
         {
             Transaction transaction = new Transaction();
             transaction.Id = id;
+            transaction.Quantity = quantity;
+            transaction.Price = price;
             transaction.IsDeleted = isDeleted;
             return transaction;
         }
@@ -1202,9 +1253,9 @@ namespace Fab.Server.Core
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> Quantity
+        public global::System.Decimal Quantity
         {
             get
             {
@@ -1219,16 +1270,16 @@ namespace Fab.Server.Core
                 OnQuantityChanged();
             }
         }
-        private Nullable<global::System.Decimal> _Quantity;
-        partial void OnQuantityChanging(Nullable<global::System.Decimal> value);
+        private global::System.Decimal _Quantity;
+        partial void OnQuantityChanging(global::System.Decimal value);
         partial void OnQuantityChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> Price
+        public global::System.Decimal Price
         {
             get
             {
@@ -1243,8 +1294,8 @@ namespace Fab.Server.Core
                 OnPriceChanged();
             }
         }
-        private Nullable<global::System.Decimal> _Price;
-        partial void OnPriceChanging(Nullable<global::System.Decimal> value);
+        private global::System.Decimal _Price;
+        partial void OnPriceChanging(global::System.Decimal value);
         partial void OnPriceChanged();
     
         /// <summary>
