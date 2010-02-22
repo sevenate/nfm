@@ -24,6 +24,11 @@ namespace Fab.Server.Core
 	internal static class ModelHelper
 	{
 		/// <summary>
+		/// System user ID.
+		/// </summary>
+		private static readonly Guid SystemUserId = new Guid("6184b6dd-26d0-4d06-ba2c-95c850ccfebe");
+
+		/// <summary>
 		/// Check is user <paramref name="login"/> name is not used by some one else.
 		/// </summary>
 		/// <param name="mc">
@@ -81,11 +86,35 @@ namespace Fab.Server.Core
 		/// </returns>
 		internal static Account GetAccountById(ModelContainer mc, Guid userId, int accountId)
 		{
-			Account account = mc.Accounts.Where(a => a.Id == accountId && a.User.Id == userId).SingleOrDefault();
+			Account account = mc.Accounts.Include("AssetType").Where(a => a.Id == accountId && a.User.Id == userId).SingleOrDefault();
 
 			if (account == null)
 			{
 				throw new Exception("Account with ID = \"" + accountId + "\" for user \"" + userId + "\" not found.");
+			}
+
+			return account;
+		}
+
+		/// <summary>
+		/// Get system "cash" account with specific <paramref name="assetTypeId"/> from model container.
+		/// </summary>
+		/// <param name="mc">
+		/// Entity Framework model container.
+		/// </param>
+		/// <param name="assetTypeId">
+		/// The asset type ID.
+		/// </param>
+		/// <returns>
+		/// Found system "cash" account object or <c>null</c> otherwise.
+		/// </returns>
+		internal static Account GetSystemAccount(ModelContainer mc, int assetTypeId)
+		{
+			Account account = mc.Accounts.Include("AssetType").Where(a => a.AssetType.Id == assetTypeId && a.User.Id == SystemUserId).SingleOrDefault();
+
+			if (account == null)
+			{
+				throw new Exception("System account with asset type ID = \"" + assetTypeId + "\" not found.");
 			}
 
 			return account;
@@ -116,6 +145,54 @@ namespace Fab.Server.Core
 			}
 
 			return category;
+		}
+
+		/// <summary>
+		/// Get <see cref="AssetType"/> from model container by unique ID.
+		/// </summary>
+		/// <param name="mc">
+		/// Entity Framework model container.
+		/// </param>
+		/// <param name="assetTypeId">
+		/// The asset type ID.
+		/// </param>
+		/// <returns>
+		/// Found asset type object or <c>null</c> otherwise.
+		/// </returns>
+		internal static AssetType GetAssetTypeById(ModelContainer mc, int assetTypeId)
+		{
+			AssetType assetType = mc.AssetTypes.Where(at => at.Id == assetTypeId).SingleOrDefault();
+
+			if (assetType == null)
+			{
+				throw new Exception("Asset type with ID = \"" + assetTypeId + "\" not found.");
+			}
+
+			return assetType;
+		}
+
+		/// <summary>
+		/// Get <see cref="JournalType"/> from model container by unique ID.
+		/// </summary>
+		/// <param name="mc">
+		/// Entity Framework model container.
+		/// </param>
+		/// <param name="journalTypeId">
+		/// The journal type ID.
+		/// </param>
+		/// <returns>
+		/// Found journal type object or <c>null</c> otherwise.
+		/// </returns>
+		internal static JournalType GetJournalTypeById(ModelContainer mc, int journalTypeId)
+		{
+			JournalType journalType = mc.JournalTypes.Where(jt => jt.Id == journalTypeId).SingleOrDefault();
+
+			if (journalType == null)
+			{
+				throw new Exception("Journal type with ID = \"" + journalTypeId + "\" not found.");
+			}
+
+			return journalType;
 		}
 	}
 }

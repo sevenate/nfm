@@ -256,7 +256,10 @@ namespace Fab.Server
 		/// <param name="name">
 		/// Account name.
 		/// </param>
-		public void CreateAccount(Guid userId, string name)
+		/// <param name="assetTypeId">
+		/// The asset type ID.
+		/// </param>
+		public void CreateAccount(Guid userId, string name, int assetTypeId)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -271,13 +274,15 @@ namespace Fab.Server
 			using (var mc = new ModelContainer())
 			{
 				User user = ModelHelper.GetUserById(mc, userId);
+				AssetType assetType = ModelHelper.GetAssetTypeById(mc, assetTypeId);
 
 				var account = new Account
 				              {
 				              	Name = name.Trim(), 
 				              	Created = DateTime.UtcNow, 
 				              	IsDeleted = false, 
-				              	User = user
+				              	User = user,
+								AssetType = assetType
 				              };
 
 				mc.Accounts.AddObject(account);
@@ -297,7 +302,10 @@ namespace Fab.Server
 		/// <param name="name">
 		/// Account new name.
 		/// </param>
-		public void UpdateAccount(Guid userId, int accountId, string name)
+		/// <param name="assetTypeId">
+		/// The asset type ID.
+		/// </param>
+		public void UpdateAccount(Guid userId, int accountId, string name, int assetTypeId)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -312,8 +320,10 @@ namespace Fab.Server
 			using (var mc = new ModelContainer())
 			{
 				Account account = ModelHelper.GetAccountById(mc, userId, accountId);
+				AssetType assetType = ModelHelper.GetAssetTypeById(mc, assetTypeId);
 
 				account.Name = name.Trim();
+				account.AssetType = assetType;
 
 				mc.SaveChanges();
 			}
@@ -358,7 +368,7 @@ namespace Fab.Server
 		{
 			using (var mc = new ModelContainer())
 			{
-				return mc.Accounts.Where(a => a.User.Id == userId && a.IsDeleted == false).OrderBy(a => a.Created).ToList();
+				return mc.Accounts.Include("AssetType").Where(a => a.User.Id == userId && a.IsDeleted == false).OrderBy(a => a.Created).ToList();
 			}
 		}
 
@@ -509,6 +519,236 @@ namespace Fab.Server
 			using (var mc = new ModelContainer())
 			{
 				return mc.JournalTypes.ToList();
+			}
+		}
+
+		/// <summary>
+		/// Deposit (<paramref name="price"/> * <paramref name="quantity"/>) ammout to the
+		/// <paramref name="accountId"/> of the <paramref name="userId"/> with optional <paramref name="comment"/> and
+		/// group it under <paramref name="categoryId"/> if necessary.
+		/// </summary>
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <param name="accountId">
+		/// Account ID.
+		/// </param>
+		/// <param name="price">
+		/// Price of the item.
+		/// </param>
+		/// <param name="quantity">
+		/// Quantity of the item.
+		/// </param>
+		/// <param name="comment">
+		/// Comment notes.
+		/// </param>
+		/// <param name="categoryId">
+		/// The category Id.
+		/// </param>
+		public void Deposit(Guid userId, int accountId, decimal price, decimal quantity, string comment, int? categoryId)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			var dateTime = DateTime.UtcNow;
+			var amount = price*quantity;
+
+			using (var mc = new ModelContainer())
+			{
+				var targetAccount = ModelHelper.GetAccountById(mc, userId, accountId);
+				var cashAccount = ModelHelper.GetSystemAccount(mc, targetAccount.AssetType.Id);
+
+				var transaction = new Transaction
+				                  {
+									  JournalType = ModelHelper.GetJournalTypeById(mc, 1), // Todo: do not use hardcode value '1'
+				                  	Price = price,
+				                  	Quantity = quantity,
+				                  	Comment = comment
+				                  };
+
+				if (categoryId.HasValue)
+				{
+					transaction.Category = ModelHelper.GetCategoryById(mc, userId, categoryId.Value);
+				}
+
+				var creditPosting = new Posting
+				{
+					Date = dateTime,
+					Amount = amount,
+					Journal = transaction,
+					Account = targetAccount,
+					AssetType = targetAccount.AssetType
+				};
+
+				var debitPosting = new Posting
+				{
+					Date = dateTime,
+					Amount = -amount,
+					Journal = transaction,
+					Account = cashAccount,
+					AssetType = cashAccount.AssetType
+				};
+
+				mc.Journals.AddObject(transaction);
+				mc.Postings.AddObject(creditPosting);
+				mc.Postings.AddObject(debitPosting);
+
+				mc.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// Withdrawal (<paramref name="price"/> * <paramref name="quantity"/>) ammout from the
+		/// <paramref name="accountId"/> of the <paramref name="userId"/> with optional <paramref name="comment"/> and
+		/// group it under <paramref name="categoryId"/> if necessary.
+		/// </summary>
+		/// <param name="userId">
+		/// User unique ID.
+		/// </param>
+		/// <param name="accountId">
+		/// Account ID.
+		/// </param>
+		/// <param name="price">
+		/// Price of the item.
+		/// </param>
+		/// <param name="quantity">
+		/// Quantity of the item.
+		/// </param>
+		/// <param name="comment">
+		/// Comment notes.
+		/// </param>
+		/// <param name="categoryId">
+		/// The category Id.
+		/// </param>
+		public void Withdrawal(Guid userId, int accountId, decimal price, decimal quantity, string comment, int? categoryId)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			var dateTime = DateTime.UtcNow;
+			var amount = price * quantity;
+
+			using (var mc = new ModelContainer())
+			{
+				var targetAccount = ModelHelper.GetAccountById(mc, userId, accountId);
+				var cashAccount = ModelHelper.GetSystemAccount(mc, targetAccount.AssetType.Id);
+
+				var transaction = new Transaction
+				{
+					JournalType = ModelHelper.GetJournalTypeById(mc, 2), // Todo: do not use hardcode value '2'
+					Price = price,
+					Quantity = quantity,
+					Comment = comment
+				};
+
+				if (categoryId.HasValue)
+				{
+					transaction.Category = ModelHelper.GetCategoryById(mc, userId, categoryId.Value);
+				}
+
+				var creditPosting = new Posting
+				{
+					Date = dateTime,
+					Amount = amount,
+					Journal = transaction,
+					Account = cashAccount,
+					AssetType = cashAccount.AssetType
+				};
+
+				var debitPosting = new Posting
+				{
+					Date = dateTime,
+					Amount = -amount,
+					Journal = transaction,
+					Account = targetAccount,
+					AssetType = targetAccount.AssetType
+				};
+
+				mc.Journals.AddObject(transaction);
+				mc.Postings.AddObject(creditPosting);
+				mc.Postings.AddObject(debitPosting);
+
+				mc.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// Transfer from <paramref name="account1Id"/> of <paramref name="user1Id"/> to
+		/// <paramref name="account2Id"/> of <paramref name="user2Id"/> the <paramref name="amount"/> of assets
+		/// with optional <paramref name="comment"/> about operation.
+		/// </summary>
+		/// <param name="user1Id">
+		/// User 1 unique ID.
+		/// </param>
+		/// <param name="account1Id">
+		/// Account 1 ID.
+		/// </param>
+		/// <param name="user2Id">
+		/// User 2 unique ID.
+		/// </param>
+		/// <param name="account2Id">
+		/// Account 2 ID.
+		/// </param>
+		/// <param name="amount">
+		/// Ammout of assets.
+		/// </param>
+		/// <param name="comment">
+		/// Comment notes.
+		/// </param>
+		public void Transfer(Guid user1Id, int account1Id, Guid user2Id, int account2Id, decimal amount, string comment)
+		{
+			if (user1Id == Guid.Empty)
+			{
+				throw new ArgumentException("User1 ID must not be empty.");
+			}
+
+			if (user2Id == Guid.Empty)
+			{
+				throw new ArgumentException("User2 ID must not be empty.");
+			}
+
+			var dateTime = DateTime.UtcNow;
+
+			using (var mc = new ModelContainer())
+			{
+				var sourceAccount = ModelHelper.GetAccountById(mc, user1Id, account1Id);
+				var targetAccount = ModelHelper.GetAccountById(mc, user2Id, account2Id);
+
+				var transaction = new Transaction
+				{
+					JournalType = ModelHelper.GetJournalTypeById(mc, 3), // Todo: do not use hardcode value '3'
+					Price = amount,
+					Quantity = 1,
+					Comment = comment
+				};
+
+				var creditPosting = new Posting
+				{
+					Date = dateTime,
+					Amount = amount,
+					Journal = transaction,
+					Account = targetAccount,
+					AssetType = targetAccount.AssetType
+				};
+
+				var debitPosting = new Posting
+				{
+					Date = dateTime,
+					Amount = -amount,
+					Journal = transaction,
+					Account = sourceAccount,
+					AssetType = sourceAccount.AssetType
+				};
+
+				mc.Journals.AddObject(transaction);
+				mc.Postings.AddObject(creditPosting);
+				mc.Postings.AddObject(debitPosting);
+
+				mc.SaveChanges();
 			}
 		}
 

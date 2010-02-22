@@ -139,7 +139,7 @@ namespace Fab.Server.Tests
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 
-			service.CreateAccount(userId, accountName);
+			service.CreateAccount(userId, accountName, 1);
 
 			IList<Account> accounts = service.GetAllAccounts(userId);
 			Assert.Equal(accounts.Count, 1);
@@ -154,16 +154,19 @@ namespace Fab.Server.Tests
 		{
 			string accountName = "Test Account";
 			string newAccountName = "Renamed Account";
+			int assetType = 1;
+			int newAssetType = 2;
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
-			service.CreateAccount(userId, accountName);
+			service.CreateAccount(userId, accountName, assetType);
 			IList<Account> accounts = service.GetAllAccounts(userId);
 
-			service.UpdateAccount(userId, accounts[0].Id, newAccountName);
+			service.UpdateAccount(userId, accounts[0].Id, newAccountName, newAssetType);
 
 			accounts = service.GetAllAccounts(userId);
 			Assert.Equal(accounts.Count, 1);
 			Assert.Equal(accounts[0].Name, newAccountName);
+			Assert.Equal(accounts[0].AssetType.Id, newAssetType);
 		}
 
 		/// <summary>
@@ -175,7 +178,7 @@ namespace Fab.Server.Tests
 			string accountName = "Test Account";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
-			service.CreateAccount(userId, accountName);
+			service.CreateAccount(userId, accountName, 1);
 			IList<Account> accounts = service.GetAllAccounts(userId);
 
 			service.DeleteAccount(userId, accounts[0].Id);
@@ -193,7 +196,7 @@ namespace Fab.Server.Tests
 			string accountName = "Test Account";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
-			service.CreateAccount(userId, accountName);
+			service.CreateAccount(userId, accountName, 1);
 
 			IList<Account> accounts = service.GetAllAccounts(userId);
 
@@ -305,6 +308,55 @@ namespace Fab.Server.Tests
 			IList<JournalType> journals = service.GetAllJournalTypes();
 
 			Assert.True(journals.Count == 3);
+		}
+
+		/// <summary>
+		/// Test <see cref="ApiService.Deposit"/> method.
+		/// </summary>
+		[Fact]
+		public void Deposit()
+		{
+			var service = new ApiService();
+			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId, "Test Account", 1);
+			IList<Account> accounts = service.GetAllAccounts(userId);
+			service.CreateCategory(userId, "Test Category");
+			IList<Category> categories = service.GetAllCategories(userId);
+
+			service.Deposit(userId, accounts[0].Id, 25, 2, "Some income comment", categories[0].Id);
+		}
+
+		/// <summary>
+		/// Test <see cref="ApiService.Withdrawal"/> method.
+		/// </summary>
+		[Fact]
+		public void Withdrawal()
+		{
+			var service = new ApiService();
+			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId, "Test Account", 1);
+			IList<Account> accounts = service.GetAllAccounts(userId);
+			service.CreateCategory(userId, "Test Category");
+			IList<Category> categories = service.GetAllCategories(userId);
+
+			service.Withdrawal(userId, accounts[0].Id, 13, 10, "Some expense comment", categories[0].Id);
+		}
+
+		/// <summary>
+		/// Test <see cref="ApiService.Transfer"/> method.
+		/// </summary>
+		[Fact]
+		public void Transfer()
+		{
+			var service = new ApiService();
+			Guid userId1 = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			Guid userId2 = service.Register("testUser2" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId1, "Test Account", 1);
+			service.CreateAccount(userId2, "Test Account", 1);
+			IList<Account> accounts1 = service.GetAllAccounts(userId1);
+			IList<Account> accounts2 = service.GetAllAccounts(userId2);
+
+			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, 78, "Some transfer comment");
 		}
 
 		#endregion
