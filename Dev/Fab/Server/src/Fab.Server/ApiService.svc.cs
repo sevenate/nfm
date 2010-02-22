@@ -752,6 +752,32 @@ namespace Fab.Server
 			}
 		}
 
+		/// <summary>
+		/// Get current account balance.
+		/// </summary>
+		/// <param name="userId">
+		/// Unique user ID.
+		/// </param>
+		/// <param name="accountId">
+		/// Accound ID.
+		/// </param>
+		/// <returns>
+		/// Current account balance.
+		/// </returns>
+		public decimal GetAccountBalance(Guid userId, int accountId)
+		{
+			decimal balance;
+
+			using (var mc = new ModelContainer())
+			{
+				// Todo: Fix Sum() of Postings when there is no any posting yet.
+				var firstPosting = mc.Postings.Where(p => p.Account.Id == accountId).FirstOrDefault();
+				balance = firstPosting != null ? mc.Postings.Where(p => p.Account.Id == accountId).Sum(p => p.Amount) : 0;
+			}
+
+			return balance;
+		}
+
 		#endregion
 	}
 }

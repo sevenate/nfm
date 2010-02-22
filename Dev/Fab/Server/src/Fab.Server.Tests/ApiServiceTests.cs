@@ -351,12 +351,50 @@ namespace Fab.Server.Tests
 			var service = new ApiService();
 			Guid userId1 = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			Guid userId2 = service.Register("testUser2" + Guid.NewGuid(), "testPassword");
-			service.CreateAccount(userId1, "Test Account", 1);
-			service.CreateAccount(userId2, "Test Account", 1);
+			service.CreateAccount(userId1, "Test Account 1", 1);
+			service.CreateAccount(userId2, "Test Account 2", 1);
 			IList<Account> accounts1 = service.GetAllAccounts(userId1);
 			IList<Account> accounts2 = service.GetAllAccounts(userId2);
 
 			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, 78, "Some transfer comment");
+		}
+
+		/// <summary>
+		/// Test <see cref="ApiService.GetAccountBalance"/> method.
+		/// </summary>
+		[Fact]
+		public void GetAccountBalance()
+		{
+			var service = new ApiService();
+			Guid userId1 = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			Guid userId2 = service.Register("testUser2" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId1, "Test Account 1", 1);
+			service.CreateAccount(userId2, "Test Account 2", 1);
+			IList<Account> accounts1 = service.GetAllAccounts(userId1);
+			IList<Account> accounts2 = service.GetAllAccounts(userId2);
+			service.CreateCategory(userId1, "Test Category 1");
+			IList<Category> categories1 = service.GetAllCategories(userId1);
+
+			service.Deposit(userId1, accounts1[0].Id, 25, 10, "Some income comment", null);
+
+			var balance = service.GetAccountBalance(userId1, accounts1[0].Id);
+			Assert.Equal(balance, 250);
+			
+			service.Withdrawal(userId1, accounts1[0].Id, 10, 5, "Some expense comment", categories1[0].Id);
+
+			balance = service.GetAccountBalance(userId1, accounts1[0].Id);
+			Assert.Equal(balance, 200);
+
+			balance = service.GetAccountBalance(userId2, accounts2[0].Id);
+			Assert.Equal(balance, 0);
+
+			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, 75, "Some transfer comment");
+
+			balance = service.GetAccountBalance(userId1, accounts1[0].Id);
+			Assert.Equal(balance, 125);
+
+			balance = service.GetAccountBalance(userId2, accounts2[0].Id);
+			Assert.Equal(balance, 75);
 		}
 
 		#endregion

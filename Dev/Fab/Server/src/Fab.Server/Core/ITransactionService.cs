@@ -120,5 +120,20 @@ namespace Fab.Server.Core
 		/// </param>
 		[OperationContract]
 		void Transfer(Guid user1Id, int account1Id, Guid user2Id, int account2Id, decimal amount, string comment);
+
+		/// <summary>
+		/// Get current account balance.
+		/// </summary>
+		/// <param name="userId">
+		/// Unique user ID.
+		/// </param>
+		/// <param name="accountId">
+		/// Accound ID.
+		/// </param>
+		/// <returns>
+		/// Current account balance.
+		/// </returns>
+		[OperationContract]
+		decimal GetAccountBalance(Guid userId, int accountId);
 	}
 }
