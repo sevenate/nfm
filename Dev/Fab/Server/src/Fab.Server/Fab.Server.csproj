@@ -65,7 +65,7 @@
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
     <None Include="Database\Create.sql" />
-    <Content Include="Database\Fill.sql" />
+    <None Include="Database\Fill.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
