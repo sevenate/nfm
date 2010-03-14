@@ -397,6 +397,28 @@ namespace Fab.Server.Tests
 			Assert.Equal(balance, 75);
 		}
 
+		/// <summary>
+		/// Test <see cref="ApiService.GetAllTransactions"/> method.
+		/// </summary>
+		[Fact]
+		public void GetAllTransactions()
+		{
+			var service = new ApiService();
+			Guid userId = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId, "Test Account 1", 1);
+			IList<Account> accounts = service.GetAllAccounts(userId);
+			service.CreateCategory(userId, "Test Category 1");
+			IList<Category> categories = service.GetAllCategories(userId);
+
+			service.Deposit(userId, accounts[0].Id, 25, 10, "Some income comment", null);
+			service.Withdrawal(userId, accounts[0].Id, 10, 5, "Some expense comment", categories[0].Id);
+
+			var transactionRecords = service.GetAllTransactions(userId, accounts[0].Id);
+
+			Assert.True(transactionRecords != null);
+			Assert.True(transactionRecords.Count  == 2);
+		}
+
 		#endregion
 	}
 }

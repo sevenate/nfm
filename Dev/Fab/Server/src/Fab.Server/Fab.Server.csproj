@@ -66,7 +66,9 @@
     </Content>
     <None Include="Database\Create.sql" />
     <Content Include="Database\Fill.sql" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -93,6 +95,7 @@
     </Compile>
     <Compile Include="Core\IUserService.cs" />
     <Compile Include="Core\ModelHelper.cs" />
+    <Compile Include="Core\TransactionRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -778,6 +778,95 @@ namespace Fab.Server
 			return balance;
 		}
 
+		/// <summary>
+		/// Return all not deleted transaction records for specific accout.
+		/// </summary>
+		/// <param name="userId">
+		/// The user unique ID.
+		/// </param>
+		/// <param name="accountId">
+		/// The account Id.
+		/// </param>
+		/// <returns>
+		/// List of transaction records.
+		/// </returns>
+		public IList<TransactionRecord> GetAllTransactions(Guid userId, int accountId)
+		{
+			var records = new List<TransactionRecord>();
+
+			// Bug: warning security weakness!
+			// Check User.IsDisabled + Account.IsDeleted also
+			using (var mc = new ModelContainer())
+			{
+				mc.Journals.Include("JournalType");
+
+				var postings = from p in mc.Postings
+				               where p.Account.Id == accountId
+							   	  && p.Journal is Transaction
+								  && (p.Journal as Transaction).IsDeleted == false
+				               orderby p.Date
+				               select new
+				                      {
+				                      	Posting = p,
+										Transaction = p.Journal as Transaction,
+				                      	(p.Journal as Transaction).Category,
+										(p.Journal as Transaction).JournalType
+									  };
+
+				var res = postings.ToList();
+
+				// No transactions take place yet, so nothing to return
+				if (res.Count == 0)
+				{
+					return records;
+				}
+
+				decimal income = 0;
+				decimal expense = 0;
+				decimal balance = 0;
+
+				foreach (var r in res)
+				{
+					balance += r.Posting.Amount;
+
+					switch (r.JournalType.Id)
+					{
+						// Deposit
+						case 1:
+							income = r.Posting.Amount;
+							expense = 0;
+							break;
+
+						// Withdrawal
+						case 2:
+							income = 0;
+							expense = -r.Posting.Amount;
+							break;
+
+						// Transfer
+						case 3:
+							income = r.Posting.Amount > 0 ? r.Posting.Amount : 0;	// positive is "TO this account"
+							expense = r.Posting.Amount < 0 ? -r.Posting.Amount : 0;	// negative is "FROM this account"
+							break;
+					}
+
+					records.Add(new TransactionRecord
+								{
+									TransactionId = r.Transaction.Id,
+									Category = r.Category,
+									Price = r.Transaction.Price,
+									Quantity = r.Transaction.Quantity,
+									Comment = r.Transaction.Comment,
+									Income = income,
+									Expense = expense,
+									Balance = balance
+								});
+				}
+			}
+
+			return records;
+		}
+
 		#endregion
 	}
 }

@@ -135,5 +135,20 @@ namespace Fab.Server.Core
 		/// </returns>
 		[OperationContract]
 		decimal GetAccountBalance(Guid userId, int accountId);
+
+		/// <summary>
+		/// Return all not deleted transaction records for specific accout.
+		/// </summary>
+		/// <param name="userId">
+		/// The user unique ID.
+		/// </param>
+		/// <param name="accountId">
+		/// The account Id.
+		/// </param>
+		/// <returns>
+		/// List of transaction records.
+		/// </returns>
+		[OperationContract]
+		IList<TransactionRecord> GetAllTransactions(Guid userId, int accountId);
 	}
 }
