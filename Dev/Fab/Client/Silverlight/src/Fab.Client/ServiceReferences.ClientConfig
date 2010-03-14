@@ -1,0 +1,38 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IUserService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="BasicHttpBinding_IAccountService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="BasicHttpBinding_ICategoryService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="BasicHttpBinding_ITransactionService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://thor/Fab/ApiService.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IUserService" contract="ApiServiceReference.IUserService"
+                name="BasicHttpBinding_IUserService" />
+            <endpoint address="http://thor/Fab/ApiService.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IAccountService" contract="ApiServiceReference.IAccountService"
+                name="BasicHttpBinding_IAccountService" />
+            <endpoint address="http://thor/Fab/ApiService.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_ICategoryService" contract="ApiServiceReference.ICategoryService"
+                name="BasicHttpBinding_ICategoryService" />
+            <endpoint address="http://thor/Fab/ApiService.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_ITransactionService"
+                contract="ApiServiceReference.ITransactionService" name="BasicHttpBinding_ITransactionService" />
+        </client>
+    </system.serviceModel>
+</configuration>
