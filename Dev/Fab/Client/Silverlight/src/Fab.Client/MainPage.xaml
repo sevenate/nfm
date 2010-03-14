@@ -17,6 +17,7 @@
 					Click="TestButton_Click" />
 			<TextBox x:Name="ResultText"
 					 Text="Ready"
+                     TextWrapping="Wrap"
 					 HorizontalAlignment="Center"
 					 IsReadOnly="True" />
 		</StackPanel>
