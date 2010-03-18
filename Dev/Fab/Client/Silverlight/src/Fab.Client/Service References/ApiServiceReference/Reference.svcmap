@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="741e20d6-f8d7-4295-a16a-fad4669aa738" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f261c227-7e20-4369-ae5a-0711be8dd4f7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -13,6 +13,7 @@
     </CollectionMappings>
     <GenerateSerializableTypes>false</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
     <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
     <ReferencedAssemblies />
     <ReferencedDataContractTypes />
@@ -22,13 +23,13 @@
     <MetadataSource Address="http://localhost/Fab/ApiService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ApiService.xsd" MetadataType="Schema" ID="5cf58914-1c95-43c1-8bc9-b1e537e69aa1" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd2" />
-    <MetadataFile FileName="ApiService1.xsd" MetadataType="Schema" ID="fc715a5f-8363-4609-8a0b-d85679cf84f3" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ApiService2.xsd" MetadataType="Schema" ID="122b6b53-a6d8-4dc1-bfd2-524a82be8d51" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd3" />
-    <MetadataFile FileName="ApiService.wsdl" MetadataType="Wsdl" ID="3d48fc00-58c8-4829-b888-9b79e1ddf489" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?wsdl" />
-    <MetadataFile FileName="ApiService.disco" MetadataType="Disco" ID="c8d2a2e4-fde5-4d0f-8f91-efe42c49469c" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?disco" />
-    <MetadataFile FileName="ApiService3.xsd" MetadataType="Schema" ID="4bb6c3bb-df5f-430a-95b5-1077394976ce" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd4" />
-    <MetadataFile FileName="ApiService4.xsd" MetadataType="Schema" ID="5077546c-7d6d-4bf7-8def-8c88b3e6eb3a" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ApiService.xsd" MetadataType="Schema" ID="0b28c5ea-cf2e-463d-9a25-237fefafa786" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ApiService1.xsd" MetadataType="Schema" ID="959b4c8e-9d8f-4632-a656-a10040ec17e2" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ApiService2.xsd" MetadataType="Schema" ID="a4f80f80-cd00-4cec-aeeb-202b590cab83" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ApiService3.xsd" MetadataType="Schema" ID="7269629b-dce4-4022-8677-94e17f476b79" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd3" />
+    <MetadataFile FileName="ApiService.wsdl" MetadataType="Wsdl" ID="4cc5aae8-14cd-47f0-aad4-de33570288ce" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?wsdl" />
+    <MetadataFile FileName="ApiService4.xsd" MetadataType="Schema" ID="1df8f81e-8873-4733-b2a8-89a9189fc939" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?xsd=xsd4" />
+    <MetadataFile FileName="ApiService.disco" MetadataType="Disco" ID="2181f0fe-ef3b-4f82-accb-dfb7acd3d581" SourceId="1" SourceUrl="http://thor/Fab/ApiService.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

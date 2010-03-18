@@ -1,5 +1,6 @@
 ﻿<configuration>
     <system.serviceModel>
+        <extensions />
         <bindings>
             <basicHttpBinding>
                 <binding name="BasicHttpBinding_IUserService" maxBufferSize="2147483647"

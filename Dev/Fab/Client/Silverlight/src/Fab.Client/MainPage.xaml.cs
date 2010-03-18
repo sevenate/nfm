@@ -26,6 +26,7 @@ namespace Fab.Client
 
 		private void TestButton_Click(object sender, RoutedEventArgs e)
 		{
+			TestButton.IsEnabled = false;
 			ResultText.Text = "Connecting...";
 
 			var proxy = new UserServiceClient();
@@ -44,6 +45,8 @@ namespace Fab.Client
 			{
 				ResultText.Text = "Done. Connection is OK";
 			}
+
+			TestButton.IsEnabled = true;
 		}
 	}
 }
