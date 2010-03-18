@@ -3,22 +3,29 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
 			 mc:Ignorable="d"
 			 d:DesignWidth="640"
 			 d:DesignHeight="480">
 	<Grid x:Name="LayoutRoot">
-		<StackPanel Orientation="Vertical"
-					HorizontalAlignment="Center"
-					VerticalAlignment="Center">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<sdk:DataGrid x:Name="dataGrid"
+					  AutoGenerateColumns="True"
+					  ItemsSource="{Binding}"/>
+		<StackPanel Name="stackPanel1"
+					Grid.Row="1"
+					Orientation="Horizontal">
 			<Button x:Name="TestButton"
-					Content="Test connection"
+					Content="Test"
 					Width="100"
 					Height="23"
 					Click="TestButton_Click" />
 			<TextBox x:Name="ResultText"
 					 Text="Ready"
-                     TextWrapping="Wrap"
-					 HorizontalAlignment="Center"
+					 TextWrapping="Wrap"
 					 IsReadOnly="True" />
 		</StackPanel>
 	</Grid>

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Browser;
 using System.Windows;
 using Fab.Client.ApiServiceReference;
@@ -29,11 +30,34 @@ namespace Fab.Client
 			TestButton.IsEnabled = false;
 			ResultText.Text = "Connecting...";
 
-			var proxy = new UserServiceClient();
-			proxy.IsLoginAvailableCompleted += ProxyOnIsLoginAvailableCompleted;
-			proxy.IsLoginAvailableAsync("123456");
+//			var proxy = new UserServiceClient();
+//			proxy.IsLoginAvailableCompleted += ProxyOnIsLoginAvailableCompleted;
+//			proxy.IsLoginAvailableAsync("123456");
+
+//			var proxy = new TransactionServiceClient();
+//			proxy.GetAllTransactionsCompleted += ProxyOnGetAllTransactionsCompleted;
+//			proxy.GetAllTransactionsAsync(userId: new Guid("6184b6dd-26d0-4d06-ba2c-95c850ccfebe"), accountId: 1);
+
+			var proxy = new AccountServiceClient();
+			proxy.GetAllAccountsCompleted += ProxyOnGetAllAccountsCompleted;
+			proxy.GetAllAccountsAsync(userId: new Guid("6184b6dd-26d0-4d06-ba2c-95c850ccfebe"));
 		}
-		
+
+		private void ProxyOnGetAllAccountsCompleted(object sender, GetAllAccountsCompletedEventArgs getAllAccountsCompletedEventArgs)
+		{
+			if (getAllAccountsCompletedEventArgs.Error != null)
+			{
+				ResultText.Text = "Error: " + getAllAccountsCompletedEventArgs.Error;
+			}
+			else
+			{
+				DataContext = getAllAccountsCompletedEventArgs.Result;
+				ResultText.Text = "Ready";
+			}
+
+			TestButton.IsEnabled = true;
+		}
+
 		private void ProxyOnIsLoginAvailableCompleted(
 			object sender, IsLoginAvailableCompletedEventArgs isLoginAvailableCompletedEventArgs)
 		{
@@ -44,6 +68,21 @@ namespace Fab.Client
 			else
 			{
 				ResultText.Text = "Done. Connection is OK";
+			}
+
+			TestButton.IsEnabled = true;
+		}
+
+		private void ProxyOnGetAllTransactionsCompleted(object sender, GetAllTransactionsCompletedEventArgs getAllTransactionsCompletedEventArgs)
+		{
+			if (getAllTransactionsCompletedEventArgs.Error != null)
+			{
+				ResultText.Text = "Error: " + getAllTransactionsCompletedEventArgs.Error;
+			}
+			else
+			{
+				DataContext = getAllTransactionsCompletedEventArgs.Result;
+				ResultText.Text = "Ready";
 			}
 
 			TestButton.IsEnabled = true;
