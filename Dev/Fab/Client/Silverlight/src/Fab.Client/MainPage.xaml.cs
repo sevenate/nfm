@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Net.Browser;
 using System.Windows;
@@ -11,6 +12,10 @@ namespace Fab.Client
 	/// </summary>
 	public partial class MainPage
 	{
+		private Guid userId = new Guid("7F06BFA6-B675-483C-9BF3-F59B88230382");
+
+		private int accountId = 5;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MainPage"/> class.
 		/// </summary>
@@ -36,11 +41,11 @@ namespace Fab.Client
 
 //			var proxy = new TransactionServiceClient();
 //			proxy.GetAllTransactionsCompleted += ProxyOnGetAllTransactionsCompleted;
-//			proxy.GetAllTransactionsAsync(userId: new Guid("6184b6dd-26d0-4d06-ba2c-95c850ccfebe"), accountId: 1);
+			//			proxy.GetAllTransactionsAsync(userId: userId, accountId: 1);
 
-			var proxy = new AccountServiceClient();
-			proxy.GetAllAccountsCompleted += ProxyOnGetAllAccountsCompleted;
-			proxy.GetAllAccountsAsync(userId: new Guid("6184b6dd-26d0-4d06-ba2c-95c850ccfebe"));
+			var proxy = new TransactionServiceClient();
+			proxy.GetAllTransactionsCompleted += ProxyOnGetAllTransactionsCompleted;
+			proxy.GetAllTransactionsAsync(userId: userId, accountId: accountId);
 		}
 
 		private void ProxyOnGetAllAccountsCompleted(object sender, GetAllAccountsCompletedEventArgs getAllAccountsCompletedEventArgs)
@@ -81,11 +86,56 @@ namespace Fab.Client
 			}
 			else
 			{
-				DataContext = getAllTransactionsCompletedEventArgs.Result;
+				transactionsGrid.ItemsSource = getAllTransactionsCompletedEventArgs.Result;
 				ResultText.Text = "Ready";
 			}
 
 			TestButton.IsEnabled = true;
+		}
+
+		private void SaveButton_Click(object sender, RoutedEventArgs e)
+		{
+			SaveButton.IsEnabled = false;
+			ResultText.Text = "Saving...";
+
+			var proxy = new TransactionServiceClient();
+			
+			if (DepositRadioButton.IsChecked.HasValue && DepositRadioButton.IsChecked.Value)
+			{
+				proxy.DepositCompleted += OnSavingCompleted;
+				proxy.DepositAsync(userId: userId,
+								   accountId: accountId,//AccountComboBox.SelectedValue,
+								   price: decimal.Parse(PriceTextBox.Text.Trim()),
+								   quantity: decimal.Parse(QuantityTextBox.Text.Trim()),
+								   comment: CommentTextBox.Text.Trim(),
+								   categoryId: null//(int)CategoryComboBox.SelectedValue
+								  );
+			}
+			else
+			{
+				proxy.WithdrawalCompleted += OnSavingCompleted;
+				proxy.WithdrawalAsync(userId: userId,
+								   accountId: accountId,//AccountComboBox.SelectedValue,
+								   price: decimal.Parse(PriceTextBox.Text.Trim()),
+								   quantity: decimal.Parse(QuantityTextBox.Text.Trim()),
+								   comment: CommentTextBox.Text.Trim(),
+								   categoryId: null//(int)CategoryComboBox.SelectedValue
+								  );
+			}
+		}
+
+		private void OnSavingCompleted(object sender, AsyncCompletedEventArgs asyncCompletedEventArgs)
+		{
+			if (asyncCompletedEventArgs.Error != null)
+			{
+				ResultText.Text = "Error: " + asyncCompletedEventArgs.Error;
+			}
+			else
+			{
+				ResultText.Text = "Ready";
+			}
+
+			SaveButton.IsEnabled = true;
 		}
 	}
 }

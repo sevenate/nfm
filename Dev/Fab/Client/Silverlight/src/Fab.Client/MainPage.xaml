@@ -8,16 +8,77 @@
 			 d:DesignWidth="640"
 			 d:DesignHeight="480">
 	<Grid x:Name="LayoutRoot">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<sdk:DataGrid x:Name="dataGrid"
-					  AutoGenerateColumns="True"
-					  ItemsSource="{Binding}"/>
-		<StackPanel Name="stackPanel1"
+		<sdk:DataGrid x:Name="transactionsGrid"
+					  Grid.Column="1"
+					  AutoGenerateColumns="False"
+					  IsReadOnly="True">
+			<sdk:DataGrid.Columns>
+				<sdk:DataGridTextColumn Header="Id"
+										Binding="{Binding Path=TransactionId}"
+										Visibility="Collapsed" />
+				<sdk:DataGridTextColumn Header="Category"
+										Binding="{Binding Path=Category}" />
+				<sdk:DataGridTextColumn Header="Income"
+										Binding="{Binding Path=Income}" />
+				<sdk:DataGridTextColumn Header="Expense"
+										Binding="{Binding Path=Expense}" />
+				<sdk:DataGridTextColumn Header="Quantity"
+										Binding="{Binding Path=Quantity}"
+										Visibility="Collapsed" />
+				<sdk:DataGridTextColumn Header="Price"
+										Binding="{Binding Path=Price}"
+										Visibility="Collapsed" />
+				<sdk:DataGridTextColumn Header="Balance"
+										Binding="{Binding Path=Balance}" />
+				<sdk:DataGridTextColumn Header="Comment"
+										Binding="{Binding Path=Comment}" Width="*" />
+			</sdk:DataGrid.Columns>
+		</sdk:DataGrid>
+		<StackPanel Grid.Column="2"
+					Width="150">
+			<StackPanel Orientation="Horizontal">
+				<RadioButton x:Name="DepositRadioButton" Content="Deposit" />
+				<RadioButton x:Name="WithdrawalRadioButton" Content="Withdrawal"
+							 IsChecked="True" />
+			</StackPanel>
+			<TextBlock TextWrapping="Wrap"
+					   Text="Account" />
+			<ComboBox x:Name="AccountComboBox" />
+			<TextBlock TextWrapping="Wrap"
+					   Text="Price" />
+			<TextBox x:Name="PriceTextBox"
+					 MaxLength="50" />
+			<TextBlock TextWrapping="Wrap"
+					   Text="Quantity" />
+			<TextBox x:Name="QuantityTextBox"
+					 MaxLength="50" />
+			<TextBlock TextWrapping="Wrap"
+					   Text="Category" />
+			<ComboBox x:Name="CategoryComboBox" />
+			<TextBlock TextWrapping="Wrap"
+					   Text="Comment" />
+			<TextBox x:Name="CommentTextBox"
+					 MaxLength="255"
+					 TextWrapping="Wrap"
+					 Height="100" />
+			<Button x:Name="SaveButton"
+					Content="Save"
+					Width="75"
+					HorizontalAlignment="Right" Click="SaveButton_Click" />
+		</StackPanel>
+		<StackPanel x:Name="stackPanel"
 					Grid.Row="1"
-					Orientation="Horizontal">
+					Orientation="Horizontal"
+					Grid.ColumnSpan="3">
 			<Button x:Name="TestButton"
 					Content="Test"
 					Width="100"
