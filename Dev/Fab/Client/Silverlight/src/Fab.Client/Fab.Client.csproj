@@ -81,6 +81,20 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Core">
+      <HintPath>..\..\ext\Caliburn.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.PresentationFramework">
+      <HintPath>..\..\ext\Caliburn.PresentationFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.ShellFramework">
+      <HintPath>..\..\ext\Caliburn.ShellFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Unity, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\ext\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.ComponentModel.DataAnnotations, Version=2.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -89,6 +103,7 @@
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Controls, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Data, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Controls.Data.Input, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Data, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
@@ -99,14 +114,58 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\ViewModels\AccountsViewModel.cs" />
+    <Compile Include="Main\ViewModels\CategoriesViewModel.cs" />
+    <Compile Include="Main\ViewModels\TransactionDetailsViewModel.cs" />
+    <Compile Include="Main\ViewModels\BaseViewModel.cs" />
+    <Compile Include="Main\ViewModels\MainViewModel.cs" />
+    <Compile Include="Main\ViewModels\TransactionsViewModel.cs" />
+    <Compile Include="Main\Views\AccountsView.xaml.cs">
+      <DependentUpon>AccountsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Views\CategoriesView.xaml.cs">
+      <DependentUpon>CategoriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Views\TransactionDetailsView.xaml.cs">
+      <DependentUpon>TransactionDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Views\TransactionsView.xaml.cs">
+      <DependentUpon>TransactionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\BindingHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountsResult.cs" />
+    <Compile Include="Models\BusyScreen.cs" />
+    <Compile Include="Models\AddTransactionResult.cs" />
+    <Compile Include="Models\CategoriesResult.cs" />
+    <Compile Include="Models\IShell.cs" />
+    <Compile Include="Models\IPart.cs" />
+    <Compile Include="Main\Part.cs" />
+    <Compile Include="Models\GetAllTransactionsResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\ApiServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\Configuration.cs" />
+    <Compile Include="Shell\Controls\Spinner.xaml.cs">
+      <DependentUpon>Spinner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\ViewModels\ShellViewModel.cs" />
+    <Compile Include="Shell\Views\BusyView.xaml.cs">
+      <DependentUpon>BusyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\Views\QuestionDialogView.xaml.cs">
+      <DependentUpon>QuestionDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\Views\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +175,53 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Main\Views\AccountsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\Views\CategoriesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\Views\TransactionDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\Views\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Main\Views\TransactionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Primitives.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shell\Controls\Spinner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shell\Views\BusyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shell\Views\QuestionDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shell\Views\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -191,6 +294,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ApiServiceReference\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <Import Project="..\..\msbuild.common.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Net;
-using System.Net.Browser;
 using System.Windows;
 using Fab.Client.ApiServiceReference;
 
@@ -22,12 +20,6 @@ namespace Fab.Client
 		public MainPage()
 		{
 			InitializeComponent();
-
-			// Required for support HTTP response code 500 (Internal Server Error)
-			// with SOAP Faults xml informarmation returned from WCF service in case of server side error.
-			// Details: http://blogs.msdn.com/carlosfigueira/archive/2009/08/15/fault-support-in-silverlight-3.aspx
-			// Note: should always return "true", unless the prefix has been previously registered.
-			WebRequest.RegisterPrefix("http://", WebRequestCreator.ClientHttp);
 		}
 
 		private void TestButton_Click(object sender, RoutedEventArgs e)

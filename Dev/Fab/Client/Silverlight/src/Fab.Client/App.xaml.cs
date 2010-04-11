@@ -1,66 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿using System.Net;
+using System.Net.Browser;
+using System.Reflection;
+using Caliburn.PresentationFramework.ApplicationModel;
+using Caliburn.PresentationFramework.Configuration;
+using Caliburn.PresentationFramework.Views;
+using Caliburn.ShellFramework;
+using Caliburn.ShellFramework.History;
+using Caliburn.Unity;
+using Fab.Client.Models;
+using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
 
 namespace Fab.Client
 {
-	public partial class App : Application
+	public partial class App
 	{
+		private IUnityContainer container;
 
 		public App()
 		{
-			this.Startup += this.Application_Startup;
-			this.Exit += this.Application_Exit;
-			this.UnhandledException += this.Application_UnhandledException;
-
 			InitializeComponent();
+
+			// Required for support HTTP response code 500 (Internal Server Error)
+			// with SOAP Faults xml informarmation returned from WCF service in case of server side error.
+			// Details: http://blogs.msdn.com/carlosfigueira/archive/2009/08/15/fault-support-in-silverlight-3.aspx
+			// Note: should always return "true", unless the prefix has been previously registered.
+			WebRequest.RegisterPrefix("http://", WebRequestCreator.ClientHttp);
 		}
 
-		private void Application_Startup(object sender, StartupEventArgs e)
+		protected override IServiceLocator CreateContainer()
 		{
-			this.RootVisual = new MainPage();
+			container = new UnityContainer();
+			return new UnityAdapter(container);
 		}
 
-		private void Application_Exit(object sender, EventArgs e)
+		protected override Assembly[] SelectAssemblies()
 		{
-
+			return new[] {Assembly.GetExecutingAssembly()};
 		}
-		private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
-		{
-			// If the app is running outside of the debugger then report the exception using
-			// the browser's exception mechanism. On IE this will display it a yellow alert 
-			// icon in the status bar and Firefox will display a script error.
-			if (!System.Diagnostics.Debugger.IsAttached)
-			{
 
-				// NOTE: This will allow the application to continue running after an exception has been thrown
-				// but not handled. 
-				// For production applications this error handling should be replaced with something that will 
-				// report the error to the website and stop the application.
-				e.Handled = true;
-				Deployment.Current.Dispatcher.BeginInvoke(delegate { ReportErrorToDOM(e); });
-			}
+		protected override object CreateRootModel()
+		{
+			return Container.GetInstance<IShell>();
 		}
-		private void ReportErrorToDOM(ApplicationUnhandledExceptionEventArgs e)
-		{
-			try
-			{
-				string errorMsg = e.ExceptionObject.Message + e.ExceptionObject.StackTrace;
-				errorMsg = errorMsg.Replace('"', '\'').Replace("\r\n", @"\n");
 
-				System.Windows.Browser.HtmlPage.Window.Eval("throw new Error(\"Unhandled Error in Silverlight Application " + errorMsg + "\");");
-			}
-			catch (Exception)
-			{
-			}
+		protected override void ConfigurePresentationFramework(PresentationFrameworkConfiguration module)
+		{
+			module.With.ShellFramework()
+				.ConfigureDeepLinking<DeepLinkStateManager, DefaultHistoryCoordinator>()
+				.RedirectViewNamespace("Fab.Client.Shell.Views");
+
+			module.RegisterAllScreensWithSubjects(true)
+				.Using(x => x.ViewLocator<DefaultViewLocator>())
+				.Configured(x => x.AddNamespaceAlias("Fab.Client.Models", "Fab.Client.Shell.Views"));
 		}
 	}
 }
