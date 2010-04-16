@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
-  <publishProfile publishUrl="B:\Workspace\Dev\Fab\Server\deploy" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="False" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Local" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True" useFpForLocalhost="0">
+  <publishProfile publishUrl="B:\Workspace\Dev\Fab\Server\deploy" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="False" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Local" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
     <file relUrl="bin/Fab.Server.pdb" publishTime="01/24/2010 15:19:51" />
     <file relUrl="bin/Fab.Server.dll" publishTime="01/24/2010 15:19:51" />
     <file relUrl="App_Data/Database_log.ldf" publishTime="01/24/2010 01:39:44" />
@@ -8,7 +8,7 @@
     <file relUrl="Service1.svc" publishTime="01/12/2010 00:42:12" />
     <file relUrl="App_Data/Database.mdf" publishTime="01/24/2010 01:39:44" />
   </publishProfile>
-  <publishProfile publishUrl="D:\Downloads\FAB" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="False" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Release" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False" useFpForLocalhost="0">
+  <publishProfile publishUrl="D:\Downloads\FAB" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="False" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Release" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
     <file relUrl="bin/Fab.Server.pdb" publishTime="01/24/2010 14:56:08" />
     <file relUrl="App_Data/Database_log.ldf" publishTime="01/24/2010 01:39:44" />
     <file relUrl="Web.config" publishTime="01/24/2010 15:17:14" />
