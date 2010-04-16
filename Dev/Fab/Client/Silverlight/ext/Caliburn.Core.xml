@@ -243,12 +243,52 @@
             <summary>
             Creates a singleton registration.
             </summary>
+            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <returns>The registration.</returns>
+        </member>
+        <member name="M:Caliburn.Core.Configuration.ModuleBase.Singleton``2(System.String)">
+            <summary>
+            Creates a singleton registration.
+            </summary>
+            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <param name="key">The key.</param>
+            <returns>The registration.</returns>
+        </member>
+        <member name="M:Caliburn.Core.Configuration.ModuleBase.Singleton(System.Type,System.Type,System.String)">
+            <summary>
+            Creates a singleton registration.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="implementation">The implementation.</param>
+            <param name="key">The key.</param>
             <returns>The registration.</returns>
         </member>
         <member name="M:Caliburn.Core.Configuration.ModuleBase.PerRequest``2">
             <summary>
             Creates a per request registration.
             </summary>
+            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <returns>The registration.</returns>
+        </member>
+        <member name="M:Caliburn.Core.Configuration.ModuleBase.PerRequest``2(System.String)">
+            <summary>
+            Creates a per request registration.
+            </summary>
+            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <param name="key">The key.</param>
+            <returns>The registration.</returns>
+        </member>
+        <member name="M:Caliburn.Core.Configuration.ModuleBase.PerRequest(System.Type,System.Type,System.String)">
+            <summary>
+            Creates a per request registration.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="implementation">The implementation.</param>
+            <param name="key">The key.</param>
             <returns>The registration.</returns>
         </member>
         <member name="M:Caliburn.Core.Configuration.CaliburnModule`1.#ctor">

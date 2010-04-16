@@ -95,14 +95,12 @@
             Represents a single action.
             </summary>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.IAction.Matches(Caliburn.PresentationFramework.Actions.ActionMessage)">
+        <member name="T:Caliburn.PresentationFramework.Actions.IActionHandler">
             <summary>
-            Determines whether this action matches the specified message.
+            Implemented by classes which can handle an <see cref="T:Caliburn.PresentationFramework.Actions.ActionMessage"/>.
             </summary>
-            <param name="message">The message.</param>
-            <returns></returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.IAction.ShouldTriggerBeAvailable(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.RoutedMessaging.IInteractionNode)">
+        <member name="M:Caliburn.PresentationFramework.Actions.IActionHandler.ShouldTriggerBeAvailable(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.RoutedMessaging.IInteractionNode)">
             <summary>
             Determines how this instance affects trigger availability.
             </summary>
@@ -112,13 +110,20 @@
             	<c>true</c> if this instance enables triggers; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.IAction.Execute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.RoutedMessaging.IInteractionNode,System.Object)">
+        <member name="M:Caliburn.PresentationFramework.Actions.IActionHandler.Execute(Caliburn.PresentationFramework.Actions.ActionMessage,Caliburn.PresentationFramework.RoutedMessaging.IInteractionNode,System.Object)">
             <summary>
             Executes the specified action on the specified target.
             </summary>
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="context">The context.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Actions.IAction.Matches(Caliburn.PresentationFramework.Actions.ActionMessage)">
+            <summary>
+            Determines whether this action matches the specified message.
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
         </member>
         <member name="P:Caliburn.PresentationFramework.Actions.IAction.Name">
             <summary>
@@ -196,6 +201,14 @@
             <param name="actionMessage">The action message.</param>
             <param name="handlingNode">The node.</param>
             <param name="context">The context.</param>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.HasTriggerEffects">
+            <summary>
+            Determines whether this action has trigger effects.
+            </summary>
+            <returns>
+            	<c>true</c> if has trigger effects; otherwise, <c>false</c>.
+            </returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.ActionBase.TryApplyRescue(Caliburn.PresentationFramework.RoutedMessaging.IRoutedMessage,Caliburn.PresentationFramework.RoutedMessaging.IInteractionNode,System.Exception)">
             <summary>
@@ -316,15 +329,6 @@
             <summary>
             Hosts extension methods related to actions.
             </summary>
-        </member>
-        <member name="M:Caliburn.PresentationFramework.Actions.ActionExtensions.HasTriggerEffects(Caliburn.PresentationFramework.Actions.IAction)">
-            <summary>
-            Determines whether the action has trigger effects.
-            </summary>
-            <param name="action">The action.</param>
-            <returns>
-            	<c>true</c> if has trigger effects; otherwise, <c>false</c>.
-            </returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.Actions.ActionExtensions.CreateFilterManager(Caliburn.PresentationFramework.Actions.ActionCreationContext,Caliburn.Core.Invocation.IMethod)">
             <summary>
@@ -1138,7 +1142,7 @@
             <param name="sender">The sender.</param>
             <param name="e">The <see cref="T:System.Windows.ApplicationUnhandledExceptionEventArgs"/> instance containing the event data.</param>
         </member>
-        <member name="M:Caliburn.PresentationFramework.ApplicationModel.CaliburnApplication.ReportErrorToDOM(System.Windows.ApplicationUnhandledExceptionEventArgs)">
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.CaliburnApplication.ReportError(System.Windows.ApplicationUnhandledExceptionEventArgs)">
             <summary>
             Reports the error to the DOM.
             </summary>
@@ -1567,6 +1571,12 @@
             Commits the changes.
             </summary>
             <param name="stateName">Name of the state.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.PresentationFramework.ApplicationModel.IsolatedStorageStateManager.GetStorageFile">
+            <summary>
+            Gets the storage file.
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Caliburn.PresentationFramework.ApplicationModel.IsolatedStorageStateManager.InsertOrUpdate(System.String,System.String)">
@@ -3756,6 +3766,11 @@
             An implentation of <see cref="T:Caliburn.PresentationFramework.RoutedMessaging.IMessageTrigger"/> that enables triggers based on an input gesture.
             </summary>
         </member>
+        <member name="F:Caliburn.PresentationFramework.RoutedMessaging.Triggers.GestureMessageTrigger.DoubleClickInterval">
+            <summary>
+            The interval used in detecting double clicks.
+            </summary>
+        </member>
         <member name="F:Caliburn.PresentationFramework.RoutedMessaging.Triggers.GestureMessageTrigger.KeyProperty">
             <summary>
             A dependency property representing the key's value.
@@ -3810,12 +3825,27 @@
         </member>
         <member name="F:Caliburn.PresentationFramework.RoutedMessaging.Triggers.MouseAction.None">
             <summary>
-            A left mouse button click.
+            No action.
             </summary>
         </member>
         <member name="F:Caliburn.PresentationFramework.RoutedMessaging.Triggers.MouseAction.LeftClick">
             <summary>
-            No action.
+            A left mouse button click.
+            </summary>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.RoutedMessaging.Triggers.MouseAction.LeftDoubleClick">
+            <summary>
+            A left mouse button double click.
+            </summary>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.RoutedMessaging.Triggers.MouseAction.RightClick">
+            <summary>
+            A right mouse button click.
+            </summary>
+        </member>
+        <member name="F:Caliburn.PresentationFramework.RoutedMessaging.Triggers.MouseAction.RightDoubleClick">
+            <summary>
+            A right mouse button double click.
             </summary>
         </member>
         <member name="T:Caliburn.PresentationFramework.RoutedMessaging.AvailabilityEffect">
