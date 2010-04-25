@@ -56,6 +56,10 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.0.20310.0</ExpressionBlendVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -90,11 +94,15 @@
     <Reference Include="Caliburn.ShellFramework">
       <HintPath>..\..\ext\Caliburn.ShellFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Caliburn.Unity, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL" />
+    <Reference Include="Caliburn.Unity">
+      <HintPath>..\..\ext\Caliburn.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\ext\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\ext\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations, Version=2.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -116,6 +124,10 @@
     </Compile>
     <Compile Include="Main\ViewModels\AccountsViewModel.cs" />
     <Compile Include="Main\ViewModels\CategoriesViewModel.cs" />
+    <Compile Include="Main\ViewModels\IAccountsViewModel.cs" />
+    <Compile Include="Main\ViewModels\ICategoriesViewModel.cs" />
+    <Compile Include="Main\ViewModels\ITransactionDetailsViewModel.cs" />
+    <Compile Include="Main\ViewModels\ITransactionsViewModel.cs" />
     <Compile Include="Main\ViewModels\TransactionDetailsViewModel.cs" />
     <Compile Include="Main\ViewModels\BaseViewModel.cs" />
     <Compile Include="Main\ViewModels\MainViewModel.cs" />
@@ -136,9 +148,6 @@
       <DependentUpon>TransactionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\BindingHelper.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountsResult.cs" />
     <Compile Include="Models\BusyScreen.cs" />
     <Compile Include="Models\AddTransactionResult.cs" />
@@ -194,12 +203,6 @@
     <Page Include="Main\Views\TransactionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:MarkupCompilePass1</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Primitives.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -9,6 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fab.Client.Web", "src\Fab.C
 	EndProjectSection
 EndProject
 Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 3
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = src\\Fab.Client\\Fab.Client.csproj
+		SccLocalPath1 = src\\Fab.Client
+		SccProjectUniqueName2 = src\\Fab.Client.Web\\Fab.Client.Web.csproj
+		SccLocalPath2 = src\\Fab.Client.Web
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
