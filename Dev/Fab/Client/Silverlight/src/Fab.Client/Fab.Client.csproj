@@ -130,7 +130,7 @@
     <Compile Include="Main\ViewModels\ITransactionsViewModel.cs" />
     <Compile Include="Main\ViewModels\TransactionDetailsViewModel.cs" />
     <Compile Include="Main\ViewModels\BaseViewModel.cs" />
-    <Compile Include="Main\ViewModels\MainViewModel.cs" />
+    <Compile Include="Main\ViewModels\MoneyTrackerViewModel.cs" />
     <Compile Include="Main\ViewModels\TransactionsViewModel.cs" />
     <Compile Include="Main\Views\AccountsView.xaml.cs">
       <DependentUpon>AccountsView.xaml</DependentUpon>

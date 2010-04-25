@@ -36,7 +36,7 @@ namespace Fab.Client.Main
 		[Rescue("OpenFailed")]
 		public IEnumerable<IResult> Enter()
 		{
-			yield return Show.Child(new MainViewModel()).In<IShell>();
+			yield return Show.Child(new MoneyTrackerViewModel()).In<IShell>();
 		}
 
 		public bool OpenFailed(Exception exception)

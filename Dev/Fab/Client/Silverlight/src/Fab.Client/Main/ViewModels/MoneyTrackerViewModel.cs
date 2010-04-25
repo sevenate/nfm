@@ -23,8 +23,8 @@ namespace Fab.Client.Main.ViewModels
 	/// <summary>
 	/// Main view model.
 	/// </summary>
-	[HistoryKey("Main", typeof(MainViewModel))]
-	public class MainViewModel : Screen, ISupportCustomShutdown
+	[HistoryKey("Main", typeof(MoneyTrackerViewModel))]
+	public class MoneyTrackerViewModel : Screen, ISupportCustomShutdown
 	{
 		#region Implementation of ISupportCustomShutdown
 
@@ -116,9 +116,9 @@ namespace Fab.Client.Main.ViewModels
 		public object AddNew { get; private set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MainViewModel"/> class.
+		/// Initializes a new instance of the <see cref="MoneyTrackerViewModel"/> class.
 		/// </summary>
-		public MainViewModel()
+		public MoneyTrackerViewModel()
 		{
 			Accounts = ServiceLocator.Current.GetInstance<IAccountsViewModel>();
 			Categories = ServiceLocator.Current.GetInstance<ICategoriesViewModel>();
