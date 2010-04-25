@@ -141,8 +141,8 @@
     <Compile Include="Main\Views\TransactionDetailsView.xaml.cs">
       <DependentUpon>TransactionDetailsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main\Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
+    <Compile Include="Main\Views\MoneyTrackerView.xaml.cs">
+      <DependentUpon>MoneyTrackerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\Views\TransactionsView.xaml.cs">
       <DependentUpon>TransactionsView.xaml</DependentUpon>
@@ -196,7 +196,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main\Views\MainView.xaml">
+    <Page Include="Main\Views\MoneyTrackerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
