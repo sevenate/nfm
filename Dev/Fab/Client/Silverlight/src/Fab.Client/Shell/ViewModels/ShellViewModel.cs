@@ -11,62 +11,63 @@ using Fab.Client.Models;
 
 namespace Fab.Client.Shell.ViewModels
 {
-    public class ShellViewModel : ScreenConductor<IScreen>, IShell
-    {
-        private readonly IHistoryCoordinator historyCoordinator;
+	public class ShellViewModel : ScreenConductor<IScreen>, IShell
+	{
+		private readonly IHistoryCoordinator historyCoordinator;
 		private readonly IObservableCollection<IPart> parts;
 
 		public ShellViewModel(IHistoryCoordinator historyCoordinator, IPart[] parts)
-        {
-            this.historyCoordinator = historyCoordinator;
+		{
+			this.historyCoordinator = historyCoordinator;
 			this.parts = new BindableCollection<IPart>(parts);
-        }
+		}
 
 		public IObservableCollection<IPart> Parts
-        {
-            get { return parts; }
-        }
+		{
+			get { return parts; }
+		}
 
-        protected override void OnInitialize()
-        {
-            historyCoordinator.Start(
-                config =>{
-                    config.Host = this;
-                    config.HistoryKey = "Page";
-                    config.ScreenNotFound = HandleScreenNotFound;
-                });
+		protected override void OnInitialize()
+		{
+			historyCoordinator.Start(
+				config =>
+				{
+					config.Host = this;
+					config.HistoryKey = "Page";
+					config.ScreenNotFound = HandleScreenNotFound;
+				});
 
-            base.OnInitialize();
-        }
+			base.OnInitialize();
+		}
 
-        protected override void OnActivate()
-        {
-        	Parts.First().Enter().Execute();
-            base.OnActivate();
-        }
+		protected override void OnActivate()
+		{
+			Parts.First().Enter().Execute();
+			base.OnActivate();
+		}
 
-        private void HandleScreenNotFound(string historyKey)
-        {
-            if(string.IsNullOrEmpty(historyKey))
-            {
-            	return;
-            }
+		private void HandleScreenNotFound(string historyKey)
+		{
+			if (string.IsNullOrEmpty(historyKey))
+			{
+				return;
+			}
 
-            var item = Parts.FirstOrDefault(x => x.DisplayName == historyKey);
+			var item = Parts.FirstOrDefault(x => x.DisplayName == historyKey);
 
-            if (item != null)
-            {
-            	item.Enter().Execute();
-            }
-            else
-            {
-            	Show.MessageBox("Invalid Query String Parameter: " + historyKey).Execute();
-            }
-        }
+			if (item != null)
+			{
+				item.Enter().Execute();
+			}
+			else
+			{
+				Show.MessageBox("Invalid Query String Parameter: " + historyKey).Execute();
+			}
+		}
 
-        protected override void ExecuteShutdownModel(ISubordinate model, Action completed)
-        {
-            model.Execute(completed);
-        }
-    }
+		protected override void ExecuteShutdownModel(ISubordinate model, Action completed)
+		{
+			model.Execute(completed);
+		}
+	}
 }
