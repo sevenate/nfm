@@ -13,7 +13,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Caliburn.Core.IoC;
+using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
@@ -26,7 +27,8 @@ namespace Fab.Client.Main.ViewModels
 	/// <summary>
 	/// Accounts view model.
 	/// </summary>
-	public class AccountsViewModel : BaseViewModel
+	[Singleton(typeof(IAccountsViewModel))]
+	public class AccountsViewModel : BaseViewModel, IAccountsViewModel
 	{
 		#region Fields
 
@@ -45,15 +47,17 @@ namespace Fab.Client.Main.ViewModels
 		public AccountsViewModel()
 			: base(ServiceLocator.Current.GetInstance<IValidator>())
 		{
-			Accounts = new ObservableCollection<Account>();
+			Accounts = new BindableCollection<Account>();
 		}
 
 		#endregion
 
+		#region Imlementation of IAccountsViewModel
+
 		/// <summary>
 		/// Gets accounts for specific user.
 		/// </summary>
-		public ObservableCollection<Account> Accounts { get; private set; }
+		public IObservableCollection<Account> Accounts { get; private set; }
 
 		/// <summary>
 		/// Download all accounts for specific user.
@@ -75,5 +79,7 @@ namespace Fab.Client.Main.ViewModels
 
 			yield return Show.NotBusy();
 		}
+
+		#endregion
 	}
 }

@@ -7,6 +7,9 @@
 			 mc:Ignorable="d"
 			 d:DesignHeight="350"
 			 d:DesignWidth="300">
+	<UserControl.Resources>
+		<CollectionViewSource x:Name="Accounts" />
+	</UserControl.Resources>
 	<Grid x:Name="LayoutRoot"
 		  Background="White">
 		<StackPanel>
@@ -19,7 +22,13 @@
 			</StackPanel>
 			<TextBlock TextWrapping="Wrap"
 					   Text="Account" />
-			<ComboBox x:Name="Accounts" />
+			<ComboBox ItemsSource="{Binding Source={StaticResource Accounts}}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Name}" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
 			<TextBlock TextWrapping="Wrap"
 					   Text="Price" />
 			<TextBox x:Name="Price"
@@ -46,7 +55,13 @@
 						NotifyOnValidationError=True}" />
 			<TextBlock TextWrapping="Wrap"
 					   Text="Category" />
-			<ComboBox x:Name="Categories" />
+			<ComboBox x:Name="Categories">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Name}" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
 			<TextBlock TextWrapping="Wrap"
 					   Text="Comment" />
 			<TextBox x:Name="Comment"

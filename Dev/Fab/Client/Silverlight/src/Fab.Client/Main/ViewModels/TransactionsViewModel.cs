@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Caliburn.Core.IoC;
 using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
@@ -26,7 +27,8 @@ namespace Fab.Client.Main.ViewModels
 	/// <summary>
 	/// Transactions view model.
 	/// </summary>
-	public class TransactionsViewModel : BaseViewModel
+	[Singleton(typeof(ITransactionsViewModel))]
+	public class TransactionsViewModel : BaseViewModel, ITransactionsViewModel
 	{
 		#region Fields
 

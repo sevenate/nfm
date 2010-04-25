@@ -16,6 +16,7 @@ using Caliburn.PresentationFramework.ApplicationModel;
 using Caliburn.PresentationFramework.Screens;
 using Caliburn.ShellFramework.History;
 using Caliburn.ShellFramework.Questions;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Fab.Client.Main.ViewModels
 {
@@ -119,10 +120,10 @@ namespace Fab.Client.Main.ViewModels
 		/// </summary>
 		public MainViewModel()
 		{
-			Accounts = new AccountsViewModel();
-			Categories = new CategoriesViewModel();
-			Transactions = new TransactionsViewModel();
-			AddNew = new TransactionDetailsViewModel();
+			Accounts = ServiceLocator.Current.GetInstance<IAccountsViewModel>();
+			Categories = ServiceLocator.Current.GetInstance<ICategoriesViewModel>();
+			Transactions = ServiceLocator.Current.GetInstance<ITransactionsViewModel>();
+			AddNew = ServiceLocator.Current.GetInstance<ITransactionDetailsViewModel>();
 		}
     }
 }

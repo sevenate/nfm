@@ -9,7 +9,7 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2010-04-11</date>
 // </editor>
-// <summary>Base view model.</summary>
+// <summary>Base view model with common validation mechanism for all screens.</summary>
 
 using System;
 using System.ComponentModel;
@@ -20,7 +20,7 @@ using Caliburn.PresentationFramework.ViewModels;
 namespace Fab.Client.Main.ViewModels
 {
 	/// <summary>
-	/// Base view model.
+	/// Base view model with common validation mechanism for all screens.
 	/// </summary>
 	public abstract class BaseViewModel : Screen, IDataErrorInfo
 	{
@@ -74,6 +74,7 @@ namespace Fab.Client.Main.ViewModels
 
 		#region Overrides of Object
 
+/*
 		// Note: The following overrides insure that all instances of this screen are treated as
 		// equal by the screen activation mechanism without forcing a singleton registration
 		// in the container.
@@ -86,10 +87,10 @@ namespace Fab.Client.Main.ViewModels
 		/// </returns>
 		/// <param name="obj">The <see cref="object"/> to compare with the current <see cref="object"/>.</param>
 		/// <exception cref="NullReferenceException">The <paramref name="obj"/> parameter is null.</exception>
-//		public override bool Equals(object obj)
-//		{
-//			return obj != null && obj.GetType() == GetType();
-//		}
+		public override bool Equals(object obj)
+		{
+			return obj != null && obj.GetType() == GetType();
+		}
 
 		/// <summary>
 		/// Serves as a hash function for a particular type. 
@@ -97,10 +98,11 @@ namespace Fab.Client.Main.ViewModels
 		/// <returns>
 		/// A hash code for the current <see cref="object"/>.
 		/// </returns>
-//		public override int GetHashCode()
-//		{
-//			return GetType().GetHashCode();
-//		}
+		public override int GetHashCode()
+		{
+			return GetType().GetHashCode();
+		}
+*/
 
 		#endregion
 	}

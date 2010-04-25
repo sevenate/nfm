@@ -13,7 +13,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Caliburn.Core.IoC;
+using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
@@ -26,7 +27,8 @@ namespace Fab.Client.Main.ViewModels
 	/// <summary>
 	/// Categories view model.
 	/// </summary>
-	public class CategoriesViewModel : BaseViewModel
+	[Singleton(typeof(ICategoriesViewModel))]
+	public class CategoriesViewModel : BaseViewModel, ICategoriesViewModel
 	{
 		#region Fields
 
@@ -45,15 +47,17 @@ namespace Fab.Client.Main.ViewModels
 		public CategoriesViewModel()
 			: base(ServiceLocator.Current.GetInstance<IValidator>())
 		{
-			Categories = new ObservableCollection<Category>();
+			Categories = new BindableCollection<Category>();
 		}
 
 		#endregion
 
+		#region Imlementation of ICategoriesViewModel
+
 		/// <summary>
 		/// Gets categories for specific user.
 		/// </summary>
-		public ObservableCollection<Category> Categories { get; private set; }
+		public IObservableCollection<Category> Categories { get; private set; }
 
 		/// <summary>
 		/// Download all categories for specific user.
@@ -75,5 +79,7 @@ namespace Fab.Client.Main.ViewModels
 
 			yield return Show.NotBusy();
 		}
+
+		#endregion
 	}
 }

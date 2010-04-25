@@ -1,8 +1,8 @@
 ﻿namespace Fab.Client.Main.Views
 {
-	public partial class MainView
+	public partial class MoneyTrackerView
 	{
-        public MainView()
+        public MoneyTrackerView()
         {
             InitializeComponent();
         }

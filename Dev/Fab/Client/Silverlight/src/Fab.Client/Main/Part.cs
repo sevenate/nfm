@@ -9,7 +9,7 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2010-04-02</date>
 // </editor>
-// <summary>Test item.</summary>
+// <summary>Money tracker module.</summary>
 
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ using Fab.Client.Models;
 namespace Fab.Client.Main
 {
 	/// <summary>
-	/// Test item.
+	/// Money tracker module.
 	/// </summary>
 	public class Part : IPart
 	{
@@ -30,7 +30,7 @@ namespace Fab.Client.Main
 
 		public string DisplayName
 		{
-			get { return "Transactions"; }
+			get { return "Money"; }
 		}
 
 		[Rescue("OpenFailed")]

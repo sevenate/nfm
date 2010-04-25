@@ -13,8 +13,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Data;
+using Caliburn.Core.IoC;
+using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
@@ -27,7 +29,8 @@ namespace Fab.Client.Main.ViewModels
 	/// <summary>
 	/// Single transaction details view model.
 	/// </summary>
-	public class TransactionDetailsViewModel : BaseViewModel
+	[Singleton(typeof(ITransactionDetailsViewModel))]
+	public class TransactionDetailsViewModel : BaseViewModel, ITransactionDetailsViewModel
 	{
 		#region Fields
 
@@ -51,42 +54,26 @@ namespace Fab.Client.Main.ViewModels
 		public TransactionDetailsViewModel()
 			: base(ServiceLocator.Current.GetInstance<IValidator>())
 		{
-			AccountsVM = new AccountsViewModel();
-			CategoriesVM = new CategoriesViewModel();
-		}
-
-		#endregion
-
-		#region Overrides of ScreenBase
-
-		/// <summary>
-		/// Called when an attached view is loaded.
-		/// </summary>
-		/// <param name="view">The view.</param>
-		protected override void OnViewLoaded(object view)
-		{
-			AccountsVM.LoadAllAccounts().Execute();
-			NotifyOfPropertyChange(() => Accounts);
-			CategoriesVM.LoadAllCategories().Execute();
-			NotifyOfPropertyChange(() => Categories);
+			AccountsVM = ServiceLocator.Current.GetInstance<IAccountsViewModel>();
+			CategoriesVM = ServiceLocator.Current.GetInstance<ICategoriesViewModel>();
 		}
 
 		#endregion
 
 		/// <summary>
-		/// Gets or sets <see cref="AccountsViewModel"/>.
+		/// Gets or sets <see cref="IAccountsViewModel"/>.
 		/// </summary>
-		private AccountsViewModel AccountsVM { get; set; }
+		private IAccountsViewModel AccountsVM { get; set; }
 
 		/// <summary>
-		/// Gets or sets <see cref="CategoriesViewModel"/>.
+		/// Gets or sets <see cref="ICategoriesViewModel"/>.
 		/// </summary>
-		private CategoriesViewModel CategoriesVM { get; set; }
+		private ICategoriesViewModel CategoriesVM { get; set; }
 
 		/// <summary>
 		/// Gets accounts for specific user.
 		/// </summary>
-		public ObservableCollection<Account> Accounts
+		public IObservableCollection<Account> Accounts
 		{
 			get
 			{
@@ -97,7 +84,7 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Gets accounts for specific user.
 		/// </summary>
-		public ObservableCollection<Category> Categories
+		public IObservableCollection<Category> Categories
 		{
 			get
 			{
@@ -163,7 +150,7 @@ namespace Fab.Client.Main.ViewModels
 
 			var request = new AddTransactionResult(
 				userId: userId,
-				accountId: accountId,//AccountComboBox.SelectedValue,
+				accountId: accountId,
 				price: decimal.Parse(Price.Trim()),
 				quantity: decimal.Parse(Quantity.Trim()),
 				comment: Comment != null ? Comment.Trim() : null,
