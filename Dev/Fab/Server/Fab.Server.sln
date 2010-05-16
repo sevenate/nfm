@@ -6,6 +6,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fab.Server.Tests", "src\Fab.Server.Tests\Fab.Server.Tests.csproj", "{7306F78E-0F68-4A9B-A7AF-E8330BC4A119}"
 EndProject
 Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 3
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = src\\Fab.Server\\Fab.Server.csproj
+		SccLocalPath1 = src\\Fab.Server
+		SccProjectUniqueName2 = src\\Fab.Server.Tests\\Fab.Server.Tests.csproj
+		SccLocalPath2 = src\\Fab.Server.Tests
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
