@@ -82,7 +82,6 @@
   <ItemGroup>
     <Content Include="ClientBin\SilverFAB.xap" />
     <Content Include="Fab.ClientTestPage.aspx" />
-    <Content Include="index.html" />
     <Content Include="Global.asax" />
     <Content Include="Silverlight.js" />
     <Content Include="Views\Home\Silverlight.aspx" />
