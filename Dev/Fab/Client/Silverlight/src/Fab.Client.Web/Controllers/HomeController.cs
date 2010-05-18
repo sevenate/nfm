@@ -20,5 +20,10 @@ namespace Fab.Client.Web.Controllers
 		{
 			return View();
 		}
+
+		public ActionResult Silverlight()
+		{
+			return View();
+		}
 	}
 }

@@ -82,9 +82,10 @@
   <ItemGroup>
     <Content Include="ClientBin\SilverFAB.xap" />
     <Content Include="Fab.ClientTestPage.aspx" />
-    <Content Include="Fab.ClientTestPage.html" />
+    <Content Include="index.html" />
     <Content Include="Global.asax" />
     <Content Include="Silverlight.js" />
+    <Content Include="Views\Home\Silverlight.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
