@@ -809,8 +809,11 @@ namespace Fab.Server
 				                      {
 				                      	Posting = p,
 										Transaction = p.Journal as Transaction,
+// ReSharper disable PossibleNullReferenceException
+// Note: do NOT use direct cast here because of LinqToEntity -> SQL convertion "not supported" exception
 				                      	(p.Journal as Transaction).Category,
 										(p.Journal as Transaction).JournalType
+// ReSharper restore PossibleNullReferenceException
 									  };
 
 				var res = postings.ToList();
@@ -853,6 +856,7 @@ namespace Fab.Server
 					records.Add(new TransactionRecord
 								{
 									TransactionId = r.Transaction.Id,
+									Date = r.Posting.Date,
 									Category = r.Category,
 									Price = r.Transaction.Price,
 									Quantity = r.Transaction.Quantity,

@@ -11,6 +11,7 @@
 // </editor>
 // <summary>Simple "income / expense / balance" data object.</summary>
 
+using System;
 using System.Runtime.Serialization;
 
 namespace Fab.Server.Core
@@ -25,6 +26,11 @@ namespace Fab.Server.Core
 		/// Gets or sets unique (for account) transaction ID.
 		/// </summary>
 		public int TransactionId { get; set; }
+
+		/// <summary>
+		/// Gets or sets operation date.
+		/// </summary>
+		public DateTime Date { get; set; }
 
 		/// <summary>
 		/// Gets or sets transaction category.
