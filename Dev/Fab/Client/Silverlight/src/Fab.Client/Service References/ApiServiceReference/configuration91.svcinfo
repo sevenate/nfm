@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="q0Mv77feVsITIg47f1G1MxIIWY8=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="bjGWHwmV2Ir1gwTxGBgKk6iWmeg=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IUserService">
       <properties>
@@ -439,10 +439,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IUserService" contract="ApiServiceReference.IUserService" bindingType="basicHttpBinding" address="http://thor/Fab/ApiService.svc" bindingConfiguration="BasicHttpBinding_IUserService">
+    <endpoint name="BasicHttpBinding_IUserService" contract="ApiServiceReference.IUserService" bindingType="basicHttpBinding" address="http://thor/fab/ApiService.svc" bindingConfiguration="BasicHttpBinding_IUserService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://thor/Fab/ApiService.svc</serializedValue>
+          <serializedValue>http://thor/fab/ApiService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -524,10 +524,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="BasicHttpBinding_IAccountService" contract="ApiServiceReference.IAccountService" bindingType="basicHttpBinding" address="http://thor/Fab/ApiService.svc" bindingConfiguration="BasicHttpBinding_IAccountService">
+    <endpoint name="BasicHttpBinding_IAccountService" contract="ApiServiceReference.IAccountService" bindingType="basicHttpBinding" address="http://thor/fab/ApiService.svc" bindingConfiguration="BasicHttpBinding_IAccountService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://thor/Fab/ApiService.svc</serializedValue>
+          <serializedValue>http://thor/fab/ApiService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -609,10 +609,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="BasicHttpBinding_ICategoryService" contract="ApiServiceReference.ICategoryService" bindingType="basicHttpBinding" address="http://thor/Fab/ApiService.svc" bindingConfiguration="BasicHttpBinding_ICategoryService">
+    <endpoint name="BasicHttpBinding_ICategoryService" contract="ApiServiceReference.ICategoryService" bindingType="basicHttpBinding" address="http://thor/fab/ApiService.svc" bindingConfiguration="BasicHttpBinding_ICategoryService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://thor/Fab/ApiService.svc</serializedValue>
+          <serializedValue>http://thor/fab/ApiService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -694,10 +694,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="BasicHttpBinding_ITransactionService" contract="ApiServiceReference.ITransactionService" bindingType="basicHttpBinding" address="http://thor/Fab/ApiService.svc" bindingConfiguration="BasicHttpBinding_ITransactionService">
+    <endpoint name="BasicHttpBinding_ITransactionService" contract="ApiServiceReference.ITransactionService" bindingType="basicHttpBinding" address="http://thor/fab/ApiService.svc" bindingConfiguration="BasicHttpBinding_ITransactionService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://thor/Fab/ApiService.svc</serializedValue>
+          <serializedValue>http://thor/fab/ApiService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Fab.Server.Core" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://thor/Fab/ApiService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses" />
-  <xs:import schemaLocation="http://thor/Fab/ApiService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://thor/fab/ApiService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses" />
+  <xs:import schemaLocation="http://thor/fab/ApiService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfAccount">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Account" nillable="true" type="tns:Account" />
@@ -177,10 +177,12 @@
       <xs:element minOccurs="0" name="Balance" type="xs:decimal" />
       <xs:element minOccurs="0" name="Category" nillable="true" type="tns:Category" />
       <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Expense" type="xs:decimal" />
       <xs:element minOccurs="0" name="Income" type="xs:decimal" />
       <xs:element minOccurs="0" name="Price" type="xs:decimal" />
       <xs:element minOccurs="0" name="Quantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TransactionId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TransactionRecord" nillable="true" type="tns:TransactionRecord" />

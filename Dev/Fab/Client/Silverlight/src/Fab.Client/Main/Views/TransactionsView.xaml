@@ -23,6 +23,8 @@
 				<sdk:DataGridTextColumn Header="Id"
 										Binding="{Binding Path=TransactionId}"
 										Visibility="Collapsed" />
+				<sdk:DataGridTextColumn Header="Date"
+										Binding="{Binding Path=Date}" />
 				<sdk:DataGridTextColumn Header="Category"
 										Binding="{Binding Path=Category}" />
 				<sdk:DataGridTextColumn Header="Income"

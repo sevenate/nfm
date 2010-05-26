@@ -2,11 +2,11 @@
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ApiService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://thor/Fab/ApiService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://thor/Fab/ApiService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://thor/Fab/ApiService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core" />
-      <xsd:import schemaLocation="http://thor/Fab/ApiService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses" />
-      <xsd:import schemaLocation="http://thor/Fab/ApiService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://thor/fab/ApiService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://thor/fab/ApiService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://thor/fab/ApiService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core" />
+      <xsd:import schemaLocation="http://thor/fab/ApiService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses" />
+      <xsd:import schemaLocation="http://thor/fab/ApiService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUserService_GenerateUniqueLogin_InputMessage">
@@ -430,16 +430,16 @@
   </wsdl:binding>
   <wsdl:service name="ApiService">
     <wsdl:port name="BasicHttpBinding_IUserService" binding="tns:BasicHttpBinding_IUserService">
-      <soap:address location="http://thor/Fab/ApiService.svc" />
+      <soap:address location="http://thor/fab/ApiService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpBinding_IAccountService" binding="tns:BasicHttpBinding_IAccountService">
-      <soap:address location="http://thor/Fab/ApiService.svc" />
+      <soap:address location="http://thor/fab/ApiService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpBinding_ICategoryService" binding="tns:BasicHttpBinding_ICategoryService">
-      <soap:address location="http://thor/Fab/ApiService.svc" />
+      <soap:address location="http://thor/fab/ApiService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpBinding_ITransactionService" binding="tns:BasicHttpBinding_ITransactionService">
-      <soap:address location="http://thor/Fab/ApiService.svc" />
+      <soap:address location="http://thor/fab/ApiService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
