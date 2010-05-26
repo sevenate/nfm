@@ -25,11 +25,13 @@ namespace Fab.Server.Core
 		/// <summary>
 		/// Gets or sets unique (for account) transaction ID.
 		/// </summary>
+		[DataMember]
 		public int TransactionId { get; set; }
 
 		/// <summary>
 		/// Gets or sets operation date.
 		/// </summary>
+		[DataMember]
 		public DateTime Date { get; set; }
 
 		/// <summary>
