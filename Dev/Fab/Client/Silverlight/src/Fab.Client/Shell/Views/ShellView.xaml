@@ -9,27 +9,28 @@
 			 d:DesignHeight="300"
 			 d:DesignWidth="400">
 	<Grid x:Name="LayoutRoot">
-		<StackPanel>
-			<ItemsControl x:Name="Parts">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<StackPanel Orientation="Horizontal" />
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<HyperlinkButton ca:Action.Target="{Binding}"
-								rm:Message.Attach="Enter"
-								ToolTipService.ToolTip="{Binding DisplayName}"
-								MinWidth="75"
-								MinHeight="23"
-								Content="{Binding DisplayName}" />
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-			<ContentControl x:Name="ActiveScreen"
-							HorizontalContentAlignment="Stretch"
-							VerticalContentAlignment="Stretch" />
-		</StackPanel>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<ItemsControl x:Name="Parts">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Orientation="Horizontal" />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<HyperlinkButton ca:Action.Target="{Binding}"
+							rm:Message.Attach="Enter"
+							ToolTipService.ToolTip="{Binding DisplayName}"
+							MinWidth="75"
+							MinHeight="23"
+							Content="{Binding DisplayName}" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+		<ContentControl x:Name="ActiveScreen"
+						Grid.Row="1" />
 	</Grid>
 </UserControl>

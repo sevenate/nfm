@@ -71,6 +71,7 @@
  			  <img src="http://go.microsoft.com/fwlink/?LinkId=161376" alt="Get Microsoft Silverlight" style="border-style:none"/>
 		  </a>
 	    </object>
+	</div>
     </form>
 </body>
 </html>

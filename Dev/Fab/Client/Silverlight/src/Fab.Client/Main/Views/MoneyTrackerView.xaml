@@ -5,8 +5,8 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 mc:Ignorable="d"
 			 d:DesignHeight="300"
-			 d:DesignWidth="300">
-	<Grid  x:Name="LayoutRoot">
+			 d:DesignWidth="400">
+	<Grid x:Name="LayoutRoot">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition />
