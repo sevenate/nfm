@@ -9,6 +9,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Resources/Primitives.xaml" />
+				<ResourceDictionary Source="Resources/AutoCompleteComboBox.xaml" />
 				<ResourceDictionary Source="Themes/generic.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>

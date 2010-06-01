@@ -114,6 +114,7 @@
     <Reference Include="System.Windows.Controls, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Data, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Controls.Data.Input, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Windows.Controls.Input, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Data, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
@@ -122,6 +123,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AutoCompleteComboBox.cs" />
     <Compile Include="Main\ViewModels\AccountsViewModel.cs" />
     <Compile Include="Main\ViewModels\CategoriesViewModel.cs" />
     <Compile Include="Main\ViewModels\IAccountsViewModel.cs" />
@@ -224,6 +226,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\AutoCompleteComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,26 +237,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
-    <None Include="Service References\ApiServiceReference\ApiService.wsdl" />
-    <None Include="Service References\ApiServiceReference\ApiService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\ApiService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\ApiService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\ApiService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\ApiService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\OutOfBrowserSettings.xml" />
-    <None Include="Service References\ApiServiceReference\ApiService.disco" />
+    <None Include="Service References\ApiServiceReference\ApiService1.wsdl" />
+    <None Include="Service References\ApiServiceReference\ApiService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiServiceReference\ApiService51.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiServiceReference\ApiService52.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiServiceReference\ApiService53.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiServiceReference\ApiService54.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ApiServiceReference\configuration91.svcinfo" />
     <None Include="Service References\ApiServiceReference\configuration.svcinfo" />
     <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.Account.datasource">
@@ -272,6 +277,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ApiServiceReference\ApiService1.disco" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
