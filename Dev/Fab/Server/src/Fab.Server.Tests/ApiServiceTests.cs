@@ -323,7 +323,7 @@ namespace Fab.Server.Tests
 			service.CreateCategory(userId, "Test Category");
 			IList<Category> categories = service.GetAllCategories(userId);
 
-			service.Deposit(userId, accounts[0].Id, 25, 2, "Some income comment", categories[0].Id);
+			service.Deposit(userId, accounts[0].Id, DateTime.Now, 25, 2, "Some income comment", categories[0].Id);
 		}
 
 		/// <summary>
@@ -339,7 +339,7 @@ namespace Fab.Server.Tests
 			service.CreateCategory(userId, "Test Category");
 			IList<Category> categories = service.GetAllCategories(userId);
 
-			service.Withdrawal(userId, accounts[0].Id, 13, 10, "Some expense comment", categories[0].Id);
+			service.Withdrawal(userId, accounts[0].Id, DateTime.Now, 13, 10, "Some expense comment", categories[0].Id);
 		}
 
 		/// <summary>
@@ -356,7 +356,7 @@ namespace Fab.Server.Tests
 			IList<Account> accounts1 = service.GetAllAccounts(userId1);
 			IList<Account> accounts2 = service.GetAllAccounts(userId2);
 
-			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, 78, "Some transfer comment");
+			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, DateTime.Now, 78, "Some transfer comment");
 		}
 
 		/// <summary>
@@ -375,12 +375,12 @@ namespace Fab.Server.Tests
 			service.CreateCategory(userId1, "Test Category 1");
 			IList<Category> categories1 = service.GetAllCategories(userId1);
 
-			service.Deposit(userId1, accounts1[0].Id, 25, 10, "Some income comment", null);
+			service.Deposit(userId1, accounts1[0].Id, DateTime.Now, 25, 10, "Some income comment", null);
 
 			var balance = service.GetAccountBalance(userId1, accounts1[0].Id);
 			Assert.Equal(balance, 250);
-			
-			service.Withdrawal(userId1, accounts1[0].Id, 10, 5, "Some expense comment", categories1[0].Id);
+
+			service.Withdrawal(userId1, accounts1[0].Id, DateTime.Now, 10, 5, "Some expense comment", categories1[0].Id);
 
 			balance = service.GetAccountBalance(userId1, accounts1[0].Id);
 			Assert.Equal(balance, 200);
@@ -388,7 +388,7 @@ namespace Fab.Server.Tests
 			balance = service.GetAccountBalance(userId2, accounts2[0].Id);
 			Assert.Equal(balance, 0);
 
-			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, 75, "Some transfer comment");
+			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, DateTime.Now, 75, "Some transfer comment");
 
 			balance = service.GetAccountBalance(userId1, accounts1[0].Id);
 			Assert.Equal(balance, 125);
@@ -410,8 +410,8 @@ namespace Fab.Server.Tests
 			service.CreateCategory(userId, "Test Category 1");
 			IList<Category> categories = service.GetAllCategories(userId);
 
-			service.Deposit(userId, accounts[0].Id, 25, 10, "Some income comment", null);
-			service.Withdrawal(userId, accounts[0].Id, 10, 5, "Some expense comment", categories[0].Id);
+			service.Deposit(userId, accounts[0].Id, DateTime.Now, 25, 10, "Some income comment", null);
+			service.Withdrawal(userId, accounts[0].Id, DateTime.Now, 10, 5, "Some expense comment", categories[0].Id);
 
 			var transactionRecords = service.GetAllTransactions(userId, accounts[0].Id);
 
