@@ -9,9 +9,7 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2010-02-15</date>
 // </editor>
-// <summary>
-//   Helper for Entity Framework model container processing.
-// </summary>
+// <summary>Helper for Entity Framework model container processing.</summary>
 
 using System;
 using System.Linq;
@@ -31,39 +29,29 @@ namespace Fab.Server.Core
 		/// <summary>
 		/// Check is user <paramref name="login"/> name is not used by some one else.
 		/// </summary>
-		/// <param name="mc">
-		/// Entity Framework model container.
-		/// </param>
-		/// <param name="login">
-		/// User login name.
-		/// </param>
-		/// <returns>
-		/// <c>True</c> if user login name is unique.
-		/// </returns>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="login">User login name.</param>
+		/// <returns><c>true</c> if user login name is unique.</returns>
 		internal static bool IsLoginAvailable(ModelContainer mc, string login)
 		{
-			return mc.Users.Where(u => u.Login == login).SingleOrDefault() == null;
+			return mc.Users.Where(u => u.Login == login)
+							.SingleOrDefault() == null;
 		}
 
 		/// <summary>
 		/// Get <see cref="User"/> from model container by unique ID.
 		/// </summary>
-		/// <param name="mc">
-		/// Entity Framework model container.
-		/// </param>
-		/// <param name="userId">
-		/// Unique user ID.
-		/// </param>
-		/// <returns>
-		/// Found user object or <c>null</c> otherwise.
-		/// </returns>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="userId">Unique user ID.</param>
+		/// <returns>User instance.</returns>
 		internal static User GetUserById(ModelContainer mc, Guid userId)
 		{
-			User user = mc.Users.Where(u => u.Id == userId).SingleOrDefault();
+			User user = mc.Users.Where(u => u.Id == userId)
+							.SingleOrDefault();
 
 			if (user == null)
 			{
-				throw new Exception("User with ID \"" + userId + "\" not found.");
+				throw new Exception("User with ID " + userId + " not found.");
 			}
 
 			return user;
@@ -72,25 +60,18 @@ namespace Fab.Server.Core
 		/// <summary>
 		/// Get <see cref="Account"/> from model container by unique user ID and account ID.
 		/// </summary>
-		/// <param name="mc">
-		/// Entity Framework model container.
-		/// </param>
-		/// <param name="userId">
-		/// Unique user ID.
-		/// </param>
-		/// <param name="accountId">
-		/// Account ID.
-		/// </param>
-		/// <returns>
-		/// Found account object or <c>null</c> otherwise.
-		/// </returns>
-		internal static Account GetAccountById(ModelContainer mc, Guid userId, int accountId)
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="accountId">Account ID.</param>
+		/// <returns>Account instance</returns>
+		internal static Account GetAccountById(ModelContainer mc, int accountId)
 		{
-			Account account = mc.Accounts.Include("AssetType").Where(a => a.Id == accountId && a.User.Id == userId).SingleOrDefault();
+			Account account = mc.Accounts.Include("AssetType")
+								.Where(a => a.Id == accountId)
+								.SingleOrDefault();
 
 			if (account == null)
 			{
-				throw new Exception("Account with ID = \"" + accountId + "\" for user \"" + userId + "\" not found.");
+				throw new Exception("Account with ID = " + accountId + " not found.");
 			}
 
 			return account;
@@ -99,22 +80,18 @@ namespace Fab.Server.Core
 		/// <summary>
 		/// Get system "cash" account with specific <paramref name="assetTypeId"/> from model container.
 		/// </summary>
-		/// <param name="mc">
-		/// Entity Framework model container.
-		/// </param>
-		/// <param name="assetTypeId">
-		/// The asset type ID.
-		/// </param>
-		/// <returns>
-		/// Found system "cash" account object or <c>null</c> otherwise.
-		/// </returns>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="assetTypeId">The asset type ID.</param>
+		/// <returns>System "cash" account instance.</returns>
 		internal static Account GetSystemAccount(ModelContainer mc, int assetTypeId)
 		{
-			Account account = mc.Accounts.Include("AssetType").Where(a => a.AssetType.Id == assetTypeId && a.User.Id == SystemUserId).SingleOrDefault();
+			Account account = mc.Accounts.Include("AssetType")
+								.Where(a => a.AssetType.Id == assetTypeId && a.User.Id == SystemUserId)
+								.SingleOrDefault();
 
 			if (account == null)
 			{
-				throw new Exception("System account with asset type ID = \"" + assetTypeId + "\" not found.");
+				throw new Exception("System account with asset type ID = " + assetTypeId + " not found.");
 			}
 
 			return account;
@@ -123,25 +100,17 @@ namespace Fab.Server.Core
 		/// <summary>
 		/// Get <see cref="Category"/> from model container by unique user ID and category ID.
 		/// </summary>
-		/// <param name="mc">
-		/// Entity Framework model container.
-		/// </param>
-		/// <param name="userId">
-		/// Unique user ID.
-		/// </param>
-		/// <param name="categoryId">
-		/// Category ID.
-		/// </param>
-		/// <returns>
-		/// Found category object or <c>null</c> otherwise.
-		/// </returns>
-		internal static Category GetCategoryById(ModelContainer mc, Guid userId, int categoryId)
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="categoryId">Category ID.</param>
+		/// <returns>Category instance</returns>
+		internal static Category GetCategoryById(ModelContainer mc, int categoryId)
 		{
-			Category category = mc.Categories.Where(c => c.Id == categoryId && c.User.Id == userId).SingleOrDefault();
+			Category category = mc.Categories.Where(c => c.Id == categoryId)
+									.SingleOrDefault();
 
 			if (category == null)
 			{
-				throw new Exception("Category with ID = \"" + categoryId + "\" for user \"" + userId + "\" not found.");
+				throw new Exception("Category with ID = " + categoryId + " not found.");
 			}
 
 			return category;
@@ -150,22 +119,17 @@ namespace Fab.Server.Core
 		/// <summary>
 		/// Get <see cref="AssetType"/> from model container by unique ID.
 		/// </summary>
-		/// <param name="mc">
-		/// Entity Framework model container.
-		/// </param>
-		/// <param name="assetTypeId">
-		/// The asset type ID.
-		/// </param>
-		/// <returns>
-		/// Found asset type object or <c>null</c> otherwise.
-		/// </returns>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="assetTypeId">The asset type ID.</param>
+		/// <returns>Asset type instance</returns>
 		internal static AssetType GetAssetTypeById(ModelContainer mc, int assetTypeId)
 		{
-			AssetType assetType = mc.AssetTypes.Where(at => at.Id == assetTypeId).SingleOrDefault();
+			AssetType assetType = mc.AssetTypes.Where(at => at.Id == assetTypeId)
+									.SingleOrDefault();
 
 			if (assetType == null)
 			{
-				throw new Exception("Asset type with ID = \"" + assetTypeId + "\" not found.");
+				throw new Exception("Asset type with ID = " + assetTypeId + " not found.");
 			}
 
 			return assetType;
@@ -174,25 +138,40 @@ namespace Fab.Server.Core
 		/// <summary>
 		/// Get <see cref="JournalType"/> from model container by unique ID.
 		/// </summary>
-		/// <param name="mc">
-		/// Entity Framework model container.
-		/// </param>
-		/// <param name="journalTypeId">
-		/// The journal type ID.
-		/// </param>
-		/// <returns>
-		/// Found journal type object or <c>null</c> otherwise.
-		/// </returns>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="journalTypeId">The journal type ID.</param>
+		/// <returns>Journal type instance</returns>
 		internal static JournalType GetJournalTypeById(ModelContainer mc, int journalTypeId)
 		{
-			JournalType journalType = mc.JournalTypes.Where(jt => jt.Id == journalTypeId).SingleOrDefault();
+			JournalType journalType = mc.JournalTypes.Where(jt => jt.Id == journalTypeId)
+										.SingleOrDefault();
 
 			if (journalType == null)
 			{
-				throw new Exception("Journal type with ID = \"" + journalTypeId + "\" not found.");
+				throw new Exception("Journal type with ID = " + journalTypeId + " not found.");
 			}
 
 			return journalType;
+		}
+
+		/// <summary>
+		/// Get <see cref="Transaction"/> from model container by unique ID.
+		/// </summary>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="transactionId">The transaction ID.</param>
+		/// <returns>Transaction instance.</returns>
+		internal static Transaction GetTransacionById(ModelContainer mc, int transactionId)
+		{
+			Transaction transacion = mc.Journals.Where(j => j.Id == transactionId && j is Transaction)
+												.Select(j => j as Transaction)
+												.SingleOrDefault();
+
+			if (transacion == null)
+			{
+				throw new Exception("Transaction with ID = " + transactionId + " not found.");
+			}
+
+			return transacion;
 		}
 	}
 }

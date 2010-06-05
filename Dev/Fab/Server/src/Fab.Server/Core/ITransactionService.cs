@@ -97,9 +97,18 @@ namespace Fab.Server.Core
 		/// Return all not deleted transaction records for specific account.
 		/// </summary>
 		/// <param name="userId">The user unique ID.</param>
-		/// <param name="accountId">The account Id.</param>
+		/// <param name="accountId">The account ID.</param>
 		/// <returns>List of transaction records.</returns>
 		[OperationContract]
 		IList<TransactionRecord> GetAllTransactions(Guid userId, int accountId);
+
+		/// <summary>
+		/// Delete specific transaction.
+		/// </summary>
+		/// <param name="userId">The user unique ID.</param>
+		/// <param name="accountId">The account ID.</param>
+		/// <param name="transactionId">Transaction ID.</param>
+		[OperationContract]
+		void DeleteTransaction(Guid userId, int accountId, int transactionId);
 	}
 }

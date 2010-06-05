@@ -106,13 +106,13 @@ namespace Fab.Server
 				}
 
 				var user = new User
-				           {
-				           	Id = Guid.NewGuid(), 
-				           	Login = newLogin, 
-				           	Password = password, // Todo: use hash algorithm instead of plain text here!
-				           	Registered = DateTime.UtcNow, 
-				           	IsDisabled = false
-				           };
+							{
+								Id = Guid.NewGuid(), 
+								Login = newLogin, 
+								Password = password, // Todo: use hash algorithm instead of plain text here!
+								Registered = DateTime.UtcNow, 
+								IsDisabled = false
+							};
 
 				mc.Users.AddObject(user);
 				mc.SaveChanges();
@@ -167,9 +167,9 @@ namespace Fab.Server
 				}
 
 				user.Password = newPassword;
-				user.Email = newEmail != null
-				             	? newEmail.Trim()
-				             	: null;
+				user.Email = string.IsNullOrWhiteSpace(newEmail)
+								? null
+				             	: newEmail.Trim();
 
 				mc.SaveChanges();
 			}
@@ -189,7 +189,9 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				return mc.Users.Where(u => u.Login == login.Trim()).Select(u => u.Id).SingleOrDefault();
+				return mc.Users.Where(u => u.Login == login.Trim())
+						.Select(u => u.Id)
+						.SingleOrDefault();
 			}
 		}
 
@@ -277,7 +279,7 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				Account account = ModelHelper.GetAccountById(mc, userId, accountId);
+				Account account = ModelHelper.GetAccountById(mc, accountId);
 				AssetType assetType = ModelHelper.GetAssetTypeById(mc, assetTypeId);
 
 				account.Name = name.Trim();
@@ -301,7 +303,7 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				Account account = ModelHelper.GetAccountById(mc, userId, accountId);
+				Account account = ModelHelper.GetAccountById(mc, accountId);
 
 				account.IsDeleted = true;
 
@@ -316,9 +318,17 @@ namespace Fab.Server
 		/// <returns>All accounts.</returns>
 		public IList<Account> GetAllAccounts(Guid userId)
 		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
 			using (var mc = new ModelContainer())
 			{
-				return mc.Accounts.Include("AssetType").Where(a => a.User.Id == userId && a.IsDeleted == false).OrderBy(a => a.Created).ToList();
+				return mc.Accounts.Include("AssetType")
+						.Where(a => a.User.Id == userId && a.IsDeleted == false)
+						.OrderBy(a => a.Created)
+						.ToList();
 			}
 		}
 
@@ -379,7 +389,7 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				Category category = ModelHelper.GetCategoryById(mc, userId, categoryId);
+				Category category = ModelHelper.GetCategoryById(mc, categoryId);
 
 				category.Name = name.Trim();
 
@@ -401,7 +411,7 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				Category category = ModelHelper.GetCategoryById(mc, userId, categoryId);
+				Category category = ModelHelper.GetCategoryById(mc, categoryId);
 
 				category.IsDeleted = true;
 
@@ -418,7 +428,9 @@ namespace Fab.Server
 		{
 			using (var mc = new ModelContainer())
 			{
-				return mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false).OrderBy(c => c.Name).ToList();
+				return mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false)
+									.OrderBy(c => c.Name)
+									.ToList();
 			}
 		}
 
@@ -474,20 +486,20 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				var targetAccount = ModelHelper.GetAccountById(mc, userId, accountId);
+				var targetAccount = ModelHelper.GetAccountById(mc, accountId);
 				var cashAccount = ModelHelper.GetSystemAccount(mc, targetAccount.AssetType.Id);
 
 				var transaction = new Transaction
-				                  {
+									{
 									  JournalType = ModelHelper.GetJournalTypeById(mc, 1), // Todo: do not use hardcode value '1'
-				                  	Price = price,
-				                  	Quantity = quantity,
-				                  	Comment = comment
-				                  };
+									  Price = price,
+									  Quantity = quantity,
+									  Comment = comment
+									};
 
 				if (categoryId.HasValue)
 				{
-					transaction.Category = ModelHelper.GetCategoryById(mc, userId, categoryId.Value);
+					transaction.Category = ModelHelper.GetCategoryById(mc, categoryId.Value);
 				}
 
 				var creditPosting = new Posting
@@ -540,7 +552,7 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				var targetAccount = ModelHelper.GetAccountById(mc, userId, accountId);
+				var targetAccount = ModelHelper.GetAccountById(mc, accountId);
 				var cashAccount = ModelHelper.GetSystemAccount(mc, targetAccount.AssetType.Id);
 
 				var transaction = new Transaction
@@ -553,7 +565,7 @@ namespace Fab.Server
 
 				if (categoryId.HasValue)
 				{
-					transaction.Category = ModelHelper.GetCategoryById(mc, userId, categoryId.Value);
+					transaction.Category = ModelHelper.GetCategoryById(mc, categoryId.Value);
 				}
 
 				var creditPosting = new Posting
@@ -610,8 +622,8 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				var sourceAccount = ModelHelper.GetAccountById(mc, user1Id, account1Id);
-				var targetAccount = ModelHelper.GetAccountById(mc, user2Id, account2Id);
+				var sourceAccount = ModelHelper.GetAccountById(mc, account1Id);
+				var targetAccount = ModelHelper.GetAccountById(mc, account2Id);
 
 				var transaction = new Transaction
 				{
@@ -655,13 +667,22 @@ namespace Fab.Server
 		/// <returns>Current account balance.</returns>
 		public decimal GetAccountBalance(Guid userId, int accountId)
 		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
 			decimal balance;
 
 			using (var mc = new ModelContainer())
 			{
 				// Todo: Fix Sum() of Postings when there is no any posting yet.
-				var firstPosting = mc.Postings.Where(p => p.Account.Id == accountId).FirstOrDefault();
-				balance = firstPosting != null ? mc.Postings.Where(p => p.Account.Id == accountId).Sum(p => p.Amount) : 0;
+				var firstPosting = mc.Postings.Where(p => p.Account.Id == accountId)
+									.FirstOrDefault();
+				balance = firstPosting != null
+							? mc.Postings.Where(p => p.Account.Id == accountId)
+										.Sum(p => p.Amount)
+							: 0;
 			}
 
 			return balance;
@@ -675,6 +696,11 @@ namespace Fab.Server
 		/// <returns>List of transaction records.</returns>
 		public IList<TransactionRecord> GetAllTransactions(Guid userId, int accountId)
 		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
 			var records = new List<TransactionRecord>();
 
 			// Bug: warning security weakness!
@@ -688,6 +714,7 @@ namespace Fab.Server
 							   	  && p.Journal is Transaction
 								  && (p.Journal as Transaction).IsDeleted == false
 				               orderby p.Date
+							   orderby p.Journal.Id
 				               select new
 				                      {
 				                      	Posting = p,
@@ -752,6 +779,32 @@ namespace Fab.Server
 			}
 
 			return records;
+		}
+
+		/// <summary>
+		/// Delete specific transaction.
+		/// </summary>
+		/// <param name="userId">The user unique ID.</param>
+		/// <param name="accountId">The account ID.</param>
+		/// <param name="transactionId">Transaction ID.</param>
+		public void DeleteTransaction(Guid userId, int accountId, int transactionId)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			using (var mc = new ModelContainer())
+			{
+				// Todo: add user ID account ID to the GetTransacionById() method call to
+				// join them with transaction ID to prevent unauthorized delete 
+				// Do this for all user-aware calls (i.e. Categories, Accounts etc.)
+				Transaction transaction = ModelHelper.GetTransacionById(mc, transactionId);
+
+				transaction.IsDeleted = true;
+
+				mc.SaveChanges();
+			}
 		}
 
 		#endregion
