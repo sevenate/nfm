@@ -135,6 +135,12 @@
   <wsdl:message name="ITransactionService_GetAllTransactions_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllTransactionsResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransactionService_DeleteTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ITransactionService_DeleteTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTransactionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserService">
     <wsdl:operation name="GenerateUniqueLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/GenerateUniqueLogin" message="tns:IUserService_GenerateUniqueLogin_InputMessage" />
@@ -225,6 +231,10 @@
     <wsdl:operation name="GetAllTransactions">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetAllTransactions" message="tns:ITransactionService_GetAllTransactions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/GetAllTransactionsResponse" message="tns:ITransactionService_GetAllTransactions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/DeleteTransaction" message="tns:ITransactionService_DeleteTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/DeleteTransactionResponse" message="tns:ITransactionService_DeleteTransaction_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUserService" type="tns:IUserService">
@@ -420,6 +430,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllTransactions">
       <soap:operation soapAction="http://tempuri.org/ITransactionService/GetAllTransactions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTransaction">
+      <soap:operation soapAction="http://tempuri.org/ITransactionService/DeleteTransaction" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
