@@ -737,17 +737,17 @@ namespace Fab.Server
 					}
 
 					records.Add(new TransactionRecord
-								{
-									TransactionId = r.Transaction.Id,
-									Date = r.Posting.Date,
-									Category = r.Category,
-									Price = r.Transaction.Price,
-									Quantity = r.Transaction.Quantity,
-									Comment = r.Transaction.Comment,
-									Income = income,
-									Expense = expense,
-									Balance = balance
-								});
+					                        	{
+					                        		TransactionId = r.Transaction.Id,
+													Date = DateTime.SpecifyKind(r.Posting.Date, DateTimeKind.Utc),
+					                        		Category = r.Category,
+					                        		Price = r.Transaction.Price,
+					                        		Quantity = r.Transaction.Quantity,
+					                        		Comment = r.Transaction.Comment,
+					                        		Income = income,
+					                        		Expense = expense,
+					                        		Balance = balance
+					                        	});
 				}
 			}
 
