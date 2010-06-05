@@ -2843,17 +2843,17 @@ namespace Fab.Client.ApiServiceReference {
         Fab.Client.ApiServiceReference.JournalType[] EndGetAllJournalTypes(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/Deposit", ReplyAction="http://tempuri.org/ITransactionService/DepositResponse")]
-        System.IAsyncResult BeginDeposit(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDeposit(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState);
         
         void EndDeposit(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/Withdrawal", ReplyAction="http://tempuri.org/ITransactionService/WithdrawalResponse")]
-        System.IAsyncResult BeginWithdrawal(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginWithdrawal(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState);
         
         void EndWithdrawal(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/Transfer", ReplyAction="http://tempuri.org/ITransactionService/TransferResponse")]
-        System.IAsyncResult BeginTransfer(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, decimal amount, string comment, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginTransfer(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment, System.AsyncCallback callback, object asyncState);
         
         void EndTransfer(System.IAsyncResult result);
         
@@ -3154,8 +3154,8 @@ namespace Fab.Client.ApiServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginDeposit(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginDeposit(userId, accountId, price, quantity, comment, categoryId, callback, asyncState);
+        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginDeposit(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeposit(userId, accountId, operationDate, price, quantity, comment, categoryId, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -3166,11 +3166,12 @@ namespace Fab.Client.ApiServiceReference {
         private System.IAsyncResult OnBeginDeposit(object[] inValues, System.AsyncCallback callback, object asyncState) {
             System.Guid userId = ((System.Guid)(inValues[0]));
             int accountId = ((int)(inValues[1]));
-            decimal price = ((decimal)(inValues[2]));
-            decimal quantity = ((decimal)(inValues[3]));
-            string comment = ((string)(inValues[4]));
-            System.Nullable<int> categoryId = ((System.Nullable<int>)(inValues[5]));
-            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginDeposit(userId, accountId, price, quantity, comment, categoryId, callback, asyncState);
+            System.DateTime operationDate = ((System.DateTime)(inValues[2]));
+            decimal price = ((decimal)(inValues[3]));
+            decimal quantity = ((decimal)(inValues[4]));
+            string comment = ((string)(inValues[5]));
+            System.Nullable<int> categoryId = ((System.Nullable<int>)(inValues[6]));
+            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginDeposit(userId, accountId, operationDate, price, quantity, comment, categoryId, callback, asyncState);
         }
         
         private object[] OnEndDeposit(System.IAsyncResult result) {
@@ -3185,11 +3186,11 @@ namespace Fab.Client.ApiServiceReference {
             }
         }
         
-        public void DepositAsync(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId) {
-            this.DepositAsync(userId, accountId, price, quantity, comment, categoryId, null);
+        public void DepositAsync(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId) {
+            this.DepositAsync(userId, accountId, operationDate, price, quantity, comment, categoryId, null);
         }
         
-        public void DepositAsync(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, object userState) {
+        public void DepositAsync(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, object userState) {
             if ((this.onBeginDepositDelegate == null)) {
                 this.onBeginDepositDelegate = new BeginOperationDelegate(this.OnBeginDeposit);
             }
@@ -3202,6 +3203,7 @@ namespace Fab.Client.ApiServiceReference {
             base.InvokeAsync(this.onBeginDepositDelegate, new object[] {
                         userId,
                         accountId,
+                        operationDate,
                         price,
                         quantity,
                         comment,
@@ -3209,8 +3211,8 @@ namespace Fab.Client.ApiServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginWithdrawal(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginWithdrawal(userId, accountId, price, quantity, comment, categoryId, callback, asyncState);
+        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginWithdrawal(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginWithdrawal(userId, accountId, operationDate, price, quantity, comment, categoryId, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -3221,11 +3223,12 @@ namespace Fab.Client.ApiServiceReference {
         private System.IAsyncResult OnBeginWithdrawal(object[] inValues, System.AsyncCallback callback, object asyncState) {
             System.Guid userId = ((System.Guid)(inValues[0]));
             int accountId = ((int)(inValues[1]));
-            decimal price = ((decimal)(inValues[2]));
-            decimal quantity = ((decimal)(inValues[3]));
-            string comment = ((string)(inValues[4]));
-            System.Nullable<int> categoryId = ((System.Nullable<int>)(inValues[5]));
-            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginWithdrawal(userId, accountId, price, quantity, comment, categoryId, callback, asyncState);
+            System.DateTime operationDate = ((System.DateTime)(inValues[2]));
+            decimal price = ((decimal)(inValues[3]));
+            decimal quantity = ((decimal)(inValues[4]));
+            string comment = ((string)(inValues[5]));
+            System.Nullable<int> categoryId = ((System.Nullable<int>)(inValues[6]));
+            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginWithdrawal(userId, accountId, operationDate, price, quantity, comment, categoryId, callback, asyncState);
         }
         
         private object[] OnEndWithdrawal(System.IAsyncResult result) {
@@ -3240,11 +3243,11 @@ namespace Fab.Client.ApiServiceReference {
             }
         }
         
-        public void WithdrawalAsync(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId) {
-            this.WithdrawalAsync(userId, accountId, price, quantity, comment, categoryId, null);
+        public void WithdrawalAsync(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId) {
+            this.WithdrawalAsync(userId, accountId, operationDate, price, quantity, comment, categoryId, null);
         }
         
-        public void WithdrawalAsync(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, object userState) {
+        public void WithdrawalAsync(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, object userState) {
             if ((this.onBeginWithdrawalDelegate == null)) {
                 this.onBeginWithdrawalDelegate = new BeginOperationDelegate(this.OnBeginWithdrawal);
             }
@@ -3257,6 +3260,7 @@ namespace Fab.Client.ApiServiceReference {
             base.InvokeAsync(this.onBeginWithdrawalDelegate, new object[] {
                         userId,
                         accountId,
+                        operationDate,
                         price,
                         quantity,
                         comment,
@@ -3264,8 +3268,8 @@ namespace Fab.Client.ApiServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginTransfer(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, decimal amount, string comment, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginTransfer(user1Id, account1Id, user2Id, account2Id, amount, comment, callback, asyncState);
+        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginTransfer(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginTransfer(user1Id, account1Id, user2Id, account2Id, operationDate, amount, comment, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -3278,9 +3282,10 @@ namespace Fab.Client.ApiServiceReference {
             int account1Id = ((int)(inValues[1]));
             System.Guid user2Id = ((System.Guid)(inValues[2]));
             int account2Id = ((int)(inValues[3]));
-            decimal amount = ((decimal)(inValues[4]));
-            string comment = ((string)(inValues[5]));
-            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginTransfer(user1Id, account1Id, user2Id, account2Id, amount, comment, callback, asyncState);
+            System.DateTime operationDate = ((System.DateTime)(inValues[4]));
+            decimal amount = ((decimal)(inValues[5]));
+            string comment = ((string)(inValues[6]));
+            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginTransfer(user1Id, account1Id, user2Id, account2Id, operationDate, amount, comment, callback, asyncState);
         }
         
         private object[] OnEndTransfer(System.IAsyncResult result) {
@@ -3295,11 +3300,11 @@ namespace Fab.Client.ApiServiceReference {
             }
         }
         
-        public void TransferAsync(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, decimal amount, string comment) {
-            this.TransferAsync(user1Id, account1Id, user2Id, account2Id, amount, comment, null);
+        public void TransferAsync(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment) {
+            this.TransferAsync(user1Id, account1Id, user2Id, account2Id, operationDate, amount, comment, null);
         }
         
-        public void TransferAsync(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, decimal amount, string comment, object userState) {
+        public void TransferAsync(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment, object userState) {
             if ((this.onBeginTransferDelegate == null)) {
                 this.onBeginTransferDelegate = new BeginOperationDelegate(this.OnBeginTransfer);
             }
@@ -3314,6 +3319,7 @@ namespace Fab.Client.ApiServiceReference {
                         account1Id,
                         user2Id,
                         account2Id,
+                        operationDate,
                         amount,
                         comment}, this.onEndTransferDelegate, this.onTransferCompletedDelegate, userState);
         }
@@ -3514,14 +3520,15 @@ namespace Fab.Client.ApiServiceReference {
                 return _result;
             }
             
-            public System.IAsyncResult BeginDeposit(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[6];
+            public System.IAsyncResult BeginDeposit(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[7];
                 _args[0] = userId;
                 _args[1] = accountId;
-                _args[2] = price;
-                _args[3] = quantity;
-                _args[4] = comment;
-                _args[5] = categoryId;
+                _args[2] = operationDate;
+                _args[3] = price;
+                _args[4] = quantity;
+                _args[5] = comment;
+                _args[6] = categoryId;
                 System.IAsyncResult _result = base.BeginInvoke("Deposit", _args, callback, asyncState);
                 return _result;
             }
@@ -3531,14 +3538,15 @@ namespace Fab.Client.ApiServiceReference {
                 base.EndInvoke("Deposit", _args, result);
             }
             
-            public System.IAsyncResult BeginWithdrawal(System.Guid userId, int accountId, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[6];
+            public System.IAsyncResult BeginWithdrawal(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[7];
                 _args[0] = userId;
                 _args[1] = accountId;
-                _args[2] = price;
-                _args[3] = quantity;
-                _args[4] = comment;
-                _args[5] = categoryId;
+                _args[2] = operationDate;
+                _args[3] = price;
+                _args[4] = quantity;
+                _args[5] = comment;
+                _args[6] = categoryId;
                 System.IAsyncResult _result = base.BeginInvoke("Withdrawal", _args, callback, asyncState);
                 return _result;
             }
@@ -3548,14 +3556,15 @@ namespace Fab.Client.ApiServiceReference {
                 base.EndInvoke("Withdrawal", _args, result);
             }
             
-            public System.IAsyncResult BeginTransfer(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, decimal amount, string comment, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[6];
+            public System.IAsyncResult BeginTransfer(System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[7];
                 _args[0] = user1Id;
                 _args[1] = account1Id;
                 _args[2] = user2Id;
                 _args[3] = account2Id;
-                _args[4] = amount;
-                _args[5] = comment;
+                _args[4] = operationDate;
+                _args[5] = amount;
+                _args[6] = comment;
                 System.IAsyncResult _result = base.BeginInvoke("Transfer", _args, callback, asyncState);
                 return _result;
             }

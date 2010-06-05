@@ -224,6 +224,7 @@
       <xs:sequence>
         <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="userId" type="q16:guid" />
         <xs:element minOccurs="0" name="accountId" type="xs:int" />
+        <xs:element minOccurs="0" name="operationDate" type="xs:dateTime" />
         <xs:element minOccurs="0" name="price" type="xs:decimal" />
         <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
         <xs:element minOccurs="0" name="comment" nillable="true" type="xs:string" />
@@ -241,6 +242,7 @@
       <xs:sequence>
         <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="userId" type="q17:guid" />
         <xs:element minOccurs="0" name="accountId" type="xs:int" />
+        <xs:element minOccurs="0" name="operationDate" type="xs:dateTime" />
         <xs:element minOccurs="0" name="price" type="xs:decimal" />
         <xs:element minOccurs="0" name="quantity" type="xs:decimal" />
         <xs:element minOccurs="0" name="comment" nillable="true" type="xs:string" />
@@ -260,6 +262,7 @@
         <xs:element minOccurs="0" name="account1Id" type="xs:int" />
         <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="user2Id" type="q19:guid" />
         <xs:element minOccurs="0" name="account2Id" type="xs:int" />
+        <xs:element minOccurs="0" name="operationDate" type="xs:dateTime" />
         <xs:element minOccurs="0" name="amount" type="xs:decimal" />
         <xs:element minOccurs="0" name="comment" nillable="true" type="xs:string" />
       </xs:sequence>
