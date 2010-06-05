@@ -8,7 +8,7 @@
     <style type="text/css">
     html, body {
 	    height: 100%;
-	    overflow: auto;
+	    overflow: hidden;
     }
     body {
 	    padding: 0;
