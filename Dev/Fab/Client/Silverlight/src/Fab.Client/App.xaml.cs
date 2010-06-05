@@ -1,10 +1,6 @@
-﻿using System.Globalization;
-using System.Net;
+﻿using System.Net;
 using System.Net.Browser;
 using System.Reflection;
-using System.Threading;
-using System.Windows;
-using System.Windows.Markup;
 using Caliburn.PresentationFramework.ApplicationModel;
 using Caliburn.PresentationFramework.Configuration;
 using Caliburn.PresentationFramework.Views;
@@ -30,25 +26,6 @@ namespace Fab.Client
 			// Details: http://blogs.msdn.com/carlosfigueira/archive/2009/08/15/fault-support-in-silverlight-3.aspx
 			// Note: should always return "true", unless the prefix has been previously registered.
 			WebRequest.RegisterPrefix("http://", WebRequestCreator.ClientHttp);
-			Startup += (sender, args) =>
-			           	{
-			           		// Ensure the current culture passed into bindings 
-			           		// is the OS culture. By default, WPF uses en-US 
-			           		// as the culture, regardless of the system settings.
-//			           		FrameworkElement.LanguageProperty.OverrideMetadata(
-//			           			typeof (FrameworkElement),
-//			           			new FrameworkPropertyMetadata(
-//			           				XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-
-							
-			           		var culture = CultureInfo.CurrentCulture;
-			           		var cultureUI = CultureInfo.CurrentUICulture;
-			           		var lp = FrameworkElement.LanguageProperty;
-							FrameworkElement.Language = new XmlLanguage();
-//			           		Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentCulture;
-//			           		var l = XmlLanguage.IetfLanguageTag;
-//			           		var a = lp.GetMetadata(this);
-			           	};
 		}
 
 		protected override IServiceLocator CreateContainer()

@@ -4,6 +4,7 @@
 									  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 									  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 									  xmlns:ApplicationModel="clr-namespace:Caliburn.PresentationFramework.ApplicationModel;assembly=Caliburn.PresentationFramework"
+									  xmlns:Windows="clr-namespace:Fab.Client.Common"
 									  mc:Ignorable="d">
 	<Application.Resources>
 		<ResourceDictionary>
@@ -13,5 +14,6 @@
 				<ResourceDictionary Source="Themes/generic.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
+		<Windows:CultureSettings x:Key="CultureSettings" />
 	</Application.Resources>
 </ApplicationModel:CaliburnApplication>
