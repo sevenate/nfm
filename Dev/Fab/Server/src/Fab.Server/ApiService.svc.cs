@@ -456,10 +456,7 @@ namespace Fab.Server
 		/// <returns>Journal types presented in the system.</returns>
 		public IList<JournalType> GetAllJournalTypes()
 		{
-			using (var mc = new ModelContainer())
-			{
-				return mc.JournalTypes.ToList();
-			}
+			return Enum.GetValues(typeof (JournalType)).Cast<JournalType>().ToList();
 		}
 
 		/// <summary>
@@ -491,7 +488,7 @@ namespace Fab.Server
 
 				var transaction = new Transaction
 									{
-									  JournalType = ModelHelper.GetJournalTypeById(mc, 1), // Todo: do not use hardcode value '1'
+									  JournalType = (byte)JournalType.Deposit,
 									  Price = price,
 									  Quantity = quantity,
 									  Comment = comment
@@ -557,7 +554,7 @@ namespace Fab.Server
 
 				var transaction = new Transaction
 				{
-					JournalType = ModelHelper.GetJournalTypeById(mc, 2), // Todo: do not use hardcode value '2'
+					JournalType = (byte)JournalType.Withdrawal,
 					Price = price,
 					Quantity = quantity,
 					Comment = comment
@@ -627,7 +624,7 @@ namespace Fab.Server
 
 				var transaction = new Transaction
 				{
-					JournalType = ModelHelper.GetJournalTypeById(mc, 3), // Todo: do not use hardcode value '3'
+					JournalType = (byte)JournalType.Transfer,
 					Price = amount,
 					Quantity = 1,
 					Comment = comment
@@ -707,22 +704,19 @@ namespace Fab.Server
 			// Check User.IsDisabled + Account.IsDeleted also
 			using (var mc = new ModelContainer())
 			{
-				mc.Journals.Include("JournalType");
-
 				var postings = from p in mc.Postings
-				               where p.Account.Id == accountId
-							   	  && p.Journal is Transaction
-								  && (p.Journal as Transaction).IsDeleted == false
-				               orderby p.Date
+							   where p.Account.Id == accountId
+								 && !p.Journal.IsDeleted
+							   orderby p.Date
 							   orderby p.Journal.Id
-				               select new
-				                      {
-				                      	Posting = p,
-										Transaction = p.Journal as Transaction,
+							   select new
+									  {
+									  	Posting = p,
+										p.Journal,
 // ReSharper disable PossibleNullReferenceException
 // Note: do NOT use direct cast here because of LinqToEntity -> SQL conversion "not supported" exception
-				                      	(p.Journal as Transaction).Category,
-										(p.Journal as Transaction).JournalType
+									  	p.Journal.Category,
+										p.Journal.JournalType
 // ReSharper restore PossibleNullReferenceException
 									  };
 
@@ -742,7 +736,7 @@ namespace Fab.Server
 				{
 					balance += r.Posting.Amount;
 
-					switch (r.JournalType.Id)
+					switch (r.JournalType)
 					{
 						// Deposit
 						case 1:
@@ -764,17 +758,15 @@ namespace Fab.Server
 					}
 
 					records.Add(new TransactionRecord
-					                        	{
-					                        		TransactionId = r.Transaction.Id,
+												{
+													TransactionId = r.Journal.Id,
 													Date = DateTime.SpecifyKind(r.Posting.Date, DateTimeKind.Utc),
-					                        		Category = r.Category,
-					                        		Price = r.Transaction.Price,
-					                        		Quantity = r.Transaction.Quantity,
-					                        		Comment = r.Transaction.Comment,
-					                        		Income = income,
-					                        		Expense = expense,
-					                        		Balance = balance
-					                        	});
+													Category = r.Category,
+													Income = income,
+													Expense = expense,
+													Balance = balance,
+													Comment = r.Journal.Comment
+												});
 				}
 			}
 

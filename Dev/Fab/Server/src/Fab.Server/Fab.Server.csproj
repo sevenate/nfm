@@ -94,6 +94,7 @@
     <Compile Include="Core\ICategoryService.cs" />
     <Compile Include="Core\IReportService.cs" />
     <Compile Include="Core\ITransactionService.cs" />
+    <Compile Include="Core\JournalType.cs" />
     <Compile Include="Core\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

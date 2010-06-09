@@ -26,7 +26,7 @@ namespace Fab.Server.Core
 	public interface IAccountService
 	{
 		/// <summary>
-		/// Create new acount.
+		/// Create new account.
 		/// </summary>
 		/// <param name="userId">
 		/// User unique ID for which this account should be created.

@@ -62,21 +62,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="EntityReferenceOfAssetTypeQ4jSz9U_P" nillable="true" type="tns:EntityReferenceOfAssetTypeQ4jSz9U_P" />
-  <xs:complexType name="EntityReferenceOfJournalTypeQ4jSz9U_P">
-    <xs:annotation>
-      <xs:appinfo>
-        <GenericType Name="EntityReferenceOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
-          <GenericParameter Name="JournalType" Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core" />
-        </GenericType>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:EntityReference">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="EntityReferenceOfJournalTypeQ4jSz9U_P" nillable="true" type="tns:EntityReferenceOfJournalTypeQ4jSz9U_P" />
   <xs:complexType name="EntityReferenceOfUserQ4jSz9U_P">
     <xs:annotation>
       <xs:appinfo>

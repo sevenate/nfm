@@ -163,10 +163,9 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.AssetType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Posting))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Journal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.JournalType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Category))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.User))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Account))]
     public partial class StructuralObject : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -186,10 +185,9 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.AssetType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Posting))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Journal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.JournalType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Category))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.User))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Account))]
     public partial class EntityObject : Fab.Client.ApiServiceReference.StructuralObject {
         
@@ -422,134 +420,19 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
     public partial class Journal : Fab.Client.ApiServiceReference.EntityObject {
         
-        private int IdField;
-        
-        private Fab.Client.ApiServiceReference.JournalType JournalTypeField;
-        
-        private Fab.Client.ApiServiceReference.EntityReferenceOfJournalTypeQ4jSz9U_P JournalTypeReferenceField;
-        
-        private Fab.Client.ApiServiceReference.Posting[] PostingsField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.ApiServiceReference.JournalType JournalType {
-            get {
-                return this.JournalTypeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.JournalTypeField, value) != true)) {
-                    this.JournalTypeField = value;
-                    this.RaisePropertyChanged("JournalType");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.ApiServiceReference.EntityReferenceOfJournalTypeQ4jSz9U_P JournalTypeReference {
-            get {
-                return this.JournalTypeReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.JournalTypeReferenceField, value) != true)) {
-                    this.JournalTypeReferenceField = value;
-                    this.RaisePropertyChanged("JournalTypeReference");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.ApiServiceReference.Posting[] Postings {
-            get {
-                return this.PostingsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PostingsField, value) != true)) {
-                    this.PostingsField = value;
-                    this.RaisePropertyChanged("Postings");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="JournalType", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class JournalType : Fab.Client.ApiServiceReference.EntityObject {
-        
-        private int IdField;
-        
-        private Fab.Client.ApiServiceReference.Journal[] JournalsField;
-        
-        private string NameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.ApiServiceReference.Journal[] Journals {
-            get {
-                return this.JournalsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.JournalsField, value) != true)) {
-                    this.JournalsField = value;
-                    this.RaisePropertyChanged("Journals");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Transaction", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class Transaction : Fab.Client.ApiServiceReference.Journal {
-        
         private Fab.Client.ApiServiceReference.Category CategoryField;
         
         private Fab.Client.ApiServiceReference.EntityReferenceOfCategoryQ4jSz9U_P CategoryReferenceField;
         
         private string CommentField;
         
+        private int IdField;
+        
         private bool IsDeletedField;
         
-        private decimal PriceField;
+        private byte JournalTypeField;
         
-        private decimal QuantityField;
+        private Fab.Client.ApiServiceReference.Posting[] PostingsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public Fab.Client.ApiServiceReference.Category Category {
@@ -591,6 +474,19 @@ namespace Fab.Client.ApiServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool IsDeleted {
             get {
                 return this.IsDeletedField;
@@ -604,27 +500,27 @@ namespace Fab.Client.ApiServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Price {
+        public byte JournalType {
             get {
-                return this.PriceField;
+                return this.JournalTypeField;
             }
             set {
-                if ((this.PriceField.Equals(value) != true)) {
-                    this.PriceField = value;
-                    this.RaisePropertyChanged("Price");
+                if ((this.JournalTypeField.Equals(value) != true)) {
+                    this.JournalTypeField = value;
+                    this.RaisePropertyChanged("JournalType");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Quantity {
+        public Fab.Client.ApiServiceReference.Posting[] Postings {
             get {
-                return this.QuantityField;
+                return this.PostingsField;
             }
             set {
-                if ((this.QuantityField.Equals(value) != true)) {
-                    this.QuantityField = value;
-                    this.RaisePropertyChanged("Quantity");
+                if ((object.ReferenceEquals(this.PostingsField, value) != true)) {
+                    this.PostingsField = value;
+                    this.RaisePropertyChanged("Postings");
                 }
             }
         }
@@ -639,9 +535,9 @@ namespace Fab.Client.ApiServiceReference {
         
         private bool IsDeletedField;
         
-        private string NameField;
+        private Fab.Client.ApiServiceReference.Journal[] JournalsField;
         
-        private Fab.Client.ApiServiceReference.Transaction[] TransactionsField;
+        private string NameField;
         
         private Fab.Client.ApiServiceReference.User UserField;
         
@@ -674,6 +570,19 @@ namespace Fab.Client.ApiServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public Fab.Client.ApiServiceReference.Journal[] Journals {
+            get {
+                return this.JournalsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.JournalsField, value) != true)) {
+                    this.JournalsField = value;
+                    this.RaisePropertyChanged("Journals");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Name {
             get {
                 return this.NameField;
@@ -682,19 +591,6 @@ namespace Fab.Client.ApiServiceReference {
                 if ((object.ReferenceEquals(this.NameField, value) != true)) {
                     this.NameField = value;
                     this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.ApiServiceReference.Transaction[] Transactions {
-            get {
-                return this.TransactionsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TransactionsField, value) != true)) {
-                    this.TransactionsField = value;
-                    this.RaisePropertyChanged("Transactions");
                 }
             }
         }
@@ -869,6 +765,42 @@ namespace Fab.Client.ApiServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Transaction", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
+    public partial class Transaction : Fab.Client.ApiServiceReference.Journal {
+        
+        private decimal PriceField;
+        
+        private decimal QuantityField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Price {
+            get {
+                return this.PriceField;
+            }
+            set {
+                if ((this.PriceField.Equals(value) != true)) {
+                    this.PriceField = value;
+                    this.RaisePropertyChanged("Price");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Quantity {
+            get {
+                return this.QuantityField;
+            }
+            set {
+                if ((this.QuantityField.Equals(value) != true)) {
+                    this.QuantityField = value;
+                    this.RaisePropertyChanged("Quantity");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EntityKey", Namespace="http://schemas.datacontract.org/2004/07/System.Data", IsReference=true)]
     public partial class EntityKey : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -948,15 +880,14 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Posting[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Posting))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Journal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.JournalType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Journal[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Category))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Journal[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.User))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Category[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.AssetType[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.JournalType[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.JournalType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.TransactionRecord[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.TransactionRecord))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityObject))]
@@ -965,7 +896,6 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReference))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.RelatedEnd))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfJournalTypeQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
@@ -1013,6 +943,20 @@ namespace Fab.Client.ApiServiceReference {
         }
     }
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="JournalType", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core")]
+    public enum JournalType : byte {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Deposit = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Withdrawal = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Transfer = 3,
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TransactionRecord", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core")]
@@ -1029,10 +973,6 @@ namespace Fab.Client.ApiServiceReference {
         private decimal ExpenseField;
         
         private decimal IncomeField;
-        
-        private decimal PriceField;
-        
-        private decimal QuantityField;
         
         private int TransactionIdField;
         
@@ -1115,32 +1055,6 @@ namespace Fab.Client.ApiServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Price {
-            get {
-                return this.PriceField;
-            }
-            set {
-                if ((this.PriceField.Equals(value) != true)) {
-                    this.PriceField = value;
-                    this.RaisePropertyChanged("Price");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Quantity {
-            get {
-                return this.QuantityField;
-            }
-            set {
-                if ((this.QuantityField.Equals(value) != true)) {
-                    this.QuantityField = value;
-                    this.RaisePropertyChanged("Quantity");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int TransactionId {
             get {
                 return this.TransactionIdField;
@@ -1173,7 +1087,6 @@ namespace Fab.Client.ApiServiceReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EntityReference", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfJournalTypeQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
@@ -1201,7 +1114,6 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.DataContractAttribute(Name="RelatedEnd", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReference))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfJournalTypeQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
@@ -1216,12 +1128,6 @@ namespace Fab.Client.ApiServiceReference {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfJournalTypeQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    public partial class EntityReferenceOfJournalTypeQ4jSz9U_P : Fab.Client.ApiServiceReference.EntityReference {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

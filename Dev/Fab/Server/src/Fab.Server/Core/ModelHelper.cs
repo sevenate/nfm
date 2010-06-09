@@ -143,15 +143,12 @@ namespace Fab.Server.Core
 		/// <returns>Journal type instance</returns>
 		internal static JournalType GetJournalTypeById(ModelContainer mc, int journalTypeId)
 		{
-			JournalType journalType = mc.JournalTypes.Where(jt => jt.Id == journalTypeId)
-										.SingleOrDefault();
-
-			if (journalType == null)
+			if (!Enum.IsDefined(typeof(JournalType), journalTypeId))
 			{
 				throw new Exception("Journal type with ID = " + journalTypeId + " not found.");
 			}
 
-			return journalType;
+			return (JournalType) journalTypeId;
 		}
 
 		/// <summary>

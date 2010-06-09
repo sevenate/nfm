@@ -59,18 +59,6 @@ namespace Fab.Server.Core
 		public decimal Balance { get; set; }
 
 		/// <summary>
-		/// Gets or sets quantity of the expense or income cause.
-		/// </summary>
-		[DataMember]
-		public decimal Quantity { get; set; }
-		
-		/// <summary>
-		/// Gets or sets price of the expense or income cause.
-		/// </summary>
-		[DataMember]
-		public decimal Price { get; set; }
-
-		/// <summary>
 		/// Gets or sets transaction optional comment.
 		/// </summary>
 		[DataMember]

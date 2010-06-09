@@ -1,18 +1,12 @@
 -- --------------------------------------------------
 -- Date Created: 01/26/2010 00:19:35
--- Fill JournalTypes, AssetTypes, Users and Accounts tables
+-- Fill AssetTypes, Users and Accounts tables
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
 --USE [Database]
 --GO
-
--- Create base JournalTypes
-INSERT INTO [dbo].[JournalTypes] ([Name]) VALUES ('Deposit')
-INSERT INTO [dbo].[JournalTypes] ([Name]) VALUES ('Withdrawal')
-INSERT INTO [dbo].[JournalTypes] ([Name]) VALUES ('Transfer')
-Go
 
 -- Create common AssetTypes
 INSERT INTO [dbo].[AssetTypes] ([Name]) VALUES ('UAH')

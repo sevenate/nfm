@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 02/22/2010 02:33:06
+-- Date Created: 06/09/2010 03:46:16
 -- Generated from EDMX file: B:\Workspace\Dev\Fab\Server\src\Fab.Server\Core\Model.edmx
 -- --------------------------------------------------
 
@@ -23,8 +23,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AccountPosting]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_AccountPosting];
 GO
-IF OBJECT_ID(N'[dbo].[FK_CategoryTransaction]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Journals_Transaction] DROP CONSTRAINT [FK_CategoryTransaction];
+IF OBJECT_ID(N'[dbo].[FK_CategoryJournal]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Journals] DROP CONSTRAINT [FK_CategoryJournal];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CategoryUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Categories] DROP CONSTRAINT [FK_CategoryUser];
@@ -32,11 +32,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_JournalPosting]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_JournalPosting];
 GO
-IF OBJECT_ID(N'[dbo].[FK_JournalTypeJournal]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Journals] DROP CONSTRAINT [FK_JournalTypeJournal];
-GO
 IF OBJECT_ID(N'[dbo].[FK_PostingAssetType]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_PostingAssetType];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TransactionJournal]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Transactions] DROP CONSTRAINT [FK_TransactionJournal];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserAccount]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_UserAccount];
@@ -55,17 +55,14 @@ GO
 IF OBJECT_ID(N'[dbo].[Categories]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Categories];
 GO
-IF OBJECT_ID(N'[dbo].[Journals_Transaction]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Journals_Transaction];
-GO
 IF OBJECT_ID(N'[dbo].[Journals]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Journals];
 GO
-IF OBJECT_ID(N'[dbo].[JournalTypes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[JournalTypes];
-GO
 IF OBJECT_ID(N'[dbo].[Postings]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Postings];
+GO
+IF OBJECT_ID(N'[dbo].[Transactions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Transactions];
 GO
 IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users];
@@ -105,14 +102,10 @@ GO
 -- Creating table 'Journals'
 CREATE TABLE [dbo].[Journals] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [JournalType_Id] int  NOT NULL
-);
-GO
-
--- Creating table 'JournalTypes'
-CREATE TABLE [dbo].[JournalTypes] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(50)  NOT NULL
+    [JournalType] tinyint  NOT NULL,
+    [IsDeleted] bit  NOT NULL  DEFAULT (0),
+    [Comment] nvarchar(256)  NULL,
+    [Category_Id] int  NULL
 );
 GO
 
@@ -139,14 +132,11 @@ CREATE TABLE [dbo].[Users] (
 );
 GO
 
--- Creating table 'Journals_Transaction'
-CREATE TABLE [dbo].[Journals_Transaction] (
-    [Id] int  NOT NULL,
+-- Creating table 'Transactions'
+CREATE TABLE [dbo].[Transactions] (
     [Quantity] smallmoney  NOT NULL,
     [Price] money  NOT NULL,
-    [Comment] nvarchar(256)  NULL,
-    [IsDeleted] bit  NOT NULL  DEFAULT (0),
-    [Category_Id] int  NULL
+    [Id] int  NOT NULL
 );
 GO
 
@@ -178,12 +168,6 @@ ADD CONSTRAINT [PK_Journals]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'JournalTypes'
-ALTER TABLE [dbo].[JournalTypes]
-ADD CONSTRAINT [PK_JournalTypes]
-    PRIMARY KEY CLUSTERED ([Id] ASC);   
-GO
-
 -- Creating primary key on [Id] in table 'Postings'
 ALTER TABLE [dbo].[Postings]
 ADD CONSTRAINT [PK_Postings]
@@ -196,9 +180,9 @@ ADD CONSTRAINT [PK_Users]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Journals_Transaction'
-ALTER TABLE [dbo].[Journals_Transaction]
-ADD CONSTRAINT [PK_Journals_Transaction]
+-- Creating primary key on [Id] in table 'Transactions'
+ALTER TABLE [dbo].[Transactions]
+ADD CONSTRAINT [PK_Transactions]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -248,20 +232,6 @@ ON [dbo].[Postings]
     ([AssetType_Id]);
 GO
 
--- Creating foreign key on [Category_Id] in table 'Journals_Transaction'
-ALTER TABLE [dbo].[Journals_Transaction]
-ADD CONSTRAINT [FK_CategoryTransaction]
-    FOREIGN KEY ([Category_Id])
-    REFERENCES [dbo].[Categories]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CategoryTransaction'
-CREATE INDEX [IX_FK_CategoryTransaction]
-ON [dbo].[Journals_Transaction]
-    ([Category_Id]);
-GO
-
 -- Creating foreign key on [User_Id] in table 'Categories'
 ALTER TABLE [dbo].[Categories]
 ADD CONSTRAINT [FK_CategoryUser]
@@ -290,20 +260,6 @@ ON [dbo].[Postings]
     ([Journal_Id]);
 GO
 
--- Creating foreign key on [JournalType_Id] in table 'Journals'
-ALTER TABLE [dbo].[Journals]
-ADD CONSTRAINT [FK_JournalTypeJournal]
-    FOREIGN KEY ([JournalType_Id])
-    REFERENCES [dbo].[JournalTypes]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_JournalTypeJournal'
-CREATE INDEX [IX_FK_JournalTypeJournal]
-ON [dbo].[Journals]
-    ([JournalType_Id]);
-GO
-
 -- Creating foreign key on [AssetType_Id] in table 'Accounts'
 ALTER TABLE [dbo].[Accounts]
 ADD CONSTRAINT [FK_AccountAssetType]
@@ -318,9 +274,23 @@ ON [dbo].[Accounts]
     ([AssetType_Id]);
 GO
 
--- Creating foreign key on [Id] in table 'Journals_Transaction'
-ALTER TABLE [dbo].[Journals_Transaction]
-ADD CONSTRAINT [FK_Transaction_inherits_Journal]
+-- Creating foreign key on [Category_Id] in table 'Journals'
+ALTER TABLE [dbo].[Journals]
+ADD CONSTRAINT [FK_CategoryJournal]
+    FOREIGN KEY ([Category_Id])
+    REFERENCES [dbo].[Categories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CategoryJournal'
+CREATE INDEX [IX_FK_CategoryJournal]
+ON [dbo].[Journals]
+    ([Category_Id]);
+GO
+
+-- Creating foreign key on [Id] in table 'Transactions'
+ALTER TABLE [dbo].[Transactions]
+ADD CONSTRAINT [FK_TransactionJournal]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[Journals]
         ([Id])
