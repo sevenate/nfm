@@ -70,8 +70,6 @@
     </Content>
     <None Include="Database\Create.sql" />
     <None Include="Database\Fill.sql" />
-    <None Include="Database\FillCustom.sql" />
-    <None Include="Database\FillDefault.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
