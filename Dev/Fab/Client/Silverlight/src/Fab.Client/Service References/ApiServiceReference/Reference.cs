@@ -166,6 +166,7 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Category))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.User))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.DeletedJournal))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Account))]
     public partial class StructuralObject : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -188,6 +189,7 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Category))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.User))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.DeletedJournal))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Account))]
     public partial class EntityObject : Fab.Client.ApiServiceReference.StructuralObject {
         
@@ -418,6 +420,7 @@ namespace Fab.Client.ApiServiceReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Journal", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.DeletedJournal))]
     public partial class Journal : Fab.Client.ApiServiceReference.EntityObject {
         
         private Fab.Client.ApiServiceReference.Category CategoryField;
@@ -801,6 +804,27 @@ namespace Fab.Client.ApiServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DeletedJournal", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
+    public partial class DeletedJournal : Fab.Client.ApiServiceReference.Journal {
+        
+        private int DeletedJournalIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DeletedJournalId {
+            get {
+                return this.DeletedJournalIdField;
+            }
+            set {
+                if ((this.DeletedJournalIdField.Equals(value) != true)) {
+                    this.DeletedJournalIdField = value;
+                    this.RaisePropertyChanged("DeletedJournalId");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EntityKey", Namespace="http://schemas.datacontract.org/2004/07/System.Data", IsReference=true)]
     public partial class EntityKey : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -885,9 +909,8 @@ namespace Fab.Client.ApiServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.User))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Category[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.Transaction))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.DeletedJournal))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.AssetType[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.JournalType[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.JournalType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.TransactionRecord[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.TransactionRecord))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.ApiServiceReference.EntityObject))]
@@ -941,20 +964,6 @@ namespace Fab.Client.ApiServiceReference {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="JournalType", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core")]
-    public enum JournalType : byte {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Deposit = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Withdrawal = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Transfer = 3,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2743,11 +2752,6 @@ namespace Fab.Client.ApiServiceReference {
         
         Fab.Client.ApiServiceReference.AssetType[] EndGetAllAssetTypes(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/GetAllJournalTypes", ReplyAction="http://tempuri.org/ITransactionService/GetAllJournalTypesResponse")]
-        System.IAsyncResult BeginGetAllJournalTypes(System.AsyncCallback callback, object asyncState);
-        
-        Fab.Client.ApiServiceReference.JournalType[] EndGetAllJournalTypes(System.IAsyncResult result);
-        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/Deposit", ReplyAction="http://tempuri.org/ITransactionService/DepositResponse")]
         System.IAsyncResult BeginDeposit(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState);
         
@@ -2763,6 +2767,26 @@ namespace Fab.Client.ApiServiceReference {
         
         void EndTransfer(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/GetTransaction", ReplyAction="http://tempuri.org/ITransactionService/GetTransactionResponse")]
+        System.IAsyncResult BeginGetTransaction(System.Guid userId, int accountId, int transactionId, System.AsyncCallback callback, object asyncState);
+        
+        Fab.Client.ApiServiceReference.Transaction EndGetTransaction(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/DeleteTransaction", ReplyAction="http://tempuri.org/ITransactionService/DeleteTransactionResponse")]
+        System.IAsyncResult BeginDeleteTransaction(System.Guid userId, int accountId, int transactionId, System.DateTime operationDate, System.AsyncCallback callback, object asyncState);
+        
+        void EndDeleteTransaction(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/UpdateTransaction", ReplyAction="http://tempuri.org/ITransactionService/UpdateTransactionResponse")]
+        System.IAsyncResult BeginUpdateTransaction(int transactionId, System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, bool isDeposit, System.AsyncCallback callback, object asyncState);
+        
+        void EndUpdateTransaction(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/UpdateTransfer", ReplyAction="http://tempuri.org/ITransactionService/UpdateTransferResponse")]
+        System.IAsyncResult BeginUpdateTransfer(int transactionId, System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment, System.AsyncCallback callback, object asyncState);
+        
+        void EndUpdateTransfer(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/GetAccountBalance", ReplyAction="http://tempuri.org/ITransactionService/GetAccountBalanceResponse")]
         System.IAsyncResult BeginGetAccountBalance(System.Guid userId, int accountId, System.AsyncCallback callback, object asyncState);
         
@@ -2772,11 +2796,6 @@ namespace Fab.Client.ApiServiceReference {
         System.IAsyncResult BeginGetAllTransactions(System.Guid userId, int accountId, System.AsyncCallback callback, object asyncState);
         
         Fab.Client.ApiServiceReference.TransactionRecord[] EndGetAllTransactions(System.IAsyncResult result);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITransactionService/DeleteTransaction", ReplyAction="http://tempuri.org/ITransactionService/DeleteTransactionResponse")]
-        System.IAsyncResult BeginDeleteTransaction(System.Guid userId, int accountId, int transactionId, System.AsyncCallback callback, object asyncState);
-        
-        void EndDeleteTransaction(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2804,19 +2823,19 @@ namespace Fab.Client.ApiServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GetAllJournalTypesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetTransactionCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public GetAllJournalTypesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public GetTransactionCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
-        public Fab.Client.ApiServiceReference.JournalType[] Result {
+        public Fab.Client.ApiServiceReference.Transaction Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Fab.Client.ApiServiceReference.JournalType[])(this.results[0]));
+                return ((Fab.Client.ApiServiceReference.Transaction)(this.results[0]));
             }
         }
     }
@@ -2869,12 +2888,6 @@ namespace Fab.Client.ApiServiceReference {
         
         private System.Threading.SendOrPostCallback onGetAllAssetTypesCompletedDelegate;
         
-        private BeginOperationDelegate onBeginGetAllJournalTypesDelegate;
-        
-        private EndOperationDelegate onEndGetAllJournalTypesDelegate;
-        
-        private System.Threading.SendOrPostCallback onGetAllJournalTypesCompletedDelegate;
-        
         private BeginOperationDelegate onBeginDepositDelegate;
         
         private EndOperationDelegate onEndDepositDelegate;
@@ -2893,6 +2906,30 @@ namespace Fab.Client.ApiServiceReference {
         
         private System.Threading.SendOrPostCallback onTransferCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetTransactionDelegate;
+        
+        private EndOperationDelegate onEndGetTransactionDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetTransactionCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginDeleteTransactionDelegate;
+        
+        private EndOperationDelegate onEndDeleteTransactionDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteTransactionCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginUpdateTransactionDelegate;
+        
+        private EndOperationDelegate onEndUpdateTransactionDelegate;
+        
+        private System.Threading.SendOrPostCallback onUpdateTransactionCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginUpdateTransferDelegate;
+        
+        private EndOperationDelegate onEndUpdateTransferDelegate;
+        
+        private System.Threading.SendOrPostCallback onUpdateTransferCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetAccountBalanceDelegate;
         
         private EndOperationDelegate onEndGetAccountBalanceDelegate;
@@ -2904,12 +2941,6 @@ namespace Fab.Client.ApiServiceReference {
         private EndOperationDelegate onEndGetAllTransactionsDelegate;
         
         private System.Threading.SendOrPostCallback onGetAllTransactionsCompletedDelegate;
-        
-        private BeginOperationDelegate onBeginDeleteTransactionDelegate;
-        
-        private EndOperationDelegate onEndDeleteTransactionDelegate;
-        
-        private System.Threading.SendOrPostCallback onDeleteTransactionCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -2966,19 +2997,23 @@ namespace Fab.Client.ApiServiceReference {
         
         public event System.EventHandler<GetAllAssetTypesCompletedEventArgs> GetAllAssetTypesCompleted;
         
-        public event System.EventHandler<GetAllJournalTypesCompletedEventArgs> GetAllJournalTypesCompleted;
-        
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DepositCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> WithdrawalCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> TransferCompleted;
         
+        public event System.EventHandler<GetTransactionCompletedEventArgs> GetTransactionCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DeleteTransactionCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateTransactionCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateTransferCompleted;
+        
         public event System.EventHandler<GetAccountBalanceCompletedEventArgs> GetAccountBalanceCompleted;
         
         public event System.EventHandler<GetAllTransactionsCompletedEventArgs> GetAllTransactionsCompleted;
-        
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DeleteTransactionCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -3026,50 +3061,6 @@ namespace Fab.Client.ApiServiceReference {
                 this.onGetAllAssetTypesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllAssetTypesCompleted);
             }
             base.InvokeAsync(this.onBeginGetAllAssetTypesDelegate, null, this.onEndGetAllAssetTypesDelegate, this.onGetAllAssetTypesCompletedDelegate, userState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginGetAllJournalTypes(System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetAllJournalTypes(callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Fab.Client.ApiServiceReference.JournalType[] Fab.Client.ApiServiceReference.ITransactionService.EndGetAllJournalTypes(System.IAsyncResult result) {
-            return base.Channel.EndGetAllJournalTypes(result);
-        }
-        
-        private System.IAsyncResult OnBeginGetAllJournalTypes(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginGetAllJournalTypes(callback, asyncState);
-        }
-        
-        private object[] OnEndGetAllJournalTypes(System.IAsyncResult result) {
-            Fab.Client.ApiServiceReference.JournalType[] retVal = ((Fab.Client.ApiServiceReference.ITransactionService)(this)).EndGetAllJournalTypes(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnGetAllJournalTypesCompleted(object state) {
-            if ((this.GetAllJournalTypesCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetAllJournalTypesCompleted(this, new GetAllJournalTypesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void GetAllJournalTypesAsync() {
-            this.GetAllJournalTypesAsync(null);
-        }
-        
-        public void GetAllJournalTypesAsync(object userState) {
-            if ((this.onBeginGetAllJournalTypesDelegate == null)) {
-                this.onBeginGetAllJournalTypesDelegate = new BeginOperationDelegate(this.OnBeginGetAllJournalTypes);
-            }
-            if ((this.onEndGetAllJournalTypesDelegate == null)) {
-                this.onEndGetAllJournalTypesDelegate = new EndOperationDelegate(this.OnEndGetAllJournalTypes);
-            }
-            if ((this.onGetAllJournalTypesCompletedDelegate == null)) {
-                this.onGetAllJournalTypesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllJournalTypesCompleted);
-            }
-            base.InvokeAsync(this.onBeginGetAllJournalTypesDelegate, null, this.onEndGetAllJournalTypesDelegate, this.onGetAllJournalTypesCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -3244,6 +3235,227 @@ namespace Fab.Client.ApiServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginGetTransaction(System.Guid userId, int accountId, int transactionId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTransaction(userId, accountId, transactionId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Fab.Client.ApiServiceReference.Transaction Fab.Client.ApiServiceReference.ITransactionService.EndGetTransaction(System.IAsyncResult result) {
+            return base.Channel.EndGetTransaction(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetTransaction(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            System.Guid userId = ((System.Guid)(inValues[0]));
+            int accountId = ((int)(inValues[1]));
+            int transactionId = ((int)(inValues[2]));
+            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginGetTransaction(userId, accountId, transactionId, callback, asyncState);
+        }
+        
+        private object[] OnEndGetTransaction(System.IAsyncResult result) {
+            Fab.Client.ApiServiceReference.Transaction retVal = ((Fab.Client.ApiServiceReference.ITransactionService)(this)).EndGetTransaction(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetTransactionCompleted(object state) {
+            if ((this.GetTransactionCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetTransactionCompleted(this, new GetTransactionCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetTransactionAsync(System.Guid userId, int accountId, int transactionId) {
+            this.GetTransactionAsync(userId, accountId, transactionId, null);
+        }
+        
+        public void GetTransactionAsync(System.Guid userId, int accountId, int transactionId, object userState) {
+            if ((this.onBeginGetTransactionDelegate == null)) {
+                this.onBeginGetTransactionDelegate = new BeginOperationDelegate(this.OnBeginGetTransaction);
+            }
+            if ((this.onEndGetTransactionDelegate == null)) {
+                this.onEndGetTransactionDelegate = new EndOperationDelegate(this.OnEndGetTransaction);
+            }
+            if ((this.onGetTransactionCompletedDelegate == null)) {
+                this.onGetTransactionCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTransactionCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetTransactionDelegate, new object[] {
+                        userId,
+                        accountId,
+                        transactionId}, this.onEndGetTransactionDelegate, this.onGetTransactionCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginDeleteTransaction(System.Guid userId, int accountId, int transactionId, System.DateTime operationDate, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteTransaction(userId, accountId, transactionId, operationDate, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void Fab.Client.ApiServiceReference.ITransactionService.EndDeleteTransaction(System.IAsyncResult result) {
+            base.Channel.EndDeleteTransaction(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteTransaction(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            System.Guid userId = ((System.Guid)(inValues[0]));
+            int accountId = ((int)(inValues[1]));
+            int transactionId = ((int)(inValues[2]));
+            System.DateTime operationDate = ((System.DateTime)(inValues[3]));
+            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginDeleteTransaction(userId, accountId, transactionId, operationDate, callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteTransaction(System.IAsyncResult result) {
+            ((Fab.Client.ApiServiceReference.ITransactionService)(this)).EndDeleteTransaction(result);
+            return null;
+        }
+        
+        private void OnDeleteTransactionCompleted(object state) {
+            if ((this.DeleteTransactionCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteTransactionCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteTransactionAsync(System.Guid userId, int accountId, int transactionId, System.DateTime operationDate) {
+            this.DeleteTransactionAsync(userId, accountId, transactionId, operationDate, null);
+        }
+        
+        public void DeleteTransactionAsync(System.Guid userId, int accountId, int transactionId, System.DateTime operationDate, object userState) {
+            if ((this.onBeginDeleteTransactionDelegate == null)) {
+                this.onBeginDeleteTransactionDelegate = new BeginOperationDelegate(this.OnBeginDeleteTransaction);
+            }
+            if ((this.onEndDeleteTransactionDelegate == null)) {
+                this.onEndDeleteTransactionDelegate = new EndOperationDelegate(this.OnEndDeleteTransaction);
+            }
+            if ((this.onDeleteTransactionCompletedDelegate == null)) {
+                this.onDeleteTransactionCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteTransactionCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteTransactionDelegate, new object[] {
+                        userId,
+                        accountId,
+                        transactionId,
+                        operationDate}, this.onEndDeleteTransactionDelegate, this.onDeleteTransactionCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginUpdateTransaction(int transactionId, System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, bool isDeposit, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdateTransaction(transactionId, userId, accountId, operationDate, price, quantity, comment, categoryId, isDeposit, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void Fab.Client.ApiServiceReference.ITransactionService.EndUpdateTransaction(System.IAsyncResult result) {
+            base.Channel.EndUpdateTransaction(result);
+        }
+        
+        private System.IAsyncResult OnBeginUpdateTransaction(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int transactionId = ((int)(inValues[0]));
+            System.Guid userId = ((System.Guid)(inValues[1]));
+            int accountId = ((int)(inValues[2]));
+            System.DateTime operationDate = ((System.DateTime)(inValues[3]));
+            decimal price = ((decimal)(inValues[4]));
+            decimal quantity = ((decimal)(inValues[5]));
+            string comment = ((string)(inValues[6]));
+            System.Nullable<int> categoryId = ((System.Nullable<int>)(inValues[7]));
+            bool isDeposit = ((bool)(inValues[8]));
+            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginUpdateTransaction(transactionId, userId, accountId, operationDate, price, quantity, comment, categoryId, isDeposit, callback, asyncState);
+        }
+        
+        private object[] OnEndUpdateTransaction(System.IAsyncResult result) {
+            ((Fab.Client.ApiServiceReference.ITransactionService)(this)).EndUpdateTransaction(result);
+            return null;
+        }
+        
+        private void OnUpdateTransactionCompleted(object state) {
+            if ((this.UpdateTransactionCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.UpdateTransactionCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void UpdateTransactionAsync(int transactionId, System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, bool isDeposit) {
+            this.UpdateTransactionAsync(transactionId, userId, accountId, operationDate, price, quantity, comment, categoryId, isDeposit, null);
+        }
+        
+        public void UpdateTransactionAsync(int transactionId, System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, bool isDeposit, object userState) {
+            if ((this.onBeginUpdateTransactionDelegate == null)) {
+                this.onBeginUpdateTransactionDelegate = new BeginOperationDelegate(this.OnBeginUpdateTransaction);
+            }
+            if ((this.onEndUpdateTransactionDelegate == null)) {
+                this.onEndUpdateTransactionDelegate = new EndOperationDelegate(this.OnEndUpdateTransaction);
+            }
+            if ((this.onUpdateTransactionCompletedDelegate == null)) {
+                this.onUpdateTransactionCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateTransactionCompleted);
+            }
+            base.InvokeAsync(this.onBeginUpdateTransactionDelegate, new object[] {
+                        transactionId,
+                        userId,
+                        accountId,
+                        operationDate,
+                        price,
+                        quantity,
+                        comment,
+                        categoryId,
+                        isDeposit}, this.onEndUpdateTransactionDelegate, this.onUpdateTransactionCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginUpdateTransfer(int transactionId, System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdateTransfer(transactionId, user1Id, account1Id, user2Id, account2Id, operationDate, amount, comment, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void Fab.Client.ApiServiceReference.ITransactionService.EndUpdateTransfer(System.IAsyncResult result) {
+            base.Channel.EndUpdateTransfer(result);
+        }
+        
+        private System.IAsyncResult OnBeginUpdateTransfer(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int transactionId = ((int)(inValues[0]));
+            System.Guid user1Id = ((System.Guid)(inValues[1]));
+            int account1Id = ((int)(inValues[2]));
+            System.Guid user2Id = ((System.Guid)(inValues[3]));
+            int account2Id = ((int)(inValues[4]));
+            System.DateTime operationDate = ((System.DateTime)(inValues[5]));
+            decimal amount = ((decimal)(inValues[6]));
+            string comment = ((string)(inValues[7]));
+            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginUpdateTransfer(transactionId, user1Id, account1Id, user2Id, account2Id, operationDate, amount, comment, callback, asyncState);
+        }
+        
+        private object[] OnEndUpdateTransfer(System.IAsyncResult result) {
+            ((Fab.Client.ApiServiceReference.ITransactionService)(this)).EndUpdateTransfer(result);
+            return null;
+        }
+        
+        private void OnUpdateTransferCompleted(object state) {
+            if ((this.UpdateTransferCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.UpdateTransferCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void UpdateTransferAsync(int transactionId, System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment) {
+            this.UpdateTransferAsync(transactionId, user1Id, account1Id, user2Id, account2Id, operationDate, amount, comment, null);
+        }
+        
+        public void UpdateTransferAsync(int transactionId, System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment, object userState) {
+            if ((this.onBeginUpdateTransferDelegate == null)) {
+                this.onBeginUpdateTransferDelegate = new BeginOperationDelegate(this.OnBeginUpdateTransfer);
+            }
+            if ((this.onEndUpdateTransferDelegate == null)) {
+                this.onEndUpdateTransferDelegate = new EndOperationDelegate(this.OnEndUpdateTransfer);
+            }
+            if ((this.onUpdateTransferCompletedDelegate == null)) {
+                this.onUpdateTransferCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateTransferCompleted);
+            }
+            base.InvokeAsync(this.onBeginUpdateTransferDelegate, new object[] {
+                        transactionId,
+                        user1Id,
+                        account1Id,
+                        user2Id,
+                        account2Id,
+                        operationDate,
+                        amount,
+                        comment}, this.onEndUpdateTransferDelegate, this.onUpdateTransferCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginGetAccountBalance(System.Guid userId, int accountId, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginGetAccountBalance(userId, accountId, callback, asyncState);
         }
@@ -3339,55 +3551,6 @@ namespace Fab.Client.ApiServiceReference {
                         accountId}, this.onEndGetAllTransactionsDelegate, this.onGetAllTransactionsCompletedDelegate, userState);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Fab.Client.ApiServiceReference.ITransactionService.BeginDeleteTransaction(System.Guid userId, int accountId, int transactionId, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginDeleteTransaction(userId, accountId, transactionId, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void Fab.Client.ApiServiceReference.ITransactionService.EndDeleteTransaction(System.IAsyncResult result) {
-            base.Channel.EndDeleteTransaction(result);
-        }
-        
-        private System.IAsyncResult OnBeginDeleteTransaction(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Guid userId = ((System.Guid)(inValues[0]));
-            int accountId = ((int)(inValues[1]));
-            int transactionId = ((int)(inValues[2]));
-            return ((Fab.Client.ApiServiceReference.ITransactionService)(this)).BeginDeleteTransaction(userId, accountId, transactionId, callback, asyncState);
-        }
-        
-        private object[] OnEndDeleteTransaction(System.IAsyncResult result) {
-            ((Fab.Client.ApiServiceReference.ITransactionService)(this)).EndDeleteTransaction(result);
-            return null;
-        }
-        
-        private void OnDeleteTransactionCompleted(object state) {
-            if ((this.DeleteTransactionCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.DeleteTransactionCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void DeleteTransactionAsync(System.Guid userId, int accountId, int transactionId) {
-            this.DeleteTransactionAsync(userId, accountId, transactionId, null);
-        }
-        
-        public void DeleteTransactionAsync(System.Guid userId, int accountId, int transactionId, object userState) {
-            if ((this.onBeginDeleteTransactionDelegate == null)) {
-                this.onBeginDeleteTransactionDelegate = new BeginOperationDelegate(this.OnBeginDeleteTransaction);
-            }
-            if ((this.onEndDeleteTransactionDelegate == null)) {
-                this.onEndDeleteTransactionDelegate = new EndOperationDelegate(this.OnEndDeleteTransaction);
-            }
-            if ((this.onDeleteTransactionCompletedDelegate == null)) {
-                this.onDeleteTransactionCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteTransactionCompleted);
-            }
-            base.InvokeAsync(this.onBeginDeleteTransactionDelegate, new object[] {
-                        userId,
-                        accountId,
-                        transactionId}, this.onEndDeleteTransactionDelegate, this.onDeleteTransactionCompletedDelegate, userState);
-        }
-        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -3476,18 +3639,6 @@ namespace Fab.Client.ApiServiceReference {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetAllJournalTypes(System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[0];
-                System.IAsyncResult _result = base.BeginInvoke("GetAllJournalTypes", _args, callback, asyncState);
-                return _result;
-            }
-            
-            public Fab.Client.ApiServiceReference.JournalType[] EndGetAllJournalTypes(System.IAsyncResult result) {
-                object[] _args = new object[0];
-                Fab.Client.ApiServiceReference.JournalType[] _result = ((Fab.Client.ApiServiceReference.JournalType[])(base.EndInvoke("GetAllJournalTypes", _args, result)));
-                return _result;
-            }
-            
             public System.IAsyncResult BeginDeposit(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[7];
                 _args[0] = userId;
@@ -3542,6 +3693,75 @@ namespace Fab.Client.ApiServiceReference {
                 base.EndInvoke("Transfer", _args, result);
             }
             
+            public System.IAsyncResult BeginGetTransaction(System.Guid userId, int accountId, int transactionId, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[3];
+                _args[0] = userId;
+                _args[1] = accountId;
+                _args[2] = transactionId;
+                System.IAsyncResult _result = base.BeginInvoke("GetTransaction", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public Fab.Client.ApiServiceReference.Transaction EndGetTransaction(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                Fab.Client.ApiServiceReference.Transaction _result = ((Fab.Client.ApiServiceReference.Transaction)(base.EndInvoke("GetTransaction", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginDeleteTransaction(System.Guid userId, int accountId, int transactionId, System.DateTime operationDate, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[4];
+                _args[0] = userId;
+                _args[1] = accountId;
+                _args[2] = transactionId;
+                _args[3] = operationDate;
+                System.IAsyncResult _result = base.BeginInvoke("DeleteTransaction", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndDeleteTransaction(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("DeleteTransaction", _args, result);
+            }
+            
+            public System.IAsyncResult BeginUpdateTransaction(int transactionId, System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, bool isDeposit, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[9];
+                _args[0] = transactionId;
+                _args[1] = userId;
+                _args[2] = accountId;
+                _args[3] = operationDate;
+                _args[4] = price;
+                _args[5] = quantity;
+                _args[6] = comment;
+                _args[7] = categoryId;
+                _args[8] = isDeposit;
+                System.IAsyncResult _result = base.BeginInvoke("UpdateTransaction", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndUpdateTransaction(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("UpdateTransaction", _args, result);
+            }
+            
+            public System.IAsyncResult BeginUpdateTransfer(int transactionId, System.Guid user1Id, int account1Id, System.Guid user2Id, int account2Id, System.DateTime operationDate, decimal amount, string comment, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[8];
+                _args[0] = transactionId;
+                _args[1] = user1Id;
+                _args[2] = account1Id;
+                _args[3] = user2Id;
+                _args[4] = account2Id;
+                _args[5] = operationDate;
+                _args[6] = amount;
+                _args[7] = comment;
+                System.IAsyncResult _result = base.BeginInvoke("UpdateTransfer", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndUpdateTransfer(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("UpdateTransfer", _args, result);
+            }
+            
             public System.IAsyncResult BeginGetAccountBalance(System.Guid userId, int accountId, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[2];
                 _args[0] = userId;
@@ -3568,20 +3788,6 @@ namespace Fab.Client.ApiServiceReference {
                 object[] _args = new object[0];
                 Fab.Client.ApiServiceReference.TransactionRecord[] _result = ((Fab.Client.ApiServiceReference.TransactionRecord[])(base.EndInvoke("GetAllTransactions", _args, result)));
                 return _result;
-            }
-            
-            public System.IAsyncResult BeginDeleteTransaction(System.Guid userId, int accountId, int transactionId, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[3];
-                _args[0] = userId;
-                _args[1] = accountId;
-                _args[2] = transactionId;
-                System.IAsyncResult _result = base.BeginInvoke("DeleteTransaction", _args, callback, asyncState);
-                return _result;
-            }
-            
-            public void EndDeleteTransaction(System.IAsyncResult result) {
-                object[] _args = new object[0];
-                base.EndInvoke("DeleteTransaction", _args, result);
             }
         }
     }

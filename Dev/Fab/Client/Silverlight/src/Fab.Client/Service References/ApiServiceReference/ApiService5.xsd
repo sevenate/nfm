@@ -135,49 +135,22 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="Transaction" nillable="true" type="tns:Transaction" />
+  <xs:complexType name="DeletedJournal">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Journal">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DeletedJournalId" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DeletedJournal" nillable="true" type="tns:DeletedJournal" />
   <xs:complexType name="ArrayOfAssetType">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetType" nillable="true" type="tns:AssetType" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfAssetType" nillable="true" type="tns:ArrayOfAssetType" />
-  <xs:complexType name="ArrayOfJournalType">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="JournalType" type="tns:JournalType" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfJournalType" nillable="true" type="tns:ArrayOfJournalType" />
-  <xs:simpleType name="JournalType">
-    <xs:annotation>
-      <xs:appinfo>
-        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Deposit">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Withdrawal">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Transfer">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="JournalType" nillable="true" type="tns:JournalType" />
   <xs:complexType name="ArrayOfTransactionRecord">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TransactionRecord" nillable="true" type="tns:TransactionRecord" />

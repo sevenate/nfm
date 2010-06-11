@@ -99,12 +99,6 @@
   <wsdl:message name="ITransactionService_GetAllAssetTypes_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllAssetTypesResponse" />
   </wsdl:message>
-  <wsdl:message name="ITransactionService_GetAllJournalTypes_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllJournalTypes" />
-  </wsdl:message>
-  <wsdl:message name="ITransactionService_GetAllJournalTypes_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllJournalTypesResponse" />
-  </wsdl:message>
   <wsdl:message name="ITransactionService_Deposit_InputMessage">
     <wsdl:part name="parameters" element="tns:Deposit" />
   </wsdl:message>
@@ -123,6 +117,30 @@
   <wsdl:message name="ITransactionService_Transfer_OutputMessage">
     <wsdl:part name="parameters" element="tns:TransferResponse" />
   </wsdl:message>
+  <wsdl:message name="ITransactionService_GetTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ITransactionService_GetTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITransactionService_DeleteTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ITransactionService_DeleteTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITransactionService_UpdateTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransaction" />
+  </wsdl:message>
+  <wsdl:message name="ITransactionService_UpdateTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITransactionService_UpdateTransfer_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransfer" />
+  </wsdl:message>
+  <wsdl:message name="ITransactionService_UpdateTransfer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransferResponse" />
+  </wsdl:message>
   <wsdl:message name="ITransactionService_GetAccountBalance_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAccountBalance" />
   </wsdl:message>
@@ -134,12 +152,6 @@
   </wsdl:message>
   <wsdl:message name="ITransactionService_GetAllTransactions_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllTransactionsResponse" />
-  </wsdl:message>
-  <wsdl:message name="ITransactionService_DeleteTransaction_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteTransaction" />
-  </wsdl:message>
-  <wsdl:message name="ITransactionService_DeleteTransaction_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteTransactionResponse" />
   </wsdl:message>
   <wsdl:portType name="IUserService">
     <wsdl:operation name="GenerateUniqueLogin">
@@ -208,10 +220,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetAllAssetTypes" message="tns:ITransactionService_GetAllAssetTypes_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/GetAllAssetTypesResponse" message="tns:ITransactionService_GetAllAssetTypes_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetAllJournalTypes">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetAllJournalTypes" message="tns:ITransactionService_GetAllJournalTypes_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/GetAllJournalTypesResponse" message="tns:ITransactionService_GetAllJournalTypes_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="Deposit">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/Deposit" message="tns:ITransactionService_Deposit_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/DepositResponse" message="tns:ITransactionService_Deposit_OutputMessage" />
@@ -224,6 +232,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/Transfer" message="tns:ITransactionService_Transfer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/TransferResponse" message="tns:ITransactionService_Transfer_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetTransaction" message="tns:ITransactionService_GetTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/GetTransactionResponse" message="tns:ITransactionService_GetTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/DeleteTransaction" message="tns:ITransactionService_DeleteTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/DeleteTransactionResponse" message="tns:ITransactionService_DeleteTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/UpdateTransaction" message="tns:ITransactionService_UpdateTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/UpdateTransactionResponse" message="tns:ITransactionService_UpdateTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransfer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/UpdateTransfer" message="tns:ITransactionService_UpdateTransfer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/UpdateTransferResponse" message="tns:ITransactionService_UpdateTransfer_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAccountBalance">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetAccountBalance" message="tns:ITransactionService_GetAccountBalance_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/GetAccountBalanceResponse" message="tns:ITransactionService_GetAccountBalance_OutputMessage" />
@@ -231,10 +255,6 @@
     <wsdl:operation name="GetAllTransactions">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetAllTransactions" message="tns:ITransactionService_GetAllTransactions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/GetAllTransactionsResponse" message="tns:ITransactionService_GetAllTransactions_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteTransaction">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/DeleteTransaction" message="tns:ITransactionService_DeleteTransaction_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITransactionService/DeleteTransactionResponse" message="tns:ITransactionService_DeleteTransaction_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUserService" type="tns:IUserService">
@@ -383,15 +403,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAllJournalTypes">
-      <soap:operation soapAction="http://tempuri.org/ITransactionService/GetAllJournalTypes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="Deposit">
       <soap:operation soapAction="http://tempuri.org/ITransactionService/Deposit" style="document" />
       <wsdl:input>
@@ -419,6 +430,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <soap:operation soapAction="http://tempuri.org/ITransactionService/GetTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTransaction">
+      <soap:operation soapAction="http://tempuri.org/ITransactionService/DeleteTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <soap:operation soapAction="http://tempuri.org/ITransactionService/UpdateTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransfer">
+      <soap:operation soapAction="http://tempuri.org/ITransactionService/UpdateTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAccountBalance">
       <soap:operation soapAction="http://tempuri.org/ITransactionService/GetAccountBalance" style="document" />
       <wsdl:input>
@@ -430,15 +477,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllTransactions">
       <soap:operation soapAction="http://tempuri.org/ITransactionService/GetAllTransactions" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteTransaction">
-      <soap:operation soapAction="http://tempuri.org/ITransactionService/DeleteTransaction" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
