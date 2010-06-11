@@ -298,19 +298,6 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.GetAllJournalTypes"/> method.
-		/// </summary>
-		[Fact]
-		public void GetAllJournalTypes()
-		{
-			var service = new ApiService();
-
-			IList<JournalType> journals = service.GetAllJournalTypes();
-
-			Assert.True(journals.Count == 3);
-		}
-
-		/// <summary>
 		/// Test <see cref="ApiService.Deposit"/> method.
 		/// </summary>
 		[Fact]

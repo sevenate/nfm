@@ -33,13 +33,6 @@ namespace Fab.Server.Core
 		IList<AssetType> GetAllAssetTypes();
 
 		/// <summary>
-		/// Gets all available journal types (i.e. "Deposit", "Withdrawal", "Transfer" etc.).
-		/// </summary>
-		/// <returns>Journal types presented in the system.</returns>
-		[OperationContract]
-		IList<JournalType> GetAllJournalTypes();
-
-		/// <summary>
 		/// Deposit (<paramref name="price"/> * <paramref name="quantity"/>) amount to the
 		/// <paramref name="accountId"/> of the <paramref name="userId"/> with optional <paramref name="comment"/> and
 		/// group it under <paramref name="categoryId"/> if necessary.
@@ -50,9 +43,16 @@ namespace Fab.Server.Core
 		/// <param name="price">Price of the item.</param>
 		/// <param name="quantity">Quantity of the item.</param>
 		/// <param name="comment">Comment notes.</param>
-		/// <param name="categoryId">The category Id.</param>
+		/// <param name="categoryId">The category ID.</param>
 		[OperationContract]
-		void Deposit(Guid userId, int accountId, DateTime operationDate, decimal price, decimal quantity, string comment, int? categoryId);
+		void Deposit(
+			Guid userId,
+			int accountId,
+			DateTime operationDate,
+			decimal price,
+			decimal quantity,
+			string comment,
+			int? categoryId);
 
 		/// <summary>
 		/// Withdrawal (<paramref name="price"/> * <paramref name="quantity"/>) amount from the
@@ -65,9 +65,16 @@ namespace Fab.Server.Core
 		/// <param name="price">Price of the item.</param>
 		/// <param name="quantity">Quantity of the item.</param>
 		/// <param name="comment">Comment notes.</param>
-		/// <param name="categoryId">The category Id.</param>
+		/// <param name="categoryId">The category ID.</param>
 		[OperationContract]
-		void Withdrawal(Guid userId, int accountId, DateTime operationDate, decimal price, decimal quantity, string comment, int? categoryId);
+		void Withdrawal(
+			Guid userId,
+			int accountId,
+			DateTime operationDate,
+			decimal price,
+			decimal quantity,
+			string comment,
+			int? categoryId);
 
 		/// <summary>
 		/// Transfer from <paramref name="account1Id"/> of <paramref name="user1Id"/> to
@@ -82,7 +89,91 @@ namespace Fab.Server.Core
 		/// <param name="amount">Amount of assets.</param>
 		/// <param name="comment">Comment notes.</param>
 		[OperationContract]
-		void Transfer(Guid user1Id, int account1Id, Guid user2Id, int account2Id, DateTime operationDate, decimal amount, string comment);
+		void Transfer(
+			Guid user1Id,
+			int account1Id,
+			Guid user2Id,
+			int account2Id,
+			DateTime operationDate,
+			decimal amount,
+			string comment);
+
+		/// <summary>
+		/// Return full data about single transaction data.
+		/// </summary>
+		/// <param name="userId">The user unique ID.</param>
+		/// <param name="accountId">The account ID.</param>
+		/// <param name="transactionId">Transaction ID.</param>
+		/// <returns>Single transaction data.</returns>
+		[OperationContract]
+		Transaction GetTransaction(Guid userId, int accountId, int transactionId);
+
+		/// <summary>
+		/// Delete specific transaction.
+		/// </summary>
+		/// <param name="userId">The user unique ID.</param>
+		/// <param name="accountId">The account ID.</param>
+		/// <param name="transactionId">Transaction ID.</param>
+		/// <param name="operationDate">Operation date.</param>
+		[OperationContract]
+		void DeleteTransaction(Guid userId, int accountId, int transactionId, DateTime operationDate);
+
+		/// <summary>
+		/// Update specific deposit or withdrawal transaction.
+		/// </summary>
+		/// <remarks>
+		/// Transfer transaction are not updatable with this method.
+		/// To update transfer transaction use <see cref="UpdateTransfer"/> method instead.
+		/// </remarks>
+		/// <param name="transactionId">Transaction ID.</param>
+		/// <param name="userId">User unique ID.</param>
+		/// <param name="accountId">Account ID.</param>
+		/// <param name="operationDate">Operation date.</param>
+		/// <param name="price">Price of the item.</param>
+		/// <param name="quantity">Quantity of the item.</param>
+		/// <param name="comment">Comment notes.</param>
+		/// <param name="categoryId">The category Id.</param>
+		/// <param name="isDeposit">
+		/// <c>true</c> means that transaction is "Deposit";
+		/// <c>false</c> means that transaction is "Withdrawal".
+		/// </param>
+		[OperationContract]
+		void UpdateTransaction(
+			int transactionId,
+			Guid userId,
+			int accountId,
+			DateTime operationDate,
+			decimal price,
+			decimal quantity,
+			string comment,
+			int? categoryId,
+			bool isDeposit);
+
+		/// <summary>
+		/// Update specific transfer transaction.
+		/// </summary>
+		/// <remarks>
+		/// Deposit or withdrawal transactions are not updatable with this method.
+		/// To update deposit or withdrawal transaction use <see cref="UpdateTransaction"/> method instead.
+		/// </remarks>
+		/// <param name="transactionId">Transfer transaction ID.</param>
+		/// <param name="user1Id">User 1 unique ID.</param>
+		/// <param name="account1Id">Account 1 ID.</param>
+		/// <param name="user2Id">User 2 unique ID.</param>
+		/// <param name="account2Id">Account 2 ID.</param>
+		/// <param name="operationDate">Operation date.</param>
+		/// <param name="amount">Amount of assets.</param>
+		/// <param name="comment">Comment notes.</param>
+		[OperationContract]
+		void UpdateTransfer(
+			int transactionId,
+			Guid user1Id,
+			int account1Id,
+			Guid user2Id,
+			int account2Id,
+			DateTime operationDate,
+			decimal amount,
+			string comment);
 
 		/// <summary>
 		/// Get current account balance.
@@ -101,14 +192,5 @@ namespace Fab.Server.Core
 		/// <returns>List of transaction records.</returns>
 		[OperationContract]
 		IList<TransactionRecord> GetAllTransactions(Guid userId, int accountId);
-
-		/// <summary>
-		/// Delete specific transaction.
-		/// </summary>
-		/// <param name="userId">The user unique ID.</param>
-		/// <param name="accountId">The account ID.</param>
-		/// <param name="transactionId">Transaction ID.</param>
-		[OperationContract]
-		void DeleteTransaction(Guid userId, int accountId, int transactionId);
 	}
 }

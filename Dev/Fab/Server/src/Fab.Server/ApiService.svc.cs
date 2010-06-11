@@ -451,15 +451,6 @@ namespace Fab.Server
 		}
 
 		/// <summary>
-		/// Gets all available journal types (i.e. "Deposit", "Withdrawal", "Transfer" etc.).
-		/// </summary>
-		/// <returns>Journal types presented in the system.</returns>
-		public IList<JournalType> GetAllJournalTypes()
-		{
-			return Enum.GetValues(typeof (JournalType)).Cast<JournalType>().ToList();
-		}
-
-		/// <summary>
 		/// Deposit (<paramref name="price"/> * <paramref name="quantity"/>) amount to the
 		/// <paramref name="accountId"/> of the <paramref name="userId"/> with optional <paramref name="comment"/> and
 		/// group it under <paramref name="categoryId"/> if necessary.
@@ -470,8 +461,15 @@ namespace Fab.Server
 		/// <param name="price">Price of the item.</param>
 		/// <param name="quantity">Quantity of the item.</param>
 		/// <param name="comment">Comment notes.</param>
-		/// <param name="categoryId">The category Id.</param>
-		public void Deposit(Guid userId, int accountId, DateTime operationDate, decimal price, decimal quantity, string comment, int? categoryId)
+		/// <param name="categoryId">The category ID.</param>
+		public void Deposit(
+			Guid userId,
+			int accountId,
+			DateTime operationDate,
+			decimal price,
+			decimal quantity,
+			string comment,
+			int? categoryId)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -479,48 +477,10 @@ namespace Fab.Server
 			}
 
 			var dateTime = operationDate.ToUniversalTime();
-			var amount = price*quantity;
 
 			using (var mc = new ModelContainer())
 			{
-				var targetAccount = ModelHelper.GetAccountById(mc, accountId);
-				var cashAccount = ModelHelper.GetSystemAccount(mc, targetAccount.AssetType.Id);
-
-				var transaction = new Transaction
-									{
-									  JournalType = (byte)JournalType.Deposit,
-									  Price = price,
-									  Quantity = quantity,
-									  Comment = comment
-									};
-
-				if (categoryId.HasValue)
-				{
-					transaction.Category = ModelHelper.GetCategoryById(mc, categoryId.Value);
-				}
-
-				var creditPosting = new Posting
-				{
-					Date = dateTime,
-					Amount = amount,
-					Journal = transaction,
-					Account = targetAccount,
-					AssetType = targetAccount.AssetType
-				};
-
-				var debitPosting = new Posting
-				{
-					Date = dateTime,
-					Amount = -amount,
-					Journal = transaction,
-					Account = cashAccount,
-					AssetType = cashAccount.AssetType
-				};
-
-				mc.Journals.AddObject(transaction);
-				mc.Postings.AddObject(creditPosting);
-				mc.Postings.AddObject(debitPosting);
-
+				ModelHelper.CreateTransaction(mc, dateTime, accountId, JournalType.Deposit, categoryId, price, quantity, comment);
 				mc.SaveChanges();
 			}
 		}
@@ -537,7 +497,14 @@ namespace Fab.Server
 		/// <param name="quantity">Quantity of the item.</param>
 		/// <param name="comment">Comment notes.</param>
 		/// <param name="categoryId">The category Id.</param>
-		public void Withdrawal(Guid userId, int accountId, DateTime operationDate, decimal price, decimal quantity, string comment, int? categoryId)
+		public void Withdrawal(
+			Guid userId,
+			int accountId,
+			DateTime operationDate,
+			decimal price,
+			decimal quantity,
+			string comment,
+			int? categoryId)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -545,48 +512,10 @@ namespace Fab.Server
 			}
 
 			var dateTime = operationDate.ToUniversalTime();
-			var amount = price * quantity;
 
 			using (var mc = new ModelContainer())
 			{
-				var targetAccount = ModelHelper.GetAccountById(mc, accountId);
-				var cashAccount = ModelHelper.GetSystemAccount(mc, targetAccount.AssetType.Id);
-
-				var transaction = new Transaction
-				{
-					JournalType = (byte)JournalType.Withdrawal,
-					Price = price,
-					Quantity = quantity,
-					Comment = comment
-				};
-
-				if (categoryId.HasValue)
-				{
-					transaction.Category = ModelHelper.GetCategoryById(mc, categoryId.Value);
-				}
-
-				var creditPosting = new Posting
-				{
-					Date = dateTime,
-					Amount = amount,
-					Journal = transaction,
-					Account = cashAccount,
-					AssetType = cashAccount.AssetType
-				};
-
-				var debitPosting = new Posting
-				{
-					Date = dateTime,
-					Amount = -amount,
-					Journal = transaction,
-					Account = targetAccount,
-					AssetType = targetAccount.AssetType
-				};
-
-				mc.Journals.AddObject(transaction);
-				mc.Postings.AddObject(creditPosting);
-				mc.Postings.AddObject(debitPosting);
-
+				ModelHelper.CreateTransaction(mc, dateTime, accountId, JournalType.Withdrawal, categoryId, price, quantity, comment);
 				mc.SaveChanges();
 			}
 		}
@@ -603,7 +532,14 @@ namespace Fab.Server
 		/// <param name="operationDate">Operation date.</param>
 		/// <param name="amount">Amount of assets.</param>
 		/// <param name="comment">Comment notes.</param>
-		public void Transfer(Guid user1Id, int account1Id, Guid user2Id, int account2Id, DateTime operationDate, decimal amount, string comment)
+		public void Transfer(
+			Guid user1Id,
+			int account1Id,
+			Guid user2Id,
+			int account2Id,
+			DateTime operationDate,
+			decimal amount,
+			string comment)
 		{
 			if (user1Id == Guid.Empty)
 			{
@@ -619,40 +555,171 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
-				var sourceAccount = ModelHelper.GetAccountById(mc, account1Id);
-				var targetAccount = ModelHelper.GetAccountById(mc, account2Id);
-
-				var transaction = new Transaction
-				{
-					JournalType = (byte)JournalType.Transfer,
-					Price = amount,
-					Quantity = 1,
-					Comment = comment
-				};
-
-				var creditPosting = new Posting
-				{
-					Date = dateTime,
-					Amount = amount,
-					Journal = transaction,
-					Account = targetAccount,
-					AssetType = targetAccount.AssetType
-				};
-
-				var debitPosting = new Posting
-				{
-					Date = dateTime,
-					Amount = -amount,
-					Journal = transaction,
-					Account = sourceAccount,
-					AssetType = sourceAccount.AssetType
-				};
-
-				mc.Journals.AddObject(transaction);
-				mc.Postings.AddObject(creditPosting);
-				mc.Postings.AddObject(debitPosting);
-
+				ModelHelper.CreateTransfer(mc, dateTime, account1Id, account2Id, amount, comment);
 				mc.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// Return full data about single transaction data.
+		/// </summary>
+		/// <param name="userId">The user unique ID.</param>
+		/// <param name="accountId">The account ID.</param>
+		/// <param name="transactionId">Transaction ID.</param>
+		/// <returns>Single transaction data.</returns>
+		public Transaction GetTransaction(Guid userId, int accountId, int transactionId)
+		{
+			using (var mc = new ModelContainer())
+			{
+				// Todo: add user ID account ID to the GetTransacionById() method call to
+				// join them with transaction ID to prevent unauthorized delete 
+				// Do this for all user-aware calls (i.e. Categories, Accounts etc.)
+				return ModelHelper.GetTransacionById(mc, transactionId);
+			}
+		}
+
+		/// <summary>
+		/// Delete specific transaction.
+		/// </summary>
+		/// <param name="userId">The user unique ID.</param>
+		/// <param name="accountId">The account ID.</param>
+		/// <param name="transactionId">Transaction ID.</param>
+		/// <param name="operationDate">Operation date.</param>
+		public void DeleteTransaction(Guid userId, int accountId, int transactionId, DateTime operationDate)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			var dateTime = operationDate.ToUniversalTime();
+
+			using (var mc = new ModelContainer())
+			{
+				ModelHelper.DeleteTransaction(mc, transactionId, dateTime);
+				mc.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// Update specific deposit or withdrawal transaction.
+		/// </summary>
+		/// <remarks>
+		/// Transfer transaction are not updatable with this method.
+		/// To update transfer transaction use <see cref="UpdateTransfer"/> method instead.
+		/// </remarks>
+		/// <param name="transactionId">Transaction ID.</param>
+		/// <param name="userId">User unique ID.</param>
+		/// <param name="accountId">Account ID.</param>
+		/// <param name="operationDate">Operation date.</param>
+		/// <param name="price">Price of the item.</param>
+		/// <param name="quantity">Quantity of the item.</param>
+		/// <param name="comment">Comment notes.</param>
+		/// <param name="categoryId">The category Id.</param>
+		/// <param name="isDeposit">
+		/// <c>true</c> means that transaction is "Deposit";
+		/// <c>false</c> means that transaction is "Withdrawal".
+		/// </param>
+		public void UpdateTransaction(
+			int transactionId,
+			Guid userId,
+			int accountId,
+			DateTime operationDate,
+			decimal price,
+			decimal quantity,
+			string comment,
+			int? categoryId,
+			bool isDeposit)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			var dateTime = operationDate.ToUniversalTime();
+
+			using (var mc = new ModelContainer())
+			{
+				// Todo: add user ID account ID to the GetTransacionById() method call to
+				// join them with transaction ID to prevent unauthorized delete 
+				// Do this for all user-aware calls (i.e. Categories, Accounts etc.)
+				Transaction transaction = ModelHelper.GetTransacionById(mc, transactionId);
+
+				if (transaction.JournalType != (byte)JournalType.Deposit
+					&& transaction.JournalType != (byte)JournalType.Withdrawal)
+				{
+					throw new NotSupportedException(string.Format("Only {0} and {1} journal types supported.", JournalType.Deposit, JournalType.Withdrawal));
+				}
+
+				ModelHelper.DeleteTransaction(mc, transactionId, dateTime);
+				ModelHelper.CreateTransaction(
+					mc,
+					dateTime,
+					accountId,
+					isDeposit
+						? JournalType.Deposit
+						: JournalType.Withdrawal,
+					categoryId,
+					price,
+					quantity,
+					comment);
+			}
+		}
+
+		/// <summary>
+		/// Update specific transfer transaction.
+		/// </summary>
+		/// <remarks>
+		/// Deposit or withdrawal transactions are not updatable with this method.
+		/// To update deposit or withdrawal transaction use <see cref="UpdateTransaction"/> method instead.
+		/// </remarks>
+		/// <param name="transactionId">Transfer transaction ID.</param>
+		/// <param name="user1Id">User 1 unique ID.</param>
+		/// <param name="account1Id">Account 1 ID.</param>
+		/// <param name="user2Id">User 2 unique ID.</param>
+		/// <param name="account2Id">Account 2 ID.</param>
+		/// <param name="operationDate">Operation date.</param>
+		/// <param name="amount">Amount of assets.</param>
+		/// <param name="comment">Comment notes.</param>
+		/// <exception cref="NotSupportedException">
+		/// Only <see cref="JournalType.Transfer"/> journal type supported.
+		/// </exception>
+		public void UpdateTransfer(
+			int transactionId,
+			Guid user1Id,
+			int account1Id,
+			Guid user2Id,
+			int account2Id,
+			DateTime operationDate,
+			decimal amount,
+			string comment)
+		{
+			if (user1Id == Guid.Empty)
+			{
+				throw new ArgumentException("User1 ID must not be empty.");
+			}
+
+			if (user2Id == Guid.Empty)
+			{
+				throw new ArgumentException("User2 ID must not be empty.");
+			}
+
+			var dateTime = operationDate.ToUniversalTime();
+
+			using (var mc = new ModelContainer())
+			{
+				// Todo: add user ID account ID to the GetTransacionById() method call to
+				// join them with transaction ID to prevent unauthorized delete 
+				// Do this for all user-aware calls (i.e. Categories, Accounts etc.)
+				Transaction transaction = ModelHelper.GetTransacionById(mc, transactionId);
+
+				if (transaction.JournalType != (byte)JournalType.Transfer)
+				{
+					throw new NotSupportedException(string.Format("Only {0} journal type supported.", JournalType.Transfer));
+				}
+				
+				ModelHelper.DeleteTransaction(mc, transactionId, dateTime);
+				ModelHelper.CreateTransfer(mc, dateTime, account1Id, account2Id, amount, comment);
 			}
 		}
 
@@ -675,11 +742,11 @@ namespace Fab.Server
 			{
 				// Todo: Fix Sum() of Postings when there is no any posting yet.
 				var firstPosting = mc.Postings.Where(p => p.Account.Id == accountId)
-									.FirstOrDefault();
+					.FirstOrDefault();
 				balance = firstPosting != null
-							? mc.Postings.Where(p => p.Account.Id == accountId)
-										.Sum(p => p.Amount)
-							: 0;
+				          	? mc.Postings.Where(p => p.Account.Id == accountId)
+				          	  	.Sum(p => p.Amount)
+				          	: 0;
 			}
 
 			return balance;
@@ -705,20 +772,20 @@ namespace Fab.Server
 			using (var mc = new ModelContainer())
 			{
 				var postings = from p in mc.Postings
-							   where p.Account.Id == accountId
-								 && !p.Journal.IsDeleted
-							   orderby p.Date
-							   orderby p.Journal.Id
-							   select new
-									  {
-									  	Posting = p,
-										p.Journal,
+				               where p.Account.Id == accountId
+				                     && !p.Journal.IsDeleted
+				               orderby p.Date
+				               orderby p.Journal.Id
+				               select new
+				                      	{
+				                      		Posting = p,
+				                      		p.Journal,
 // ReSharper disable PossibleNullReferenceException
 // Note: do NOT use direct cast here because of LinqToEntity -> SQL conversion "not supported" exception
-									  	p.Journal.Category,
-										p.Journal.JournalType
+				                      		p.Journal.Category,
+				                      		p.Journal.JournalType
 // ReSharper restore PossibleNullReferenceException
-									  };
+				                      	};
 
 				var res = postings.ToList();
 
@@ -738,19 +805,19 @@ namespace Fab.Server
 
 					switch (r.JournalType)
 					{
-						// Deposit
+							// Deposit
 						case 1:
 							income = r.Posting.Amount;
 							expense = 0;
 							break;
 
-						// Withdrawal
+							// Withdrawal
 						case 2:
 							income = 0;
 							expense = -r.Posting.Amount;
 							break;
 
-						// Transfer
+							// Transfer
 						case 3:
 							income = r.Posting.Amount > 0 ? r.Posting.Amount : 0;	// positive is "TO this account"
 							expense = r.Posting.Amount < 0 ? -r.Posting.Amount : 0;	// negative is "FROM this account"
@@ -758,45 +825,19 @@ namespace Fab.Server
 					}
 
 					records.Add(new TransactionRecord
-												{
-													TransactionId = r.Journal.Id,
-													Date = DateTime.SpecifyKind(r.Posting.Date, DateTimeKind.Utc),
-													Category = r.Category,
-													Income = income,
-													Expense = expense,
-													Balance = balance,
-													Comment = r.Journal.Comment
-												});
+					            	{
+					            		TransactionId = r.Journal.Id,
+					            		Date = DateTime.SpecifyKind(r.Posting.Date, DateTimeKind.Utc),
+					            		Category = r.Category,
+					            		Income = income,
+					            		Expense = expense,
+					            		Balance = balance,
+					            		Comment = r.Journal.Comment
+					            	});
 				}
 			}
 
 			return records;
-		}
-
-		/// <summary>
-		/// Delete specific transaction.
-		/// </summary>
-		/// <param name="userId">The user unique ID.</param>
-		/// <param name="accountId">The account ID.</param>
-		/// <param name="transactionId">Transaction ID.</param>
-		public void DeleteTransaction(Guid userId, int accountId, int transactionId)
-		{
-			if (userId == Guid.Empty)
-			{
-				throw new ArgumentException("User ID must not be empty.");
-			}
-
-			using (var mc = new ModelContainer())
-			{
-				// Todo: add user ID account ID to the GetTransacionById() method call to
-				// join them with transaction ID to prevent unauthorized delete 
-				// Do this for all user-aware calls (i.e. Categories, Accounts etc.)
-				Transaction transaction = ModelHelper.GetTransacionById(mc, transactionId);
-
-				transaction.IsDeleted = true;
-
-				mc.SaveChanges();
-			}
 		}
 
 		#endregion

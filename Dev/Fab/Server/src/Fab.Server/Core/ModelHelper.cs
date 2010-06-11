@@ -83,7 +83,7 @@ namespace Fab.Server.Core
 		/// <param name="mc">Entity Framework model container.</param>
 		/// <param name="assetTypeId">The asset type ID.</param>
 		/// <returns>System "cash" account instance.</returns>
-		internal static Account GetSystemAccount(ModelContainer mc, int assetTypeId)
+		private static Account GetSystemAccount(ModelContainer mc, int assetTypeId)
 		{
 			Account account = mc.Accounts.Include("AssetType")
 								.Where(a => a.AssetType.Id == assetTypeId && a.User.Id == SystemUserId)
@@ -136,22 +136,6 @@ namespace Fab.Server.Core
 		}
 
 		/// <summary>
-		/// Get <see cref="JournalType"/> from model container by unique ID.
-		/// </summary>
-		/// <param name="mc">Entity Framework model container.</param>
-		/// <param name="journalTypeId">The journal type ID.</param>
-		/// <returns>Journal type instance</returns>
-		internal static JournalType GetJournalTypeById(ModelContainer mc, int journalTypeId)
-		{
-			if (!Enum.IsDefined(typeof(JournalType), journalTypeId))
-			{
-				throw new Exception("Journal type with ID = " + journalTypeId + " not found.");
-			}
-
-			return (JournalType) journalTypeId;
-		}
-
-		/// <summary>
 		/// Get <see cref="Transaction"/> from model container by unique ID.
 		/// </summary>
 		/// <param name="mc">Entity Framework model container.</param>
@@ -159,16 +143,184 @@ namespace Fab.Server.Core
 		/// <returns>Transaction instance.</returns>
 		internal static Transaction GetTransacionById(ModelContainer mc, int transactionId)
 		{
-			Transaction transacion = mc.Journals.Where(j => j.Id == transactionId && j is Transaction)
+			// Todo: consider using not all includes here to increase performance and decrease traffic
+			mc.Journals.Include("Category");
+			mc.Journals.Include("Postings");
+			mc.Postings.Include("Account");
+			mc.Postings.Include("AssetType");
+
+			Transaction transacion = mc.Journals.Where(j => j.Id == transactionId && j is Transaction && j.IsDeleted == false)
 												.Select(j => j as Transaction)
 												.SingleOrDefault();
-
 			if (transacion == null)
 			{
 				throw new Exception("Transaction with ID = " + transactionId + " not found.");
 			}
 
 			return transacion;
+		}
+
+		// Todo: add user ID account ID to the GetTransacionById() method call to
+		// join them with transaction ID to prevent unauthorized delete 
+		// Do this for all user-aware calls (i.e. Categories, Accounts etc.)
+
+		/// <summary>
+		/// Delete specific transaction.
+		/// </summary>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="transactionId">The transaction ID.</param>
+		/// <param name="operationDate">Operation date.</param>
+		internal static void DeleteTransaction(ModelContainer mc, int transactionId, DateTime operationDate)
+		{
+			Transaction transaction = GetTransacionById(mc, transactionId);
+			transaction.IsDeleted = true;
+
+			var deletedJournal = new DeletedJournal
+			                     	{
+			                     		JournalType = (byte)JournalType.Canceled,
+			                     		Comment = transaction.Comment
+			                     	};
+
+			mc.Journals.AddObject(deletedJournal);
+
+			foreach (var originalPost in transaction.Postings)
+			{
+				var newPost = new Posting
+				              	{
+				              		Journal = deletedJournal,
+				              		Date = operationDate,
+				              		Amount = -originalPost.Amount,
+				              		Account = originalPost.Account,
+				              		AssetType = originalPost.AssetType
+				              	};
+
+				mc.Postings.AddObject(newPost);
+			}
+		}
+
+		/// <summary>
+		/// Create deposit or withdrawal transaction: (<paramref name="price"/> * <paramref name="quantity"/>) amount of assets
+		/// to/from the <paramref name="accountId"/> with optional <paramref name="comment"/> and
+		/// group it under <paramref name="categoryId"/> if necessary.
+		/// </summary>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="operationDate">Operation date.</param>
+		/// <param name="accountId">Account 1 ID</param>
+		/// <param name="journalType"><see cref="JournalType.Deposit"/> or <see cref="JournalType.Withdrawal"/> only</param>
+		/// <param name="categoryId">The category ID.</param>
+		/// <param name="price">Price of the item.</param>
+		/// <param name="quantity">Quantity of the item.</param>
+		/// <param name="comment">Comment notes.</param>
+		internal static void CreateTransaction(
+			ModelContainer mc,
+			DateTime operationDate,
+			int accountId,
+			JournalType journalType,
+			int? categoryId,
+			decimal price,
+			decimal quantity,
+			string comment)
+		{
+			var amount = price * quantity;
+
+			var targetAccount = GetAccountById(mc, accountId);
+			var cashAccount = GetSystemAccount(mc, targetAccount.AssetType.Id);
+
+			var transaction = new Transaction
+			                  	{
+			                  		JournalType = (byte)journalType,
+			                  		Price = price,
+			                  		Quantity = quantity,
+			                  		Comment = comment
+			                  	};
+
+			if (categoryId.HasValue)
+			{
+				transaction.Category = GetCategoryById(mc, categoryId.Value);
+			}
+
+			var creditAccount = journalType == JournalType.Deposit
+			                    	? targetAccount
+			                    	: cashAccount;
+
+			var debitAccount = journalType == JournalType.Deposit
+			                   	? cashAccount
+			                   	: targetAccount;
+
+			var creditPosting = new Posting
+			                    	{
+			                    		Date = operationDate,
+			                    		Amount = amount,
+			                    		Journal = transaction,
+			                    		Account = creditAccount,
+			                    		AssetType = creditAccount.AssetType
+			                    	};
+
+			var debitPosting = new Posting
+			                   	{
+			                   		Date = operationDate,
+			                   		Amount = -amount,
+			                   		Journal = transaction,
+			                   		Account = debitAccount,
+			                   		AssetType = debitAccount.AssetType
+			                   	};
+
+			mc.Journals.AddObject(transaction);
+			mc.Postings.AddObject(creditPosting);
+			mc.Postings.AddObject(debitPosting);
+		}
+
+		/// <summary>
+		/// Create transfer transaction: the <paramref name="amount"/> of assets are moved
+		/// from <paramref name="account1Id"/> to <paramref name="account2Id"/> of
+		/// with optional <paramref name="comment"/> about operation.
+		/// </summary>
+		/// <param name="mc">Entity Framework model container.</param>
+		/// <param name="operationDate">Operation date.</param>
+		/// <param name="account1Id">Account 1 ID.</param>
+		/// <param name="account2Id">Account 2 ID.</param>
+		/// <param name="amount">Amount of assets.</param>
+		/// <param name="comment">Comment notes.</param>
+		internal static void CreateTransfer(
+			ModelContainer mc,
+			DateTime operationDate,
+			int account1Id,
+			int account2Id,
+			decimal amount,
+			string comment)
+		{
+			var sourceAccount = GetAccountById(mc, account1Id);
+			var targetAccount = GetAccountById(mc, account2Id);
+
+			var transaction = new Transaction
+			                  	{
+			                  		JournalType = (byte)JournalType.Transfer,
+			                  		Price = amount,
+			                  		Quantity = 1,
+			                  		Comment = comment
+			                  	};
+
+			var creditPosting = new Posting
+			                    	{
+			                    		Date = operationDate,
+			                    		Amount = amount,
+			                    		Journal = transaction,
+			                    		Account = targetAccount,
+			                    		AssetType = targetAccount.AssetType
+			                    	};
+
+			var debitPosting = new Posting
+			                   	{
+			                   		Date = operationDate,
+			                   		Amount = -amount,
+			                   		Journal = transaction,
+			                   		Account = sourceAccount,
+			                   		AssetType = sourceAccount.AssetType
+			                   	};
+
+			mc.Journals.AddObject(transaction);
+			mc.Postings.AddObject(creditPosting);
+			mc.Postings.AddObject(debitPosting);
 		}
 	}
 }

@@ -100,7 +100,6 @@
     </Compile>
     <Compile Include="Core\IUserService.cs" />
     <Compile Include="Core\ModelHelper.cs" />
-    <Compile Include="Core\TransactionDetails.cs" />
     <Compile Include="Core\TransactionRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
