@@ -9,6 +9,7 @@
           <EntitySet Name="Accounts" EntityType="Model.Store.Accounts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AssetTypes" EntityType="Model.Store.AssetTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Categories" EntityType="Model.Store.Categories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DeletedJournals" EntityType="Model.Store.DeletedJournals" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Journals" EntityType="Model.Store.Journals" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Postings" EntityType="Model.Store.Postings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Transactions" EntityType="Model.Store.Transactions" store:Type="Tables" Schema="dbo" />
@@ -28,6 +29,10 @@
           <AssociationSet Name="FK_CategoryUser" Association="Model.Store.FK_CategoryUser">
             <End Role="Users" EntitySet="Users" />
             <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeletedJournals" Association="Model.Store.FK_DeletedJournals">
+            <End Role="Journals" EntitySet="Journals" />
+            <End Role="DeletedJournals" EntitySet="DeletedJournals" />
           </AssociationSet>
           <AssociationSet Name="FK_JournalPosting" Association="Model.Store.FK_JournalPosting">
             <End Role="Journals" EntitySet="Journals" />
@@ -72,6 +77,13 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="User_Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeletedJournals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeletedJournalId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Journals">
           <Key>
@@ -159,6 +171,18 @@
             </Principal>
             <Dependent Role="Categories">
               <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeletedJournals">
+          <End Role="Journals" Type="Model.Store.Journals" Multiplicity="1" />
+          <End Role="DeletedJournals" Type="Model.Store.DeletedJournals" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Journals">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeletedJournals">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -329,6 +353,9 @@
           <End Type="Model.Category" Role="Category" Multiplicity="0..1" />
           <End Type="Model.Journal" Role="Journal" Multiplicity="*" />
         </Association>
+        <EntityType Name="DeletedJournal" BaseType="Model.Journal">
+          <Property Type="Int32" Name="DeletedJournalId" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -376,6 +403,12 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Model.DeletedJournal)">
+              <MappingFragment StoreEntitySet="DeletedJournals">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DeletedJournalId" ColumnName="DeletedJournalId" />
               </MappingFragment>
             </EntityTypeMapping>
     </EntitySetMapping>
@@ -505,7 +538,9 @@
           <ConnectorPoint PointX="4.375" PointY="4.8362939453125" />
           </AssociationConnector>
         <InheritanceConnector EntityType="Model.Transaction" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.625" PointY="4.4516910807291659" />
+          <ConnectorPoint PointX="6.625" PointY="4.5137995921651246" />
+          <ConnectorPoint PointX="6.875" PointY="4.5137995921651246" />
+          <ConnectorPoint PointX="6.875" PointY="4.4516910807291659" />
           <ConnectorPoint PointX="7.125" PointY="4.4516910807291659" />
           </InheritanceConnector>
         <AssociationConnector Association="Model.FK_AccountAssetType">
@@ -516,6 +551,11 @@
           <ConnectorPoint PointX="5.8125" PointY="2.4802864583333335" />
           <ConnectorPoint PointX="5.8125" PointY="3.75" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="Model.DeletedJournal" Width="1.875" PointX="7.125" PointY="5.375" Height="1.2110807291666665" />
+        <InheritanceConnector EntityType="Model.DeletedJournal">
+          <ConnectorPoint PointX="6.625" PointY="5.7449446614583337" />
+          <ConnectorPoint PointX="7.125" PointY="5.7449446614583337" />
+        </InheritanceConnector>
         </Diagram></edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

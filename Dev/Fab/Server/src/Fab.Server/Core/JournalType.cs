@@ -22,6 +22,12 @@ namespace Fab.Server.Core
 	public enum JournalType : byte
 	{
 		/// <summary>
+		/// Canceled journal record (id = 0).
+		/// </summary>
+		[EnumMember]
+		Canceled = 0,
+
+		/// <summary>
 		/// Deposit journal record (id = 1).
 		/// </summary>
 		[EnumMember]

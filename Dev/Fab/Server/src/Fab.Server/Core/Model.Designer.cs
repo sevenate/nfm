@@ -763,10 +763,69 @@ namespace Fab.Server.Core
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model", Name="DeletedJournal")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DeletedJournal : Journal
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DeletedJournal object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="journalType">Initial value of the JournalType property.</param>
+        /// <param name="isDeleted">Initial value of the IsDeleted property.</param>
+        /// <param name="deletedJournalId">Initial value of the DeletedJournalId property.</param>
+        public static DeletedJournal CreateDeletedJournal(global::System.Int32 id, global::System.Byte journalType, global::System.Boolean isDeleted, global::System.Int32 deletedJournalId)
+        {
+            DeletedJournal deletedJournal = new DeletedJournal();
+            deletedJournal.Id = id;
+            deletedJournal.JournalType = journalType;
+            deletedJournal.IsDeleted = isDeleted;
+            deletedJournal.DeletedJournalId = deletedJournalId;
+            return deletedJournal;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DeletedJournalId
+        {
+            get
+            {
+                return _DeletedJournalId;
+            }
+            set
+            {
+                OnDeletedJournalIdChanging(value);
+                ReportPropertyChanging("DeletedJournalId");
+                _DeletedJournalId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeletedJournalId");
+                OnDeletedJournalIdChanged();
+            }
+        }
+        private global::System.Int32 _DeletedJournalId;
+        partial void OnDeletedJournalIdChanging(global::System.Int32 value);
+        partial void OnDeletedJournalIdChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Model", Name="Journal")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     [KnownTypeAttribute(typeof(Transaction))]
+    [KnownTypeAttribute(typeof(DeletedJournal))]
     public abstract partial class Journal : EntityObject
     {
         #region Primitive Properties

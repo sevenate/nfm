@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 06/09/2010 03:46:16
+-- Date Created: 06/11/2010 02:52:23
 -- Generated from EDMX file: B:\Workspace\Dev\Fab\Server\src\Fab.Server\Core\Model.edmx
 -- --------------------------------------------------
 
@@ -140,6 +140,13 @@ CREATE TABLE [dbo].[Transactions] (
 );
 GO
 
+-- Creating table 'DeletedJournals'
+CREATE TABLE [dbo].[DeletedJournals] (
+    [DeletedJournalId] int  NOT NULL,
+    [Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -183,6 +190,12 @@ GO
 -- Creating primary key on [Id] in table 'Transactions'
 ALTER TABLE [dbo].[Transactions]
 ADD CONSTRAINT [PK_Transactions]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'DeletedJournals'
+ALTER TABLE [dbo].[DeletedJournals]
+ADD CONSTRAINT [PK_DeletedJournals]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -291,6 +304,15 @@ GO
 -- Creating foreign key on [Id] in table 'Transactions'
 ALTER TABLE [dbo].[Transactions]
 ADD CONSTRAINT [FK_TransactionJournal]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[Journals]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'DeletedJournals'
+ALTER TABLE [dbo].[DeletedJournals]
+ADD CONSTRAINT [FK_DeletedJournals]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[Journals]
         ([Id])
