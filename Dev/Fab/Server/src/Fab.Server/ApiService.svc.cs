@@ -774,6 +774,7 @@ namespace Fab.Server
 				var postings = from p in mc.Postings
 				               where p.Account.Id == accountId
 				                     && !p.Journal.IsDeleted
+									 && p.Journal.JournalType != (byte)JournalType.Canceled
 				               orderby p.Date
 				               orderby p.Journal.Id
 				               select new

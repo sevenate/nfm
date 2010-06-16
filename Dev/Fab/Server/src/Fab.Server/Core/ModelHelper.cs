@@ -12,6 +12,7 @@
 // <summary>Helper for Entity Framework model container processing.</summary>
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Fab.Server.Core
@@ -144,14 +145,14 @@ namespace Fab.Server.Core
 		internal static Transaction GetTransacionById(ModelContainer mc, int transactionId)
 		{
 			// Todo: consider using not all includes here to increase performance and decrease traffic
-			mc.Journals.Include("Category");
-			mc.Journals.Include("Postings");
-			mc.Postings.Include("Account");
-			mc.Postings.Include("AssetType");
 
-			Transaction transacion = mc.Journals.Where(j => j.Id == transactionId && j is Transaction && j.IsDeleted == false)
-												.Select(j => j as Transaction)
-												.SingleOrDefault();
+			var transacion = mc.Journals.Include("Postings")
+										 .Include("Category")
+										 .Where(j => j.Id == transactionId
+												 && j is Transaction
+												 && j.IsDeleted == false)
+										 .SingleOrDefault() as Transaction;
+
 			if (transacion == null)
 			{
 				throw new Exception("Transaction with ID = " + transactionId + " not found.");
@@ -178,24 +179,33 @@ namespace Fab.Server.Core
 			var deletedJournal = new DeletedJournal
 			                     	{
 			                     		JournalType = (byte)JournalType.Canceled,
-			                     		Comment = transaction.Comment
+			                     		Comment = transaction.Comment,
+										DeletedJournalId = transaction.Id
 			                     	};
 
-			mc.Journals.AddObject(deletedJournal);
-
-			foreach (var originalPost in transaction.Postings)
+			foreach (var posting in transaction.Postings)
 			{
-				var newPost = new Posting
-				              	{
-				              		Journal = deletedJournal,
-				              		Date = operationDate,
-				              		Amount = -originalPost.Amount,
-				              		Account = originalPost.Account,
-				              		AssetType = originalPost.AssetType
-				              	};
+				if (!posting.AccountReference.IsLoaded)
+				{
+					posting.AccountReference.Load();
+				}
 
-				mc.Postings.AddObject(newPost);
+				if (!posting.AssetTypeReference.IsLoaded)
+				{
+					posting.AssetTypeReference.Load();
+				}
+
+				mc.Postings.AddObject(new Posting
+				                      	{
+				                      		Account = posting.Account,
+				                      		AssetType = posting.AssetType,
+				                      		Date = operationDate,
+				                      		Amount = -posting.Amount,
+				                      		Journal = deletedJournal
+				                      	});
 			}
+
+			mc.Journals.AddObject(deletedJournal);
 		}
 
 		/// <summary>
@@ -249,20 +259,20 @@ namespace Fab.Server.Core
 
 			var creditPosting = new Posting
 			                    	{
+			                    		Account = creditAccount,
+			                    		AssetType = creditAccount.AssetType,
 			                    		Date = operationDate,
 			                    		Amount = amount,
-			                    		Journal = transaction,
-			                    		Account = creditAccount,
-			                    		AssetType = creditAccount.AssetType
+			                    		Journal = transaction
 			                    	};
 
 			var debitPosting = new Posting
 			                   	{
+			                   		Account = debitAccount,
+			                   		AssetType = debitAccount.AssetType,
 			                   		Date = operationDate,
 			                   		Amount = -amount,
-			                   		Journal = transaction,
-			                   		Account = debitAccount,
-			                   		AssetType = debitAccount.AssetType
+			                   		Journal = transaction
 			                   	};
 
 			mc.Journals.AddObject(transaction);
