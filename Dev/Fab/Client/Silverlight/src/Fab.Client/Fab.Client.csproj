@@ -137,10 +137,12 @@
     <Compile Include="Main\ViewModels\IMoneyTrackerViewModel.cs" />
     <Compile Include="Main\ViewModels\ITransactionDetailsViewModel.cs" />
     <Compile Include="Main\ViewModels\ITransactionsViewModel.cs" />
+    <Compile Include="Main\ViewModels\ITransferViewModel.cs" />
     <Compile Include="Main\ViewModels\TransactionDetailsViewModel.cs" />
     <Compile Include="Main\ViewModels\BaseViewModel.cs" />
     <Compile Include="Main\ViewModels\MoneyTrackerViewModel.cs" />
     <Compile Include="Main\ViewModels\TransactionsViewModel.cs" />
+    <Compile Include="Main\ViewModels\TransferViewModel.cs" />
     <Compile Include="Main\Views\AccountsView.xaml.cs">
       <DependentUpon>AccountsView.xaml</DependentUpon>
     </Compile>
@@ -157,10 +159,14 @@
       <DependentUpon>TransactionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\BindingHelper.cs" />
+    <Compile Include="Main\Views\TransferView.xaml.cs">
+      <DependentUpon>TransferView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountsResult.cs" />
     <Compile Include="Models\BusyScreen.cs" />
     <Compile Include="Models\AddTransactionResult.cs" />
     <Compile Include="Models\CategoriesResult.cs" />
+    <Compile Include="Models\AddTransferResult.cs" />
     <Compile Include="Models\EditTransactionResult.cs" />
     <Compile Include="Models\DeleteTransactionResult.cs" />
     <Compile Include="Models\LoadTransactionResult.cs" />
@@ -213,6 +219,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Main\Views\TransactionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\Views\TransferView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

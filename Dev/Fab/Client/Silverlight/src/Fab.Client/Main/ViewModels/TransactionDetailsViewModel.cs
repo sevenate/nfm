@@ -229,8 +229,6 @@ namespace Fab.Client.Main.ViewModels
 		{
 			yield return Show.Busy(new BusyScreen { Message = "Saving..." });
 
-			var proxy = new TransactionServiceClient();
-
 			if (IsEditMode)
 			{
 				var request = new EditTransactionResult(
@@ -338,7 +336,7 @@ namespace Fab.Client.Main.ViewModels
 			IsEditMode = false;
 			IsDeposite = false;
 			Accounts.MoveCurrentToFirst();
-			OperationDate = DateTime.UtcNow;
+			OperationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Utc);
 			CurrentCategory = null;
 			Price = string.Empty;
 			Quantity = string.Empty;

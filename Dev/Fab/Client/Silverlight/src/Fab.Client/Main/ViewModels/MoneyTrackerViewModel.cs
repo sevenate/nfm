@@ -33,10 +33,10 @@ namespace Fab.Client.Main.ViewModels
 		/// Creates the shutdown model.
 		/// </summary>
 		/// <returns>Shutdown model.</returns>
-        public ISubordinate CreateShutdownModel()
-        {
-            return new Question(this, "Are you sure you want to navigate away from this page?", Answer.Yes, Answer.No);
-        }
+		public ISubordinate CreateShutdownModel()
+		{
+			return new Question(this, "Are you sure you want to navigate away from this page?", Answer.Yes, Answer.No);
+		}
 
 		/// <summary>
 		/// Determines whether this instance can shutdown based on the evaluated shutdown model.
@@ -117,18 +117,25 @@ namespace Fab.Client.Main.ViewModels
 		public object AddNew { get; private set; }
 
 		/// <summary>
+		/// Gets <see cref="TransferViewModel"/>.
+		/// </summary>
+		public object Transfer { get; private set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="MoneyTrackerViewModel"/> class.
 		/// </summary>
 		public MoneyTrackerViewModel(
 			IAccountsViewModel accountsVM,
 			ICategoriesViewModel categoriesVM,
 			ITransactionsViewModel transactionsVM,
-			ITransactionDetailsViewModel transactionDetailsVM)
+			ITransactionDetailsViewModel transactionDetailsVM,
+			ITransferViewModel transferViewModel)
 		{
 			Accounts = accountsVM;
 			Categories = categoriesVM;
 			Transactions = transactionsVM;
 			AddNew = transactionDetailsVM;
+			Transfer = transferViewModel;
 		}
-    }
+	}
 }

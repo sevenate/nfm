@@ -180,11 +180,10 @@
 <!--				</Setter.Value>-->
 <!--			</Setter>-->
 <!--		</Style>-->
-		<local:DateTimeUtcToLocalConverter x:Key="DateTimeUtcToLocalConverter" />
-		<local:CancelClearStringConverter x:Key="CancelClearStringConverter" />
-		<local:AddUpdateStringConverter x:Key="AddUpdateStringConverter" />
 		<local:InvertBooleanConverter x:Key="InvertBooleanConverter" />
-		<cal:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<local:DateTimeUtcToLocalConverter x:Key="DateTimeUtcToLocalConverter" />
+		<local:AddUpdateStringConverter x:Key="AddUpdateStringConverter" />
+		<local:CancelClearStringConverter x:Key="CancelClearStringConverter" />
 	</UserControl.Resources>
 	<Grid x:Name="LayoutRoot"
 		  Background="White">
@@ -276,10 +275,12 @@
 				<Button x:Name="Save"
 						Content="{Binding Path=IsEditMode, Converter={StaticResource AddUpdateStringConverter}}"
 						MinWidth="75"
+						MinHeight="23"
 						HorizontalAlignment="Right" />
 				<Button x:Name="Clear"
 						Content="{Binding Path=IsEditMode, Converter={StaticResource CancelClearStringConverter}}"
 						MinWidth="75"
+						MinHeight="23"
 						Margin="5,0,0,0"
 						HorizontalAlignment="Right" />
 			</StackPanel>

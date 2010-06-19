@@ -24,9 +24,13 @@
 						Grid.Column="1"
 						VerticalContentAlignment="Stretch"
 						HorizontalContentAlignment="Stretch" />
-		<ContentControl x:Name="AddNew"
-						Grid.Column="2"
-						VerticalContentAlignment="Stretch"
-						HorizontalContentAlignment="Stretch" />
+		<StackPanel Grid.Column="2">
+			<ContentControl x:Name="AddNew"
+							VerticalContentAlignment="Stretch"
+							HorizontalContentAlignment="Stretch" />
+			<ContentControl x:Name="Transfer"
+							VerticalContentAlignment="Stretch"
+							HorizontalContentAlignment="Stretch" />
+		</StackPanel>
 	</Grid>
 </UserControl>
