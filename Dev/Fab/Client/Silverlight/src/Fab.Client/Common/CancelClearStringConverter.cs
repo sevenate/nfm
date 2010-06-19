@@ -1,8 +1,8 @@
-// <copyright file="InvertBooleanConverter.cs" company="HD">
+// <copyright file="CancelClearStringConverter.cs" company="HD">
 // 	Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff" email="alevshoff@hd.com" />
-// <summary>Convert <see cref="bool"/> "true" value to "false" and vise versa.</summary>
+// <summary>Convert <c>true</c> to "Cancel" string and <c>false</c> to "Clear" string.</summary>
 
 using System;
 using System.Globalization;
@@ -11,9 +11,9 @@ using System.Windows.Data;
 namespace Fab.Client.Common
 {
 	/// <summary>
-	/// Convert <see cref="bool"/> "true" value to "false" and vise versa.
+	/// Convert <c>true</c> to "Cancel" string and <c>false</c> to "Clear" string.
 	/// </summary>
-	public class InvertBooleanConverter : IValueConverter
+	public class CancelClearStringConverter : IValueConverter
 	{
 		#region Implementation of IValueConverter
 
@@ -29,7 +29,7 @@ namespace Fab.Client.Common
 		{
 			if (value is bool)
 			{
-				return !(bool) value;
+				return (bool) value ? "Cancel" : "Clear";
 			}
 
 			return value;
@@ -46,12 +46,7 @@ namespace Fab.Client.Common
 		/// <param name="culture">The culture of the conversion.</param>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is bool)
-			{
-				return !(bool)value;
-			}
-
-			return value;
+			throw new NotImplementedException();
 		}
 
 		#endregion

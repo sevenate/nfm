@@ -2,7 +2,7 @@
 // 	Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff" email="alevshoff@hd.com" />
-// <summary>Convert <see cref="bool"/> "true" value to "false" and vise versa.</summary>
+// <summary>Convert <c>true</c> to "Update" string and <c>false</c> to "Add" string.</summary>
 
 using System;
 using System.Globalization;
@@ -11,10 +11,9 @@ using System.Windows.Data;
 namespace Fab.Client.Common
 {
 	/// <summary>
-	/// Convert <see cref="bool"/> <c>true</c> value to <see cref="string"/> <c>Save</c> value
-	/// and <see cref="bool"/> <c>false</c> value to <see cref="string"/> <c>Add</c>.
+	/// Convert <c>true</c> to "Update" string and <c>false</c> to "Add" string.
 	/// </summary>
-	public class AddUpdateModeConverter : IValueConverter
+	public class AddUpdateStringConverter : IValueConverter
 	{
 		#region Implementation of IValueConverter
 
@@ -30,7 +29,7 @@ namespace Fab.Client.Common
 		{
 			if (value is bool)
 			{
-				return (bool) value ? "Save" : "Add";
+				return (bool) value ? "Update" : "Add";
 			}
 
 			return value;
