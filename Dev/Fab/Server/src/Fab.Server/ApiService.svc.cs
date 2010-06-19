@@ -663,6 +663,7 @@ namespace Fab.Server
 					price,
 					quantity,
 					comment);
+				mc.SaveChanges();
 			}
 		}
 
@@ -720,6 +721,7 @@ namespace Fab.Server
 				
 				ModelHelper.DeleteTransaction(mc, transactionId, dateTime);
 				ModelHelper.CreateTransfer(mc, dateTime, account1Id, account2Id, amount, comment);
+				mc.SaveChanges();
 			}
 		}
 
@@ -775,17 +777,13 @@ namespace Fab.Server
 				               where p.Account.Id == accountId
 				                     && !p.Journal.IsDeleted
 									 && p.Journal.JournalType != (byte)JournalType.Canceled
-				               orderby p.Date
-				               orderby p.Journal.Id
+				               orderby p.Date, p.Journal.Id
 				               select new
 				                      	{
 				                      		Posting = p,
 				                      		p.Journal,
-// ReSharper disable PossibleNullReferenceException
-// Note: do NOT use direct cast here because of LinqToEntity -> SQL conversion "not supported" exception
 				                      		p.Journal.Category,
 				                      		p.Journal.JournalType
-// ReSharper restore PossibleNullReferenceException
 				                      	};
 
 				var res = postings.ToList();

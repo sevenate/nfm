@@ -179,7 +179,7 @@ namespace Fab.Server.Core
 			var deletedJournal = new DeletedJournal
 			                     	{
 			                     		JournalType = (byte)JournalType.Canceled,
-			                     		Comment = transaction.Comment,
+										Comment = "Correction pair for deleted journal # " + transaction.Id,
 										DeletedJournalId = transaction.Id
 			                     	};
 

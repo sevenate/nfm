@@ -1,17 +1,8 @@
 // <copyright file="ApiServiceTests.cs" company="HD">
 //  Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-01-30</date>
-// </author>
-// <editor name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-01-30</date>
-// </editor>
-// <summary>
-//   Unit tests for ApiService.
-// </summary>
+// <author name="Andrew Levshoff" email="alevshoff@hd.com" />
+// <summary>Unit tests for ApiService.</summary>
 
 using System;
 using System.Collections.Generic;
@@ -37,7 +28,7 @@ namespace Fab.Server.Tests
 
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 
-			Assert.True(userId != Guid.Empty);
+			Assert.NotEqual(Guid.Empty, userId);
 		}
 
 		/// <summary>
@@ -106,9 +97,9 @@ namespace Fab.Server.Tests
 
 			Guid actualUserId = service.GetUserId(login);
 
-			Assert.True(userId != Guid.Empty);
-			Assert.True(actualUserId != Guid.Empty);
-			Assert.True(userId == actualUserId);
+			Assert.NotEqual(Guid.Empty, userId);
+			Assert.NotEqual(Guid.Empty, actualUserId);
+			Assert.Equal(userId, actualUserId);
 		}
 
 		/// <summary>
@@ -135,15 +126,15 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void CreateAccount()
 		{
-			string accountName = "Test Account";
+			const string expectedAccountName = "Test Account";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 
-			service.CreateAccount(userId, accountName, 1);
+			service.CreateAccount(userId, expectedAccountName, 1);
 
-			IList<Account> accounts = service.GetAllAccounts(userId);
-			Assert.Equal(accounts.Count, 1);
-			Assert.Equal(accounts[0].Name, accountName);
+			var accounts = service.GetAllAccounts(userId);
+			Assert.Equal(1, accounts.Count);
+			Assert.Equal(expectedAccountName, accounts[0].Name);
 		}
 
 		/// <summary>
@@ -152,21 +143,21 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void UpdateAccount()
 		{
-			string accountName = "Test Account";
-			string newAccountName = "Renamed Account";
-			int assetType = 1;
-			int newAssetType = 2;
+			const string accountName = "Test Account";
+			const string expectedNewAccountName = "Renamed Account";
+			const int assetType = 1;
+			const int expectedNewAssetType = 2;
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, accountName, assetType);
-			IList<Account> accounts = service.GetAllAccounts(userId);
+			var accounts = service.GetAllAccounts(userId);
 
-			service.UpdateAccount(userId, accounts[0].Id, newAccountName, newAssetType);
+			service.UpdateAccount(userId, accounts[0].Id, expectedNewAccountName, expectedNewAssetType);
 
 			accounts = service.GetAllAccounts(userId);
-			Assert.Equal(accounts.Count, 1);
-			Assert.Equal(accounts[0].Name, newAccountName);
-			Assert.Equal(accounts[0].AssetType.Id, newAssetType);
+			Assert.Equal(1, accounts.Count);
+			Assert.Equal(expectedNewAccountName, accounts[0].Name);
+			Assert.Equal(expectedNewAssetType, accounts[0].AssetType.Id);
 		}
 
 		/// <summary>
@@ -175,16 +166,16 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void DeleteAccount()
 		{
-			string accountName = "Test Account";
+			const string accountName = "Test Account";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, accountName, 1);
-			IList<Account> accounts = service.GetAllAccounts(userId);
+			var accounts = service.GetAllAccounts(userId);
 
 			service.DeleteAccount(userId, accounts[0].Id);
 
 			accounts = service.GetAllAccounts(userId);
-			Assert.Equal(accounts.Count, 0);
+			Assert.Equal(0, accounts.Count);
 		}
 
 		/// <summary>
@@ -193,15 +184,15 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void GetAllAccounts()
 		{
-			string accountName = "Test Account";
+			const string expectedAccountName = "Test Account";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
-			service.CreateAccount(userId, accountName, 1);
+			service.CreateAccount(userId, expectedAccountName, 1);
 
-			IList<Account> accounts = service.GetAllAccounts(userId);
+			var accounts = service.GetAllAccounts(userId);
 
-			Assert.Equal(accounts.Count, 1);
-			Assert.Equal(accounts[0].Name, accountName);
+			Assert.Equal(1, accounts.Count);
+			Assert.Equal(expectedAccountName, accounts[0].Name);
 		}
 
 		#endregion
@@ -214,15 +205,15 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void CreateCategory()
 		{
-			string categoryName = "Test Category";
+			const string expectedCategoryName = "Test Category";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 
-			service.CreateCategory(userId, categoryName);
+			service.CreateCategory(userId, expectedCategoryName);
 
-			IList<Category> categories = service.GetAllCategories(userId);
-			Assert.Equal(categories.Count, 1);
-			Assert.Equal(categories[0].Name, categoryName);
+			var categories = service.GetAllCategories(userId);
+			Assert.Equal(1, categories.Count);
+			Assert.Equal(expectedCategoryName, categories[0].Name);
 		}
 
 		/// <summary>
@@ -231,18 +222,18 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void UpdateCategory()
 		{
-			string categoryName = "Test Category";
-			string newCategoryName = "Renamed Category";
+			const string categoryName = "Test Category";
+			const string expectedNewCategoryName = "Renamed Category";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, categoryName);
-			IList<Category> categories = service.GetAllCategories(userId);
+			var categories = service.GetAllCategories(userId);
 
-			service.UpdateCategory(userId, categories[0].Id, newCategoryName);
+			service.UpdateCategory(userId, categories[0].Id, expectedNewCategoryName);
 
 			categories = service.GetAllCategories(userId);
-			Assert.Equal(categories.Count, 1);
-			Assert.Equal(categories[0].Name, newCategoryName);
+			Assert.Equal(1, categories.Count);
+			Assert.Equal(expectedNewCategoryName, categories[0].Name);
 		}
 
 		/// <summary>
@@ -251,16 +242,16 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void DeleteCategory()
 		{
-			string categoryName = "Test Category";
+			const string categoryName = "Test Category";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, categoryName);
-			IList<Category> categories = service.GetAllCategories(userId);
+			var categories = service.GetAllCategories(userId);
 
 			service.DeleteCategory(userId, categories[0].Id);
 
 			categories = service.GetAllCategories(userId);
-			Assert.Equal(categories.Count, 0);
+			Assert.Equal(0, categories.Count);
 		}
 
 		/// <summary>
@@ -269,15 +260,15 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void GetAllCategories()
 		{
-			string categoryName = "Test Category";
+			const string expectedCategoryName = "Test Category";
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
-			service.CreateCategory(userId, categoryName);
+			service.CreateCategory(userId, expectedCategoryName);
 
-			IList<Category> categories = service.GetAllCategories(userId);
+			var categories = service.GetAllCategories(userId);
 
-			Assert.Equal(categories.Count, 1);
-			Assert.Equal(categories[0].Name, categoryName);
+			Assert.Equal(1, categories.Count);
+			Assert.Equal(expectedCategoryName, categories[0].Name);
 		}
 
 		#endregion
@@ -292,9 +283,9 @@ namespace Fab.Server.Tests
 		{
 			var service = new ApiService();
 
-			IList<AssetType> assets = service.GetAllAssetTypes();
+			var assets = service.GetAllAssetTypes();
 
-			Assert.True(assets.Count == 4);
+			Assert.Equal(4, assets.Count);
 		}
 
 		/// <summary>
@@ -306,9 +297,9 @@ namespace Fab.Server.Tests
 			var service = new ApiService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account", 1);
-			IList<Account> accounts = service.GetAllAccounts(userId);
+			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category");
-			IList<Category> categories = service.GetAllCategories(userId);
+			var categories = service.GetAllCategories(userId);
 
 			service.Deposit(userId, accounts[0].Id, DateTime.Now, 25, 2, "Some income comment", categories[0].Id);
 		}
@@ -340,8 +331,8 @@ namespace Fab.Server.Tests
 			Guid userId2 = service.Register("testUser2" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId1, "Test Account 1", 1);
 			service.CreateAccount(userId2, "Test Account 2", 1);
-			IList<Account> accounts1 = service.GetAllAccounts(userId1);
-			IList<Account> accounts2 = service.GetAllAccounts(userId2);
+			var accounts1 = service.GetAllAccounts(userId1);
+			var accounts2 = service.GetAllAccounts(userId2);
 
 			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, DateTime.Now, 78, "Some transfer comment");
 		}
@@ -357,31 +348,31 @@ namespace Fab.Server.Tests
 			Guid userId2 = service.Register("testUser2" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId1, "Test Account 1", 1);
 			service.CreateAccount(userId2, "Test Account 2", 1);
-			IList<Account> accounts1 = service.GetAllAccounts(userId1);
-			IList<Account> accounts2 = service.GetAllAccounts(userId2);
+			var accounts1 = service.GetAllAccounts(userId1);
+			var accounts2 = service.GetAllAccounts(userId2);
 			service.CreateCategory(userId1, "Test Category 1");
-			IList<Category> categories1 = service.GetAllCategories(userId1);
+			var categories1 = service.GetAllCategories(userId1);
 
 			service.Deposit(userId1, accounts1[0].Id, DateTime.Now, 25, 10, "Some income comment", null);
 
 			var balance = service.GetAccountBalance(userId1, accounts1[0].Id);
-			Assert.Equal(balance, 250);
+			Assert.Equal(250, balance);
 
 			service.Withdrawal(userId1, accounts1[0].Id, DateTime.Now, 10, 5, "Some expense comment", categories1[0].Id);
 
 			balance = service.GetAccountBalance(userId1, accounts1[0].Id);
-			Assert.Equal(balance, 200);
+			Assert.Equal(200, balance);
 
 			balance = service.GetAccountBalance(userId2, accounts2[0].Id);
-			Assert.Equal(balance, 0);
+			Assert.Equal(0, balance);
 
 			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, DateTime.Now, 75, "Some transfer comment");
 
 			balance = service.GetAccountBalance(userId1, accounts1[0].Id);
-			Assert.Equal(balance, 125);
+			Assert.Equal(125, balance);
 
 			balance = service.GetAccountBalance(userId2, accounts2[0].Id);
-			Assert.Equal(balance, 75);
+			Assert.Equal(75, balance);
 		}
 
 		/// <summary>
@@ -393,9 +384,9 @@ namespace Fab.Server.Tests
 			var service = new ApiService();
 			Guid userId = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account 1", 1);
-			IList<Account> accounts = service.GetAllAccounts(userId);
+			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category 1");
-			IList<Category> categories = service.GetAllCategories(userId);
+			var categories = service.GetAllCategories(userId);
 
 			service.Deposit(userId, accounts[0].Id, DateTime.Now, 25, 10, "Some income comment", null);
 			service.Withdrawal(userId, accounts[0].Id, DateTime.Now, 10, 5, "Some expense comment", categories[0].Id);
@@ -404,6 +395,38 @@ namespace Fab.Server.Tests
 
 			Assert.True(transactionRecords != null);
 			Assert.True(transactionRecords.Count  == 2);
+		}
+
+
+		/// <summary>
+		/// Test <see cref="ApiService.UpdateTransaction"/> method.
+		/// </summary>
+		[Fact]
+		public void UpdateTransaction()
+		{
+			var service = new ApiService();
+			Guid userId = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId, "Test Account 1", 1);
+			var accounts = service.GetAllAccounts(userId);
+			service.CreateCategory(userId, "Test Category 1");
+			var categories = service.GetAllCategories(userId);
+
+			service.Deposit(userId, accounts[0].Id, DateTime.Now, 25, 10, "Some income comment", null);
+			service.Withdrawal(userId, accounts[0].Id, DateTime.Now, 10, 5, "Some expense comment", categories[0].Id);
+			
+			var balance = service.GetAccountBalance(userId, accounts[0].Id);
+			Assert.Equal(200, balance);
+
+			var transactionRecords = service.GetAllTransactions(userId, accounts[0].Id);
+			var transactionId = transactionRecords[0].TransactionId;
+
+			Assert.True(transactionRecords != null);
+			Assert.True(transactionRecords.Count == 2);
+
+			service.UpdateTransaction(transactionId, userId, accounts[0].Id, DateTime.Now, 32, 20, "Updated income", categories[0].Id, false);
+
+			balance = service.GetAccountBalance(userId, accounts[0].Id);
+			Assert.Equal(-690, balance);
 		}
 
 		#endregion
