@@ -11,6 +11,8 @@
 // </editor>
 // <summary>General transaction detail view model interface.</summary>
 
+using Fab.Client.ApiServiceReference;
+
 namespace Fab.Client.Main.ViewModels
 {
 	/// <summary>
@@ -18,6 +20,10 @@ namespace Fab.Client.Main.ViewModels
 	/// </summary>
 	public interface ITransactionDetailsViewModel
 	{
-		
+		/// <summary>
+		/// Open specific deposit or withdrawal transaction to edit.
+		/// </summary>
+		/// <param name="transaction">Transaction to edit.</param>
+		void Edit(Transaction transaction);
 	}
 }
