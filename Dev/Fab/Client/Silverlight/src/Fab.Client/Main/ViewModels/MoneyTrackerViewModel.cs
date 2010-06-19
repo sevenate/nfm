@@ -12,11 +12,11 @@
 // <summary>Main view model.</summary>
 
 using System;
+using Caliburn.Core.IoC;
 using Caliburn.PresentationFramework.ApplicationModel;
 using Caliburn.PresentationFramework.Screens;
 using Caliburn.ShellFramework.History;
 using Caliburn.ShellFramework.Questions;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Fab.Client.Main.ViewModels
 {
@@ -24,7 +24,8 @@ namespace Fab.Client.Main.ViewModels
 	/// Main view model.
 	/// </summary>
 	[HistoryKey("Main", typeof(MoneyTrackerViewModel))]
-	public class MoneyTrackerViewModel : Screen, ISupportCustomShutdown
+	[Singleton(typeof(IMoneyTrackerViewModel))]
+	public class MoneyTrackerViewModel : Screen, ISupportCustomShutdown, IMoneyTrackerViewModel
 	{
 		#region Implementation of ISupportCustomShutdown
 
@@ -118,12 +119,16 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoneyTrackerViewModel"/> class.
 		/// </summary>
-		public MoneyTrackerViewModel()
+		public MoneyTrackerViewModel(
+			IAccountsViewModel accountsVM,
+			ICategoriesViewModel categoriesVM,
+			ITransactionsViewModel transactionsVM,
+			ITransactionDetailsViewModel transactionDetailsVM)
 		{
-			Accounts = ServiceLocator.Current.GetInstance<IAccountsViewModel>();
-			Categories = ServiceLocator.Current.GetInstance<ICategoriesViewModel>();
-			Transactions = ServiceLocator.Current.GetInstance<ITransactionsViewModel>();
-			AddNew = ServiceLocator.Current.GetInstance<ITransactionDetailsViewModel>();
+			Accounts = accountsVM;
+			Categories = categoriesVM;
+			Transactions = transactionsVM;
+			AddNew = transactionDetailsVM;
 		}
     }
 }

@@ -3,32 +3,214 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
 			 xmlns:local="clr-namespace:Fab.Client.Common"
+			 xmlns:Controls="clr-namespace:Fab.Client.Controls"
+			 xmlns:cal="http://www.caliburnproject.org"
 			 mc:Ignorable="d"
 			 d:DesignHeight="350"
 			 d:DesignWidth="300">
 	<UserControl.Resources>
-		<CollectionViewSource x:Name="Accounts" />
+<!--		<Style x:Key="ComboToggleButton"-->
+<!--			   TargetType="ToggleButton">-->
+<!--			<Setter Property="Foreground"-->
+<!--					Value="#FF333333" />-->
+<!--			<Setter Property="Background"-->
+<!--					Value="#FF1F3B53" />-->
+<!--			<Setter Property="Padding"-->
+<!--					Value="0" />-->
+<!--			<Setter Property="Template">-->
+<!--				<Setter.Value>-->
+<!--					<ControlTemplate TargetType="ToggleButton">-->
+<!--						<Grid>-->
+<!--							<Rectangle Fill="Transparent" />-->
+<!--							<ContentPresenter x:Name="contentPresenter"-->
+<!--											  Content="{TemplateBinding Content}"-->
+<!--											  ContentTemplate="{TemplateBinding ContentTemplate}"-->
+<!--											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"-->
+<!--											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"-->
+<!--											  Margin="{TemplateBinding Padding}" />-->
+<!--						</Grid>-->
+<!--					</ControlTemplate>-->
+<!--				</Setter.Value>-->
+<!--			</Setter>-->
+<!--		</Style>-->
+<!--		<Style x:Key="EditableComboStyle"-->
+<!--			   TargetType="sdk:AutoCompleteBox">-->
+<!--			<Setter Property="Background"-->
+<!--					Value="#FF1F3B53" />-->
+<!--			<Setter Property="IsTabStop"-->
+<!--					Value="False" />-->
+<!--			<Setter Property="HorizontalContentAlignment"-->
+<!--					Value="Left" />-->
+<!--			<Setter Property="BorderBrush">-->
+<!--				<Setter.Value>-->
+<!--					<LinearGradientBrush EndPoint="0.5,1"-->
+<!--										 StartPoint="0.5,0">-->
+<!--						<GradientStop Color="#FFA3AEB9"-->
+<!--									  Offset="0" />-->
+<!--						<GradientStop Color="#FF8399A9"-->
+<!--									  Offset="0.375" />-->
+<!--						<GradientStop Color="#FF718597"-->
+<!--									  Offset="0.375" />-->
+<!--						<GradientStop Color="#FF617584"-->
+<!--									  Offset="1" />-->
+<!--					</LinearGradientBrush>-->
+<!--				</Setter.Value>-->
+<!--			</Setter>-->
+<!--			<Setter Property="Template">-->
+<!--				<Setter.Value>-->
+<!--					<ControlTemplate TargetType="sdk:AutoCompleteBox">-->
+<!--						<Grid Margin="{TemplateBinding Padding}">-->
+<!--							<VisualStateManager.VisualStateGroups>-->
+<!--								<VisualStateGroup x:Name="PopupStates">-->
+<!--									<VisualStateGroup.Transitions>-->
+<!--										<VisualTransition GeneratedDuration="0:0:0.1"-->
+<!--														  To="PopupOpened" />-->
+<!--										<VisualTransition GeneratedDuration="0:0:0.2"-->
+<!--														  To="PopupClosed" />-->
+<!--									</VisualStateGroup.Transitions>-->
+<!--									<VisualState x:Name="PopupOpened">-->
+<!--										<Storyboard>-->
+<!--											<DoubleAnimation Storyboard.TargetName="PopupBorder"-->
+<!--															 Storyboard.TargetProperty="Opacity"-->
+<!--															 To="1.0" />-->
+<!--										</Storyboard>-->
+<!--									</VisualState>-->
+<!--									<VisualState x:Name="PopupClosed">-->
+<!--										<Storyboard>-->
+<!--											<DoubleAnimation Storyboard.TargetName="PopupBorder"-->
+<!--															 Storyboard.TargetProperty="Opacity"-->
+<!--															 To="0.0" />-->
+<!--										</Storyboard>-->
+<!--									</VisualState>-->
+<!--								</VisualStateGroup>-->
+<!--							</VisualStateManager.VisualStateGroups>-->
+<!--							<TextBox IsTabStop="True"-->
+<!--									 x:Name="Text"-->
+<!--									 Style="{TemplateBinding TextBoxStyle}"-->
+<!--									 Margin="0" />-->
+<!--							<ToggleButton x:Name="DropDownToggle"-->
+<!--										  HorizontalAlignment="Right"-->
+<!--										  VerticalAlignment="Center"-->
+<!--										  Style="{StaticResource ComboToggleButton}"-->
+<!--										  Margin="0"-->
+<!--										  HorizontalContentAlignment="Center"-->
+<!--										  Background="{TemplateBinding Background}"-->
+<!--										  BorderThickness="0"-->
+<!--										  Height="16"-->
+<!--										  Width="16">-->
+<!--								<ToggleButton.Content>-->
+<!--									<Path x:Name="BtnArrow"-->
+<!--										  Height="4"-->
+<!--										  Width="8"-->
+<!--										  Stretch="Uniform"-->
+<!--										  Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z "-->
+<!--										  Margin="0,0,6,0"-->
+<!--										  HorizontalAlignment="Right">-->
+<!--										<Path.Fill>-->
+<!--											<SolidColorBrush x:Name="BtnArrowColor"-->
+<!--															 Color="#FF333333" />-->
+<!--										</Path.Fill>-->
+<!--									</Path>-->
+<!--								</ToggleButton.Content>-->
+<!--							</ToggleButton>-->
+<!--							<Popup x:Name="Popup">-->
+<!--								<Border x:Name="PopupBorder"-->
+<!--										HorizontalAlignment="Stretch"-->
+<!--										Opacity="0.0"-->
+<!--										BorderThickness="0"-->
+<!--										CornerRadius="3">-->
+<!--									<Border.RenderTransform>-->
+<!--										<TranslateTransform X="2"-->
+<!--															Y="2" />-->
+<!--									</Border.RenderTransform>-->
+<!--									<Border.Background>-->
+<!--										<SolidColorBrush Color="#11000000" />-->
+<!--									</Border.Background>-->
+<!--									<Border HorizontalAlignment="Stretch"-->
+<!--											BorderThickness="0"-->
+<!--											CornerRadius="3">-->
+<!--										<Border.Background>-->
+<!--											<SolidColorBrush Color="#11000000" />-->
+<!--										</Border.Background>-->
+<!--										<Border.RenderTransform>-->
+<!--											<TransformGroup>-->
+<!--												<ScaleTransform />-->
+<!--												<SkewTransform />-->
+<!--												<RotateTransform />-->
+<!--												<TranslateTransform X="-1"-->
+<!--																	Y="-1" />-->
+<!--											</TransformGroup>-->
+<!--										</Border.RenderTransform>-->
+<!--										<Border HorizontalAlignment="Stretch"-->
+<!--												Opacity="1.0"-->
+<!--												Padding="2"-->
+<!--												BorderThickness="2"-->
+<!--												BorderBrush="{TemplateBinding BorderBrush}"-->
+<!--												CornerRadius="3">-->
+<!--											<Border.RenderTransform>-->
+<!--												<TransformGroup>-->
+<!--													<ScaleTransform />-->
+<!--													<SkewTransform />-->
+<!--													<RotateTransform />-->
+<!--													<TranslateTransform X="-2"-->
+<!--																		Y="-2" />-->
+<!--												</TransformGroup>-->
+<!--											</Border.RenderTransform>-->
+<!--											<Border.Background>-->
+<!--												<LinearGradientBrush EndPoint="0.5,1"-->
+<!--																	 StartPoint="0.5,0">-->
+<!--													<GradientStop Color="#FFDDDDDD"-->
+<!--																  Offset="0" />-->
+<!--													<GradientStop Color="#AADDDDDD"-->
+<!--																  Offset="1" />-->
+<!--												</LinearGradientBrush>-->
+<!--											</Border.Background>-->
+<!--											<ListBox x:Name="SelectionAdapter"-->
+<!--													 ScrollViewer.HorizontalScrollBarVisibility="Auto"-->
+<!--													 ScrollViewer.VerticalScrollBarVisibility="Auto"-->
+<!--													 ItemTemplate="{TemplateBinding ItemTemplate}" />-->
+<!--										</Border>-->
+<!--									</Border>-->
+<!--								</Border>-->
+<!--							</Popup>-->
+<!--						</Grid>-->
+<!--					</ControlTemplate>-->
+<!--				</Setter.Value>-->
+<!--			</Setter>-->
+<!--		</Style>-->
+		<local:DateTimeUtcToLocalConverter x:Key="DateTimeUtcToLocalConverter" />
+		<local:CancelClearStringConverter x:Key="CancelClearStringConverter" />
+		<local:AddUpdateStringConverter x:Key="AddUpdateStringConverter" />
+		<local:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+		<cal:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 	</UserControl.Resources>
 	<Grid x:Name="LayoutRoot"
 		  Background="White">
-		<StackPanel>
-			<TextBlock Text="Add new transaction" />
+		<StackPanel MinWidth="155">
+			<TextBlock Text="Add or Edit Transaction" />
 			<StackPanel Orientation="Horizontal">
 				<RadioButton x:Name="IsDeposite"
-							 Content="Deposit" />
-				<RadioButton Content="Withdrawal"
-							 IsChecked="True" />
+							 Content="Income" />
+				<RadioButton Content="Expense"
+							 IsChecked="{Binding Path=IsDeposite, Mode=TwoWay, Converter={StaticResource InvertBooleanConverter}}" />
 			</StackPanel>
 			<TextBlock TextWrapping="Wrap"
 					   Text="Account" />
-			<ComboBox ItemsSource="{Binding Source={StaticResource Accounts}}">
+			<ComboBox x:Name="Accounts">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding Name}" />
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
+			<TextBlock TextWrapping="Wrap"
+					   Text="Date" />
+			<sdk:DatePicker x:Name="OperationDate"
+							IsTodayHighlighted="True"
+							SelectedDateFormat="Long"
+							SelectedDate="{Binding OperationDate, Mode=TwoWay, Converter={StaticResource DateTimeUtcToLocalConverter}}"/>
 			<TextBlock TextWrapping="Wrap"
 					   Text="Price" />
 			<TextBox x:Name="Price"
@@ -55,13 +237,33 @@
 						NotifyOnValidationError=True}" />
 			<TextBlock TextWrapping="Wrap"
 					   Text="Category" />
-			<ComboBox x:Name="Categories">
-				<ComboBox.ItemTemplate>
+<!--			<sdk:AutoCompleteBox ItemsSource="{Binding Categories}"-->
+<!--								 ValueMemberBinding="{Binding Name}"-->
+<!--								 MinimumPrefixLength="0"-->
+<!--								 IsTextCompletionEnabled="True"-->
+<!--								 FilterMode="Custom"-->
+<!--								 ItemFilter="{Binding CategoryFilter}"-->
+<!--								 SelectedItem="{Binding CurrentCategory, Mode=TwoWay}"-->
+<!--								 Style="{StaticResource EditableComboStyle}">-->
+<!--				<sdk:AutoCompleteBox.ItemTemplate>-->
+<!--					<DataTemplate>-->
+<!--						<TextBlock Text="{Binding Name}" />-->
+<!--					</DataTemplate>-->
+<!--				</sdk:AutoCompleteBox.ItemTemplate>-->
+<!--			</sdk:AutoCompleteBox>-->
+			<Controls:AutoCompleteComboBox ItemsSource="{Binding Categories}"
+										   ValueMemberBinding="{Binding Name}"
+										   MinimumPrefixLength="0"
+										   IsTextCompletionEnabled="True"
+										   FilterMode="Custom"
+										   ItemFilter="{Binding CategoryFilter}"
+										   SelectedItemBinding="{Binding CurrentCategory, Mode=TwoWay}">
+				<Controls:AutoCompleteComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding Name}" />
 					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBox>
+				</Controls:AutoCompleteComboBox.ItemTemplate>
+			</Controls:AutoCompleteComboBox>
 			<TextBlock TextWrapping="Wrap"
 					   Text="Comment" />
 			<TextBox x:Name="Comment"
@@ -69,10 +271,18 @@
 					 TextWrapping="Wrap"
 					 Height="100"
 					 Text="{Binding Path=Comment, Mode=TwoWay}" />
-			<Button x:Name="Save"
-					Content="Save"
-					MinWidth="75"
-					HorizontalAlignment="Right" />
+			<StackPanel Orientation="Horizontal"
+						HorizontalAlignment="Right">
+				<Button x:Name="Save"
+						Content="{Binding Path=IsEditMode, Converter={StaticResource AddUpdateStringConverter}}"
+						MinWidth="75"
+						HorizontalAlignment="Right" />
+				<Button x:Name="Clear"
+						Content="{Binding Path=IsEditMode, Converter={StaticResource CancelClearStringConverter}}"
+						MinWidth="75"
+						Margin="5,0,0,0"
+						HorizontalAlignment="Right" />
+			</StackPanel>
 		</StackPanel>
 	</Grid>
 </UserControl>

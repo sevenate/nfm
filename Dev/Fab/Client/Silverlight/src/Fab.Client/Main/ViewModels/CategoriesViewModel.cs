@@ -20,7 +20,6 @@ using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
 using Fab.Client.ApiServiceReference;
 using Fab.Client.Models;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Fab.Client.Main.ViewModels
 {
@@ -44,15 +43,16 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CategoriesViewModel"/> class.
 		/// </summary>
-		public CategoriesViewModel()
-			: base(ServiceLocator.Current.GetInstance<IValidator>())
+		/// <param name="validator">Validator for view model data.</param>
+		public CategoriesViewModel(IValidator validator)
+			: base(validator)
 		{
 			Categories = new BindableCollection<Category>();
 		}
 
 		#endregion
 
-		#region Imlementation of ICategoriesViewModel
+		#region Implementation of ICategoriesViewModel
 
 		/// <summary>
 		/// Gets categories for specific user.
@@ -71,14 +71,20 @@ namespace Fab.Client.Main.ViewModels
 			yield return request;
 
 			Categories.Clear();
+			Categories.AddRange(request.Categories);
 
-			foreach (var record in request.Categories)
+			if (Reloaded != null)
 			{
-				Categories.Add(record);
+				Reloaded(this, EventArgs.Empty);
 			}
 
 			yield return Show.NotBusy();
 		}
+
+		/// <summary>
+		/// Raised right after categories were reloaded from server.
+		/// </summary>
+		public event EventHandler<EventArgs> Reloaded;
 
 		#endregion
 	}

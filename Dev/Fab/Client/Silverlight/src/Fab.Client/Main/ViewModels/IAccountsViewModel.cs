@@ -11,10 +11,10 @@
 // </editor>
 // <summary>General accounts view model interface.</summary>
 
+using System;
 using System.Collections.Generic;
-using Caliburn.PresentationFramework;
+using System.ComponentModel;
 using Caliburn.PresentationFramework.RoutedMessaging;
-using Fab.Client.ApiServiceReference;
 
 namespace Fab.Client.Main.ViewModels
 {
@@ -26,12 +26,17 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Gets accounts for specific user.
 		/// </summary>
-		IObservableCollection<Account> Accounts { get; }
+		ICollectionView Accounts { get; }
 
 		/// <summary>
 		/// Download all accounts for specific user.
 		/// </summary>
 		/// <returns>Operation result.</returns>
 		IEnumerable<IResult> LoadAllAccounts();
+
+		/// <summary>
+		/// Raised right after accounts were reloaded from server.
+		/// </summary>
+		event EventHandler<EventArgs> Reloaded;
 	}
 }

@@ -11,6 +11,7 @@
 // </editor>
 // <summary>General categories view model interface.</summary>
 
+using System;
 using System.Collections.Generic;
 using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.RoutedMessaging;
@@ -33,5 +34,10 @@ namespace Fab.Client.Main.ViewModels
 		/// </summary>
 		/// <returns>Operation result.</returns>
 		IEnumerable<IResult> LoadAllCategories();
+
+		/// <summary>
+		/// Raised right after categories were reloaded from server.
+		/// </summary>
+		event EventHandler<EventArgs> Reloaded;
 	}
 }

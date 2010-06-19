@@ -123,11 +123,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\AddUpdateStringConverter.cs" />
+    <Compile Include="Common\CancelClearStringConverter.cs" />
+    <Compile Include="Common\InvertBooleanConverter.cs" />
+    <Compile Include="Common\ZeroToEmptyStringConverter.cs" />
+    <Compile Include="Common\CultureSettings.cs" />
+    <Compile Include="Common\DateTimeUtcToLocalConverter.cs" />
     <Compile Include="Controls\AutoCompleteComboBox.cs" />
     <Compile Include="Main\ViewModels\AccountsViewModel.cs" />
     <Compile Include="Main\ViewModels\CategoriesViewModel.cs" />
     <Compile Include="Main\ViewModels\IAccountsViewModel.cs" />
     <Compile Include="Main\ViewModels\ICategoriesViewModel.cs" />
+    <Compile Include="Main\ViewModels\IMoneyTrackerViewModel.cs" />
     <Compile Include="Main\ViewModels\ITransactionDetailsViewModel.cs" />
     <Compile Include="Main\ViewModels\ITransactionsViewModel.cs" />
     <Compile Include="Main\ViewModels\TransactionDetailsViewModel.cs" />
@@ -154,6 +161,9 @@
     <Compile Include="Models\BusyScreen.cs" />
     <Compile Include="Models\AddTransactionResult.cs" />
     <Compile Include="Models\CategoriesResult.cs" />
+    <Compile Include="Models\EditTransactionResult.cs" />
+    <Compile Include="Models\DeleteTransactionResult.cs" />
+    <Compile Include="Models\LoadTransactionResult.cs" />
     <Compile Include="Models\IShell.cs" />
     <Compile Include="Models\IPart.cs" />
     <Compile Include="Main\Part.cs" />
@@ -267,7 +277,7 @@
     <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.Category.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.JournalType.datasource">
+    <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.Transaction.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.TransactionRecord.datasource">

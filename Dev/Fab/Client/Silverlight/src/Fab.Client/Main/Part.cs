@@ -18,6 +18,7 @@ using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.ShellFramework.Results;
 using Fab.Client.Main.ViewModels;
 using Fab.Client.Models;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Fab.Client.Main
 {
@@ -36,13 +37,13 @@ namespace Fab.Client.Main
 		[Rescue("OpenFailed")]
 		public IEnumerable<IResult> Enter()
 		{
-			yield return Show.Child(new MoneyTrackerViewModel()).In<IShell>();
+			yield return Show.Child(ServiceLocator.Current.GetInstance<IMoneyTrackerViewModel>()).In<IShell>();
 		}
 
 		public bool OpenFailed(Exception exception)
 		{
 			Show.NotBusy().Execute();
-			Show.MessageBox("There was a problem opeding the module:" + exception, "Error").Execute();
+			Show.MessageBox("There was a problem opening the module:" + exception, "Error").Execute();
 
 			return true;
 		}

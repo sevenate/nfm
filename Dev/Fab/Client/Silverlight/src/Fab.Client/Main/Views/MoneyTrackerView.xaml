@@ -13,12 +13,20 @@
 			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 		<StackPanel>
-			<ContentControl x:Name="Accounts" />
-			<ContentControl x:Name="Categories" />
+			<ContentControl x:Name="Accounts"
+							VerticalContentAlignment="Stretch"
+							HorizontalContentAlignment="Stretch" />
+			<ContentControl x:Name="Categories"
+							VerticalContentAlignment="Stretch"
+							HorizontalContentAlignment="Stretch" />
 		</StackPanel>
 		<ContentControl x:Name="Transactions"
-						Grid.Column="1" />
+						Grid.Column="1"
+						VerticalContentAlignment="Stretch"
+						HorizontalContentAlignment="Stretch" />
 		<ContentControl x:Name="AddNew"
-						Grid.Column="2" />
+						Grid.Column="2"
+						VerticalContentAlignment="Stretch"
+						HorizontalContentAlignment="Stretch" />
 	</Grid>
 </UserControl>

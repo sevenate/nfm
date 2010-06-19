@@ -13,14 +13,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using Caliburn.Core.IoC;
+using Caliburn.PresentationFramework;
+using Caliburn.PresentationFramework.Actions;
 using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
 using Fab.Client.ApiServiceReference;
 using Fab.Client.Models;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Fab.Client.Main.ViewModels
 {
@@ -38,9 +40,38 @@ namespace Fab.Client.Main.ViewModels
 		private readonly Guid userId = new Guid("7F06BFA6-B675-483C-9BF3-F59B88230382");
 
 		/// <summary>
+		/// Gets or sets <see cref="IAccountsViewModel"/>.
+		/// </summary>
+		private IAccountsViewModel accountsVM;
+
+		/// <summary>
+		/// Gets or sets <see cref="ITransactionDetailsViewModel"/>.
+		/// </summary>
+		private ITransactionDetailsViewModel transactionDetailsVM;
+
+		/// <summary>
 		/// Corresponding account of transactions.
 		/// </summary>
-		private readonly int accountId = 5;
+		private Account currentAccount;
+
+		/// <summary>
+		/// Gets or sets corresponding account of transactions.
+		/// </summary>
+		public Account CurrentAccount
+		{
+			get { return currentAccount; }
+			private set
+			{
+				if (currentAccount != value)
+				{
+					currentAccount = value;
+					NotifyOfPropertyChange(() => CurrentAccount);
+					NotifyOfPropertyChange(() => CanDownloadAllTransactions);
+
+					CallAction("DownloadAllTransactions");
+				}
+			}
+		}
 
 		#endregion
 
@@ -49,18 +80,32 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TransactionsViewModel"/> class.
 		/// </summary>
-		public TransactionsViewModel()
-			: base(ServiceLocator.Current.GetInstance<IValidator>())
+		/// <param name="validator">Validator for view model data.</param>
+		/// <param name="accountsVM">Accounts view model.</param>
+		public TransactionsViewModel(IValidator validator, IAccountsViewModel accountsVM, ITransactionDetailsViewModel transactionDetailsVM)
+			: base(validator)
 		{
-			TransactionRecords = new ObservableCollection<TransactionRecord>();
+			TransactionRecords = new BindableCollection<TransactionRecord>();
+			this.accountsVM = accountsVM;
+			this.transactionDetailsVM = transactionDetailsVM;
+
+			this.accountsVM.Accounts.CurrentChanged += (o, eventArgs) =>
+			{
+				if (!this.accountsVM.Accounts.IsEmpty)
+				{
+					CurrentAccount = this.accountsVM.Accounts.CurrentItem as Account;
+				}
+			};
 		}
 
 		#endregion
 
+		#region Implementation of ITransactionsViewModel
+
 		/// <summary>
 		/// Gets transaction records.
 		/// </summary>
-		public ObservableCollection<TransactionRecord> TransactionRecords { get; private set; }
+		public IObservableCollection<TransactionRecord> TransactionRecords { get; private set; }
 
 		/// <summary>
 		/// Download all transactions for specific account of the specific user.
@@ -70,17 +115,86 @@ namespace Fab.Client.Main.ViewModels
 		{
 			yield return Show.Busy(new BusyScreen { Message = "Loading..." });
 
-			var request = new GetAllTransactionsResult(userId, accountId);
+			var request = new GetAllTransactionsResult(userId, CurrentAccount.Id);
 			yield return request;
 
 			TransactionRecords.Clear();
+			TransactionRecords.AddRange(request.TransactionRecords);
 
-			foreach (var record in request.TransactionRecords)
+			if (Reloaded != null)
 			{
-				TransactionRecords.Add(record);
+				Reloaded(this, EventArgs.Empty);
 			}
 
 			yield return Show.NotBusy();
+		}
+
+		public bool CanDownloadAllTransactions
+		{
+			get
+			{
+				return CurrentAccount != null;
+			}
+		}
+
+		/// <summary>
+		/// Raised right after categories were reloaded from server.
+		/// </summary>
+		public event EventHandler<EventArgs> Reloaded;
+
+		#endregion
+
+		public IEnumerable<IResult> DeleteTransaction(int transactionId)
+		{
+			yield return Show.Busy(new BusyScreen { Message = "Deleting..." });
+
+			// Remove transaction on server
+			var request = new DeleteTransactionResult(userId, CurrentAccount.Id, transactionId);
+			yield return request;
+
+			// Remove transaction locally
+			var transactionToDelete = TransactionRecords.Where(record => record.TransactionId == transactionId).Single();
+			var index = TransactionRecords.IndexOf(transactionToDelete);
+			TransactionRecords.Remove(transactionToDelete);
+
+			// Correct remained balance for following transactions
+			if (TransactionRecords.Count > 0 && index < TransactionRecords.Count)
+			{
+				var deletedAmount = transactionToDelete.Income > 0
+														? -transactionToDelete.Income
+														: transactionToDelete.Expense;
+
+				for (int i = index; i < TransactionRecords.Count; i++)
+				{
+					TransactionRecords[i].Balance += deletedAmount;
+				}
+			}
+
+			yield return Show.NotBusy();
+		}
+
+		public IEnumerable<IResult> EditTransaction(int transactionId)
+		{
+			yield return Show.Busy(new BusyScreen { Message = "Load transaction details..." });
+
+			// Remove transaction on server
+			var request = new LoadTransactionResult(userId, CurrentAccount.Id, transactionId);
+			yield return request;
+
+			transactionDetailsVM.Edit(request.Transaction);
+
+			yield return Show.NotBusy();
+		}
+
+		private void CallAction(string methodName)
+		{
+			var view = (DependencyObject) GetView(null);
+			var node = (InteractionNode) view.GetValue(DefaultRoutedMessageController.NodeProperty);
+			var message = new ActionMessage
+			              	{
+			              		MethodName = methodName
+			              	};
+			node.ProcessMessage(message, null);
 		}
 	}
 }

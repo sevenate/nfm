@@ -13,6 +13,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Data;
 using Caliburn.Core.IoC;
 using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.RoutedMessaging;
@@ -20,7 +22,6 @@ using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
 using Fab.Client.ApiServiceReference;
 using Fab.Client.Models;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Fab.Client.Main.ViewModels
 {
@@ -37,6 +38,10 @@ namespace Fab.Client.Main.ViewModels
 		/// </summary>
 		private readonly Guid userId = new Guid("7F06BFA6-B675-483C-9BF3-F59B88230382");
 
+		private readonly BindableCollection<Account> accounts = new BindableCollection<Account>();
+
+		private readonly CollectionViewSource accountsCollectionViewSource = new CollectionViewSource();
+
 		#endregion
 
 		#region Ctors
@@ -44,10 +49,11 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AccountsViewModel"/> class.
 		/// </summary>
-		public AccountsViewModel()
-			: base(ServiceLocator.Current.GetInstance<IValidator>())
+		/// <param name="validator">Validator for view model data.</param>
+		public AccountsViewModel(IValidator validator)
+			: base(validator)
 		{
-			Accounts = new BindableCollection<Account>();
+			accountsCollectionViewSource.Source = accounts;
 		}
 
 		#endregion
@@ -57,7 +63,13 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Gets accounts for specific user.
 		/// </summary>
-		public IObservableCollection<Account> Accounts { get; private set; }
+		public ICollectionView Accounts
+		{
+			get
+			{
+				return accountsCollectionViewSource.View;
+			}
+		}
 
 		/// <summary>
 		/// Download all accounts for specific user.
@@ -69,16 +81,23 @@ namespace Fab.Client.Main.ViewModels
 
 			var request = new AccountsResult(userId);
 			yield return request;
+			
+			accounts.Clear();
+			accounts.AddRange(request.Accounts);
+			accountsCollectionViewSource.View.MoveCurrentToFirst();
 
-			Accounts.Clear();
-
-			foreach (var record in request.Accounts)
+			if (Reloaded != null)
 			{
-				Accounts.Add(record);
+				Reloaded(this, EventArgs.Empty);
 			}
 
 			yield return Show.NotBusy();
 		}
+
+		/// <summary>
+		/// Raised right after accounts were reloaded from server.
+		/// </summary>
+		public event EventHandler<EventArgs> Reloaded;
 
 		#endregion
 	}
