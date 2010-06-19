@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="B:\Workspace\Dev\Fab\Server\deploy" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="False" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Local" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
-    <file relUrl="bin/Fab.Server.pdb" publishTime="05/27/2010 00:46:03" />
+    <file relUrl="bin/Fab.Server.pdb" publishTime="06/19/2010 13:54:56" />
+    <file relUrl="bin/Fab.Server.dll" publishTime="06/19/2010 13:54:56" />
+    <file relUrl="Web.config" publishTime="06/19/2010 13:52:04" />
     <file relUrl="AdminService.svc" publishTime="02/04/2010 23:18:54" />
-    <file relUrl="App_Data/Database_log.ldf" publishTime="05/27/2010 00:52:42" />
-    <file relUrl="Web.config" publishTime="05/27/2010 00:58:46" />
-    <file relUrl="App_Data/Database.mdf" publishTime="05/27/2010 00:52:42" />
-    <file relUrl="bin/Fab.Server.dll" publishTime="05/27/2010 00:46:03" />
     <file relUrl="ApiService.svc" publishTime="01/28/2010 01:14:57" />
   </publishProfile>
 </publishData>

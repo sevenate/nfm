@@ -15,6 +15,9 @@
 		<BaseIntermediateOutputPath>..\..\obj\$(ProjectName)\</BaseIntermediateOutputPath>
 		<IntermediateOutputPath>..\..\obj\$(ProjectName)\$(Configuration)\</IntermediateOutputPath>
 		<EntityDeployIntermediateResourcePath>..\..\obj\$(ProjectName)\$(Configuration)\edmxResourcesToEmbed\</EntityDeployIntermediateResourcePath>
+		<PackageTempRootDir>..\..\obj\$(ProjectName)\$(Configuration)\Package\</PackageTempRootDir>
+		<_PackageTempDir>..\..\obj\$(ProjectName)\$(Configuration)\Package\PackageTmp\</_PackageTempDir>
+		<TransformWebConfigIntermediateLocation>..\..\obj\$(ProjectName)\$(Configuration)\TransformWebConfig\</TransformWebConfigIntermediateLocation>
 		<UseHostCompilerIfAvailable>false</UseHostCompilerIfAvailable>
 		<ObjDirectory>obj\</ObjDirectory>
 	</PropertyGroup>

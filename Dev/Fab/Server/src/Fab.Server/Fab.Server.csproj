@@ -64,10 +64,10 @@
   <ItemGroup>
     <Content Include="AdminService.svc" />
     <Content Include="ApiService.svc" />
-    <Content Include="App_Data\Database.mdf" />
-    <Content Include="App_Data\Database_log.ldf">
+    <None Include="App_Data\Database.mdf" />
+    <None Include="App_Data\Database_log.ldf">
       <DependentUpon>Database.mdf</DependentUpon>
-    </Content>
+    </None>
     <None Include="Database\Create.sql" />
     <None Include="Database\Fill.sql" />
     <Content Include="Web.config">
