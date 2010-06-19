@@ -158,6 +158,17 @@ namespace Fab.Server.Core
 				throw new Exception("Transaction with ID = " + transactionId + " not found.");
 			}
 
+			// Todo: Consider do NOT include posting account information into result transaction
+			// to increase performance and decrease traffic
+
+			foreach (var posting in transacion.Postings)
+			{
+				if (!posting.AccountReference.IsLoaded)
+				{
+					posting.AccountReference.Load();
+				}
+			}
+
 			return transacion;
 		}
 

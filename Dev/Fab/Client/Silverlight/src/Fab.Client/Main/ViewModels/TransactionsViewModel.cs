@@ -50,6 +50,11 @@ namespace Fab.Client.Main.ViewModels
 		private ITransactionDetailsViewModel transactionDetailsVM;
 
 		/// <summary>
+		/// Gets or sets <see cref="ITransferViewModel"/>.
+		/// </summary>
+		private ITransferViewModel transferVM;
+
+		/// <summary>
 		/// Corresponding account of transactions.
 		/// </summary>
 		private Account currentAccount;
@@ -82,12 +87,13 @@ namespace Fab.Client.Main.ViewModels
 		/// </summary>
 		/// <param name="validator">Validator for view model data.</param>
 		/// <param name="accountsVM">Accounts view model.</param>
-		public TransactionsViewModel(IValidator validator, IAccountsViewModel accountsVM, ITransactionDetailsViewModel transactionDetailsVM)
+		public TransactionsViewModel(IValidator validator, IAccountsViewModel accountsVM, ITransactionDetailsViewModel transactionDetailsVM, ITransferViewModel transferVM)
 			: base(validator)
 		{
 			TransactionRecords = new BindableCollection<TransactionRecord>();
 			this.accountsVM = accountsVM;
 			this.transactionDetailsVM = transactionDetailsVM;
+			this.transferVM = transferVM;
 
 			this.accountsVM.Accounts.CurrentChanged += (o, eventArgs) =>
 			{
@@ -181,7 +187,22 @@ namespace Fab.Client.Main.ViewModels
 			var request = new LoadTransactionResult(userId, CurrentAccount.Id, transactionId);
 			yield return request;
 
-			transactionDetailsVM.Edit(request.Transaction);
+			// Todo: use JournalType enumeration here instead of byte.
+			switch (request.Transaction.JournalType)
+			{
+				case 1:
+				case 2:
+					transactionDetailsVM.Edit(request.Transaction);
+					break;
+
+				case 3:
+					transferVM.Edit(request.Transaction);
+					break;
+
+				default:
+					throw new NotSupportedException("Transaction with journal type " + request.Transaction.JournalType +
+					                                " is not editable.");
+			}
 
 			yield return Show.NotBusy();
 		}

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Windows.Data;
 using Caliburn.Core.IoC;
 using Caliburn.PresentationFramework;
@@ -28,6 +29,8 @@ namespace Fab.Client.Main.ViewModels
 	[Singleton(typeof(ITransferViewModel))]
 	public class TransferViewModel : BaseViewModel, ITransferViewModel
 	{
+		private int? transactionId;
+
 		/// <summary>
 		/// Transaction owner ID.
 		/// </summary>
@@ -166,6 +169,7 @@ namespace Fab.Client.Main.ViewModels
 
 		public void Clear()
 		{
+			transactionId = null;
 			IsEditMode = false;
 			Accounts1.MoveCurrentToFirst();
 			Accounts2.MoveCurrentToFirst();
@@ -178,21 +182,71 @@ namespace Fab.Client.Main.ViewModels
 		{
 			yield return Show.Busy(new BusyScreen { Message = "Saving..." });
 
-			var request = new AddTransferResult(
-					userId,
-					((Account)Accounts1.CurrentItem).Id,
-					userId,
-					((Account)Accounts2.CurrentItem).Id,
-					OperationDate + DateTime.UtcNow.TimeOfDay,
-					decimal.Parse(Amount.Trim()),
-					Comment != null ? Comment.Trim() : null
-					);
+			if (IsEditMode)
+			{
+				var request = new UpdateTransferResult(
+									transactionId.Value,
+									userId,
+									((Account)Accounts1.CurrentItem).Id,
+									userId,
+									((Account)Accounts2.CurrentItem).Id,
+									OperationDate + DateTime.UtcNow.TimeOfDay,
+									decimal.Parse(Amount.Trim()),
+									Comment != null ? Comment.Trim() : null
+								);
 
-			Clear();
+				Clear();
 
-			yield return request;
+				yield return request;
+			}
+			else
+			{
+				var request = new AddTransferResult(
+									userId,
+									((Account)Accounts1.CurrentItem).Id,
+									userId,
+									((Account)Accounts2.CurrentItem).Id,
+									OperationDate + DateTime.UtcNow.TimeOfDay,
+									decimal.Parse(Amount.Trim()),
+									Comment != null ? Comment.Trim() : null
+								);
+
+				yield return request;
+			}
 
 			yield return Show.NotBusy();
+		}
+
+		/// <summary>
+		/// Open specific transfer transaction to edit.
+		/// </summary>
+		/// <param name="transaction">Transaction to edit.</param>
+		public void Edit(Transaction transaction)
+		{
+			transactionId = transaction.Id;
+
+			// Todo: refactor this method!
+			var accountsSource1 = accounts1CollectionViewSource.Source as BindableCollection<Account>;
+
+			if (accountsSource1 != null)
+			{
+				var selectedAccount1 = accountsSource1.Where(a => a.Id == transaction.Postings[1].Account.Id).Single();
+				Accounts1.MoveCurrentTo(selectedAccount1);
+			}
+
+			var accountsSource2 = accounts2CollectionViewSource.Source as BindableCollection<Account>;
+
+			if (accountsSource2 != null)
+			{
+				var selectedAccount2 = accountsSource2.Where(a => a.Id == transaction.Postings[0].Account.Id).Single();
+				Accounts2.MoveCurrentTo(selectedAccount2);
+			}
+
+			OperationDate = transaction.Postings[0].Date;
+			Amount = transaction.Postings[0].Amount.ToString();
+			Comment = transaction.Comment;
+
+			IsEditMode = true;
 		}
 	}
 }

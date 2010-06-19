@@ -167,6 +167,7 @@
     <Compile Include="Models\AddTransactionResult.cs" />
     <Compile Include="Models\CategoriesResult.cs" />
     <Compile Include="Models\AddTransferResult.cs" />
+    <Compile Include="Models\UpdateTransferResult.cs" />
     <Compile Include="Models\EditTransactionResult.cs" />
     <Compile Include="Models\DeleteTransactionResult.cs" />
     <Compile Include="Models\LoadTransactionResult.cs" />
