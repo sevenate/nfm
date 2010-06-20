@@ -176,7 +176,12 @@
     <Compile Include="Main\Part.cs" />
     <Compile Include="Models\GetAllTransactionsResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\ApiServiceReference\Reference.cs">
+    <Compile Include="Service References\MoneyServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UserServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -258,47 +263,59 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.Account.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.AssetType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.Category.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.Transaction.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.TransactionRecord.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MoneyServiceReference\MoneyService.wsdl" />
+    <None Include="Service References\MoneyServiceReference\MoneyService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MoneyServiceReference\MoneyService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MoneyServiceReference\MoneyService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MoneyServiceReference\MoneyService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MoneyServiceReference\MoneyService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserServiceReference\UserService.wsdl" />
+    <None Include="Service References\UserServiceReference\UserService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserServiceReference\UserService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\OutOfBrowserSettings.xml" />
-    <None Include="Service References\ApiServiceReference\ApiService1.wsdl" />
-    <None Include="Service References\ApiServiceReference\ApiService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\ApiService51.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\ApiService52.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\ApiService53.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\ApiService54.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ApiServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\ApiServiceReference\configuration.svcinfo" />
-    <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.Account.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.AssetType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.Category.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.Transaction.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ApiServiceReference\Fab.Client.ApiServiceReference.TransactionRecord.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ApiServiceReference\Reference.svcmap">
+    <None Include="Service References\UserServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\UserServiceReference\configuration.svcinfo" />
+    <None Include="Service References\UserServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ApiServiceReference\ApiService1.disco" />
+    <None Include="Service References\MoneyServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\MoneyServiceReference\configuration.svcinfo" />
+    <None Include="Service References\MoneyServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
@@ -322,9 +339,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ApiServiceReference\" />
+    <WCFMetadataStorage Include="Service References\MoneyServiceReference\" />
+    <WCFMetadataStorage Include="Service References\UserServiceReference\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <Import Project="..\..\msbuild.common.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Caliburn.PresentationFramework.RoutedMessaging;
-using Fab.Client.ApiServiceReference;
+using Fab.Client.MoneyServiceReference;
 
 namespace Fab.Client.Models
 {
@@ -30,7 +30,7 @@ namespace Fab.Client.Models
 
 		public void Execute(ResultExecutionContext context)
 		{
-			var proxy = new TransactionServiceClient();
+			var proxy = new MoneyServiceClient();
 
 			proxy.TransferCompleted += OnTransferCompleted;
 			proxy.TransferAsync(user1Id,

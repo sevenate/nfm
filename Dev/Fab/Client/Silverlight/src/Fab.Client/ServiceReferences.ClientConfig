@@ -7,33 +7,19 @@
                     maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
-                <binding name="BasicHttpBinding_IAccountService" maxBufferSize="2147483647"
-                    maxReceivedMessageSize="2147483647">
-                    <security mode="None" />
-                </binding>
-                <binding name="BasicHttpBinding_ICategoryService" maxBufferSize="2147483647"
-                    maxReceivedMessageSize="2147483647">
-                    <security mode="None" />
-                </binding>
-                <binding name="BasicHttpBinding_ITransactionService" maxBufferSize="2147483647"
+                <binding name="BasicHttpBinding_IMoneyService" maxBufferSize="2147483647"
                     maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
             </basicHttpBinding>
         </bindings>
         <client>
-            <endpoint address="http://thor/fab/ApiService.svc" binding="basicHttpBinding"
-                bindingConfiguration="BasicHttpBinding_IUserService" contract="ApiServiceReference.IUserService"
+            <endpoint address="http://thor/fab/UserService.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IUserService" contract="UserServiceReference.IUserService"
                 name="BasicHttpBinding_IUserService" />
-            <endpoint address="http://thor/fab/ApiService.svc" binding="basicHttpBinding"
-                bindingConfiguration="BasicHttpBinding_IAccountService" contract="ApiServiceReference.IAccountService"
-                name="BasicHttpBinding_IAccountService" />
-            <endpoint address="http://thor/fab/ApiService.svc" binding="basicHttpBinding"
-                bindingConfiguration="BasicHttpBinding_ICategoryService" contract="ApiServiceReference.ICategoryService"
-                name="BasicHttpBinding_ICategoryService" />
-            <endpoint address="http://thor/fab/ApiService.svc" binding="basicHttpBinding"
-                bindingConfiguration="BasicHttpBinding_ITransactionService"
-                contract="ApiServiceReference.ITransactionService" name="BasicHttpBinding_ITransactionService" />
+            <endpoint address="http://thor/fab/MoneyService.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IMoneyService" contract="MoneyServiceReference.IMoneyService"
+                name="BasicHttpBinding_IMoneyService" />
         </client>
     </system.serviceModel>
 </configuration>

@@ -1,37 +1,37 @@
 ﻿using System;
 using Caliburn.PresentationFramework.RoutedMessaging;
-using Fab.Client.ApiServiceReference;
+using Fab.Client.MoneyServiceReference;
 
 namespace Fab.Client.Models
 {
 	public class GetAllTransactionsResult : IResult
-    {
-        private readonly Guid userId;
-        private readonly int accountId;
+	{
+		private readonly Guid userId;
+		private readonly int accountId;
 
-        public GetAllTransactionsResult(Guid userId, int accountId)
-        {
-            this.userId = userId;
+		public GetAllTransactionsResult(Guid userId, int accountId)
+		{
+			this.userId = userId;
 			this.accountId = accountId;
-        }
+		}
 
-        public Guid UserId
-        {
-            get { return userId; }
-        }
- 		
+		public Guid UserId
+		{
+			get { return userId; }
+		}
+		
 		public int AccountId
-        {
-            get { return accountId; }
-        }
+		{
+			get { return accountId; }
+		}
 
 		public TransactionRecord[] TransactionRecords { get; set; }
 
 		public event EventHandler<ResultCompletionEventArgs> Completed = delegate { };
 
 		public void Execute(ResultExecutionContext context)
-        {
-			var proxy = new TransactionServiceClient();
+		{
+			var proxy = new MoneyServiceClient();
 			
 			proxy.GetAllTransactionsCompleted += (s, e) =>
 			{
@@ -48,6 +48,6 @@ namespace Fab.Client.Models
 			};
 
 			proxy.GetAllTransactionsAsync(userId: userId, accountId: accountId);
-        }
-    }
+		}
+	}
 }

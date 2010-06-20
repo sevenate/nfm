@@ -1,14 +1,7 @@
 // <copyright file="TransactionDetailsViewModel.cs" company="HD">
 // 	Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-04-11</date>
-// </author>
-// <editor name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-04-11</date>
-// </editor>
+// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-04-11" />
 // <summary>Single transaction details view model.</summary>
 
 using System;
@@ -24,8 +17,8 @@ using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
-using Fab.Client.ApiServiceReference;
 using Fab.Client.Models;
+using Fab.Client.MoneyServiceReference;
 
 namespace Fab.Client.Main.ViewModels
 {

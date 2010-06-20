@@ -1,19 +1,12 @@
 // <copyright file="AccountsResult.cs" company="HD">
 // 	Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-04-11</date>
-// </author>
-// <editor name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-04-11</date>
-// </editor>
+// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-04-11" />
 // <summary>Accounts result.</summary>
 
 using System;
 using Caliburn.PresentationFramework.RoutedMessaging;
-using Fab.Client.ApiServiceReference;
+using Fab.Client.MoneyServiceReference;
 
 namespace Fab.Client.Models
 {
@@ -25,22 +18,22 @@ namespace Fab.Client.Models
 		private readonly Guid userId;
 
 		public AccountsResult(Guid userId)
-        {
-            this.userId = userId;
-        }
+		{
+			this.userId = userId;
+		}
 
-        public Guid UserId
-        {
-            get { return userId; }
-        }
- 		
+		public Guid UserId
+		{
+			get { return userId; }
+		}
+		
 		public Account[] Accounts { get; set; }
 
 		public event EventHandler<ResultCompletionEventArgs> Completed = delegate { };
 
 		public void Execute(ResultExecutionContext context)
-        {
-			var proxy = new AccountServiceClient();
+		{
+			var proxy = new MoneyServiceClient();
 			
 			proxy.GetAllAccountsCompleted += (s, e) =>
 			{
@@ -57,6 +50,6 @@ namespace Fab.Client.Models
 			};
 
 			proxy.GetAllAccountsAsync(userId: userId);
-        }
+		}
 	}
 }

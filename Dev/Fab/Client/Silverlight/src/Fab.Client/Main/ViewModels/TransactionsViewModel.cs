@@ -1,14 +1,7 @@
 // <copyright file="TransactionsViewModel.cs" company="HD">
 // 	Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-04-10</date>
-// </author>
-// <editor name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-04-10</date>
-// </editor>
+// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-04-10" />
 // <summary>Transactions view model.</summary>
 
 using System;
@@ -21,8 +14,8 @@ using Caliburn.PresentationFramework.Actions;
 using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
-using Fab.Client.ApiServiceReference;
 using Fab.Client.Models;
+using Fab.Client.MoneyServiceReference;
 
 namespace Fab.Client.Main.ViewModels
 {

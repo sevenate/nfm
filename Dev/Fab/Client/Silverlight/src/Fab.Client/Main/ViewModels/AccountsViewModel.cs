@@ -20,8 +20,8 @@ using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.RoutedMessaging;
 using Caliburn.PresentationFramework.ViewModels;
 using Caliburn.ShellFramework.Results;
-using Fab.Client.ApiServiceReference;
 using Fab.Client.Models;
+using Fab.Client.MoneyServiceReference;
 
 namespace Fab.Client.Main.ViewModels
 {
