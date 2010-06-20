@@ -16,108 +16,6 @@ namespace Fab.Server.Tests
 	/// </summary>
 	public class ApiServiceTests
 	{
-		#region User Service
-
-		/// <summary>
-		/// Test <see cref="ApiService.Register"/> method.
-		/// </summary>
-		[Fact]
-		public void RegisterNewUser()
-		{
-			var service = new ApiService();
-
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
-
-			Assert.NotEqual(Guid.Empty, userId);
-		}
-
-		/// <summary>
-		/// Test <see cref="ApiService.IsLoginAvailable"/> method.
-		/// </summary>
-		[Fact]
-		public void CheckIsLoginAvailable()
-		{
-			var service = new ApiService();
-
-			bool isAvailable = service.IsLoginAvailable("testUser" + Guid.NewGuid());
-
-			Assert.True(isAvailable);
-		}
-
-		/// <summary>
-		/// Test <see cref="ApiService.IsLoginAvailable"/> method.
-		/// </summary>
-		[Fact]
-		public void CheckIsLoginNotAvailable()
-		{
-			string login = "testUser" + Guid.NewGuid();
-			var service = new ApiService();
-			service.Register(login, "testPassword");
-
-			bool isAvailable = service.IsLoginAvailable(login);
-
-			Assert.False(isAvailable);
-		}
-
-		/// <summary>
-		/// Test <see cref="ApiService.GenerateUniqueLogin"/> method.
-		/// </summary>
-		[Fact]
-		public void GenerateUniqueUserLogin()
-		{
-			var service = new ApiService();
-
-			string uniqueLogin = service.GenerateUniqueLogin();
-
-			bool isAvailable = service.IsLoginAvailable(uniqueLogin);
-			Assert.True(isAvailable);
-		}
-
-		/// <summary>
-		/// Test <see cref="ApiService.Update"/> method.
-		/// </summary>
-		[Fact]
-		public void UpdateUser()
-		{
-			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
-
-			service.Update(userId, "testPassword", "newTestPassword", "new@email");
-		}
-
-		/// <summary>
-		/// Test <see cref="ApiService.GetUserId"/> method.
-		/// </summary>
-		[Fact]
-		public void GetUserId()
-		{
-			string login = "testUser" + Guid.NewGuid();
-			var service = new ApiService();
-			Guid userId = service.Register(login, "testPassword");
-
-			Guid actualUserId = service.GetUserId(login);
-
-			Assert.NotEqual(Guid.Empty, userId);
-			Assert.NotEqual(Guid.Empty, actualUserId);
-			Assert.Equal(userId, actualUserId);
-		}
-
-		/// <summary>
-		/// Test <see cref="ApiService.ResetPassword"/> method.
-		/// </summary>
-		[Fact(Skip = "not implemented")]
-		public void ResetPassword()
-		{
-			string login = "testUser" + Guid.NewGuid();
-			var service = new ApiService();
-			Guid userId = service.Register(login, "testPassword");
-			service.Update(userId, "testPassword", "newTestPassword", "new@email");
-
-			service.ResetPassword(login, "new@email");
-		}
-
-		#endregion
-
 		#region Account Service
 
 		/// <summary>
@@ -127,8 +25,9 @@ namespace Fab.Server.Tests
 		public void CreateAccount()
 		{
 			const string expectedAccountName = "Test Account";
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 
 			service.CreateAccount(userId, expectedAccountName, 1);
 
@@ -147,8 +46,9 @@ namespace Fab.Server.Tests
 			const string expectedNewAccountName = "Renamed Account";
 			const int assetType = 1;
 			const int expectedNewAssetType = 2;
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, accountName, assetType);
 			var accounts = service.GetAllAccounts(userId);
 
@@ -167,8 +67,9 @@ namespace Fab.Server.Tests
 		public void DeleteAccount()
 		{
 			const string accountName = "Test Account";
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, accountName, 1);
 			var accounts = service.GetAllAccounts(userId);
 
@@ -185,8 +86,9 @@ namespace Fab.Server.Tests
 		public void GetAllAccounts()
 		{
 			const string expectedAccountName = "Test Account";
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, expectedAccountName, 1);
 
 			var accounts = service.GetAllAccounts(userId);
@@ -206,8 +108,9 @@ namespace Fab.Server.Tests
 		public void CreateCategory()
 		{
 			const string expectedCategoryName = "Test Category";
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 
 			service.CreateCategory(userId, expectedCategoryName);
 
@@ -224,8 +127,9 @@ namespace Fab.Server.Tests
 		{
 			const string categoryName = "Test Category";
 			const string expectedNewCategoryName = "Renamed Category";
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, categoryName);
 			var categories = service.GetAllCategories(userId);
 
@@ -243,8 +147,9 @@ namespace Fab.Server.Tests
 		public void DeleteCategory()
 		{
 			const string categoryName = "Test Category";
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, categoryName);
 			var categories = service.GetAllCategories(userId);
 
@@ -261,8 +166,9 @@ namespace Fab.Server.Tests
 		public void GetAllCategories()
 		{
 			const string expectedCategoryName = "Test Category";
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, expectedCategoryName);
 
 			var categories = service.GetAllCategories(userId);
@@ -295,7 +201,8 @@ namespace Fab.Server.Tests
 		public void Deposit()
 		{
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userService = new UserService();
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account", 1);
 			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category");
@@ -311,7 +218,8 @@ namespace Fab.Server.Tests
 		public void Withdrawal()
 		{
 			var service = new ApiService();
-			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userService = new UserService();
+			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account", 1);
 			IList<Account> accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category");
@@ -327,8 +235,9 @@ namespace Fab.Server.Tests
 		public void Transfer()
 		{
 			var service = new ApiService();
-			Guid userId1 = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
-			Guid userId2 = service.Register("testUser2" + Guid.NewGuid(), "testPassword");
+			var userService = new UserService();
+			Guid userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			Guid userId2 = userService.Register("testUser2" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId1, "Test Account 1", 1);
 			service.CreateAccount(userId2, "Test Account 2", 1);
 			var accounts1 = service.GetAllAccounts(userId1);
@@ -344,8 +253,9 @@ namespace Fab.Server.Tests
 		public void GetAccountBalance()
 		{
 			var service = new ApiService();
-			Guid userId1 = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
-			Guid userId2 = service.Register("testUser2" + Guid.NewGuid(), "testPassword");
+			var userService = new UserService();
+			Guid userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			Guid userId2 = userService.Register("testUser2" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId1, "Test Account 1", 1);
 			service.CreateAccount(userId2, "Test Account 2", 1);
 			var accounts1 = service.GetAllAccounts(userId1);
@@ -381,8 +291,9 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void GetAllTransactions()
 		{
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account 1", 1);
 			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category 1");
@@ -404,8 +315,9 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void UpdateTransaction()
 		{
+			var userService = new UserService();
 			var service = new ApiService();
-			Guid userId = service.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			Guid userId = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account 1", 1);
 			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category 1");

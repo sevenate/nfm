@@ -18,34 +18,34 @@ using Xunit;
 
 namespace Fab.Server.Tests
 {
-    /// <summary>
-    /// Unit tests for <see cref="AdminService" />.
-    /// </summary>
-    public class AdminServiceTests
-    {
-        #region Admin Service
+	/// <summary>
+	/// Unit tests for <see cref="AdminService" />.
+	/// </summary>
+	public class AdminServiceTests
+	{
+		#region Admin Service
 
 		/// <summary>
 		/// Test <see cref="AdminService.GetAll"/> method.
 		/// </summary>
-        [Fact]
-        public void GetAllUsers()
-        {
+		[Fact]
+		public void GetAllUsers()
+		{
 			var adminService = new AdminService();
 
 			var users = adminService.GetAll();
 
 			Assert.True(users != null && users.Count > 0);
 			Assert.True(users[0].IsDisabled);
-        }
+		}
 
 		/// <summary>
 		/// Test <see cref="AdminService.Disable"/> method.
 		/// </summary>
-        [Fact]
-        public void DisableUser()
-        {
-			var service = new ApiService();
+		[Fact]
+		public void DisableUser()
+		{
+			var service = new UserService();
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 			var adminService = new AdminService();
 
@@ -57,8 +57,8 @@ namespace Fab.Server.Tests
 
 			User user = users.Where(u => u.Id == userId).Single();
 			Assert.True(user.IsDisabled);
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

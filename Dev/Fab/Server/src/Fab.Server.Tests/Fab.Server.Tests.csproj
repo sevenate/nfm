@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AdminServiceTests.cs" />
     <Compile Include="ApiServiceTests.cs" />
+    <Compile Include="UserServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
