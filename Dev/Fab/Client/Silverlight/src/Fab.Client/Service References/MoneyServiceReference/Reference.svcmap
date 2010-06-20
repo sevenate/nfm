@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8ee4b4fd-5733-4f63-b81b-17b73d638846" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://thor/Fab/MoneyService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MoneyService.wsdl" MetadataType="Wsdl" ID="9e14c1cd-721d-4089-8b2f-0558378786c0" SourceId="1" SourceUrl="http://thor/Fab/MoneyService.svc?wsdl" />
+    <MetadataFile FileName="MoneyService.xsd" MetadataType="Schema" ID="2e219fd5-3c31-4819-a80b-aab1c29e540b" SourceId="1" SourceUrl="http://thor/fab/MoneyService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MoneyService1.xsd" MetadataType="Schema" ID="4067a70d-4152-4e08-98e3-f66182c80427" SourceId="1" SourceUrl="http://thor/fab/MoneyService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MoneyService2.xsd" MetadataType="Schema" ID="8b9f7c7d-5b61-42d9-af3c-6529382e5fd8" SourceId="1" SourceUrl="http://thor/fab/MoneyService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MoneyService3.xsd" MetadataType="Schema" ID="d530b2a8-03f1-4fc0-96d5-3343de6770a7" SourceId="1" SourceUrl="http://thor/fab/MoneyService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MoneyService4.xsd" MetadataType="Schema" ID="84cad085-56c2-4d6e-bf55-4540ba5c40fe" SourceId="1" SourceUrl="http://thor/fab/MoneyService.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
