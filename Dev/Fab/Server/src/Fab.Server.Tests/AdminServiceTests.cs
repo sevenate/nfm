@@ -1,14 +1,7 @@
 // <copyright file="AdminServiceTests.cs" company="HD">
 // 	Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-02-04</date>
-// </author>
-// <editor name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-02-04</date>
-// </editor>
+// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-02-04" />
 // <summary>Unit tests for AdminService.</summary>
 
 using System;

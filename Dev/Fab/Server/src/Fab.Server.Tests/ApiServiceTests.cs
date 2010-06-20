@@ -1,7 +1,7 @@
 // <copyright file="ApiServiceTests.cs" company="HD">
 //  Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff" email="alevshoff@hd.com" />
+// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-02-04" />
 // <summary>Unit tests for ApiService.</summary>
 
 using System;
