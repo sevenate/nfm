@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminServiceTests.cs" />
-    <Compile Include="ApiServiceTests.cs" />
+    <Compile Include="MoneyServiceTests.cs" />
     <Compile Include="UserServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

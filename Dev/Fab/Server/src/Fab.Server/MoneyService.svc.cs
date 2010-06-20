@@ -1,10 +1,8 @@
-﻿// <copyright file="ApiService.svc.cs" company="HD">
+﻿// <copyright file="MoneyService.svc.cs" company="HD">
 //  Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-01-28" />
-// <summary>
-//   Represent public server API available for clients.
-// </summary>
+// <summary>Money service.</summary>
 
 using System;
 using System.Collections.Generic;
@@ -14,11 +12,13 @@ using Fab.Server.Core;
 namespace Fab.Server
 {
 	/// <summary>
-	/// Represent public server API available for clients.
+	/// Money service.
 	/// </summary>
-	public class ApiService : IAccountService, ICategoryService, ITransactionService
+	public class MoneyService : IMoneyService
 	{
-		#region Implementation of IAccountService
+		#region Implementation of IMoneyService
+
+		#region Accounts
 
 		/// <summary>
 		/// Create new account.
@@ -44,13 +44,13 @@ namespace Fab.Server
 				AssetType assetType = ModelHelper.GetAssetTypeById(mc, assetTypeId);
 
 				var account = new Account
-				              {
-				              	Name = name.Trim(), 
-				              	Created = DateTime.UtcNow, 
-				              	IsDeleted = false, 
-				              	User = user,
-								AssetType = assetType
-				              };
+				              	{
+				              		Name = name.Trim(), 
+				              		Created = DateTime.UtcNow, 
+				              		IsDeleted = false, 
+				              		User = user,
+				              		AssetType = assetType
+				              	};
 
 				mc.Accounts.AddObject(account);
 				mc.SaveChanges();
@@ -125,15 +125,44 @@ namespace Fab.Server
 			using (var mc = new ModelContainer())
 			{
 				return mc.Accounts.Include("AssetType")
-						.Where(a => a.User.Id == userId && a.IsDeleted == false)
-						.OrderBy(a => a.Created)
-						.ToList();
+					.Where(a => a.User.Id == userId && a.IsDeleted == false)
+					.OrderBy(a => a.Created)
+					.ToList();
 			}
+		}
+
+		/// <summary>
+		/// Get current account balance.
+		/// </summary>
+		/// <param name="userId">Unique user ID.</param>
+		/// <param name="accountId">Account ID.</param>
+		/// <returns>Current account balance.</returns>
+		public decimal GetAccountBalance(Guid userId, int accountId)
+		{
+			if (userId == Guid.Empty)
+			{
+				throw new ArgumentException("User ID must not be empty.");
+			}
+
+			decimal balance;
+
+			using (var mc = new ModelContainer())
+			{
+				// Todo: Fix Sum() of Postings when there is no any posting yet.
+				var firstPosting = mc.Postings.Where(p => p.Account.Id == accountId)
+					.FirstOrDefault();
+				balance = firstPosting != null
+				          	? mc.Postings.Where(p => p.Account.Id == accountId)
+				          	  	.Sum(p => p.Amount)
+				          	: 0;
+			}
+
+			return balance;
 		}
 
 		#endregion
 
-		#region Implementation of ICategoryService
+		#region Categories
 
 		/// <summary>
 		/// Create new category.
@@ -157,11 +186,11 @@ namespace Fab.Server
 				User user = ModelHelper.GetUserById(mc, userId);
 
 				var category = new Category
-				               {
-				               	Name = name.Trim(), 
-				               	IsDeleted = false, 
-				               	User = user
-				               };
+				               	{
+				               		Name = name.Trim(), 
+				               		IsDeleted = false, 
+				               		User = user
+				               	};
 
 				mc.Categories.AddObject(category);
 				mc.SaveChanges();
@@ -228,14 +257,14 @@ namespace Fab.Server
 			using (var mc = new ModelContainer())
 			{
 				return mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false)
-									.OrderBy(c => c.Name)
-									.ToList();
+					.OrderBy(c => c.Name)
+					.ToList();
 			}
 		}
 
 		#endregion
 
-		#region Implementation of ITransactionService
+		#region Transactions
 
 		/// <summary>
 		/// Gets all available asset types (i.e. "currency names").
@@ -525,35 +554,6 @@ namespace Fab.Server
 		}
 
 		/// <summary>
-		/// Get current account balance.
-		/// </summary>
-		/// <param name="userId">Unique user ID.</param>
-		/// <param name="accountId">Account ID.</param>
-		/// <returns>Current account balance.</returns>
-		public decimal GetAccountBalance(Guid userId, int accountId)
-		{
-			if (userId == Guid.Empty)
-			{
-				throw new ArgumentException("User ID must not be empty.");
-			}
-
-			decimal balance;
-
-			using (var mc = new ModelContainer())
-			{
-				// Todo: Fix Sum() of Postings when there is no any posting yet.
-				var firstPosting = mc.Postings.Where(p => p.Account.Id == accountId)
-					.FirstOrDefault();
-				balance = firstPosting != null
-				          	? mc.Postings.Where(p => p.Account.Id == accountId)
-				          	  	.Sum(p => p.Amount)
-				          	: 0;
-			}
-
-			return balance;
-		}
-
-		/// <summary>
 		/// Return all not deleted transaction records for specific account.
 		/// </summary>
 		/// <param name="userId">The user unique ID.</param>
@@ -637,6 +637,8 @@ namespace Fab.Server
 
 			return records;
 		}
+
+		#endregion
 
 		#endregion
 	}

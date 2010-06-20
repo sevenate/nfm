@@ -1,8 +1,8 @@
-// <copyright file="ApiServiceTests.cs" company="HD">
+// <copyright file="MoneyServiceTests.cs" company="HD">
 //  Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-02-04" />
-// <summary>Unit tests for ApiService.</summary>
+// <summary>Unit tests for MoneyService.</summary>
 
 using System;
 using System.Collections.Generic;
@@ -12,21 +12,21 @@ using Xunit;
 namespace Fab.Server.Tests
 {
 	/// <summary>
-	/// Unit tests for <see cref="ApiService"/>.
+	/// Unit tests for <see cref="MoneyService"/>.
 	/// </summary>
-	public class ApiServiceTests
+	public class MoneyServiceTests
 	{
 		#region Account Service
 
 		/// <summary>
-		/// Test <see cref="ApiService.CreateAccount"/> method.
+		/// Test <see cref="MoneyService.CreateAccount"/> method.
 		/// </summary>
 		[Fact]
 		public void CreateAccount()
 		{
 			const string expectedAccountName = "Test Account";
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 
 			service.CreateAccount(userId, expectedAccountName, 1);
@@ -37,7 +37,7 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.UpdateAccount"/> method.
+		/// Test <see cref="MoneyService.UpdateAccount"/> method.
 		/// </summary>
 		[Fact]
 		public void UpdateAccount()
@@ -47,7 +47,7 @@ namespace Fab.Server.Tests
 			const int assetType = 1;
 			const int expectedNewAssetType = 2;
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, accountName, assetType);
 			var accounts = service.GetAllAccounts(userId);
@@ -61,14 +61,14 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.DeleteAccount"/> method.
+		/// Test <see cref="MoneyService.DeleteAccount"/> method.
 		/// </summary>
 		[Fact]
 		public void DeleteAccount()
 		{
 			const string accountName = "Test Account";
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, accountName, 1);
 			var accounts = service.GetAllAccounts(userId);
@@ -80,14 +80,14 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.GetAllAccounts"/> method.
+		/// Test <see cref="MoneyService.GetAllAccounts"/> method.
 		/// </summary>
 		[Fact]
 		public void GetAllAccounts()
 		{
 			const string expectedAccountName = "Test Account";
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, expectedAccountName, 1);
 
@@ -102,14 +102,14 @@ namespace Fab.Server.Tests
 		#region Category Service
 
 		/// <summary>
-		/// Test <see cref="ApiService.CreateCategory"/> method.
+		/// Test <see cref="MoneyService.CreateCategory"/> method.
 		/// </summary>
 		[Fact]
 		public void CreateCategory()
 		{
 			const string expectedCategoryName = "Test Category";
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 
 			service.CreateCategory(userId, expectedCategoryName);
@@ -120,7 +120,7 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.UpdateCategory"/> method.
+		/// Test <see cref="MoneyService.UpdateCategory"/> method.
 		/// </summary>
 		[Fact]
 		public void UpdateCategory()
@@ -128,7 +128,7 @@ namespace Fab.Server.Tests
 			const string categoryName = "Test Category";
 			const string expectedNewCategoryName = "Renamed Category";
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, categoryName);
 			var categories = service.GetAllCategories(userId);
@@ -141,14 +141,14 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.DeleteCategory"/> method.
+		/// Test <see cref="MoneyService.DeleteCategory"/> method.
 		/// </summary>
 		[Fact]
 		public void DeleteCategory()
 		{
 			const string categoryName = "Test Category";
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, categoryName);
 			var categories = service.GetAllCategories(userId);
@@ -160,14 +160,14 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.GetAllCategories"/> method.
+		/// Test <see cref="MoneyService.GetAllCategories"/> method.
 		/// </summary>
 		[Fact]
 		public void GetAllCategories()
 		{
 			const string expectedCategoryName = "Test Category";
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, expectedCategoryName);
 
@@ -182,12 +182,12 @@ namespace Fab.Server.Tests
 		#region Transaction Service
 
 		/// <summary>
-		/// Test <see cref="ApiService.GetAllAssetTypes"/> method.
+		/// Test <see cref="MoneyService.GetAllAssetTypes"/> method.
 		/// </summary>
 		[Fact]
 		public void GetAllAssetTypes()
 		{
-			var service = new ApiService();
+			var service = new MoneyService();
 
 			var assets = service.GetAllAssetTypes();
 
@@ -195,12 +195,12 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.Deposit"/> method.
+		/// Test <see cref="MoneyService.Deposit"/> method.
 		/// </summary>
 		[Fact]
 		public void Deposit()
 		{
-			var service = new ApiService();
+			var service = new MoneyService();
 			var userService = new UserService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account", 1);
@@ -212,12 +212,12 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.Withdrawal"/> method.
+		/// Test <see cref="MoneyService.Withdrawal"/> method.
 		/// </summary>
 		[Fact]
 		public void Withdrawal()
 		{
-			var service = new ApiService();
+			var service = new MoneyService();
 			var userService = new UserService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account", 1);
@@ -229,12 +229,12 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.Transfer"/> method.
+		/// Test <see cref="MoneyService.Transfer"/> method.
 		/// </summary>
 		[Fact]
 		public void Transfer()
 		{
-			var service = new ApiService();
+			var service = new MoneyService();
 			var userService = new UserService();
 			Guid userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			Guid userId2 = userService.Register("testUser2" + Guid.NewGuid(), "testPassword");
@@ -247,12 +247,12 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.GetAccountBalance"/> method.
+		/// Test <see cref="MoneyService.GetAccountBalance"/> method.
 		/// </summary>
 		[Fact]
 		public void GetAccountBalance()
 		{
-			var service = new ApiService();
+			var service = new MoneyService();
 			var userService = new UserService();
 			Guid userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			Guid userId2 = userService.Register("testUser2" + Guid.NewGuid(), "testPassword");
@@ -286,13 +286,13 @@ namespace Fab.Server.Tests
 		}
 
 		/// <summary>
-		/// Test <see cref="ApiService.GetAllTransactions"/> method.
+		/// Test <see cref="MoneyService.GetAllTransactions"/> method.
 		/// </summary>
 		[Fact]
 		public void GetAllTransactions()
 		{
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account 1", 1);
 			var accounts = service.GetAllAccounts(userId);
@@ -310,13 +310,13 @@ namespace Fab.Server.Tests
 
 
 		/// <summary>
-		/// Test <see cref="ApiService.UpdateTransaction"/> method.
+		/// Test <see cref="MoneyService.UpdateTransaction"/> method.
 		/// </summary>
 		[Fact]
 		public void UpdateTransaction()
 		{
 			var userService = new UserService();
-			var service = new ApiService();
+			var service = new MoneyService();
 			Guid userId = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account 1", 1);
 			var accounts = service.GetAllAccounts(userId);
