@@ -43,7 +43,7 @@
 				<TextBlock Grid.Column="1"
 						   Text="-->"
 						   Margin="5,0"
-						   VerticalAlignment="Center"/>
+						   VerticalAlignment="Bottom"/>
 				<StackPanel Grid.Column="2">
 					<TextBlock TextWrapping="Wrap"
 							   Text="Account 2" />

@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="Common\AddUpdateStringConverter.cs" />
     <Compile Include="Common\CancelClearStringConverter.cs" />
+    <Compile Include="Common\NegativeToRedConverter.cs" />
     <Compile Include="Common\InvertBooleanConverter.cs" />
     <Compile Include="Common\ZeroToEmptyStringConverter.cs" />
     <Compile Include="Common\CultureSettings.cs" />

@@ -1,26 +1,21 @@
-// <copyright file="ZeroToEmptyStringConverter.cs" company="HD">
+// <copyright file="NegativeToRedConverter.cs" company="HD">
 // 	Copyright (c) 2010 HD. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-06-05</date>
-// </author>
-// <editor name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-06-05</date>
-// </editor>
-// <summary>Convert <see cref="decimal"/> "0" value to empty string.</summary>
+// <author name="Andrew Levshoff" email="alevshoff@hd.com" />
+// <summary>Convert negative <see cref="decimal"/> value to <see cref="Colors.Red"/>.</summary>
 
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Fab.Client.Common
 {
 	/// <summary>
-	/// Convert <see cref="decimal"/> "0" value to empty string.
+	/// Convert negative <see cref="decimal"/> value to <see cref="Colors.Red"/>
+	/// and positive - to <see cref="Colors.Black"/>.
 	/// </summary>
-	public class ZeroToEmptyStringConverter : IValueConverter
+	public class NegativeToRedConverter : IValueConverter
 	{
 		#region Implementation of IValueConverter
 
@@ -36,9 +31,7 @@ namespace Fab.Client.Common
 		{
 			if (value is decimal)
 			{
-				return (decimal) value == 0
-				       	? string.Empty
-				       	: value;
+				return (decimal)value < 0 ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.Black);
 			}
 
 			return value;
@@ -55,12 +48,7 @@ namespace Fab.Client.Common
 		/// <param name="culture">The culture of the conversion.</param>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is string && string.IsNullOrWhiteSpace((string)value))
-			{
-				return 0;
-			}
-
-			return value;
+			throw new NotSupportedException();
 		}
 
 		#endregion

@@ -3,15 +3,21 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:sdk="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data"
 			 xmlns:Common="clr-namespace:Fab.Client.Common"
 			 xmlns:cal="http://www.caliburnproject.org"
+			 xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
 			 mc:Ignorable="d"
 			 d:DesignHeight="480"
 			 d:DesignWidth="640">
 	<UserControl.Resources>
 		<Common:DateTimeUtcToLocalConverter x:Key="DateTimeUtcToLocalConverter" />
 		<Common:ZeroToEmptyStringConverter x:Key="ZeroToEmptyStringConverter" />
+		<Common:NegativeToRedConverter x:Key="NegativeToRedConverter" />
+		<Style x:Key="MoneyText"
+			   TargetType="TextBlock">
+			<Setter Property="HorizontalAlignment"
+					Value="Right" />
+		</Style>
 	</UserControl.Resources>
 	<Grid x:Name="LayoutRoot">
 		<Grid.RowDefinitions>
@@ -22,32 +28,53 @@
 		<TextBlock Text="Transactions" />
 		<sdk:DataGrid Grid.Row="1"
 					  AutoGenerateColumns="False"
-					  IsReadOnly="True"
 					  ItemsSource="{Binding Path=TransactionRecords}">
 			<sdk:DataGrid.Columns>
 				<sdk:DataGridTextColumn Header="Id"
+										IsReadOnly="True"
 										Binding="{Binding Path=TransactionId}"
 										Visibility="Collapsed" />
-				<sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Header="Date">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<TextBlock Text="{Binding Path=Date, Converter={StaticResource DateTimeUtcToLocalConverter}, StringFormat=d}"
 									   ToolTipService.ToolTip="{Binding Path=Date, Converter={StaticResource DateTimeUtcToLocalConverter}, StringFormat=F}" />
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
+					<sdk:DataGridTemplateColumn.CellEditingTemplate>
+						<DataTemplate>
+							<sdk:DatePicker IsTodayHighlighted="True"
+											SelectedDateFormat="Long"
+											SelectedDate="{Binding Path=Date, Mode=TwoWay, Converter={StaticResource DateTimeUtcToLocalConverter}}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellEditingTemplate>
 				</sdk:DataGridTemplateColumn>
 				<sdk:DataGridTextColumn Header="Category"
 										Binding="{Binding Path=Category.Name}" />
-				<sdk:DataGridTextColumn Header="Income"
-										Binding="{Binding Path=Income, Converter={StaticResource ZeroToEmptyStringConverter}, StringFormat=C}" />
-				<sdk:DataGridTextColumn Header="Expense"
-										Binding="{Binding Path=Expense, Converter={StaticResource ZeroToEmptyStringConverter}, StringFormat=C}" />
-				<sdk:DataGridTextColumn Header="Balance"
-										Binding="{Binding Path=Balance, StringFormat=C}" />
 				<sdk:DataGridTextColumn Header="Comment"
 										Binding="{Binding Path=Comment}"
 										Width="*" />
-				<sdk:DataGridTemplateColumn MinWidth="75">
+				<sdk:DataGridTextColumn Header="Expense"
+										ElementStyle="{StaticResource MoneyText}"
+										Binding="{Binding Path=Expense, Converter={StaticResource ZeroToEmptyStringConverter}, StringFormat=C}" />
+				<sdk:DataGridTextColumn Header="Income"
+										ElementStyle="{StaticResource MoneyText}"
+										Binding="{Binding Path=Income, Converter={StaticResource ZeroToEmptyStringConverter}, StringFormat=C}" />
+				<sdk:DataGridTemplateColumn Header="Balance"
+											IsReadOnly="True">
+					<sdk:DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Style="{StaticResource MoneyText}"
+									   Foreground="{Binding Path=Balance, Converter={StaticResource NegativeToRedConverter}}"
+									   Text="{Binding Path=Balance, StringFormat=C}"/>
+						</DataTemplate>
+					</sdk:DataGridTemplateColumn.CellTemplate>
+				</sdk:DataGridTemplateColumn>
+				<sdk:DataGridTemplateColumn Width="75"
+											CanUserResize="False"
+											CanUserReorder="False"
+											CanUserSort="False"
+											IsReadOnly="True">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<Button Content="Edit"
@@ -56,7 +83,11 @@
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 				</sdk:DataGridTemplateColumn>
-				<sdk:DataGridTemplateColumn MinWidth="75">
+				<sdk:DataGridTemplateColumn Width="75"
+											CanUserResize="False"
+											CanUserReorder="False"
+											CanUserSort="False"
+											IsReadOnly="True">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<Button Content="Delete"

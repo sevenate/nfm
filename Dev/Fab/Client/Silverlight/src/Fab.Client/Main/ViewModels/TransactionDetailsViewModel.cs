@@ -41,7 +41,7 @@ namespace Fab.Client.Main.ViewModels
 
 		private DateTime operationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Utc);
 
-		private string quantity;
+		private string quantity = "1";
 
 		private string comment;
 
@@ -332,7 +332,7 @@ namespace Fab.Client.Main.ViewModels
 			OperationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Utc);
 			CurrentCategory = null;
 			Price = string.Empty;
-			Quantity = string.Empty;
+			Quantity = "1";
 			Comment = string.Empty;
 		}
 

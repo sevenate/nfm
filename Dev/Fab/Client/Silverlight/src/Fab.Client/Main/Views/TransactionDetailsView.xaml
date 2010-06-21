@@ -190,10 +190,10 @@
 		<StackPanel MinWidth="155">
 			<TextBlock Text="Add or Edit Transaction" />
 			<StackPanel Orientation="Horizontal">
-				<RadioButton x:Name="IsDeposite"
-							 Content="Income" />
 				<RadioButton Content="Expense"
 							 IsChecked="{Binding Path=IsDeposite, Mode=TwoWay, Converter={StaticResource InvertBooleanConverter}}" />
+				<RadioButton x:Name="IsDeposite"
+							 Content="Income" />
 			</StackPanel>
 			<TextBlock TextWrapping="Wrap"
 					   Text="Account" />
@@ -210,30 +210,45 @@
 							IsTodayHighlighted="True"
 							SelectedDateFormat="Long"
 							SelectedDate="{Binding OperationDate, Mode=TwoWay, Converter={StaticResource DateTimeUtcToLocalConverter}}"/>
-			<TextBlock TextWrapping="Wrap"
-					   Text="Price" />
-			<TextBox x:Name="Price"
-					 MaxLength="50"
-					 local:BindingHelper.UpdateSourceOnChange="True"
-					 Text="{Binding Path=Price,
-						Mode=TwoWay,
-						UpdateSourceTrigger=Explicit,
-						ValidatesOnDataErrors=True,
-						ValidatesOnExceptions=True,
-						ValidatesOnNotifyDataErrors=True,
-						NotifyOnValidationError=True}" />
-			<TextBlock TextWrapping="Wrap"
-					   Text="Quantity" />
-			<TextBox x:Name="Quantity"
-					 MaxLength="50"
-					 local:BindingHelper.UpdateSourceOnChange="True"
-					 Text="{Binding Path=Quantity,
-						Mode=TwoWay,
-						UpdateSourceTrigger=Explicit,
-						ValidatesOnDataErrors=True,
-						ValidatesOnExceptions=True,
-						ValidatesOnNotifyDataErrors =True,
-						NotifyOnValidationError=True}" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<StackPanel>
+					<TextBlock TextWrapping="Wrap"
+							   Text="Price" />
+					<TextBox x:Name="Price"
+							 MaxLength="50"
+							 local:BindingHelper.UpdateSourceOnChange="True"
+							 Text="{Binding Path=Price,
+							Mode=TwoWay,
+							UpdateSourceTrigger=Explicit,
+							ValidatesOnDataErrors=True,
+							ValidatesOnExceptions=True,
+							ValidatesOnNotifyDataErrors=True,
+							NotifyOnValidationError=True}" />
+				</StackPanel>
+				<TextBlock Grid.Column="1"
+						   Text="X"
+						   Margin="5,0"
+						   VerticalAlignment="Bottom" />
+				<StackPanel Grid.Column="2">
+					<TextBlock TextWrapping="Wrap"
+							   Text="Quantity" />
+					<TextBox x:Name="Quantity"
+							 MaxLength="50"
+							 local:BindingHelper.UpdateSourceOnChange="True"
+							 Text="{Binding Path=Quantity,
+								Mode=TwoWay,
+								UpdateSourceTrigger=Explicit,
+								ValidatesOnDataErrors=True,
+								ValidatesOnExceptions=True,
+								ValidatesOnNotifyDataErrors =True,
+								NotifyOnValidationError=True}" />
+				</StackPanel>
+			</Grid>
 			<TextBlock TextWrapping="Wrap"
 					   Text="Category" />
 <!--			<sdk:AutoCompleteBox ItemsSource="{Binding Categories}"-->
