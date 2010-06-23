@@ -303,7 +303,7 @@ namespace Fab.Client.Main.ViewModels
 					((Account) Accounts.CurrentItem).Id,
 					OperationDate.Kind == DateTimeKind.Unspecified
 						? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
-						: OperationDate,
+						: OperationDate.Date + DateTime.Now.TimeOfDay,
 					decimal.Parse(Price.Trim()),
 					decimal.Parse(Quantity.Trim()),
 					Comment != null ? Comment.Trim() : null,
@@ -324,7 +324,7 @@ namespace Fab.Client.Main.ViewModels
 					((Account) Accounts.CurrentItem).Id,
 					OperationDate.Kind == DateTimeKind.Unspecified
 						? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
-						: OperationDate,
+						: OperationDate.Date + DateTime.Now.TimeOfDay,
 					decimal.Parse(Price.Trim()),
 					decimal.Parse(Quantity.Trim()),
 					Comment != null ? Comment.Trim() : null,
