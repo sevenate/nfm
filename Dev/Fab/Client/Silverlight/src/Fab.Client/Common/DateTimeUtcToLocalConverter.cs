@@ -54,8 +54,10 @@ namespace Fab.Client.Common
 		{
 			// DatePicker control from Silverlight Toolkit always reset Kind to DateTimeKind.Unspecified
 			// So this is the reason why the second part of condition is commented.
+			
+			// Update: uncomment it for now.
 
-			return value is DateTime //&& ((DateTime)value).Kind == DateTimeKind.Local
+			return value is DateTime && ((DateTime)value).Kind == DateTimeKind.Local
 			       	? ((DateTime) value).ToUniversalTime()
 			       	: value;
 		}

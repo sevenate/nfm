@@ -39,7 +39,7 @@ namespace Fab.Client.Main.ViewModels
 
 		private string price;
 
-		private DateTime operationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Utc);
+		private DateTime operationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Unspecified);
 
 		private string quantity = "1";
 
@@ -218,51 +218,6 @@ namespace Fab.Client.Main.ViewModels
 
 		#endregion
 
-		public IEnumerable<IResult> Save()
-		{
-			yield return Show.Busy(new BusyScreen { Message = "Saving..." });
-
-			if (IsEditMode)
-			{
-				var request = new EditTransactionResult(
-					transactionId.Value,
-					userId,
-					((Account) Accounts.CurrentItem).Id,
-					OperationDate + DateTime.UtcNow.TimeOfDay,
-					decimal.Parse(Price.Trim()),
-					decimal.Parse(Quantity.Trim()),
-					Comment != null ? Comment.Trim() : null,
-					CurrentCategory != null
-					            	? CurrentCategory.Id
-					            	: (int?) null,
-					IsDeposite
-					);
-
-				Clear();
-
-				yield return request;
-			}
-			else
-			{
-				var request = new AddTransactionResult(
-					userId,
-					((Account) Accounts.CurrentItem).Id,
-					OperationDate + DateTime.UtcNow.TimeOfDay,
-					decimal.Parse(Price.Trim()),
-					decimal.Parse(Quantity.Trim()),
-					Comment != null ? Comment.Trim() : null,
-					CurrentCategory != null
-					            	? CurrentCategory.Id
-					            	: (int?) null,
-					IsDeposite
-					);
-
-				yield return request;
-			}
-
-			yield return Show.NotBusy();
-		}
-
 		private AutoCompleteFilterPredicate<object> categoryFilter;
 
 		public AutoCompleteFilterPredicate<object> CategoryFilter
@@ -329,11 +284,60 @@ namespace Fab.Client.Main.ViewModels
 			IsEditMode = false;
 			IsDeposite = false;
 			Accounts.MoveCurrentToFirst();
-			OperationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Utc);
+			OperationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Unspecified);
 			CurrentCategory = null;
 			Price = string.Empty;
 			Quantity = "1";
 			Comment = string.Empty;
+		}
+
+		public IEnumerable<IResult> Save()
+		{
+			yield return Show.Busy(new BusyScreen { Message = "Saving..." });
+
+			if (IsEditMode)
+			{
+				var request = new EditTransactionResult(
+					transactionId.Value,
+					userId,
+					((Account) Accounts.CurrentItem).Id,
+					OperationDate.Kind == DateTimeKind.Unspecified
+						? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
+						: OperationDate,
+					decimal.Parse(Price.Trim()),
+					decimal.Parse(Quantity.Trim()),
+					Comment != null ? Comment.Trim() : null,
+					CurrentCategory != null
+						? CurrentCategory.Id
+						: (int?) null,
+					IsDeposite
+					);
+
+				Clear();
+
+				yield return request;
+			}
+			else
+			{
+				var request = new AddTransactionResult(
+					userId,
+					((Account) Accounts.CurrentItem).Id,
+					OperationDate.Kind == DateTimeKind.Unspecified
+						? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
+						: OperationDate,
+					decimal.Parse(Price.Trim()),
+					decimal.Parse(Quantity.Trim()),
+					Comment != null ? Comment.Trim() : null,
+					CurrentCategory != null
+						? CurrentCategory.Id
+						: (int?) null,
+					IsDeposite
+					);
+
+				yield return request;
+			}
+
+			yield return Show.NotBusy();
 		}
 
 		/// <summary>
@@ -360,7 +364,7 @@ namespace Fab.Client.Main.ViewModels
 			// Todo: use JournalType enumeration here instead of byte.
 			IsDeposite = transaction.JournalType == 1;
 
-			OperationDate = transaction.Postings.First().Date;
+			OperationDate = transaction.Postings.First().Date.ToLocalTime();
 			CurrentCategory = transaction.Category;
 			Price = transaction.Price.ToString();
 			Quantity = transaction.Quantity.ToString();

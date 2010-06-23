@@ -33,7 +33,7 @@ namespace Fab.Client.Main.ViewModels
 		/// </summary>
 		private readonly Guid userId = new Guid("7F06BFA6-B675-483C-9BF3-F59B88230382");
 
-		private DateTime operationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Utc);
+		private DateTime operationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Unspecified);
 
 		[DataType(DataType.DateTime)]
 		public DateTime OperationDate
@@ -170,7 +170,7 @@ namespace Fab.Client.Main.ViewModels
 			IsEditMode = false;
 			Accounts1.MoveCurrentToFirst();
 			Accounts2.MoveCurrentToFirst();
-			OperationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Utc);
+			OperationDate = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Unspecified);
 			Amount = string.Empty;
 			Comment = string.Empty;
 		}
@@ -187,7 +187,9 @@ namespace Fab.Client.Main.ViewModels
 									((Account)Accounts1.CurrentItem).Id,
 									userId,
 									((Account)Accounts2.CurrentItem).Id,
-									OperationDate + DateTime.UtcNow.TimeOfDay,
+									OperationDate.Kind == DateTimeKind.Unspecified
+										? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
+										: OperationDate,
 									decimal.Parse(Amount.Trim()),
 									Comment != null ? Comment.Trim() : null
 								);
@@ -203,7 +205,9 @@ namespace Fab.Client.Main.ViewModels
 									((Account)Accounts1.CurrentItem).Id,
 									userId,
 									((Account)Accounts2.CurrentItem).Id,
-									OperationDate + DateTime.UtcNow.TimeOfDay,
+									OperationDate.Kind == DateTimeKind.Unspecified
+										? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
+										: OperationDate,
 									decimal.Parse(Amount.Trim()),
 									Comment != null ? Comment.Trim() : null
 								);
@@ -239,7 +243,7 @@ namespace Fab.Client.Main.ViewModels
 				Accounts2.MoveCurrentTo(selectedAccount2);
 			}
 
-			OperationDate = transaction.Postings[0].Date;
+			OperationDate = transaction.Postings[0].Date.ToLocalTime();
 			Amount = transaction.Postings[0].Amount.ToString();
 			Comment = transaction.Comment;
 
