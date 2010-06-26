@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 06/11/2010 02:52:23
+-- Date Created: 06/26/2010 02:37:37
 -- Generated from EDMX file: B:\Workspace\Dev\Fab\Server\src\Fab.Server\Core\Model.edmx
 -- --------------------------------------------------
 
@@ -29,6 +29,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CategoryUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Categories] DROP CONSTRAINT [FK_CategoryUser];
 GO
+IF OBJECT_ID(N'[dbo].[FK_DeletedJournals]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DeletedJournals] DROP CONSTRAINT [FK_DeletedJournals];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DeletedJournals]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DeletedJournals] DROP CONSTRAINT [FK_OriginalJournals];
+GO
 IF OBJECT_ID(N'[dbo].[FK_JournalPosting]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_JournalPosting];
 GO
@@ -54,6 +60,9 @@ IF OBJECT_ID(N'[dbo].[AssetTypes]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Categories]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Categories];
+GO
+IF OBJECT_ID(N'[dbo].[DeletedJournals]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DeletedJournals];
 GO
 IF OBJECT_ID(N'[dbo].[Journals]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Journals];
@@ -132,17 +141,17 @@ CREATE TABLE [dbo].[Users] (
 );
 GO
 
+-- Creating table 'DeletedJournals'
+CREATE TABLE [dbo].[DeletedJournals] (
+    [Id] int  NOT NULL,
+    [OriginalJournal_Id] int  NOT NULL
+);
+GO
+
 -- Creating table 'Transactions'
 CREATE TABLE [dbo].[Transactions] (
     [Quantity] smallmoney  NOT NULL,
     [Price] money  NOT NULL,
-    [Id] int  NOT NULL
-);
-GO
-
--- Creating table 'DeletedJournals'
-CREATE TABLE [dbo].[DeletedJournals] (
-    [DeletedJournalId] int  NOT NULL,
     [Id] int  NOT NULL
 );
 GO
@@ -187,15 +196,15 @@ ADD CONSTRAINT [PK_Users]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Transactions'
-ALTER TABLE [dbo].[Transactions]
-ADD CONSTRAINT [PK_Transactions]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'DeletedJournals'
 ALTER TABLE [dbo].[DeletedJournals]
 ADD CONSTRAINT [PK_DeletedJournals]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Transactions'
+ALTER TABLE [dbo].[Transactions]
+ADD CONSTRAINT [PK_Transactions]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -301,18 +310,31 @@ ON [dbo].[Journals]
     ([Category_Id]);
 GO
 
--- Creating foreign key on [Id] in table 'Transactions'
-ALTER TABLE [dbo].[Transactions]
-ADD CONSTRAINT [FK_TransactionJournal]
+-- Creating foreign key on [OriginalJournal_Id] in table 'DeletedJournals'
+ALTER TABLE [dbo].[DeletedJournals]
+ADD CONSTRAINT [FK_OriginalJournals]
+    FOREIGN KEY ([OriginalJournal_Id])
+    REFERENCES [dbo].[Journals]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_OriginalJournals'
+CREATE INDEX [IX_FK_OriginalJournals]
+ON [dbo].[DeletedJournals]
+    ([OriginalJournal_Id]);
+GO
+-- Creating foreign key on [Id] in table 'DeletedJournals'
+ALTER TABLE [dbo].[DeletedJournals]
+ADD CONSTRAINT [FK_DeletedJournals]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[Journals]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Id] in table 'DeletedJournals'
-ALTER TABLE [dbo].[DeletedJournals]
-ADD CONSTRAINT [FK_DeletedJournals]
+-- Creating foreign key on [Id] in table 'Transactions'
+ALTER TABLE [dbo].[Transactions]
+ADD CONSTRAINT [FK_TransactionJournal]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[Journals]
         ([Id])

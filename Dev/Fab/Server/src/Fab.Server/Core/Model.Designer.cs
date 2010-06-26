@@ -25,6 +25,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Model", "FK_JournalPosting", "Journal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Fab.Server.Core.Journal), "Posting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Fab.Server.Core.Posting))]
 [assembly: EdmRelationshipAttribute("Model", "FK_AccountAssetType", "AssetType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Fab.Server.Core.AssetType), "Account", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Fab.Server.Core.Account))]
 [assembly: EdmRelationshipAttribute("Model", "CategoryJournal", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Fab.Server.Core.Category), "Journal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Fab.Server.Core.Journal))]
+[assembly: EdmRelationshipAttribute("Model", "FK_DeletedJournalToJournal", "DeletedJournal", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Fab.Server.Core.DeletedJournal), "Journal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Fab.Server.Core.Journal))]
 
 #endregion
 
@@ -776,46 +777,58 @@ namespace Fab.Server.Core
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="journalType">Initial value of the JournalType property.</param>
         /// <param name="isDeleted">Initial value of the IsDeleted property.</param>
-        /// <param name="deletedJournalId">Initial value of the DeletedJournalId property.</param>
-        public static DeletedJournal CreateDeletedJournal(global::System.Int32 id, global::System.Byte journalType, global::System.Boolean isDeleted, global::System.Int32 deletedJournalId)
+        public static DeletedJournal CreateDeletedJournal(global::System.Int32 id, global::System.Byte journalType, global::System.Boolean isDeleted)
         {
             DeletedJournal deletedJournal = new DeletedJournal();
             deletedJournal.Id = id;
             deletedJournal.JournalType = journalType;
             deletedJournal.IsDeleted = isDeleted;
-            deletedJournal.DeletedJournalId = deletedJournalId;
             return deletedJournal;
         }
 
         #endregion
-        #region Primitive Properties
+    
+        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        public global::System.Int32 DeletedJournalId
+        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_DeletedJournalToJournal", "Journal")]
+        public Journal OriginalJournal
         {
             get
             {
-                return _DeletedJournalId;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Journal>("Model.FK_DeletedJournalToJournal", "Journal").Value;
             }
             set
             {
-                OnDeletedJournalIdChanging(value);
-                ReportPropertyChanging("DeletedJournalId");
-                _DeletedJournalId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DeletedJournalId");
-                OnDeletedJournalIdChanged();
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Journal>("Model.FK_DeletedJournalToJournal", "Journal").Value = value;
             }
         }
-        private global::System.Int32 _DeletedJournalId;
-        partial void OnDeletedJournalIdChanging(global::System.Int32 value);
-        partial void OnDeletedJournalIdChanged();
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Journal> OriginalJournalReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Journal>("Model.FK_DeletedJournalToJournal", "Journal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Journal>("Model.FK_DeletedJournalToJournal", "Journal", value);
+                }
+            }
+        }
 
         #endregion
-    
     }
     
     /// <summary>
@@ -824,8 +837,8 @@ namespace Fab.Server.Core
     [EdmEntityTypeAttribute(NamespaceName="Model", Name="Journal")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    [KnownTypeAttribute(typeof(Transaction))]
     [KnownTypeAttribute(typeof(DeletedJournal))]
+    [KnownTypeAttribute(typeof(Transaction))]
     public abstract partial class Journal : EntityObject
     {
         #region Primitive Properties
@@ -989,6 +1002,44 @@ namespace Fab.Server.Core
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Category>("Model.CategoryJournal", "Category", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model", "FK_DeletedJournalToJournal", "DeletedJournal")]
+        public DeletedJournal DeletedPairJournal
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DeletedJournal>("Model.FK_DeletedJournalToJournal", "DeletedJournal").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DeletedJournal>("Model.FK_DeletedJournalToJournal", "DeletedJournal").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DeletedJournal> DeletedPairJournalReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DeletedJournal>("Model.FK_DeletedJournalToJournal", "DeletedJournal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DeletedJournal>("Model.FK_DeletedJournalToJournal", "DeletedJournal", value);
                 }
             }
         }

@@ -12,7 +12,6 @@
 // <summary>Helper for Entity Framework model container processing.</summary>
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Fab.Server.Core
@@ -191,7 +190,7 @@ namespace Fab.Server.Core
 			                     	{
 			                     		JournalType = (byte)JournalType.Canceled,
 										Comment = "Correction pair for deleted journal # " + transaction.Id,
-										DeletedJournalId = transaction.Id
+										OriginalJournal = transaction
 			                     	};
 
 			foreach (var posting in transaction.Postings)
