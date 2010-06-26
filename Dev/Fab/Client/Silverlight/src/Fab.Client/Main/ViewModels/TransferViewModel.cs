@@ -181,15 +181,19 @@ namespace Fab.Client.Main.ViewModels
 
 			if (IsEditMode)
 			{
+				// To not update date if it was not changed;
+				// Add time of day to updated date only.
+				DateTime date = OperationDate.Kind == DateTimeKind.Unspecified
+										? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
+										: OperationDate;
+
 				var request = new UpdateTransferResult(
 									transactionId.Value,
 									userId,
 									((Account)Accounts1.CurrentItem).Id,
 									userId,
 									((Account)Accounts2.CurrentItem).Id,
-									OperationDate.Kind == DateTimeKind.Unspecified
-										? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
-										: OperationDate.Date + DateTime.Now.TimeOfDay,
+									date.ToUniversalTime(),
 									decimal.Parse(Amount.Trim()),
 									Comment != null ? Comment.Trim() : null
 								);
@@ -200,14 +204,17 @@ namespace Fab.Client.Main.ViewModels
 			}
 			else
 			{
+				// Add time of day to date.
+				DateTime date = OperationDate.Kind == DateTimeKind.Unspecified
+				                	? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
+				                	: OperationDate.Date + DateTime.Now.TimeOfDay;
+
 				var request = new AddTransferResult(
 									userId,
 									((Account)Accounts1.CurrentItem).Id,
 									userId,
 									((Account)Accounts2.CurrentItem).Id,
-									OperationDate.Kind == DateTimeKind.Unspecified
-										? DateTime.SpecifyKind(OperationDate, DateTimeKind.Local) + DateTime.Now.TimeOfDay
-										: OperationDate.Date + DateTime.Now.TimeOfDay,
+									date.ToUniversalTime(),
 									decimal.Parse(Amount.Trim()),
 									Comment != null ? Comment.Trim() : null
 								);
