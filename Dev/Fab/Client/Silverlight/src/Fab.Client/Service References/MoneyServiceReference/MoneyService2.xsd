@@ -70,6 +70,8 @@
           <xs:element minOccurs="0" name="Category" nillable="true" type="tns:Category" />
           <xs:element minOccurs="0" name="CategoryReference" nillable="true" type="q4:EntityReferenceOfCategoryQ4jSz9U_P" />
           <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DeletedPairJournal" nillable="true" type="tns:DeletedJournal" />
+          <xs:element minOccurs="0" name="DeletedPairJournalReference" nillable="true" type="q4:EntityReferenceOfDeletedJournalQ4jSz9U_P" />
           <xs:element minOccurs="0" name="Id" type="xs:int" />
           <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
           <xs:element minOccurs="0" name="JournalType" type="xs:unsignedByte" />
@@ -128,7 +130,8 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Journal">
         <xs:sequence>
-          <xs:element minOccurs="0" name="DeletedJournalId" type="xs:int" />
+          <xs:element minOccurs="0" name="OriginalJournal" nillable="true" type="tns:Journal" />
+          <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses" minOccurs="0" name="OriginalJournalReference" nillable="true" type="q7:EntityReferenceOfJournalQ4jSz9U_P" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

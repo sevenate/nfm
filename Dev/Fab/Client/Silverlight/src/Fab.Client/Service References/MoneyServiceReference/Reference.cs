@@ -429,6 +429,10 @@ namespace Fab.Client.MoneyServiceReference {
         
         private string CommentField;
         
+        private Fab.Client.MoneyServiceReference.DeletedJournal DeletedPairJournalField;
+        
+        private Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P DeletedPairJournalReferenceField;
+        
         private int IdField;
         
         private bool IsDeletedField;
@@ -472,6 +476,32 @@ namespace Fab.Client.MoneyServiceReference {
                 if ((object.ReferenceEquals(this.CommentField, value) != true)) {
                     this.CommentField = value;
                     this.RaisePropertyChanged("Comment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Fab.Client.MoneyServiceReference.DeletedJournal DeletedPairJournal {
+            get {
+                return this.DeletedPairJournalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DeletedPairJournalField, value) != true)) {
+                    this.DeletedPairJournalField = value;
+                    this.RaisePropertyChanged("DeletedPairJournal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P DeletedPairJournalReference {
+            get {
+                return this.DeletedPairJournalReferenceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DeletedPairJournalReferenceField, value) != true)) {
+                    this.DeletedPairJournalReferenceField = value;
+                    this.RaisePropertyChanged("DeletedPairJournalReference");
                 }
             }
         }
@@ -771,17 +801,32 @@ namespace Fab.Client.MoneyServiceReference {
     [System.Runtime.Serialization.DataContractAttribute(Name="DeletedJournal", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
     public partial class DeletedJournal : Fab.Client.MoneyServiceReference.Journal {
         
-        private int DeletedJournalIdField;
+        private Fab.Client.MoneyServiceReference.Journal OriginalJournalField;
+        
+        private Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P OriginalJournalReferenceField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int DeletedJournalId {
+        public Fab.Client.MoneyServiceReference.Journal OriginalJournal {
             get {
-                return this.DeletedJournalIdField;
+                return this.OriginalJournalField;
             }
             set {
-                if ((this.DeletedJournalIdField.Equals(value) != true)) {
-                    this.DeletedJournalIdField = value;
-                    this.RaisePropertyChanged("DeletedJournalId");
+                if ((object.ReferenceEquals(this.OriginalJournalField, value) != true)) {
+                    this.OriginalJournalField = value;
+                    this.RaisePropertyChanged("OriginalJournal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P OriginalJournalReference {
+            get {
+                return this.OriginalJournalReferenceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OriginalJournalReferenceField, value) != true)) {
+                    this.OriginalJournalReferenceField = value;
+                    this.RaisePropertyChanged("OriginalJournalReference");
                 }
             }
         }
@@ -922,6 +967,7 @@ namespace Fab.Client.MoneyServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityKey))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityKeyMember[]))]
     public partial class EntityKeyMember : object, System.ComponentModel.INotifyPropertyChanged {
@@ -1099,6 +1145,7 @@ namespace Fab.Client.MoneyServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfAccountQ4jSz9U_P))]
     public partial class EntityReference : Fab.Client.MoneyServiceReference.RelatedEnd {
         
@@ -1126,6 +1173,7 @@ namespace Fab.Client.MoneyServiceReference {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfAccountQ4jSz9U_P))]
     public partial class RelatedEnd : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1149,6 +1197,12 @@ namespace Fab.Client.MoneyServiceReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfJournalQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
     public partial class EntityReferenceOfJournalQ4jSz9U_P : Fab.Client.MoneyServiceReference.EntityReference {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfDeletedJournalQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
+    public partial class EntityReferenceOfDeletedJournalQ4jSz9U_P : Fab.Client.MoneyServiceReference.EntityReference {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
