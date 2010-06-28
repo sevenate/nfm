@@ -1,7 +1,7 @@
 // <copyright file="IAdminService.cs" company="HD">
-// 	Copyright (c) 2010 HD. All rights reserved.
+// 	Copyright (c) 2009-2010 nReez. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-01-28" />
+// <author name="Andrew Levshoff" email="78@nreez.com" date="2010-01-28" />
 // <summary>Administrative service contract.</summary>
 
 using System;
@@ -22,13 +22,13 @@ namespace Fab.Server.Core
 		/// </summary>
 		/// <returns>All users.</returns>
 		[OperationContract]
-		IList<UserDTO> GetAll();
+		IList<UserDTO> GetAllUsers();
 
 		/// <summary>
 		/// Disable login for specific user by his internal unique ID.
 		/// </summary>
 		/// <param name="userId">User ID to disable.</param>
 		[OperationContract]
-		void Disable(Guid userId);
+		void DisableUser(Guid userId);
 	}
 }

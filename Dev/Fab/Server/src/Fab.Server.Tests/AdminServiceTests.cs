@@ -1,13 +1,11 @@
 // <copyright file="AdminServiceTests.cs" company="HD">
-// 	Copyright (c) 2010 HD. All rights reserved.
+// 	Copyright (c) 2009-2010 nReez. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-02-04" />
+// <author name="Andrew Levshoff" email="78@nreez.com" date="2010-02-04" />
 // <summary>Unit tests for AdminService.</summary>
 
 using System;
 using System.Linq;
-using Fab.Server.Core;
-using Fab.Server.Core.DTO;
 using Xunit;
 
 namespace Fab.Server.Tests
@@ -20,21 +18,21 @@ namespace Fab.Server.Tests
 		#region Admin Service
 
 		/// <summary>
-		/// Test <see cref="AdminService.GetAll"/> method.
+		/// Test <see cref="AdminService.GetAllUsers"/> method.
 		/// </summary>
 		[Fact]
 		public void GetAllUsers()
 		{
 			var adminService = new AdminService();
 
-			var users = adminService.GetAll();
+			var users = adminService.GetAllUsers();
 
 			Assert.True(users != null && users.Count > 0);
 			Assert.True(users[0].IsDisabled);
 		}
 
 		/// <summary>
-		/// Test <see cref="AdminService.Disable"/> method.
+		/// Test <see cref="AdminService.DisableUser"/> method.
 		/// </summary>
 		[Fact]
 		public void DisableUser()
@@ -43,9 +41,9 @@ namespace Fab.Server.Tests
 			Guid userId = service.Register("testUser" + Guid.NewGuid(), "testPassword");
 			var adminService = new AdminService();
 
-			adminService.Disable(userId);
+			adminService.DisableUser(userId);
 
-			var users = adminService.GetAll();
+			var users = adminService.GetAllUsers();
 
 			Assert.True(users != null && users.Count > 1);
 

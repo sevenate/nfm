@@ -1,7 +1,7 @@
 ﻿// <copyright file="AdminService.svc.cs" company="HD">
-// 	Copyright (c) 2010 HD. All rights reserved.
+// 	Copyright (c) 2009-2010 nReez. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-02-04" />
+// <author name="Andrew Levshoff" email="78@nreez.com" date="2010-02-04" />
 // <summary>Administrative service.</summary>
 
 using System;
@@ -24,15 +24,14 @@ namespace Fab.Server
 		/// Retrieve all registered users from the system.
 		/// </summary>
 		/// <returns>All users.</returns>
-		public IList<UserDTO> GetAll()
+		public IList<UserDTO> GetAllUsers()
 		{
 			using (var mc = new ModelContainer())
 			{
-				var users = mc.Users.OrderBy(u => u.Registered)
+				return mc.Users.OrderBy(u => u.Registered)
 									.ToList()
 									.Select(user => ObjectMapperManager.DefaultInstance.GetMapper<User, UserDTO>().Map(user))
 									.ToList();
-				return users;
 			}
 		}
 
@@ -40,7 +39,7 @@ namespace Fab.Server
 		/// Disable login for specific user by his internal unique ID.
 		/// </summary>
 		/// <param name="userId">User ID to disable.</param>
-		public void Disable(Guid userId)
+		public void DisableUser(Guid userId)
 		{
 			using (var mc = new ModelContainer())
 			{
