@@ -7,6 +7,7 @@
 using System;
 using System.Linq;
 using Fab.Server.Core;
+using Fab.Server.Core.DTO;
 using Xunit;
 
 namespace Fab.Server.Tests
@@ -48,7 +49,7 @@ namespace Fab.Server.Tests
 
 			Assert.True(users != null && users.Count > 1);
 
-			User user = users.Where(u => u.Id == userId).Single();
+			var user = users.Where(u => u.Id == userId).Single();
 			Assert.True(user.IsDisabled);
 		}
 

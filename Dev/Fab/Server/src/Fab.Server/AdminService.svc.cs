@@ -7,7 +7,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmitMapper;
 using Fab.Server.Core;
+using Fab.Server.Core.DTO;
 
 namespace Fab.Server
 {
@@ -22,11 +24,15 @@ namespace Fab.Server
 		/// Retrieve all registered users from the system.
 		/// </summary>
 		/// <returns>All users.</returns>
-		public IList<User> GetAll()
+		public IList<UserDTO> GetAll()
 		{
 			using (var mc = new ModelContainer())
 			{
-				return mc.Users.OrderBy(u => u.Registered).ToList();
+				var users = mc.Users.OrderBy(u => u.Registered)
+									.ToList()
+									.Select(user => ObjectMapperManager.DefaultInstance.GetMapper<User, UserDTO>().Map(user))
+									.ToList();
+				return users;
 			}
 		}
 

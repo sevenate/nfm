@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EmitMapper">
+      <HintPath>..\..\ext\EmitMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
@@ -85,12 +88,13 @@
     <Compile Include="AdminService.svc.cs">
       <DependentUpon>AdminService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Core\DTO\UserDTO.cs" />
     <Compile Include="MoneyService.svc.cs">
       <DependentUpon>MoneyService.svc</DependentUpon>
     </Compile>
     <Compile Include="Core\IAdminService.cs" />
     <Compile Include="Core\IMoneyService.cs" />
-    <Compile Include="Core\JournalType.cs" />
+    <Compile Include="Core\DTO\JournalType.cs" />
     <Compile Include="Core\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -98,7 +102,7 @@
     </Compile>
     <Compile Include="Core\IUserService.cs" />
     <Compile Include="Core\ModelHelper.cs" />
-    <Compile Include="Core\TransactionRecord.cs" />
+    <Compile Include="Core\DTO\TransactionRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserService.svc.cs">
       <DependentUpon>UserService.svc</DependentUpon>

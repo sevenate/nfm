@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Fab.Server.Core.DTO;
 
 namespace Fab.Server.Core
 {
@@ -21,7 +22,7 @@ namespace Fab.Server.Core
 		/// </summary>
 		/// <returns>All users.</returns>
 		[OperationContract]
-		IList<User> GetAll();
+		IList<UserDTO> GetAll();
 
 		/// <summary>
 		/// Disable login for specific user by his internal unique ID.
