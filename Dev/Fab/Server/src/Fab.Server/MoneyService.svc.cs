@@ -7,7 +7,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmitMapper;
 using Fab.Server.Core;
+using Fab.Server.Core.DTO;
 
 namespace Fab.Server
 {
@@ -252,13 +254,17 @@ namespace Fab.Server
 		/// </summary>
 		/// <param name="userId">User unique ID.</param>
 		/// <returns>All categories.</returns>
-		public IList<Category> GetAllCategories(Guid userId)
+		public IList<CategoryDTO> GetAllCategories(Guid userId)
 		{
 			using (var mc = new ModelContainer())
 			{
-				return mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false)
+				var categories = mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false)
 					.OrderBy(c => c.Name)
-					.ToList();
+					.ToList()
+					.Select(category => ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>().Map(category))
+					.ToList();;
+
+				return categories;
 			}
 		}
 

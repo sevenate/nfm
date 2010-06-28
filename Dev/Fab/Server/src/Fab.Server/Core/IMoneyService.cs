@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Fab.Server.Core.DTO;
 
 namespace Fab.Server.Core
 {
@@ -97,7 +98,7 @@ namespace Fab.Server.Core
 		/// <param name="userId">User unique ID.</param>
 		/// <returns>All categories.</returns>
 		[OperationContract]
-		IList<Category> GetAllCategories(Guid userId);
+		IList<CategoryDTO> GetAllCategories(Guid userId);
 
 		#endregion
 

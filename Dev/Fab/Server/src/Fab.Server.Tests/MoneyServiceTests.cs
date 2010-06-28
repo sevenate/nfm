@@ -221,9 +221,9 @@ namespace Fab.Server.Tests
 			var userService = new UserService();
 			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account", 1);
-			IList<Account> accounts = service.GetAllAccounts(userId);
+			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category");
-			IList<Category> categories = service.GetAllCategories(userId);
+			var categories = service.GetAllCategories(userId);
 
 			service.Withdrawal(userId, accounts[0].Id, DateTime.Now, 13, 10, "Some expense comment", categories[0].Id);
 		}

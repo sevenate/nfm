@@ -88,6 +88,7 @@
     <Compile Include="AdminService.svc.cs">
       <DependentUpon>AdminService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Core\DTO\CategoryDTO.cs" />
     <Compile Include="Core\DTO\UserDTO.cs" />
     <Compile Include="MoneyService.svc.cs">
       <DependentUpon>MoneyService.svc</DependentUpon>
