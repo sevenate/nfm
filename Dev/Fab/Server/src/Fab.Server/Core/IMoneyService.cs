@@ -109,7 +109,7 @@ namespace Fab.Server.Core
 		/// </summary>
 		/// <returns>Asset types presented in the system.</returns>
 		[OperationContract]
-		IList<AssetType> GetAllAssetTypes();
+		IList<AssetTypeDTO> GetAllAssetTypes();
 
 		/// <summary>
 		/// Deposit (<paramref name="price"/> * <paramref name="quantity"/>) amount to the

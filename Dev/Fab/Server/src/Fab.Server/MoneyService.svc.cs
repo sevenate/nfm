@@ -1,7 +1,7 @@
 ﻿// <copyright file="MoneyService.svc.cs" company="HD">
-//  Copyright (c) 2010 HD. All rights reserved.
+//  Copyright (c) 2009-2010 nReez. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-01-28" />
+// <author name="Andrew Levshoff" email="78@nreez.com" date="2010-01-28" />
 // <summary>Money service.</summary>
 
 using System;
@@ -258,13 +258,11 @@ namespace Fab.Server
 		{
 			using (var mc = new ModelContainer())
 			{
-				var categories = mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false)
+				return mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false)
 					.OrderBy(c => c.Name)
 					.ToList()
 					.Select(category => ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>().Map(category))
-					.ToList();;
-
-				return categories;
+					.ToList();
 			}
 		}
 
@@ -276,11 +274,13 @@ namespace Fab.Server
 		/// Gets all available asset types (i.e. "currency names").
 		/// </summary>
 		/// <returns>Asset types presented in the system.</returns>
-		public IList<AssetType> GetAllAssetTypes()
+		public IList<AssetTypeDTO> GetAllAssetTypes()
 		{
 			using (var mc = new ModelContainer())
 			{
-				return mc.AssetTypes.ToList();
+				return mc.AssetTypes.ToList()
+					.Select(assetType => ObjectMapperManager.DefaultInstance.GetMapper<AssetType, AssetTypeDTO>().Map(assetType))
+					.ToList();
 			}
 		}
 
