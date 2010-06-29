@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EmitMapper;
+using EmitMapper.MappingConfiguration;
 using Fab.Server.Core;
 using Fab.Server.Core.DTO;
 
@@ -117,7 +118,7 @@ namespace Fab.Server
 		/// </summary>
 		/// <param name="userId">User unique ID.</param>
 		/// <returns>All accounts.</returns>
-		public IList<Account> GetAllAccounts(Guid userId)
+		public IList<AccountDTO> GetAllAccounts(Guid userId)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -126,9 +127,16 @@ namespace Fab.Server
 
 			using (var mc = new ModelContainer())
 			{
+				var assetTypeMapper = ObjectMapperManager.DefaultInstance.GetMapper<AssetType, AssetTypeDTO>();
+				var accountMapper = ObjectMapperManager.DefaultInstance.GetMapper<Account, AccountDTO>(
+										new DefaultMapConfig()
+										.ConvertUsing<AssetType, AssetTypeDTO>(assetTypeMapper.Map));
+
 				return mc.Accounts.Include("AssetType")
 					.Where(a => a.User.Id == userId && a.IsDeleted == false)
 					.OrderBy(a => a.Created)
+					.ToList()
+					.Select(accountMapper.Map)
 					.ToList();
 			}
 		}
@@ -258,10 +266,12 @@ namespace Fab.Server
 		{
 			using (var mc = new ModelContainer())
 			{
+				var categoryMapper = ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>();
+
 				return mc.Categories.Where(c => c.User.Id == userId && c.IsDeleted == false)
 					.OrderBy(c => c.Name)
 					.ToList()
-					.Select(category => ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>().Map(category))
+					.Select(categoryMapper.Map)
 					.ToList();
 			}
 		}
@@ -278,8 +288,10 @@ namespace Fab.Server
 		{
 			using (var mc = new ModelContainer())
 			{
+				var assetTypeMapper = ObjectMapperManager.DefaultInstance.GetMapper<AssetType, AssetTypeDTO>();
+
 				return mc.AssetTypes.ToList()
-					.Select(assetType => ObjectMapperManager.DefaultInstance.GetMapper<AssetType, AssetTypeDTO>().Map(assetType))
+					.Select(assetTypeMapper.Map)
 					.ToList();
 			}
 		}

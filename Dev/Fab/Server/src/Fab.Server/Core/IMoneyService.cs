@@ -1,7 +1,7 @@
 // <copyright file="IMoneyService.cs" company="HD">
-//  Copyright (c) 2010 HD. All rights reserved.
+//  Copyright (c) 2009-2010 nReez. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff" email="alevshoff@hd.com" date="2010-01-28" />
+// <author name="Andrew Levshoff" email="78@nreez.com" date="2010-01-28" />
 // <summary>Money service contract.</summary>
 
 using System;
@@ -52,7 +52,7 @@ namespace Fab.Server.Core
 		/// <param name="userId">User unique ID.</param>
 		/// <returns>All accounts.</returns>
 		[OperationContract]
-		IList<Account> GetAllAccounts(Guid userId);
+		IList<AccountDTO> GetAllAccounts(Guid userId);
 
 		/// <summary>
 		/// Get current account balance.
