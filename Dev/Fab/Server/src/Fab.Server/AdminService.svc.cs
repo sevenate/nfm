@@ -28,9 +28,11 @@ namespace Fab.Server
 		{
 			using (var mc = new ModelContainer())
 			{
+				var userMaper = ObjectMapperManager.DefaultInstance.GetMapper<User, UserDTO>();
+
 				return mc.Users.OrderBy(u => u.Registered)
 									.ToList()
-									.Select(user => ObjectMapperManager.DefaultInstance.GetMapper<User, UserDTO>().Map(user))
+									.Select(userMaper.Map)
 									.ToList();
 			}
 		}

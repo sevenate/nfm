@@ -95,6 +95,8 @@ namespace Fab.Server.Tests
 
 			Assert.Equal(1, accounts.Count);
 			Assert.Equal(expectedAccountName, accounts[0].Name);
+			Assert.NotNull(accounts[0].AssetType);
+			Assert.Equal(1, accounts[0].AssetType.Id);
 		}
 
 		#endregion
