@@ -1,18 +1,12 @@
 // <copyright file="TransactionRecord.cs" company="HD">
-// 	Copyright (c) 2010 HD. All rights reserved.
+// 	Copyright (c) 2009-2010 nReez. All rights reserved.
 // </copyright>
-// <author name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-02-23</date>
-// </author>
-// <editor name="Andrew Levshoff">
-// 	<email>alevshoff@hd.com</email>
-// 	<date>2010-02-23</date>
-// </editor>
+// <author name="Andrew Levshoff" email="78@nreez.com" date="2010-02-23" />
 // <summary>Simple "income / expense / balance" data object.</summary>
 
 using System;
 using System.Runtime.Serialization;
+using Fab.Server.Core.DTO;
 
 namespace Fab.Server.Core
 {
@@ -38,7 +32,7 @@ namespace Fab.Server.Core
 		/// Gets or sets transaction category.
 		/// </summary>
 		[DataMember]
-		public Category Category { get; set; }
+		public CategoryDTO Category { get; set; }
 
 		/// <summary>
 		/// Gets or sets income part of the transaction record.

@@ -185,7 +185,7 @@ namespace Fab.Server.Core
 		/// <param name="transactionId">Transaction ID.</param>
 		/// <returns>Single transaction data.</returns>
 		[OperationContract]
-		Transaction GetTransaction(Guid userId, int accountId, int transactionId);
+		TransactionDTO GetTransaction(Guid userId, int accountId, int transactionId);
 
 		/// <summary>
 		/// Delete specific transaction.

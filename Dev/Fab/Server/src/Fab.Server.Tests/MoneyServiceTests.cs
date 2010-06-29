@@ -5,8 +5,6 @@
 // <summary>Unit tests for MoneyService.</summary>
 
 using System;
-using System.Collections.Generic;
-using Fab.Server.Core;
 using Xunit;
 
 namespace Fab.Server.Tests

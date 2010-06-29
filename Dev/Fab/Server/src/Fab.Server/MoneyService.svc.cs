@@ -413,14 +413,21 @@ namespace Fab.Server
 		/// <param name="accountId">The account ID.</param>
 		/// <param name="transactionId">Transaction ID.</param>
 		/// <returns>Single transaction data.</returns>
-		public Transaction GetTransaction(Guid userId, int accountId, int transactionId)
+		public TransactionDTO GetTransaction(Guid userId, int accountId, int transactionId)
 		{
 			using (var mc = new ModelContainer())
 			{
+				var postingMapper = ObjectMapperManager.DefaultInstance.GetMapper<Posting, PostingDTO>();
+				var categoryMapper = ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>();
+				var transactionMapper = ObjectMapperManager.DefaultInstance.GetMapper<Transaction, TransactionDTO>(
+										new DefaultMapConfig()
+										.ConvertUsing<Posting, PostingDTO>(postingMapper.Map)
+										.ConvertUsing<Category, CategoryDTO>(categoryMapper.Map));
+
 				// Todo: add user ID account ID to the GetTransacionById() method call to
 				// join them with transaction ID to prevent unauthorized delete 
 				// Do this for all user-aware calls (i.e. Categories, Accounts etc.)
-				return ModelHelper.GetTransacionById(mc, transactionId);
+				return transactionMapper.Map(ModelHelper.GetTransacionById(mc, transactionId));
 			}
 		}
 
@@ -611,6 +618,8 @@ namespace Fab.Server
 					return records;
 				}
 
+				var categoryMapper = ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>();
+
 				decimal income = 0;
 				decimal expense = 0;
 				decimal balance = 0;
@@ -644,7 +653,7 @@ namespace Fab.Server
 					            	{
 					            		TransactionId = r.Journal.Id,
 					            		Date = DateTime.SpecifyKind(r.Posting.Date, DateTimeKind.Utc),
-					            		Category = r.Category,
+										Category = categoryMapper.Map(r.Category),
 					            		Income = income,
 					            		Expense = expense,
 					            		Balance = balance,
