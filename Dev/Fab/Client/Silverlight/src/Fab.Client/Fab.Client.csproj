@@ -264,16 +264,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
-    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.Account.datasource">
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.AccountDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.AssetType.datasource">
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.AssetTypeDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.Category.datasource">
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.CategoryDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.Transaction.datasource">
+    <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.TransactionDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\MoneyServiceReference\Fab.Client.MoneyServiceReference.TransactionRecord.datasource">
@@ -290,9 +290,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\MoneyServiceReference\MoneyService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\MoneyServiceReference\MoneyService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\UserServiceReference\UserService.wsdl" />

@@ -26,8 +26,8 @@ namespace Fab.Client.Models
 		{
 			get { return userId; }
 		}
-		
-		public Category[] Categories { get; set; }
+
+		public CategoryDTO[] Categories { get; set; }
 
 		public event EventHandler<ResultCompletionEventArgs> Completed = delegate { };
 

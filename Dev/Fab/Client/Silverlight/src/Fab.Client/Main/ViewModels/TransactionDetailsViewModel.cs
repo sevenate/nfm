@@ -167,7 +167,7 @@ namespace Fab.Client.Main.ViewModels
 			this.accountsVM = accountsVM;
 			this.categoriesVM = categoriesVM;
 
-			var accounts = new BindableCollection<Account>();
+			var accounts = new BindableCollection<AccountDTO>();
 			accountsCollectionViewSource.Source = accounts;
 
 			this.accountsVM.Reloaded += (sender, args) =>
@@ -176,7 +176,7 @@ namespace Fab.Client.Main.ViewModels
 
 										foreach (var account in this.accountsVM.Accounts)
 										{
-											accounts.Add(account as Account);
+											accounts.Add(account as AccountDTO);
 										}
 
 			                       		if (!accountsCollectionViewSource.View.IsEmpty)
@@ -184,8 +184,8 @@ namespace Fab.Client.Main.ViewModels
 			                       			accountsCollectionViewSource.View.MoveCurrentToFirst();
 			                       		}
 			                       	};
-			
-			var categories = new BindableCollection<Category>();
+
+			var categories = new BindableCollection<CategoryDTO>();
 			categoriesCollectionViewSource.Source = categories;
 
 			this.categoriesVM.Reloaded += (sender, args) =>
@@ -206,10 +206,10 @@ namespace Fab.Client.Main.ViewModels
 										return true;
 									}
 
-									if (item is Category)
+									if (item is CategoryDTO)
 									{
 										string searchToLower = search.ToLower(CultureInfo.InvariantCulture);
-										return (item as Category).Name.ToLower(CultureInfo.InvariantCulture).Contains(searchToLower);
+										return (item as CategoryDTO).Name.ToLower(CultureInfo.InvariantCulture).Contains(searchToLower);
 									}
 
 									return false;
@@ -230,11 +230,11 @@ namespace Fab.Client.Main.ViewModels
 			}
 		}
 
-		public Category CurrentCategory
+		public CategoryDTO CurrentCategory
 		{
 			get
 			{
-				var currentCategory = (Category) Categories.CurrentItem;
+				var currentCategory = (CategoryDTO)Categories.CurrentItem;
 				return currentCategory != null && currentCategory.Id != -1
 						? currentCategory
 						: null;
@@ -250,7 +250,7 @@ namespace Fab.Client.Main.ViewModels
 
 				foreach (var category in Categories)
 				{
-					if (((Category) category).Id == value.Id)
+					if (((CategoryDTO)category).Id == value.Id)
 					{
 						if (Categories.MoveCurrentTo(category))
 						{
@@ -306,7 +306,7 @@ namespace Fab.Client.Main.ViewModels
 				var request = new EditTransactionResult(
 					transactionId.Value,
 					userId,
-					((Account) Accounts.CurrentItem).Id,
+					((AccountDTO)Accounts.CurrentItem).Id,
 					date.ToUniversalTime(),
 					decimal.Parse(Price.Trim()),
 					decimal.Parse(Quantity.Trim()),
@@ -330,7 +330,7 @@ namespace Fab.Client.Main.ViewModels
 
 				var request = new AddTransactionResult(
 					userId,
-					((Account) Accounts.CurrentItem).Id,
+					((AccountDTO)Accounts.CurrentItem).Id,
 					date.ToUniversalTime(),
 					decimal.Parse(Price.Trim()),
 					decimal.Parse(Quantity.Trim()),
@@ -351,15 +351,15 @@ namespace Fab.Client.Main.ViewModels
 		/// Open specific deposit or withdrawal transaction to edit.
 		/// </summary>
 		/// <param name="transaction">Transaction to edit.</param>
-		public void Edit(Transaction transaction)
+		public void Edit(TransactionDTO transaction)
 		{
 			transactionId = transaction.Id;
 
-			var currentSelectedAccount = accountsVM.Accounts.CurrentItem as Account;
+			var currentSelectedAccount = accountsVM.Accounts.CurrentItem as AccountDTO;
 			
 			if (currentSelectedAccount != null)
 			{
-				var accouns = accountsCollectionViewSource.Source as BindableCollection<Account>;
+				var accouns = accountsCollectionViewSource.Source as BindableCollection<AccountDTO>;
 				
 				if (accouns != null)
 				{

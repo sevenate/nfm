@@ -19,7 +19,7 @@ namespace Fab.Client.Models
 		private readonly int accountId;
 		private readonly int transactionId;
 
-		public Transaction Transaction { get; set; }
+		public TransactionDTO Transaction { get; set; }
 
 		public LoadTransactionResult(Guid userId, int accountId, int transactionId)
 		{

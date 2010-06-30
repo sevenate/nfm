@@ -40,7 +40,7 @@ namespace Fab.Client.Main.ViewModels
 		public CategoriesViewModel(IValidator validator)
 			: base(validator)
 		{
-			Categories = new BindableCollection<Category>();
+			Categories = new BindableCollection<CategoryDTO>();
 		}
 
 		#endregion
@@ -50,7 +50,7 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Gets categories for specific user.
 		/// </summary>
-		public IObservableCollection<Category> Categories { get; private set; }
+		public IObservableCollection<CategoryDTO> Categories { get; private set; }
 
 		/// <summary>
 		/// Download all categories for specific user.

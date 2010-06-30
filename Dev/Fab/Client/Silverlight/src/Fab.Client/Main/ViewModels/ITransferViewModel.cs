@@ -17,6 +17,6 @@ namespace Fab.Client.Main.ViewModels
 		/// Open specific transfer transaction to edit.
 		/// </summary>
 		/// <param name="transaction">Transaction to edit.</param>
-		void Edit(Transaction transaction);
+		void Edit(TransactionDTO transaction);
 	}
 }

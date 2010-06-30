@@ -50,12 +50,12 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Corresponding account of transactions.
 		/// </summary>
-		private Account currentAccount;
+		private AccountDTO currentAccount;
 
 		/// <summary>
 		/// Gets or sets corresponding account of transactions.
 		/// </summary>
-		public Account CurrentAccount
+		public AccountDTO CurrentAccount
 		{
 			get { return currentAccount; }
 			private set
@@ -92,7 +92,7 @@ namespace Fab.Client.Main.ViewModels
 			{
 				if (!this.accountsVM.Accounts.IsEmpty)
 				{
-					CurrentAccount = this.accountsVM.Accounts.CurrentItem as Account;
+					CurrentAccount = this.accountsVM.Accounts.CurrentItem as AccountDTO;
 				}
 			};
 		}

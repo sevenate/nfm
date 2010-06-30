@@ -38,7 +38,7 @@ namespace Fab.Client.Main.ViewModels
 		/// </summary>
 		private readonly Guid userId = new Guid("7F06BFA6-B675-483C-9BF3-F59B88230382");
 
-		private readonly BindableCollection<Account> accounts = new BindableCollection<Account>();
+		private readonly BindableCollection<AccountDTO> accounts = new BindableCollection<AccountDTO>();
 
 		private readonly CollectionViewSource accountsCollectionViewSource = new CollectionViewSource();
 

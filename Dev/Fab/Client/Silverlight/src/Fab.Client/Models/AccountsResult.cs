@@ -27,7 +27,7 @@ namespace Fab.Client.Models
 			get { return userId; }
 		}
 		
-		public Account[] Accounts { get; set; }
+		public AccountDTO[] Accounts { get; set; }
 
 		public event EventHandler<ResultCompletionEventArgs> Completed = delegate { };
 

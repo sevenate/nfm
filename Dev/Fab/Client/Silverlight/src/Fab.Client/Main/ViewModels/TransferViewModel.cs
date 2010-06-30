@@ -127,7 +127,7 @@ namespace Fab.Client.Main.ViewModels
 		{
 			this.accountsVM = accountsVM;
 
-			var accounts1 = new BindableCollection<Account>();
+			var accounts1 = new BindableCollection<AccountDTO>();
 			accounts1CollectionViewSource.Source = accounts1;
 
 			this.accountsVM.Reloaded += (sender, args) =>
@@ -136,7 +136,7 @@ namespace Fab.Client.Main.ViewModels
 
 				foreach (var account in this.accountsVM.Accounts)
 				{
-					accounts1.Add(account as Account);
+					accounts1.Add(account as AccountDTO);
 				}
 
 				if (!accounts1CollectionViewSource.View.IsEmpty)
@@ -145,7 +145,7 @@ namespace Fab.Client.Main.ViewModels
 				}
 			};
 
-			var accounts2 = new BindableCollection<Account>();
+			var accounts2 = new BindableCollection<AccountDTO>();
 			accounts2CollectionViewSource.Source = accounts2;
 
 			this.accountsVM.Reloaded += (sender, args) =>
@@ -154,7 +154,7 @@ namespace Fab.Client.Main.ViewModels
 
 				foreach (var account in this.accountsVM.Accounts)
 				{
-					accounts2.Add(account as Account);
+					accounts2.Add(account as AccountDTO);
 				}
 
 				if (!accounts2CollectionViewSource.View.IsEmpty)
@@ -190,9 +190,9 @@ namespace Fab.Client.Main.ViewModels
 				var request = new UpdateTransferResult(
 									transactionId.Value,
 									userId,
-									((Account)Accounts1.CurrentItem).Id,
+									((AccountDTO)Accounts1.CurrentItem).Id,
 									userId,
-									((Account)Accounts2.CurrentItem).Id,
+									((AccountDTO)Accounts2.CurrentItem).Id,
 									date.ToUniversalTime(),
 									decimal.Parse(Amount.Trim()),
 									Comment != null ? Comment.Trim() : null
@@ -211,9 +211,9 @@ namespace Fab.Client.Main.ViewModels
 
 				var request = new AddTransferResult(
 									userId,
-									((Account)Accounts1.CurrentItem).Id,
+									((AccountDTO)Accounts1.CurrentItem).Id,
 									userId,
-									((Account)Accounts2.CurrentItem).Id,
+									((AccountDTO)Accounts2.CurrentItem).Id,
 									date.ToUniversalTime(),
 									decimal.Parse(Amount.Trim()),
 									Comment != null ? Comment.Trim() : null
@@ -229,12 +229,12 @@ namespace Fab.Client.Main.ViewModels
 		/// Open specific transfer transaction to edit.
 		/// </summary>
 		/// <param name="transaction">Transaction to edit.</param>
-		public void Edit(Transaction transaction)
+		public void Edit(TransactionDTO transaction)
 		{
 			transactionId = transaction.Id;
 
 			// Todo: refactor this method!
-			var accountsSource1 = accounts1CollectionViewSource.Source as BindableCollection<Account>;
+			var accountsSource1 = accounts1CollectionViewSource.Source as BindableCollection<AccountDTO>;
 
 			if (accountsSource1 != null)
 			{
@@ -242,7 +242,7 @@ namespace Fab.Client.Main.ViewModels
 				Accounts1.MoveCurrentTo(selectedAccount1);
 			}
 
-			var accountsSource2 = accounts2CollectionViewSource.Source as BindableCollection<Account>;
+			var accountsSource2 = accounts2CollectionViewSource.Source as BindableCollection<AccountDTO>;
 
 			if (accountsSource2 != null)
 			{

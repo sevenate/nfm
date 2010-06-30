@@ -20,7 +20,7 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Gets categories for specific user.
 		/// </summary>
-		IObservableCollection<Category> Categories { get; }
+		IObservableCollection<CategoryDTO> Categories { get; }
 
 		/// <summary>
 		/// Download all categories for specific user.

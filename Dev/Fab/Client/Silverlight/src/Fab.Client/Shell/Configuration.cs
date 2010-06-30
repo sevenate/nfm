@@ -10,30 +10,30 @@ using Caliburn.Core.IoC;
 namespace Fab.Client.Shell
 {
 	public class Configuration : ModuleBase
-    {
-        public override IEnumerable<IComponentRegistration> GetComponents()
-        {
-            yield return Singleton<IShell, ShellViewModel>();
+	{
+		public override IEnumerable<IComponentRegistration> GetComponents()
+		{
+			yield return Singleton<IShell, ShellViewModel>();
 
 			var moduleTypes = from type in Assembly.GetExecutingAssembly().GetExportedTypes()
-                              where typeof(IPart).IsAssignableFrom(type)
-                                    && !type.IsAbstract && !type.IsInterface
-                              select type;
+							  where typeof(IPart).IsAssignableFrom(type)
+									&& !type.IsAbstract && !type.IsInterface
+							  select type;
 
-            foreach (var type in moduleTypes)
-            {
+			foreach (var type in moduleTypes)
+			{
 				yield return Singleton(typeof(IPart), type, type.FullName);
-            }
-        }
+			}
+		}
 
-        private static IComponentRegistration Singleton(Type service, Type implementation, string name)
-        {
-            return new Singleton
-            {
-                Service = service,
-                Implementation = implementation,
-                Name = name
-            };
-        }
-    }
+		private new static IComponentRegistration Singleton(Type service, Type implementation, string name)
+		{
+			return new Singleton
+			{
+				Service = service,
+				Implementation = implementation,
+				Name = name
+			};
+		}
+	}
 }

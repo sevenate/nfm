@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://thor/fab/MoneyService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://thor/fab/MoneyService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core" />
+  <xs:import schemaLocation="http://thor/fab/MoneyService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO" />
+  <xs:import schemaLocation="http://thor/fab/MoneyService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core" />
   <xs:element name="CreateAccount">
     <xs:complexType>
       <xs:sequence>
@@ -54,7 +55,7 @@
   <xs:element name="GetAllAccountsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Fab.Server.Core" minOccurs="0" name="GetAllAccountsResult" nillable="true" type="q5:ArrayOfAccount" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO" minOccurs="0" name="GetAllAccountsResult" nillable="true" type="q5:ArrayOfAccountDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -123,7 +124,7 @@
   <xs:element name="GetAllCategoriesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Fab.Server.Core" minOccurs="0" name="GetAllCategoriesResult" nillable="true" type="q11:ArrayOfCategory" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO" minOccurs="0" name="GetAllCategoriesResult" nillable="true" type="q11:ArrayOfCategoryDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -135,7 +136,7 @@
   <xs:element name="GetAllAssetTypesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Fab.Server.Core" minOccurs="0" name="GetAllAssetTypesResult" nillable="true" type="q12:ArrayOfAssetType" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO" minOccurs="0" name="GetAllAssetTypesResult" nillable="true" type="q12:ArrayOfAssetTypeDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -205,7 +206,7 @@
   <xs:element name="GetTransactionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Fab.Server.Core" minOccurs="0" name="GetTransactionResult" nillable="true" type="q18:Transaction" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO" minOccurs="0" name="GetTransactionResult" nillable="true" type="q18:TransactionDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

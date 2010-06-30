@@ -17,12 +17,10 @@ namespace Fab.Client.MoneyServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Account", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class Account : Fab.Client.MoneyServiceReference.EntityObject {
+    [System.Runtime.Serialization.DataContractAttribute(Name="AccountDTO", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO")]
+    public partial class AccountDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private Fab.Client.MoneyServiceReference.AssetType AssetTypeField;
-        
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P AssetTypeReferenceField;
+        private Fab.Client.MoneyServiceReference.AssetTypeDTO AssetTypeField;
         
         private System.DateTime CreatedField;
         
@@ -32,14 +30,8 @@ namespace Fab.Client.MoneyServiceReference {
         
         private string NameField;
         
-        private Fab.Client.MoneyServiceReference.Posting[] PostingsField;
-        
-        private Fab.Client.MoneyServiceReference.User UserField;
-        
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P UserReferenceField;
-        
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.AssetType AssetType {
+        public Fab.Client.MoneyServiceReference.AssetTypeDTO AssetType {
             get {
                 return this.AssetTypeField;
             }
@@ -47,19 +39,6 @@ namespace Fab.Client.MoneyServiceReference {
                 if ((object.ReferenceEquals(this.AssetTypeField, value) != true)) {
                     this.AssetTypeField = value;
                     this.RaisePropertyChanged("AssetType");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P AssetTypeReference {
-            get {
-                return this.AssetTypeReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AssetTypeReferenceField, value) != true)) {
-                    this.AssetTypeReferenceField = value;
-                    this.RaisePropertyChanged("AssetTypeReference");
                 }
             }
         }
@@ -116,60 +95,6 @@ namespace Fab.Client.MoneyServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Posting[] Postings {
-            get {
-                return this.PostingsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PostingsField, value) != true)) {
-                    this.PostingsField = value;
-                    this.RaisePropertyChanged("Postings");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.User User {
-            get {
-                return this.UserField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserField, value) != true)) {
-                    this.UserField = value;
-                    this.RaisePropertyChanged("User");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P UserReference {
-            get {
-                return this.UserReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserReferenceField, value) != true)) {
-                    this.UserReferenceField = value;
-                    this.RaisePropertyChanged("UserReference");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="StructuralObject", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses", IsReference=true)]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityObject))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.AssetType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Posting))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Journal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Category))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.User))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.DeletedJournal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Transaction))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Account))]
-    public partial class StructuralObject : object, System.ComponentModel.INotifyPropertyChanged {
-        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -182,58 +107,12 @@ namespace Fab.Client.MoneyServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityObject", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses", IsReference=true)]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.AssetType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Posting))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Journal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Category))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.User))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.DeletedJournal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Transaction))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Account))]
-    public partial class EntityObject : Fab.Client.MoneyServiceReference.StructuralObject {
-        
-        private Fab.Client.MoneyServiceReference.EntityKey EntityKeyField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityKey EntityKey {
-            get {
-                return this.EntityKeyField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EntityKeyField, value) != true)) {
-                    this.EntityKeyField = value;
-                    this.RaisePropertyChanged("EntityKey");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetType", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class AssetType : Fab.Client.MoneyServiceReference.EntityObject {
-        
-        private Fab.Client.MoneyServiceReference.Account[] AccountsField;
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetTypeDTO", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO")]
+    public partial class AssetTypeDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
         private int IdField;
         
         private string NameField;
-        
-        private Fab.Client.MoneyServiceReference.Posting[] PostingsField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Account[] Accounts {
-            get {
-                return this.AccountsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AccountsField, value) != true)) {
-                    this.AccountsField = value;
-                    this.RaisePropertyChanged("Accounts");
-                }
-            }
-        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id {
@@ -261,120 +140,26 @@ namespace Fab.Client.MoneyServiceReference {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Posting[] Postings {
-            get {
-                return this.PostingsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PostingsField, value) != true)) {
-                    this.PostingsField = value;
-                    this.RaisePropertyChanged("Postings");
-                }
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Posting", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class Posting : Fab.Client.MoneyServiceReference.EntityObject {
-        
-        private Fab.Client.MoneyServiceReference.Account AccountField;
-        
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfAccountQ4jSz9U_P AccountReferenceField;
-        
-        private decimal AmountField;
-        
-        private Fab.Client.MoneyServiceReference.AssetType AssetTypeField;
-        
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P AssetTypeReferenceField;
-        
-        private System.DateTime DateField;
+    [System.Runtime.Serialization.DataContractAttribute(Name="CategoryDTO", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO")]
+    public partial class CategoryDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
         private int IdField;
         
-        private Fab.Client.MoneyServiceReference.Journal JournalField;
+        private bool IsDeletedField;
         
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P JournalReferenceField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Account Account {
-            get {
-                return this.AccountField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AccountField, value) != true)) {
-                    this.AccountField = value;
-                    this.RaisePropertyChanged("Account");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfAccountQ4jSz9U_P AccountReference {
-            get {
-                return this.AccountReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AccountReferenceField, value) != true)) {
-                    this.AccountReferenceField = value;
-                    this.RaisePropertyChanged("AccountReference");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Amount {
-            get {
-                return this.AmountField;
-            }
-            set {
-                if ((this.AmountField.Equals(value) != true)) {
-                    this.AmountField = value;
-                    this.RaisePropertyChanged("Amount");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.AssetType AssetType {
-            get {
-                return this.AssetTypeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AssetTypeField, value) != true)) {
-                    this.AssetTypeField = value;
-                    this.RaisePropertyChanged("AssetType");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P AssetTypeReference {
-            get {
-                return this.AssetTypeReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AssetTypeReferenceField, value) != true)) {
-                    this.AssetTypeReferenceField = value;
-                    this.RaisePropertyChanged("AssetTypeReference");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime Date {
-            get {
-                return this.DateField;
-            }
-            set {
-                if ((this.DateField.Equals(value) != true)) {
-                    this.DateField = value;
-                    this.RaisePropertyChanged("Date");
-                }
-            }
-        }
+        private string NameField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id {
@@ -390,48 +175,49 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Journal Journal {
+        public bool IsDeleted {
             get {
-                return this.JournalField;
+                return this.IsDeletedField;
             }
             set {
-                if ((object.ReferenceEquals(this.JournalField, value) != true)) {
-                    this.JournalField = value;
-                    this.RaisePropertyChanged("Journal");
+                if ((this.IsDeletedField.Equals(value) != true)) {
+                    this.IsDeletedField = value;
+                    this.RaisePropertyChanged("IsDeleted");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P JournalReference {
+        public string Name {
             get {
-                return this.JournalReferenceField;
+                return this.NameField;
             }
             set {
-                if ((object.ReferenceEquals(this.JournalReferenceField, value) != true)) {
-                    this.JournalReferenceField = value;
-                    this.RaisePropertyChanged("JournalReference");
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
                 }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Journal", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.DeletedJournal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Transaction))]
-    public partial class Journal : Fab.Client.MoneyServiceReference.EntityObject {
+    [System.Runtime.Serialization.DataContractAttribute(Name="TransactionDTO", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO")]
+    public partial class TransactionDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private Fab.Client.MoneyServiceReference.Category CategoryField;
-        
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfCategoryQ4jSz9U_P CategoryReferenceField;
+        private Fab.Client.MoneyServiceReference.CategoryDTO CategoryField;
         
         private string CommentField;
-        
-        private Fab.Client.MoneyServiceReference.DeletedJournal DeletedPairJournalField;
-        
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P DeletedPairJournalReferenceField;
         
         private int IdField;
         
@@ -439,10 +225,14 @@ namespace Fab.Client.MoneyServiceReference {
         
         private byte JournalTypeField;
         
-        private Fab.Client.MoneyServiceReference.Posting[] PostingsField;
+        private Fab.Client.MoneyServiceReference.PostingDTO[] PostingsField;
+        
+        private decimal PriceField;
+        
+        private decimal QuantityField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Category Category {
+        public Fab.Client.MoneyServiceReference.CategoryDTO Category {
             get {
                 return this.CategoryField;
             }
@@ -450,19 +240,6 @@ namespace Fab.Client.MoneyServiceReference {
                 if ((object.ReferenceEquals(this.CategoryField, value) != true)) {
                     this.CategoryField = value;
                     this.RaisePropertyChanged("Category");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfCategoryQ4jSz9U_P CategoryReference {
-            get {
-                return this.CategoryReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CategoryReferenceField, value) != true)) {
-                    this.CategoryReferenceField = value;
-                    this.RaisePropertyChanged("CategoryReference");
                 }
             }
         }
@@ -476,32 +253,6 @@ namespace Fab.Client.MoneyServiceReference {
                 if ((object.ReferenceEquals(this.CommentField, value) != true)) {
                     this.CommentField = value;
                     this.RaisePropertyChanged("Comment");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.DeletedJournal DeletedPairJournal {
-            get {
-                return this.DeletedPairJournalField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DeletedPairJournalField, value) != true)) {
-                    this.DeletedPairJournalField = value;
-                    this.RaisePropertyChanged("DeletedPairJournal");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P DeletedPairJournalReference {
-            get {
-                return this.DeletedPairJournalReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DeletedPairJournalReferenceField, value) != true)) {
-                    this.DeletedPairJournalReferenceField = value;
-                    this.RaisePropertyChanged("DeletedPairJournalReference");
                 }
             }
         }
@@ -546,7 +297,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Posting[] Postings {
+        public Fab.Client.MoneyServiceReference.PostingDTO[] Postings {
             get {
                 return this.PostingsField;
             }
@@ -557,289 +308,6 @@ namespace Fab.Client.MoneyServiceReference {
                 }
             }
         }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Category", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class Category : Fab.Client.MoneyServiceReference.EntityObject {
-        
-        private int IdField;
-        
-        private bool IsDeletedField;
-        
-        private Fab.Client.MoneyServiceReference.Journal[] JournalsField;
-        
-        private string NameField;
-        
-        private Fab.Client.MoneyServiceReference.User UserField;
-        
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P UserReferenceField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsDeleted {
-            get {
-                return this.IsDeletedField;
-            }
-            set {
-                if ((this.IsDeletedField.Equals(value) != true)) {
-                    this.IsDeletedField = value;
-                    this.RaisePropertyChanged("IsDeleted");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Journal[] Journals {
-            get {
-                return this.JournalsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.JournalsField, value) != true)) {
-                    this.JournalsField = value;
-                    this.RaisePropertyChanged("Journals");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.User User {
-            get {
-                return this.UserField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserField, value) != true)) {
-                    this.UserField = value;
-                    this.RaisePropertyChanged("User");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P UserReference {
-            get {
-                return this.UserReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserReferenceField, value) != true)) {
-                    this.UserReferenceField = value;
-                    this.RaisePropertyChanged("UserReference");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class User : Fab.Client.MoneyServiceReference.EntityObject {
-        
-        private Fab.Client.MoneyServiceReference.Account[] AccountsField;
-        
-        private Fab.Client.MoneyServiceReference.Category[] CategoriesField;
-        
-        private string EmailField;
-        
-        private System.Guid IdField;
-        
-        private bool IsDisabledField;
-        
-        private System.Nullable<System.DateTime> LastAccessField;
-        
-        private string LoginField;
-        
-        private string PasswordField;
-        
-        private System.DateTime RegisteredField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Account[] Accounts {
-            get {
-                return this.AccountsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AccountsField, value) != true)) {
-                    this.AccountsField = value;
-                    this.RaisePropertyChanged("Accounts");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Category[] Categories {
-            get {
-                return this.CategoriesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CategoriesField, value) != true)) {
-                    this.CategoriesField = value;
-                    this.RaisePropertyChanged("Categories");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email {
-            get {
-                return this.EmailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
-                    this.EmailField = value;
-                    this.RaisePropertyChanged("Email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsDisabled {
-            get {
-                return this.IsDisabledField;
-            }
-            set {
-                if ((this.IsDisabledField.Equals(value) != true)) {
-                    this.IsDisabledField = value;
-                    this.RaisePropertyChanged("IsDisabled");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> LastAccess {
-            get {
-                return this.LastAccessField;
-            }
-            set {
-                if ((this.LastAccessField.Equals(value) != true)) {
-                    this.LastAccessField = value;
-                    this.RaisePropertyChanged("LastAccess");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Login {
-            get {
-                return this.LoginField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LoginField, value) != true)) {
-                    this.LoginField = value;
-                    this.RaisePropertyChanged("Login");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Password {
-            get {
-                return this.PasswordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
-                    this.PasswordField = value;
-                    this.RaisePropertyChanged("Password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime Registered {
-            get {
-                return this.RegisteredField;
-            }
-            set {
-                if ((this.RegisteredField.Equals(value) != true)) {
-                    this.RegisteredField = value;
-                    this.RaisePropertyChanged("Registered");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DeletedJournal", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class DeletedJournal : Fab.Client.MoneyServiceReference.Journal {
-        
-        private Fab.Client.MoneyServiceReference.Journal OriginalJournalField;
-        
-        private Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P OriginalJournalReferenceField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Journal OriginalJournal {
-            get {
-                return this.OriginalJournalField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.OriginalJournalField, value) != true)) {
-                    this.OriginalJournalField = value;
-                    this.RaisePropertyChanged("OriginalJournal");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P OriginalJournalReference {
-            get {
-                return this.OriginalJournalReferenceField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.OriginalJournalReferenceField, value) != true)) {
-                    this.OriginalJournalReferenceField = value;
-                    this.RaisePropertyChanged("OriginalJournalReference");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Transaction", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core", IsReference=true)]
-    public partial class Transaction : Fab.Client.MoneyServiceReference.Journal {
-        
-        private decimal PriceField;
-        
-        private decimal QuantityField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal Price {
@@ -866,57 +334,6 @@ namespace Fab.Client.MoneyServiceReference {
                 }
             }
         }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityKey", Namespace="http://schemas.datacontract.org/2004/07/System.Data", IsReference=true)]
-    public partial class EntityKey : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string EntityContainerNameField;
-        
-        private Fab.Client.MoneyServiceReference.EntityKeyMember[] EntityKeyValuesField;
-        
-        private string EntitySetNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EntityContainerName {
-            get {
-                return this.EntityContainerNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EntityContainerNameField, value) != true)) {
-                    this.EntityContainerNameField = value;
-                    this.RaisePropertyChanged("EntityContainerName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityKeyMember[] EntityKeyValues {
-            get {
-                return this.EntityKeyValuesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EntityKeyValuesField, value) != true)) {
-                    this.EntityKeyValuesField = value;
-                    this.RaisePropertyChanged("EntityKeyValues");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EntitySetName {
-            get {
-                return this.EntitySetNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EntitySetNameField, value) != true)) {
-                    this.EntitySetNameField = value;
-                    this.RaisePropertyChanged("EntitySetName");
-                }
-            }
-        }
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -930,74 +347,65 @@ namespace Fab.Client.MoneyServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfAssetTypeQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    public partial class EntityReferenceOfAssetTypeQ4jSz9U_P : Fab.Client.MoneyServiceReference.EntityReference {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfUserQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    public partial class EntityReferenceOfUserQ4jSz9U_P : Fab.Client.MoneyServiceReference.EntityReference {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityKeyMember", Namespace="http://schemas.datacontract.org/2004/07/System.Data")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Account[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Account))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.AssetType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Posting[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Posting))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Journal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Category))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Journal[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.User))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Category[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.DeletedJournal))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.Transaction))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.AssetType[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.TransactionRecord[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.TransactionRecord))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityObject))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.StructuralObject))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfAccountQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReference))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.RelatedEnd))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityKey))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityKeyMember[]))]
-    public partial class EntityKeyMember : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Runtime.Serialization.DataContractAttribute(Name="PostingDTO", Namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO")]
+    public partial class PostingDTO : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private string KeyField;
+        private Fab.Client.MoneyServiceReference.AccountDTO AccountField;
         
-        private object ValueField;
+        private decimal AmountField;
+        
+        private System.DateTime DateField;
+        
+        private int IdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Key {
+        public Fab.Client.MoneyServiceReference.AccountDTO Account {
             get {
-                return this.KeyField;
+                return this.AccountField;
             }
             set {
-                if ((object.ReferenceEquals(this.KeyField, value) != true)) {
-                    this.KeyField = value;
-                    this.RaisePropertyChanged("Key");
+                if ((object.ReferenceEquals(this.AccountField, value) != true)) {
+                    this.AccountField = value;
+                    this.RaisePropertyChanged("Account");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public object Value {
+        public decimal Amount {
             get {
-                return this.ValueField;
+                return this.AmountField;
             }
             set {
-                if ((object.ReferenceEquals(this.ValueField, value) != true)) {
-                    this.ValueField = value;
-                    this.RaisePropertyChanged("Value");
+                if ((this.AmountField.Equals(value) != true)) {
+                    this.AmountField = value;
+                    this.RaisePropertyChanged("Amount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Date {
+            get {
+                return this.DateField;
+            }
+            set {
+                if ((this.DateField.Equals(value) != true)) {
+                    this.DateField = value;
+                    this.RaisePropertyChanged("Date");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
                 }
             }
         }
@@ -1019,7 +427,7 @@ namespace Fab.Client.MoneyServiceReference {
         
         private decimal BalanceField;
         
-        private Fab.Client.MoneyServiceReference.Category CategoryField;
+        private Fab.Client.MoneyServiceReference.CategoryDTO CategoryField;
         
         private string CommentField;
         
@@ -1045,7 +453,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.Category Category {
+        public Fab.Client.MoneyServiceReference.CategoryDTO Category {
             get {
                 return this.CategoryField;
             }
@@ -1132,79 +540,6 @@ namespace Fab.Client.MoneyServiceReference {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfAccountQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    public partial class EntityReferenceOfAccountQ4jSz9U_P : Fab.Client.MoneyServiceReference.EntityReference {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReference", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfAccountQ4jSz9U_P))]
-    public partial class EntityReference : Fab.Client.MoneyServiceReference.RelatedEnd {
-        
-        private Fab.Client.MoneyServiceReference.EntityKey EntityKeyField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fab.Client.MoneyServiceReference.EntityKey EntityKey {
-            get {
-                return this.EntityKeyField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EntityKeyField, value) != true)) {
-                    this.EntityKeyField = value;
-                    this.RaisePropertyChanged("EntityKey");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="RelatedEnd", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReference))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfAssetTypeQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfUserQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfCategoryQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfJournalQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfDeletedJournalQ4jSz9U_P))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Fab.Client.MoneyServiceReference.EntityReferenceOfAccountQ4jSz9U_P))]
-    public partial class RelatedEnd : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfCategoryQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    public partial class EntityReferenceOfCategoryQ4jSz9U_P : Fab.Client.MoneyServiceReference.EntityReference {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfJournalQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    public partial class EntityReferenceOfJournalQ4jSz9U_P : Fab.Client.MoneyServiceReference.EntityReference {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EntityReferenceOfDeletedJournalQ4jSz9U_P", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Objects.DataClasses")]
-    public partial class EntityReferenceOfDeletedJournalQ4jSz9U_P : Fab.Client.MoneyServiceReference.EntityReference {
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MoneyServiceReference.IMoneyService")]
     public interface IMoneyService {
@@ -1227,7 +562,7 @@ namespace Fab.Client.MoneyServiceReference {
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/GetAllAccounts", ReplyAction="http://tempuri.org/IMoneyService/GetAllAccountsResponse")]
         System.IAsyncResult BeginGetAllAccounts(System.Guid userId, System.AsyncCallback callback, object asyncState);
         
-        Fab.Client.MoneyServiceReference.Account[] EndGetAllAccounts(System.IAsyncResult result);
+        Fab.Client.MoneyServiceReference.AccountDTO[] EndGetAllAccounts(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/GetAccountBalance", ReplyAction="http://tempuri.org/IMoneyService/GetAccountBalanceResponse")]
         System.IAsyncResult BeginGetAccountBalance(System.Guid userId, int accountId, System.AsyncCallback callback, object asyncState);
@@ -1252,12 +587,12 @@ namespace Fab.Client.MoneyServiceReference {
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/GetAllCategories", ReplyAction="http://tempuri.org/IMoneyService/GetAllCategoriesResponse")]
         System.IAsyncResult BeginGetAllCategories(System.Guid userId, System.AsyncCallback callback, object asyncState);
         
-        Fab.Client.MoneyServiceReference.Category[] EndGetAllCategories(System.IAsyncResult result);
+        Fab.Client.MoneyServiceReference.CategoryDTO[] EndGetAllCategories(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/GetAllAssetTypes", ReplyAction="http://tempuri.org/IMoneyService/GetAllAssetTypesResponse")]
         System.IAsyncResult BeginGetAllAssetTypes(System.AsyncCallback callback, object asyncState);
         
-        Fab.Client.MoneyServiceReference.AssetType[] EndGetAllAssetTypes(System.IAsyncResult result);
+        Fab.Client.MoneyServiceReference.AssetTypeDTO[] EndGetAllAssetTypes(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/Deposit", ReplyAction="http://tempuri.org/IMoneyService/DepositResponse")]
         System.IAsyncResult BeginDeposit(System.Guid userId, int accountId, System.DateTime operationDate, decimal price, decimal quantity, string comment, System.Nullable<int> categoryId, System.AsyncCallback callback, object asyncState);
@@ -1277,7 +612,7 @@ namespace Fab.Client.MoneyServiceReference {
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/GetTransaction", ReplyAction="http://tempuri.org/IMoneyService/GetTransactionResponse")]
         System.IAsyncResult BeginGetTransaction(System.Guid userId, int accountId, int transactionId, System.AsyncCallback callback, object asyncState);
         
-        Fab.Client.MoneyServiceReference.Transaction EndGetTransaction(System.IAsyncResult result);
+        Fab.Client.MoneyServiceReference.TransactionDTO EndGetTransaction(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/DeleteTransaction", ReplyAction="http://tempuri.org/IMoneyService/DeleteTransactionResponse")]
         System.IAsyncResult BeginDeleteTransaction(System.Guid userId, int accountId, int transactionId, System.DateTime operationDate, System.AsyncCallback callback, object asyncState);
@@ -1315,10 +650,10 @@ namespace Fab.Client.MoneyServiceReference {
             this.results = results;
         }
         
-        public Fab.Client.MoneyServiceReference.Account[] Result {
+        public Fab.Client.MoneyServiceReference.AccountDTO[] Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Fab.Client.MoneyServiceReference.Account[])(this.results[0]));
+                return ((Fab.Client.MoneyServiceReference.AccountDTO[])(this.results[0]));
             }
         }
     }
@@ -1353,10 +688,10 @@ namespace Fab.Client.MoneyServiceReference {
             this.results = results;
         }
         
-        public Fab.Client.MoneyServiceReference.Category[] Result {
+        public Fab.Client.MoneyServiceReference.CategoryDTO[] Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Fab.Client.MoneyServiceReference.Category[])(this.results[0]));
+                return ((Fab.Client.MoneyServiceReference.CategoryDTO[])(this.results[0]));
             }
         }
     }
@@ -1372,10 +707,10 @@ namespace Fab.Client.MoneyServiceReference {
             this.results = results;
         }
         
-        public Fab.Client.MoneyServiceReference.AssetType[] Result {
+        public Fab.Client.MoneyServiceReference.AssetTypeDTO[] Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Fab.Client.MoneyServiceReference.AssetType[])(this.results[0]));
+                return ((Fab.Client.MoneyServiceReference.AssetTypeDTO[])(this.results[0]));
             }
         }
     }
@@ -1391,10 +726,10 @@ namespace Fab.Client.MoneyServiceReference {
             this.results = results;
         }
         
-        public Fab.Client.MoneyServiceReference.Transaction Result {
+        public Fab.Client.MoneyServiceReference.TransactionDTO Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Fab.Client.MoneyServiceReference.Transaction)(this.results[0]));
+                return ((Fab.Client.MoneyServiceReference.TransactionDTO)(this.results[0]));
             }
         }
     }
@@ -1776,7 +1111,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Fab.Client.MoneyServiceReference.Account[] Fab.Client.MoneyServiceReference.IMoneyService.EndGetAllAccounts(System.IAsyncResult result) {
+        Fab.Client.MoneyServiceReference.AccountDTO[] Fab.Client.MoneyServiceReference.IMoneyService.EndGetAllAccounts(System.IAsyncResult result) {
             return base.Channel.EndGetAllAccounts(result);
         }
         
@@ -1786,7 +1121,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         private object[] OnEndGetAllAccounts(System.IAsyncResult result) {
-            Fab.Client.MoneyServiceReference.Account[] retVal = ((Fab.Client.MoneyServiceReference.IMoneyService)(this)).EndGetAllAccounts(result);
+            Fab.Client.MoneyServiceReference.AccountDTO[] retVal = ((Fab.Client.MoneyServiceReference.IMoneyService)(this)).EndGetAllAccounts(result);
             return new object[] {
                     retVal};
         }
@@ -2013,7 +1348,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Fab.Client.MoneyServiceReference.Category[] Fab.Client.MoneyServiceReference.IMoneyService.EndGetAllCategories(System.IAsyncResult result) {
+        Fab.Client.MoneyServiceReference.CategoryDTO[] Fab.Client.MoneyServiceReference.IMoneyService.EndGetAllCategories(System.IAsyncResult result) {
             return base.Channel.EndGetAllCategories(result);
         }
         
@@ -2023,7 +1358,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         private object[] OnEndGetAllCategories(System.IAsyncResult result) {
-            Fab.Client.MoneyServiceReference.Category[] retVal = ((Fab.Client.MoneyServiceReference.IMoneyService)(this)).EndGetAllCategories(result);
+            Fab.Client.MoneyServiceReference.CategoryDTO[] retVal = ((Fab.Client.MoneyServiceReference.IMoneyService)(this)).EndGetAllCategories(result);
             return new object[] {
                     retVal};
         }
@@ -2059,7 +1394,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Fab.Client.MoneyServiceReference.AssetType[] Fab.Client.MoneyServiceReference.IMoneyService.EndGetAllAssetTypes(System.IAsyncResult result) {
+        Fab.Client.MoneyServiceReference.AssetTypeDTO[] Fab.Client.MoneyServiceReference.IMoneyService.EndGetAllAssetTypes(System.IAsyncResult result) {
             return base.Channel.EndGetAllAssetTypes(result);
         }
         
@@ -2068,7 +1403,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         private object[] OnEndGetAllAssetTypes(System.IAsyncResult result) {
-            Fab.Client.MoneyServiceReference.AssetType[] retVal = ((Fab.Client.MoneyServiceReference.IMoneyService)(this)).EndGetAllAssetTypes(result);
+            Fab.Client.MoneyServiceReference.AssetTypeDTO[] retVal = ((Fab.Client.MoneyServiceReference.IMoneyService)(this)).EndGetAllAssetTypes(result);
             return new object[] {
                     retVal};
         }
@@ -2274,7 +1609,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Fab.Client.MoneyServiceReference.Transaction Fab.Client.MoneyServiceReference.IMoneyService.EndGetTransaction(System.IAsyncResult result) {
+        Fab.Client.MoneyServiceReference.TransactionDTO Fab.Client.MoneyServiceReference.IMoneyService.EndGetTransaction(System.IAsyncResult result) {
             return base.Channel.EndGetTransaction(result);
         }
         
@@ -2286,7 +1621,7 @@ namespace Fab.Client.MoneyServiceReference {
         }
         
         private object[] OnEndGetTransaction(System.IAsyncResult result) {
-            Fab.Client.MoneyServiceReference.Transaction retVal = ((Fab.Client.MoneyServiceReference.IMoneyService)(this)).EndGetTransaction(result);
+            Fab.Client.MoneyServiceReference.TransactionDTO retVal = ((Fab.Client.MoneyServiceReference.IMoneyService)(this)).EndGetTransaction(result);
             return new object[] {
                     retVal};
         }
@@ -2662,9 +1997,9 @@ namespace Fab.Client.MoneyServiceReference {
                 return _result;
             }
             
-            public Fab.Client.MoneyServiceReference.Account[] EndGetAllAccounts(System.IAsyncResult result) {
+            public Fab.Client.MoneyServiceReference.AccountDTO[] EndGetAllAccounts(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Fab.Client.MoneyServiceReference.Account[] _result = ((Fab.Client.MoneyServiceReference.Account[])(base.EndInvoke("GetAllAccounts", _args, result)));
+                Fab.Client.MoneyServiceReference.AccountDTO[] _result = ((Fab.Client.MoneyServiceReference.AccountDTO[])(base.EndInvoke("GetAllAccounts", _args, result)));
                 return _result;
             }
             
@@ -2729,9 +2064,9 @@ namespace Fab.Client.MoneyServiceReference {
                 return _result;
             }
             
-            public Fab.Client.MoneyServiceReference.Category[] EndGetAllCategories(System.IAsyncResult result) {
+            public Fab.Client.MoneyServiceReference.CategoryDTO[] EndGetAllCategories(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Fab.Client.MoneyServiceReference.Category[] _result = ((Fab.Client.MoneyServiceReference.Category[])(base.EndInvoke("GetAllCategories", _args, result)));
+                Fab.Client.MoneyServiceReference.CategoryDTO[] _result = ((Fab.Client.MoneyServiceReference.CategoryDTO[])(base.EndInvoke("GetAllCategories", _args, result)));
                 return _result;
             }
             
@@ -2741,9 +2076,9 @@ namespace Fab.Client.MoneyServiceReference {
                 return _result;
             }
             
-            public Fab.Client.MoneyServiceReference.AssetType[] EndGetAllAssetTypes(System.IAsyncResult result) {
+            public Fab.Client.MoneyServiceReference.AssetTypeDTO[] EndGetAllAssetTypes(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Fab.Client.MoneyServiceReference.AssetType[] _result = ((Fab.Client.MoneyServiceReference.AssetType[])(base.EndInvoke("GetAllAssetTypes", _args, result)));
+                Fab.Client.MoneyServiceReference.AssetTypeDTO[] _result = ((Fab.Client.MoneyServiceReference.AssetTypeDTO[])(base.EndInvoke("GetAllAssetTypes", _args, result)));
                 return _result;
             }
             
@@ -2810,9 +2145,9 @@ namespace Fab.Client.MoneyServiceReference {
                 return _result;
             }
             
-            public Fab.Client.MoneyServiceReference.Transaction EndGetTransaction(System.IAsyncResult result) {
+            public Fab.Client.MoneyServiceReference.TransactionDTO EndGetTransaction(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Fab.Client.MoneyServiceReference.Transaction _result = ((Fab.Client.MoneyServiceReference.Transaction)(base.EndInvoke("GetTransaction", _args, result)));
+                Fab.Client.MoneyServiceReference.TransactionDTO _result = ((Fab.Client.MoneyServiceReference.TransactionDTO)(base.EndInvoke("GetTransaction", _args, result)));
                 return _result;
             }
             
