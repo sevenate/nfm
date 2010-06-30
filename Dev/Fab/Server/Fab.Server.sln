@@ -12,12 +12,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fab.Server.Import", "src\Fa
 EndProject
 Global
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = src\\Fab.Server\\Fab.Server.csproj
 		SccLocalPath1 = src\\Fab.Server
 		SccProjectUniqueName2 = src\\Fab.Server.Tests\\Fab.Server.Tests.csproj
 		SccLocalPath2 = src\\Fab.Server.Tests
+		SccProjectUniqueName3 = src\\Fab.Server.Import\\Fab.Server.Import.csproj
+		SccLocalPath3 = src\\Fab.Server.Import
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
