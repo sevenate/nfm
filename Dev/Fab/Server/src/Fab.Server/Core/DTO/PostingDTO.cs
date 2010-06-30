@@ -32,5 +32,11 @@ namespace Fab.Server.Core.DTO
 		/// </summary>
 		[DataMember]
 		public decimal Amount { get; set; }
+
+		/// <summary>
+		/// Gets or sets corresponding account.
+		/// </summary>
+		[DataMember]
+		public AccountDTO Account { get; set; }
 	}
 }

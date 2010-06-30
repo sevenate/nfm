@@ -252,11 +252,12 @@ namespace Fab.Server.Tests
 		[Fact]
 		public void GetTransaction()
 		{
+			const string accountName = "Test Account 1";
 			const string categoryName = "Test Category 1";
 			var service = new MoneyService();
 			var userService = new UserService();
 			var userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
-			service.CreateAccount(userId1, "Test Account 1", 1);
+			service.CreateAccount(userId1, accountName, 1);
 			var accounts1 = service.GetAllAccounts(userId1);
 			service.CreateCategory(userId1, categoryName);
 			var categories = service.GetAllCategories(userId1);
@@ -270,8 +271,12 @@ namespace Fab.Server.Tests
 
 			Assert.NotNull(transaction);
 			Assert.Equal(2, transaction.Postings.Count);
+			
 			Assert.NotNull(transaction.Category);
 			Assert.Equal(categoryName, transaction.Category.Name);
+			
+			Assert.NotNull(transaction.Postings[0].Account);
+			Assert.Equal(accountName, transaction.Postings[0].Account.Name);
 		}
 
 		/// <summary>

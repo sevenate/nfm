@@ -418,10 +418,12 @@ namespace Fab.Server
 		{
 			using (var mc = new ModelContainer())
 			{
+				var accountMapper = ObjectMapperManager.DefaultInstance.GetMapper<Account, AccountDTO>();
 				var postingMapper = ObjectMapperManager.DefaultInstance.GetMapper<Posting, PostingDTO>();
 				var categoryMapper = ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>();
 				var transactionMapper = ObjectMapperManager.DefaultInstance.GetMapper<Transaction, TransactionDTO>(
 										new DefaultMapConfig()
+										.ConvertUsing<Account, AccountDTO>(accountMapper.Map)
 										.ConvertUsing<EntityCollection<Posting>, List<PostingDTO>>(postings => postings.Select(postingMapper.Map).ToList())
 										.ConvertUsing<Posting, PostingDTO>(postingMapper.Map)
 										.ConvertUsing<Category, CategoryDTO>(categoryMapper.Map));
