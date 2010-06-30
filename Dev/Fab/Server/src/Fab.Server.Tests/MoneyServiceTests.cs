@@ -25,7 +25,7 @@ namespace Fab.Server.Tests
 			const string expectedAccountName = "Test Account";
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 
 			service.CreateAccount(userId, expectedAccountName, 1);
 
@@ -46,7 +46,7 @@ namespace Fab.Server.Tests
 			const int expectedNewAssetType = 2;
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, accountName, assetType);
 			var accounts = service.GetAllAccounts(userId);
 
@@ -67,7 +67,7 @@ namespace Fab.Server.Tests
 			const string accountName = "Test Account";
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, accountName, 1);
 			var accounts = service.GetAllAccounts(userId);
 
@@ -86,7 +86,7 @@ namespace Fab.Server.Tests
 			const string expectedAccountName = "Test Account";
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, expectedAccountName, 1);
 
 			var accounts = service.GetAllAccounts(userId);
@@ -110,7 +110,7 @@ namespace Fab.Server.Tests
 			const string expectedCategoryName = "Test Category";
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 
 			service.CreateCategory(userId, expectedCategoryName);
 
@@ -129,7 +129,7 @@ namespace Fab.Server.Tests
 			const string expectedNewCategoryName = "Renamed Category";
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, categoryName);
 			var categories = service.GetAllCategories(userId);
 
@@ -149,7 +149,7 @@ namespace Fab.Server.Tests
 			const string categoryName = "Test Category";
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, categoryName);
 			var categories = service.GetAllCategories(userId);
 
@@ -168,7 +168,7 @@ namespace Fab.Server.Tests
 			const string expectedCategoryName = "Test Category";
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateCategory(userId, expectedCategoryName);
 
 			var categories = service.GetAllCategories(userId);
@@ -202,7 +202,7 @@ namespace Fab.Server.Tests
 		{
 			var service = new MoneyService();
 			var userService = new UserService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account", 1);
 			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category");
@@ -219,7 +219,7 @@ namespace Fab.Server.Tests
 		{
 			var service = new MoneyService();
 			var userService = new UserService();
-			Guid userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account", 1);
 			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category");
@@ -236,14 +236,42 @@ namespace Fab.Server.Tests
 		{
 			var service = new MoneyService();
 			var userService = new UserService();
-			Guid userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
-			Guid userId2 = userService.Register("testUser2" + Guid.NewGuid(), "testPassword");
+			var userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			var userId2 = userService.Register("testUser2" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId1, "Test Account 1", 1);
 			service.CreateAccount(userId2, "Test Account 2", 1);
 			var accounts1 = service.GetAllAccounts(userId1);
 			var accounts2 = service.GetAllAccounts(userId2);
 
 			service.Transfer(userId1, accounts1[0].Id, userId2, accounts2[0].Id, DateTime.Now, 78, "Some transfer comment");
+		}
+
+		/// <summary>
+		/// Test <see cref="MoneyService.GetTransaction"/> method.
+		/// </summary>
+		[Fact]
+		public void GetTransaction()
+		{
+			const string categoryName = "Test Category 1";
+			var service = new MoneyService();
+			var userService = new UserService();
+			var userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			service.CreateAccount(userId1, "Test Account 1", 1);
+			var accounts1 = service.GetAllAccounts(userId1);
+			service.CreateCategory(userId1, categoryName);
+			var categories = service.GetAllCategories(userId1);
+			service.Deposit(userId1, accounts1[0].Id, DateTime.Now, 25, 10, "Some income comment", categories[0].Id);
+
+			var transactions = service.GetAllTransactions(userId1, accounts1[0].Id);
+			
+			Assert.Equal(1, transactions.Count);
+
+			var transaction = service.GetTransaction(userId1, accounts1[0].Id, transactions[0].TransactionId);
+
+			Assert.NotNull(transaction);
+			Assert.Equal(2, transaction.Postings.Count);
+			Assert.NotNull(transaction.Category);
+			Assert.Equal(categoryName, transaction.Category.Name);
 		}
 
 		/// <summary>
@@ -254,8 +282,8 @@ namespace Fab.Server.Tests
 		{
 			var service = new MoneyService();
 			var userService = new UserService();
-			Guid userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
-			Guid userId2 = userService.Register("testUser2" + Guid.NewGuid(), "testPassword");
+			var userId1 = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			var userId2 = userService.Register("testUser2" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId1, "Test Account 1", 1);
 			service.CreateAccount(userId2, "Test Account 2", 1);
 			var accounts1 = service.GetAllAccounts(userId1);
@@ -293,7 +321,7 @@ namespace Fab.Server.Tests
 		{
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account 1", 1);
 			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category 1");
@@ -304,8 +332,8 @@ namespace Fab.Server.Tests
 
 			var transactionRecords = service.GetAllTransactions(userId, accounts[0].Id);
 
-			Assert.True(transactionRecords != null);
-			Assert.True(transactionRecords.Count  == 2);
+			Assert.NotNull(transactionRecords);
+			Assert.Equal(2, transactionRecords.Count);
 		}
 
 
@@ -317,7 +345,7 @@ namespace Fab.Server.Tests
 		{
 			var userService = new UserService();
 			var service = new MoneyService();
-			Guid userId = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
+			var userId = userService.Register("testUser1" + Guid.NewGuid(), "testPassword");
 			service.CreateAccount(userId, "Test Account 1", 1);
 			var accounts = service.GetAllAccounts(userId);
 			service.CreateCategory(userId, "Test Category 1");
@@ -332,8 +360,8 @@ namespace Fab.Server.Tests
 			var transactionRecords = service.GetAllTransactions(userId, accounts[0].Id);
 			var transactionId = transactionRecords[0].TransactionId;
 
-			Assert.True(transactionRecords != null);
-			Assert.True(transactionRecords.Count == 2);
+			Assert.NotNull(transactionRecords);
+			Assert.Equal(2, transactionRecords.Count);
 
 			service.UpdateTransaction(transactionId, userId, accounts[0].Id, DateTime.Now, 32, 20, "Updated income", categories[0].Id, false);
 

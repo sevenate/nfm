@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
@@ -421,6 +422,7 @@ namespace Fab.Server
 				var categoryMapper = ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>();
 				var transactionMapper = ObjectMapperManager.DefaultInstance.GetMapper<Transaction, TransactionDTO>(
 										new DefaultMapConfig()
+										.ConvertUsing<EntityCollection<Posting>, List<PostingDTO>>(postings => postings.Select(postingMapper.Map).ToList())
 										.ConvertUsing<Posting, PostingDTO>(postingMapper.Map)
 										.ConvertUsing<Category, CategoryDTO>(categoryMapper.Map));
 

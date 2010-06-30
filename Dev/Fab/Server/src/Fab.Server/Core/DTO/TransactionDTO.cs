@@ -4,6 +4,7 @@
 // <author name="Andrew Levshoff" email="78@nreez.com" date="2010-06-29" />
 // <summary>Transaction data transfer object.</summary>
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Fab.Server.Core.DTO
@@ -49,5 +50,17 @@ namespace Fab.Server.Core.DTO
 		/// </summary>
 		[DataMember]
 		public string Comment { get; set; }
+
+		/// <summary>
+		/// Gets or sets transaction category.
+		/// </summary>
+		[DataMember]
+		public CategoryDTO Category { get; set; }
+
+		/// <summary>
+		/// Gets or sets transaction postings.
+		/// </summary>
+		[DataMember]
+		public List<PostingDTO> Postings { get; set; }
 	}
 }
