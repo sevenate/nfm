@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MoneyService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:33809/MoneyService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:33809/MoneyService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:33809/MoneyService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO" />
+      <xsd:import schemaLocation="http://localhost:33809/MoneyService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMoneyService_CreateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_CreateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_UpdateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_UpdateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_DeleteAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAccount" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_DeleteAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAllAccounts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAccounts" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAllAccounts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAccountsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAccountBalance_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountBalance" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAccountBalance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountBalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_CreateCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateCategory" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_CreateCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_UpdateCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCategory" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_UpdateCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_DeleteCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCategory" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_DeleteCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAllCategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCategories" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAllCategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAllAssetTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAssetTypes" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAllAssetTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllAssetTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_Deposit_InputMessage">
+    <wsdl:part name="parameters" element="tns:Deposit" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_Deposit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DepositResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_Withdrawal_InputMessage">
+    <wsdl:part name="parameters" element="tns:Withdrawal" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_Withdrawal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WithdrawalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_Transfer_InputMessage">
+    <wsdl:part name="parameters" element="tns:Transfer" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_Transfer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_DeleteTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_DeleteTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_UpdateTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_UpdateTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_UpdateTransfer_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransfer" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_UpdateTransfer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransferResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAllTransactions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTransactions" />
+  </wsdl:message>
+  <wsdl:message name="IMoneyService_GetAllTransactions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTransactionsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMoneyService">
+    <wsdl:operation name="CreateAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/CreateAccount" message="tns:IMoneyService_CreateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/CreateAccountResponse" message="tns:IMoneyService_CreateAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/UpdateAccount" message="tns:IMoneyService_UpdateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/UpdateAccountResponse" message="tns:IMoneyService_UpdateAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/DeleteAccount" message="tns:IMoneyService_DeleteAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/DeleteAccountResponse" message="tns:IMoneyService_DeleteAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccounts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/GetAllAccounts" message="tns:IMoneyService_GetAllAccounts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/GetAllAccountsResponse" message="tns:IMoneyService_GetAllAccounts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountBalance">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/GetAccountBalance" message="tns:IMoneyService_GetAccountBalance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/GetAccountBalanceResponse" message="tns:IMoneyService_GetAccountBalance_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/CreateCategory" message="tns:IMoneyService_CreateCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/CreateCategoryResponse" message="tns:IMoneyService_CreateCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/UpdateCategory" message="tns:IMoneyService_UpdateCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/UpdateCategoryResponse" message="tns:IMoneyService_UpdateCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/DeleteCategory" message="tns:IMoneyService_DeleteCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/DeleteCategoryResponse" message="tns:IMoneyService_DeleteCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/GetAllCategories" message="tns:IMoneyService_GetAllCategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/GetAllCategoriesResponse" message="tns:IMoneyService_GetAllCategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAssetTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/GetAllAssetTypes" message="tns:IMoneyService_GetAllAssetTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/GetAllAssetTypesResponse" message="tns:IMoneyService_GetAllAssetTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Deposit">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/Deposit" message="tns:IMoneyService_Deposit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/DepositResponse" message="tns:IMoneyService_Deposit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Withdrawal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/Withdrawal" message="tns:IMoneyService_Withdrawal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/WithdrawalResponse" message="tns:IMoneyService_Withdrawal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Transfer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/Transfer" message="tns:IMoneyService_Transfer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/TransferResponse" message="tns:IMoneyService_Transfer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/GetTransaction" message="tns:IMoneyService_GetTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/GetTransactionResponse" message="tns:IMoneyService_GetTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/DeleteTransaction" message="tns:IMoneyService_DeleteTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/DeleteTransactionResponse" message="tns:IMoneyService_DeleteTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/UpdateTransaction" message="tns:IMoneyService_UpdateTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/UpdateTransactionResponse" message="tns:IMoneyService_UpdateTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransfer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/UpdateTransfer" message="tns:IMoneyService_UpdateTransfer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/UpdateTransferResponse" message="tns:IMoneyService_UpdateTransfer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTransactions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMoneyService/GetAllTransactions" message="tns:IMoneyService_GetAllTransactions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMoneyService/GetAllTransactionsResponse" message="tns:IMoneyService_GetAllTransactions_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMoneyService" type="tns:IMoneyService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateAccount">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/CreateAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/UpdateAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/DeleteAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccounts">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/GetAllAccounts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountBalance">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/GetAccountBalance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCategory">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/CreateCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCategory">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/UpdateCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCategory">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/DeleteCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCategories">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/GetAllCategories" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAssetTypes">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/GetAllAssetTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Deposit">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/Deposit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Withdrawal">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/Withdrawal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Transfer">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/Transfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransaction">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/GetTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTransaction">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/DeleteTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/UpdateTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransfer">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/UpdateTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTransactions">
+      <soap:operation soapAction="http://tempuri.org/IMoneyService/GetAllTransactions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MoneyService">
+    <wsdl:port name="BasicHttpBinding_IMoneyService" binding="tns:BasicHttpBinding_IMoneyService">
+      <soap:address location="http://localhost:33809/MoneyService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

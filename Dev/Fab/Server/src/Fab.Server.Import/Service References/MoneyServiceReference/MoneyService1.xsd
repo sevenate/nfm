@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Fab.Server.Core.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfAccountDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AccountDTO" nillable="true" type="tns:AccountDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccountDTO" nillable="true" type="tns:ArrayOfAccountDTO" />
+  <xs:complexType name="AccountDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AssetType" nillable="true" type="tns:AssetTypeDTO" />
+      <xs:element minOccurs="0" name="Created" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountDTO" nillable="true" type="tns:AccountDTO" />
+  <xs:complexType name="AssetTypeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AssetTypeDTO" nillable="true" type="tns:AssetTypeDTO" />
+  <xs:complexType name="ArrayOfCategoryDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryDTO" nillable="true" type="tns:CategoryDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCategoryDTO" nillable="true" type="tns:ArrayOfCategoryDTO" />
+  <xs:complexType name="CategoryDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CategoryDTO" nillable="true" type="tns:CategoryDTO" />
+  <xs:complexType name="ArrayOfAssetTypeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetTypeDTO" nillable="true" type="tns:AssetTypeDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAssetTypeDTO" nillable="true" type="tns:ArrayOfAssetTypeDTO" />
+  <xs:complexType name="TransactionDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Category" nillable="true" type="tns:CategoryDTO" />
+      <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="JournalType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Postings" nillable="true" type="tns:ArrayOfPostingDTO" />
+      <xs:element minOccurs="0" name="Price" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Quantity" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TransactionDTO" nillable="true" type="tns:TransactionDTO" />
+  <xs:complexType name="ArrayOfPostingDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PostingDTO" nillable="true" type="tns:PostingDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPostingDTO" nillable="true" type="tns:ArrayOfPostingDTO" />
+  <xs:complexType name="PostingDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Account" nillable="true" type="tns:AccountDTO" />
+      <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PostingDTO" nillable="true" type="tns:PostingDTO" />
+</xs:schema>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="86e68daa-3b84-47a7-9357-9879a073a7dd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:33809/MoneyService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MoneyService.disco" MetadataType="Disco" ID="5858d661-1437-4c1a-8cab-1ef140b8ee92" SourceId="1" SourceUrl="http://localhost:33809/MoneyService.svc?disco" />
+    <MetadataFile FileName="MoneyService.xsd" MetadataType="Schema" ID="761f6e77-f18e-4555-9c08-d9e9b6be39b6" SourceId="1" SourceUrl="http://localhost:33809/MoneyService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MoneyService1.xsd" MetadataType="Schema" ID="ad1e4a9d-31b3-40b5-aeaf-613500baf2c9" SourceId="1" SourceUrl="http://localhost:33809/MoneyService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MoneyService2.xsd" MetadataType="Schema" ID="a89df0ef-4fb5-414c-9a78-ff0b9d59e4e6" SourceId="1" SourceUrl="http://localhost:33809/MoneyService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MoneyService3.xsd" MetadataType="Schema" ID="a8be1cee-c472-47ba-9440-292abe3f75ab" SourceId="1" SourceUrl="http://localhost:33809/MoneyService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MoneyService.wsdl" MetadataType="Wsdl" ID="83cb7577-2bd1-49c3-b6f4-b842f8a1a684" SourceId="1" SourceUrl="http://localhost:33809/MoneyService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

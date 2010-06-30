@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProfitAndExpenseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ProfitAndExpenseModelStoreContainer">
+          <EntitySet Name="TblCurrencyList" EntityType="ProfitAndExpenseModel.Store.TblCurrencyList" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TblExpenseGroups" EntityType="ProfitAndExpenseModel.Store.TblExpenseGroups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TblExpenseList" EntityType="ProfitAndExpenseModel.Store.TblExpenseList" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TblRevenueGroups" EntityType="ProfitAndExpenseModel.Store.TblRevenueGroups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TblRevenueList" EntityType="ProfitAndExpenseModel.Store.TblRevenueList" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_TblExpensesList_TblExpenseGroups" Association="ProfitAndExpenseModel.Store.FK_TblExpensesList_TblExpenseGroups">
+            <End Role="TblExpenseGroups" EntitySet="TblExpenseGroups" />
+            <End Role="TblExpenseList" EntitySet="TblExpenseList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblRevenueList_TblCurrencyList1" Association="ProfitAndExpenseModel.Store.FK_TblRevenueList_TblCurrencyList1">
+            <End Role="TblCurrencyList" EntitySet="TblCurrencyList" />
+            <End Role="TblRevenueList" EntitySet="TblRevenueList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblRevenueList_TblRevenueGroups" Association="ProfitAndExpenseModel.Store.FK_TblRevenueList_TblRevenueGroups">
+            <End Role="TblRevenueGroups" EntitySet="TblRevenueGroups" />
+            <End Role="TblRevenueList" EntitySet="TblRevenueList" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TblCurrencyList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TblExpenseGroups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TblExpenseList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseGroupId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Cost" Type="money" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Memo" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TblRevenueGroups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TblRevenueList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RevenueGroupId" Type="int" Nullable="false" />
+          <Property Name="SourceName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="AmountGRN" Type="money" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Memo" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="ExchangeRate" Type="float" Nullable="false" />
+          <Property Name="CurrencyId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TblExpensesList_TblExpenseGroups">
+          <End Role="TblExpenseGroups" Type="ProfitAndExpenseModel.Store.TblExpenseGroups" Multiplicity="1" />
+          <End Role="TblExpenseList" Type="ProfitAndExpenseModel.Store.TblExpenseList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblExpenseGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblExpenseList">
+              <PropertyRef Name="ExpenseGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblRevenueList_TblCurrencyList1">
+          <End Role="TblCurrencyList" Type="ProfitAndExpenseModel.Store.TblCurrencyList" Multiplicity="1" />
+          <End Role="TblRevenueList" Type="ProfitAndExpenseModel.Store.TblRevenueList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCurrencyList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblRevenueList">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblRevenueList_TblRevenueGroups">
+          <End Role="TblRevenueGroups" Type="ProfitAndExpenseModel.Store.TblRevenueGroups" Multiplicity="1" />
+          <End Role="TblRevenueList" Type="ProfitAndExpenseModel.Store.TblRevenueList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblRevenueGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblRevenueList">
+              <PropertyRef Name="RevenueGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProfitAndExpenseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ProfitAndExpenseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TblCurrencyLists" EntityType="ProfitAndExpenseModel.CurrencyList" />
+          <EntitySet Name="TblExpenseGroups" EntityType="ProfitAndExpenseModel.ExpenseGroup" />
+          <EntitySet Name="TblExpenseLists" EntityType="ProfitAndExpenseModel.ExpenseList" />
+          <EntitySet Name="TblRevenueGroups" EntityType="ProfitAndExpenseModel.RevenueGroup" />
+          <EntitySet Name="TblRevenueLists" EntityType="ProfitAndExpenseModel.RevenueList" />
+          <AssociationSet Name="FK_TblRevenueList_TblCurrencyList1" Association="ProfitAndExpenseModel.FK_TblRevenueList_TblCurrencyList1">
+            <End Role="TblCurrencyList" EntitySet="TblCurrencyLists" />
+            <End Role="TblRevenueList" EntitySet="TblRevenueLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblExpensesList_TblExpenseGroups" Association="ProfitAndExpenseModel.FK_TblExpensesList_TblExpenseGroups">
+            <End Role="TblExpenseGroups" EntitySet="TblExpenseGroups" />
+            <End Role="TblExpenseList" EntitySet="TblExpenseLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblRevenueList_TblRevenueGroups" Association="ProfitAndExpenseModel.FK_TblRevenueList_TblRevenueGroups">
+            <End Role="TblRevenueGroups" EntitySet="TblRevenueGroups" />
+            <End Role="TblRevenueList" EntitySet="TblRevenueLists" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CurrencyList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="TblRevenueLists" Relationship="ProfitAndExpenseModel.FK_TblRevenueList_TblCurrencyList1" FromRole="TblCurrencyList" ToRole="TblRevenueList" />
+        </EntityType>
+        <EntityType Name="ExpenseGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TblExpenseLists" Relationship="ProfitAndExpenseModel.FK_TblExpensesList_TblExpenseGroups" FromRole="TblExpenseGroups" ToRole="TblExpenseList" />
+        </EntityType>
+        <EntityType Name="ExpenseList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseGroupId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="Memo" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TblExpenseGroup" Relationship="ProfitAndExpenseModel.FK_TblExpensesList_TblExpenseGroups" FromRole="TblExpenseList" ToRole="TblExpenseGroups" />
+        </EntityType>
+        <EntityType Name="RevenueGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TblRevenueLists" Relationship="ProfitAndExpenseModel.FK_TblRevenueList_TblRevenueGroups" FromRole="TblRevenueGroups" ToRole="TblRevenueList" />
+        </EntityType>
+        <EntityType Name="RevenueList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RevenueGroupId" Type="Int32" Nullable="false" />
+          <Property Name="SourceName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AmountGRN" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="Memo" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+          <Property Name="ExchangeRate" Type="Double" Nullable="false" />
+          <Property Name="CurrencyId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TblCurrencyList" Relationship="ProfitAndExpenseModel.FK_TblRevenueList_TblCurrencyList1" FromRole="TblRevenueList" ToRole="TblCurrencyList" />
+          <NavigationProperty Name="TblRevenueGroup" Relationship="ProfitAndExpenseModel.FK_TblRevenueList_TblRevenueGroups" FromRole="TblRevenueList" ToRole="TblRevenueGroups" />
+        </EntityType>
+        <Association Name="FK_TblRevenueList_TblCurrencyList1">
+          <End Role="TblCurrencyList" Type="ProfitAndExpenseModel.CurrencyList" Multiplicity="1" />
+          <End Role="TblRevenueList" Type="ProfitAndExpenseModel.RevenueList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCurrencyList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblRevenueList">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblExpensesList_TblExpenseGroups">
+          <End Role="TblExpenseGroups" Type="ProfitAndExpenseModel.ExpenseGroup" Multiplicity="1" />
+          <End Role="TblExpenseList" Type="ProfitAndExpenseModel.ExpenseList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblExpenseGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblExpenseList">
+              <PropertyRef Name="ExpenseGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblRevenueList_TblRevenueGroups">
+          <End Role="TblRevenueGroups" Type="ProfitAndExpenseModel.RevenueGroup" Multiplicity="1" />
+          <End Role="TblRevenueList" Type="ProfitAndExpenseModel.RevenueList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblRevenueGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblRevenueList">
+              <PropertyRef Name="RevenueGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProfitAndExpenseModelStoreContainer" CdmEntityContainer="ProfitAndExpenseEntities">
+          <EntitySetMapping Name="TblCurrencyLists"><EntityTypeMapping TypeName="ProfitAndExpenseModel.CurrencyList"><MappingFragment StoreEntitySet="TblCurrencyList">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TblExpenseGroups"><EntityTypeMapping TypeName="ProfitAndExpenseModel.ExpenseGroup"><MappingFragment StoreEntitySet="TblExpenseGroups">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TblExpenseLists"><EntityTypeMapping TypeName="ProfitAndExpenseModel.ExpenseList"><MappingFragment StoreEntitySet="TblExpenseList">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="ExpenseGroupId" ColumnName="ExpenseGroupId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Cost" ColumnName="Cost" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="Memo" ColumnName="Memo" />
+            <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TblRevenueGroups"><EntityTypeMapping TypeName="ProfitAndExpenseModel.RevenueGroup"><MappingFragment StoreEntitySet="TblRevenueGroups">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TblRevenueLists"><EntityTypeMapping TypeName="ProfitAndExpenseModel.RevenueList"><MappingFragment StoreEntitySet="TblRevenueList">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="RevenueGroupId" ColumnName="RevenueGroupId" />
+            <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+            <ScalarProperty Name="AmountGRN" ColumnName="AmountGRN" />
+            <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+            <ScalarProperty Name="Memo" ColumnName="Memo" />
+            <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+            <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+            <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.CurrencyList" Width="1.5" PointX="0.75" PointY="1.75" Height="1.5956835937500002" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.ExpenseGroup" Width="1.75" PointX="5.5" PointY="1.25" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.ExpenseList" Width="1.5" PointX="8" PointY="1" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.RevenueGroup" Width="1.75" PointX="2.75" PointY="4.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.RevenueList" Width="1.5" PointX="3" PointY="1" Height="3.1340950520833331" IsExpanded="true" />
+        <AssociationConnector Association="ProfitAndExpenseModel.FK_TblRevenueList_TblCurrencyList1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.5478417968750002" />
+          <ConnectorPoint PointX="3" PointY="2.5478417968750002" />
+        </AssociationConnector>
+        <AssociationConnector Association="ProfitAndExpenseModel.FK_TblExpensesList_TblExpenseGroups" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.25" PointY="2.2401432291666667" />
+          <ConnectorPoint PointX="8" PointY="2.2401432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="ProfitAndExpenseModel.FK_TblRevenueList_TblRevenueGroups" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="4.75" />
+          <ConnectorPoint PointX="3.75" PointY="4.1340950520833335" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
