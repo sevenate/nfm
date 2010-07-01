@@ -672,12 +672,12 @@ namespace Fab.Server.Import.MoneyServiceReference {
     public interface IMoneyService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMoneyService/CreateAccount", ReplyAction="http://tempuri.org/IMoneyService/CreateAccountResponse")]
-        void CreateAccount(System.Guid userId, string name, int assetTypeId);
+        int CreateAccount(System.Guid userId, string name, int assetTypeId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/CreateAccount", ReplyAction="http://tempuri.org/IMoneyService/CreateAccountResponse")]
         System.IAsyncResult BeginCreateAccount(System.Guid userId, string name, int assetTypeId, System.AsyncCallback callback, object asyncState);
         
-        void EndCreateAccount(System.IAsyncResult result);
+        int EndCreateAccount(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMoneyService/UpdateAccount", ReplyAction="http://tempuri.org/IMoneyService/UpdateAccountResponse")]
         void UpdateAccount(System.Guid userId, int accountId, string name, int assetTypeId);
@@ -712,12 +712,12 @@ namespace Fab.Server.Import.MoneyServiceReference {
         decimal EndGetAccountBalance(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMoneyService/CreateCategory", ReplyAction="http://tempuri.org/IMoneyService/CreateCategoryResponse")]
-        void CreateCategory(System.Guid userId, string name, byte categoryType);
+        int CreateCategory(System.Guid userId, string name, byte categoryType);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/CreateCategory", ReplyAction="http://tempuri.org/IMoneyService/CreateCategoryResponse")]
         System.IAsyncResult BeginCreateCategory(System.Guid userId, string name, byte categoryType, System.AsyncCallback callback, object asyncState);
         
-        void EndCreateCategory(System.IAsyncResult result);
+        int EndCreateCategory(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMoneyService/UpdateCategory", ReplyAction="http://tempuri.org/IMoneyService/UpdateCategoryResponse")]
         void UpdateCategory(System.Guid userId, int categoryId, string name, byte categoryType);
@@ -822,6 +822,25 @@ namespace Fab.Server.Import.MoneyServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class CreateAccountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public CreateAccountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class GetAllAccountsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -854,6 +873,25 @@ namespace Fab.Server.Import.MoneyServiceReference {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((decimal)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class CreateCategoryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public CreateCategoryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
             }
         }
     }
@@ -1065,7 +1103,7 @@ namespace Fab.Server.Import.MoneyServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CreateAccountCompleted;
+        public event System.EventHandler<CreateAccountCompletedEventArgs> CreateAccountCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateAccountCompleted;
         
@@ -1075,7 +1113,7 @@ namespace Fab.Server.Import.MoneyServiceReference {
         
         public event System.EventHandler<GetAccountBalanceCompletedEventArgs> GetAccountBalanceCompleted;
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CreateCategoryCompleted;
+        public event System.EventHandler<CreateCategoryCompletedEventArgs> CreateCategoryCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateCategoryCompleted;
         
@@ -1101,8 +1139,8 @@ namespace Fab.Server.Import.MoneyServiceReference {
         
         public event System.EventHandler<GetAllTransactionsCompletedEventArgs> GetAllTransactionsCompleted;
         
-        public void CreateAccount(System.Guid userId, string name, int assetTypeId) {
-            base.Channel.CreateAccount(userId, name, assetTypeId);
+        public int CreateAccount(System.Guid userId, string name, int assetTypeId) {
+            return base.Channel.CreateAccount(userId, name, assetTypeId);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1111,8 +1149,8 @@ namespace Fab.Server.Import.MoneyServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void EndCreateAccount(System.IAsyncResult result) {
-            base.Channel.EndCreateAccount(result);
+        public int EndCreateAccount(System.IAsyncResult result) {
+            return base.Channel.EndCreateAccount(result);
         }
         
         private System.IAsyncResult OnBeginCreateAccount(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -1123,14 +1161,15 @@ namespace Fab.Server.Import.MoneyServiceReference {
         }
         
         private object[] OnEndCreateAccount(System.IAsyncResult result) {
-            this.EndCreateAccount(result);
-            return null;
+            int retVal = this.EndCreateAccount(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OnCreateAccountCompleted(object state) {
             if ((this.CreateAccountCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.CreateAccountCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.CreateAccountCompleted(this, new CreateAccountCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
@@ -1362,8 +1401,8 @@ namespace Fab.Server.Import.MoneyServiceReference {
                         accountId}, this.onEndGetAccountBalanceDelegate, this.onGetAccountBalanceCompletedDelegate, userState);
         }
         
-        public void CreateCategory(System.Guid userId, string name, byte categoryType) {
-            base.Channel.CreateCategory(userId, name, categoryType);
+        public int CreateCategory(System.Guid userId, string name, byte categoryType) {
+            return base.Channel.CreateCategory(userId, name, categoryType);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1372,8 +1411,8 @@ namespace Fab.Server.Import.MoneyServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public void EndCreateCategory(System.IAsyncResult result) {
-            base.Channel.EndCreateCategory(result);
+        public int EndCreateCategory(System.IAsyncResult result) {
+            return base.Channel.EndCreateCategory(result);
         }
         
         private System.IAsyncResult OnBeginCreateCategory(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -1384,14 +1423,15 @@ namespace Fab.Server.Import.MoneyServiceReference {
         }
         
         private object[] OnEndCreateCategory(System.IAsyncResult result) {
-            this.EndCreateCategory(result);
-            return null;
+            int retVal = this.EndCreateCategory(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OnCreateCategoryCompleted(object state) {
             if ((this.CreateCategoryCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.CreateCategoryCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.CreateCategoryCompleted(this, new CreateCategoryCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         

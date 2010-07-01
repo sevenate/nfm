@@ -25,8 +25,9 @@ namespace Fab.Server.Core
 		/// <param name="userId">User unique ID for which this account should be created.</param>
 		/// <param name="name">Account name.</param>
 		/// <param name="assetTypeId">The asset type ID.</param>
+		/// <returns>Created account ID.</returns>
 		[OperationContract]
-		void CreateAccount(Guid userId, string name, int assetTypeId);
+		int CreateAccount(Guid userId, string name, int assetTypeId);
 
 		/// <summary>
 		/// Update account details to new values.
@@ -73,8 +74,9 @@ namespace Fab.Server.Core
 		/// <param name="userId">User unique ID for which this category should be created.</param>
 		/// <param name="name">Category name.</param>
 		/// <param name="categoryType">Category type.</param>
+		/// <returns>Created category ID.</returns>
 		[OperationContract]
-		void CreateCategory(Guid userId, string name, byte categoryType);
+		int CreateCategory(Guid userId, string name, byte categoryType);
 
 		/// <summary>
 		/// Update category details to new values.

@@ -30,7 +30,8 @@ namespace Fab.Server
 		/// <param name="userId">User unique ID for which this account should be created.</param>
 		/// <param name="name">Account name.</param>
 		/// <param name="assetTypeId">The asset type ID.</param>
-		public void CreateAccount(Guid userId, string name, int assetTypeId)
+		/// <returns>Created account ID.</returns>
+		public int CreateAccount(Guid userId, string name, int assetTypeId)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -58,6 +59,8 @@ namespace Fab.Server
 
 				mc.Accounts.AddObject(account);
 				mc.SaveChanges();
+
+				return account.Id;
 			}
 		}
 
@@ -181,7 +184,8 @@ namespace Fab.Server
 		/// <param name="userId">User unique ID for which this category should be created.</param>
 		/// <param name="name">Category name.</param>
 		/// <param name="categoryType">Category type.</param>
-		public void CreateCategory(Guid userId, string name, byte categoryType)
+		/// <returns>Created category ID.</returns>
+		public int CreateCategory(Guid userId, string name, byte categoryType)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -207,6 +211,8 @@ namespace Fab.Server
 
 				mc.Categories.AddObject(category);
 				mc.SaveChanges();
+
+				return category.Id;
 			}
 		}
 

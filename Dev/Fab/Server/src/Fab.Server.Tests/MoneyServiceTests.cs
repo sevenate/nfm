@@ -27,7 +27,7 @@ namespace Fab.Server.Tests
 			var service = new MoneyService();
 			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 
-			service.CreateAccount(userId, expectedAccountName, 1);
+			int accountId = service.CreateAccount(userId, expectedAccountName, 1);
 
 			var accounts = service.GetAllAccounts(userId);
 			Assert.Equal(1, accounts.Count);
@@ -113,7 +113,7 @@ namespace Fab.Server.Tests
 			var service = new MoneyService();
 			var userId = userService.Register("testUser" + Guid.NewGuid(), "testPassword");
 
-			service.CreateCategory(userId, expectedCategoryName, categoryType);
+			int categoryId = service.CreateCategory(userId, expectedCategoryName, categoryType);
 
 			var categories = service.GetAllCategories(userId);
 			Assert.Equal(1, categories.Count);
