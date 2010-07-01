@@ -193,6 +193,9 @@ namespace Fab.Server.Import.MoneyServiceReference {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte CategoryTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -208,6 +211,19 @@ namespace Fab.Server.Import.MoneyServiceReference {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte CategoryType {
+            get {
+                return this.CategoryTypeField;
+            }
+            set {
+                if ((this.CategoryTypeField.Equals(value) != true)) {
+                    this.CategoryTypeField = value;
+                    this.RaisePropertyChanged("CategoryType");
+                }
             }
         }
         
@@ -696,18 +712,18 @@ namespace Fab.Server.Import.MoneyServiceReference {
         decimal EndGetAccountBalance(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMoneyService/CreateCategory", ReplyAction="http://tempuri.org/IMoneyService/CreateCategoryResponse")]
-        void CreateCategory(System.Guid userId, string name);
+        void CreateCategory(System.Guid userId, string name, byte categoryType);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/CreateCategory", ReplyAction="http://tempuri.org/IMoneyService/CreateCategoryResponse")]
-        System.IAsyncResult BeginCreateCategory(System.Guid userId, string name, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginCreateCategory(System.Guid userId, string name, byte categoryType, System.AsyncCallback callback, object asyncState);
         
         void EndCreateCategory(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMoneyService/UpdateCategory", ReplyAction="http://tempuri.org/IMoneyService/UpdateCategoryResponse")]
-        void UpdateCategory(System.Guid userId, int categoryId, string name);
+        void UpdateCategory(System.Guid userId, int categoryId, string name, byte categoryType);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMoneyService/UpdateCategory", ReplyAction="http://tempuri.org/IMoneyService/UpdateCategoryResponse")]
-        System.IAsyncResult BeginUpdateCategory(System.Guid userId, int categoryId, string name, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginUpdateCategory(System.Guid userId, int categoryId, string name, byte categoryType, System.AsyncCallback callback, object asyncState);
         
         void EndUpdateCategory(System.IAsyncResult result);
         
@@ -1346,13 +1362,13 @@ namespace Fab.Server.Import.MoneyServiceReference {
                         accountId}, this.onEndGetAccountBalanceDelegate, this.onGetAccountBalanceCompletedDelegate, userState);
         }
         
-        public void CreateCategory(System.Guid userId, string name) {
-            base.Channel.CreateCategory(userId, name);
+        public void CreateCategory(System.Guid userId, string name, byte categoryType) {
+            base.Channel.CreateCategory(userId, name, categoryType);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginCreateCategory(System.Guid userId, string name, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginCreateCategory(userId, name, callback, asyncState);
+        public System.IAsyncResult BeginCreateCategory(System.Guid userId, string name, byte categoryType, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginCreateCategory(userId, name, categoryType, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1363,7 +1379,8 @@ namespace Fab.Server.Import.MoneyServiceReference {
         private System.IAsyncResult OnBeginCreateCategory(object[] inValues, System.AsyncCallback callback, object asyncState) {
             System.Guid userId = ((System.Guid)(inValues[0]));
             string name = ((string)(inValues[1]));
-            return this.BeginCreateCategory(userId, name, callback, asyncState);
+            byte categoryType = ((byte)(inValues[2]));
+            return this.BeginCreateCategory(userId, name, categoryType, callback, asyncState);
         }
         
         private object[] OnEndCreateCategory(System.IAsyncResult result) {
@@ -1378,11 +1395,11 @@ namespace Fab.Server.Import.MoneyServiceReference {
             }
         }
         
-        public void CreateCategoryAsync(System.Guid userId, string name) {
-            this.CreateCategoryAsync(userId, name, null);
+        public void CreateCategoryAsync(System.Guid userId, string name, byte categoryType) {
+            this.CreateCategoryAsync(userId, name, categoryType, null);
         }
         
-        public void CreateCategoryAsync(System.Guid userId, string name, object userState) {
+        public void CreateCategoryAsync(System.Guid userId, string name, byte categoryType, object userState) {
             if ((this.onBeginCreateCategoryDelegate == null)) {
                 this.onBeginCreateCategoryDelegate = new BeginOperationDelegate(this.OnBeginCreateCategory);
             }
@@ -1394,16 +1411,17 @@ namespace Fab.Server.Import.MoneyServiceReference {
             }
             base.InvokeAsync(this.onBeginCreateCategoryDelegate, new object[] {
                         userId,
-                        name}, this.onEndCreateCategoryDelegate, this.onCreateCategoryCompletedDelegate, userState);
+                        name,
+                        categoryType}, this.onEndCreateCategoryDelegate, this.onCreateCategoryCompletedDelegate, userState);
         }
         
-        public void UpdateCategory(System.Guid userId, int categoryId, string name) {
-            base.Channel.UpdateCategory(userId, categoryId, name);
+        public void UpdateCategory(System.Guid userId, int categoryId, string name, byte categoryType) {
+            base.Channel.UpdateCategory(userId, categoryId, name, categoryType);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginUpdateCategory(System.Guid userId, int categoryId, string name, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginUpdateCategory(userId, categoryId, name, callback, asyncState);
+        public System.IAsyncResult BeginUpdateCategory(System.Guid userId, int categoryId, string name, byte categoryType, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdateCategory(userId, categoryId, name, categoryType, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1415,7 +1433,8 @@ namespace Fab.Server.Import.MoneyServiceReference {
             System.Guid userId = ((System.Guid)(inValues[0]));
             int categoryId = ((int)(inValues[1]));
             string name = ((string)(inValues[2]));
-            return this.BeginUpdateCategory(userId, categoryId, name, callback, asyncState);
+            byte categoryType = ((byte)(inValues[3]));
+            return this.BeginUpdateCategory(userId, categoryId, name, categoryType, callback, asyncState);
         }
         
         private object[] OnEndUpdateCategory(System.IAsyncResult result) {
@@ -1430,11 +1449,11 @@ namespace Fab.Server.Import.MoneyServiceReference {
             }
         }
         
-        public void UpdateCategoryAsync(System.Guid userId, int categoryId, string name) {
-            this.UpdateCategoryAsync(userId, categoryId, name, null);
+        public void UpdateCategoryAsync(System.Guid userId, int categoryId, string name, byte categoryType) {
+            this.UpdateCategoryAsync(userId, categoryId, name, categoryType, null);
         }
         
-        public void UpdateCategoryAsync(System.Guid userId, int categoryId, string name, object userState) {
+        public void UpdateCategoryAsync(System.Guid userId, int categoryId, string name, byte categoryType, object userState) {
             if ((this.onBeginUpdateCategoryDelegate == null)) {
                 this.onBeginUpdateCategoryDelegate = new BeginOperationDelegate(this.OnBeginUpdateCategory);
             }
@@ -1447,7 +1466,8 @@ namespace Fab.Server.Import.MoneyServiceReference {
             base.InvokeAsync(this.onBeginUpdateCategoryDelegate, new object[] {
                         userId,
                         categoryId,
-                        name}, this.onEndUpdateCategoryDelegate, this.onUpdateCategoryCompletedDelegate, userState);
+                        name,
+                        categoryType}, this.onEndUpdateCategoryDelegate, this.onUpdateCategoryCompletedDelegate, userState);
         }
         
         public void DeleteCategory(System.Guid userId, int categoryId) {

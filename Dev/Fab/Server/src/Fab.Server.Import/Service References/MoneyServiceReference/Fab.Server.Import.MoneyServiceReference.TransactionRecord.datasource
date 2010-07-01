@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="TransactionRecord" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Fab.Server.Import.MoneyServiceReference.TransactionRecord</TypeInfo>
+   <TypeInfo>Fab.Server.Import.MoneyServiceReference.TransactionRecord, Fab.Server.Import, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

@@ -31,6 +31,7 @@
   <xs:element name="ArrayOfCategoryDTO" nillable="true" type="tns:ArrayOfCategoryDTO" />
   <xs:complexType name="CategoryDTO">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CategoryType" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="IsDeleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
