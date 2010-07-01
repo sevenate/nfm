@@ -21,7 +21,7 @@ namespace Fab.Server.Core.DTO
 		Withdrawal = 1,
 
 		/// <summary>
-		/// Category for deposits (id = 2).
+		/// Category for deposit (id = 2).
 		/// </summary>
 		[EnumMember]
 		Deposit = 2
