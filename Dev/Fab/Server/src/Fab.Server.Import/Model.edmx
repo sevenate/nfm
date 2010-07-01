@@ -291,22 +291,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="ProfitAndExpenseModel.CurrencyList" Width="1.5" PointX="0.75" PointY="1.75" Height="1.5956835937500002" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProfitAndExpenseModel.ExpenseGroup" Width="1.75" PointX="5.5" PointY="1.25" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProfitAndExpenseModel.ExpenseList" Width="1.5" PointX="8" PointY="1" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProfitAndExpenseModel.RevenueGroup" Width="1.75" PointX="2.75" PointY="4.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.CurrencyList" Width="1.5" PointX="3" PointY="4.625" Height="1.5956835937500002" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.ExpenseGroup" Width="1.75" PointX="7.25" PointY="1" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.ExpenseList" Width="1.5" PointX="5.25" PointY="1" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfitAndExpenseModel.RevenueGroup" Width="1.75" PointX="0.75" PointY="1" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="ProfitAndExpenseModel.RevenueList" Width="1.5" PointX="3" PointY="1" Height="3.1340950520833331" IsExpanded="true" />
         <AssociationConnector Association="ProfitAndExpenseModel.FK_TblRevenueList_TblCurrencyList1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.5478417968750002" />
-          <ConnectorPoint PointX="3" PointY="2.5478417968750002" />
+          <ConnectorPoint PointX="3.75" PointY="4.625" />
+          <ConnectorPoint PointX="3.75" PointY="4.1340950520833335" />
         </AssociationConnector>
         <AssociationConnector Association="ProfitAndExpenseModel.FK_TblExpensesList_TblExpenseGroups" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.25" PointY="2.2401432291666667" />
-          <ConnectorPoint PointX="8" PointY="2.2401432291666667" />
+          <ConnectorPoint PointX="7.25" PointY="1.9901432291666668" />
+          <ConnectorPoint PointX="6.75" PointY="1.9901432291666668" />
         </AssociationConnector>
         <AssociationConnector Association="ProfitAndExpenseModel.FK_TblRevenueList_TblRevenueGroups" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="4.75" />
-          <ConnectorPoint PointX="3.75" PointY="4.1340950520833335" />
+          <ConnectorPoint PointX="2.5" PointY="1.9901432291666668" />
+          <ConnectorPoint PointX="3" PointY="1.9901432291666668" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
