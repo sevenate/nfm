@@ -180,7 +180,8 @@ namespace Fab.Server
 		/// </summary>
 		/// <param name="userId">User unique ID for which this category should be created.</param>
 		/// <param name="name">Category name.</param>
-		public void CreateCategory(Guid userId, string name)
+		/// <param name="categoryType">Category type.</param>
+		public void CreateCategory(Guid userId, string name, byte categoryType)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -198,8 +199,9 @@ namespace Fab.Server
 
 				var category = new Category
 				               	{
-				               		Name = name.Trim(), 
-				               		IsDeleted = false, 
+				               		Name = name.Trim(),
+									CategoryType = categoryType,
+				               		IsDeleted = false,
 				               		User = user
 				               	};
 
@@ -214,7 +216,8 @@ namespace Fab.Server
 		/// <param name="userId">User unique ID.</param>
 		/// <param name="categoryId">Category ID.</param>
 		/// <param name="name">Category new name.</param>
-		public void UpdateCategory(Guid userId, int categoryId, string name)
+		/// <param name="categoryType">Category new type.</param>
+		public void UpdateCategory(Guid userId, int categoryId, string name, byte categoryType)
 		{
 			if (userId == Guid.Empty)
 			{
@@ -231,6 +234,7 @@ namespace Fab.Server
 				Category category = ModelHelper.GetCategoryById(mc, categoryId);
 
 				category.Name = name.Trim();
+				category.CategoryType = categoryType;
 
 				mc.SaveChanges();
 			}

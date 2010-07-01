@@ -27,6 +27,12 @@ namespace Fab.Server.Core.DTO
 		public string Name { get; set; }
 
 		/// <summary>
+		/// Gets or sets category name.
+		/// </summary>
+		[DataMember]
+		public byte CategoryType { get; set; }
+
+		/// <summary>
 		/// Gets or sets a value indicating whether a category is deleted.
 		/// </summary>
 		[DataMember]

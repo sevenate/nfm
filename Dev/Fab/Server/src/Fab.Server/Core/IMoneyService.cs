@@ -72,8 +72,9 @@ namespace Fab.Server.Core
 		/// </summary>
 		/// <param name="userId">User unique ID for which this category should be created.</param>
 		/// <param name="name">Category name.</param>
+		/// <param name="categoryType">Category type.</param>
 		[OperationContract]
-		void CreateCategory(Guid userId, string name);
+		void CreateCategory(Guid userId, string name, byte categoryType);
 
 		/// <summary>
 		/// Update category details to new values.
@@ -81,8 +82,9 @@ namespace Fab.Server.Core
 		/// <param name="userId">User unique ID.</param>
 		/// <param name="categoryId">Category ID.</param>
 		/// <param name="name">Category new name.</param>
+		/// <param name="categoryType">Category new type.</param>
 		[OperationContract]
-		void UpdateCategory(Guid userId, int categoryId, string name);
+		void UpdateCategory(Guid userId, int categoryId, string name, byte categoryType);
 
 		/// <summary>
 		/// Mark category as "deleted".

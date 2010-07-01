@@ -607,12 +607,14 @@ namespace Fab.Server.Core
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="isDeleted">Initial value of the IsDeleted property.</param>
-        public static Category CreateCategory(global::System.Int32 id, global::System.String name, global::System.Boolean isDeleted)
+        /// <param name="categoryType">Initial value of the CategoryType property.</param>
+        public static Category CreateCategory(global::System.Int32 id, global::System.String name, global::System.Boolean isDeleted, global::System.Byte categoryType)
         {
             Category category = new Category();
             category.Id = id;
             category.Name = name;
             category.IsDeleted = isDeleted;
+            category.CategoryType = categoryType;
             return category;
         }
 
@@ -693,6 +695,30 @@ namespace Fab.Server.Core
         private global::System.Boolean _IsDeleted;
         partial void OnIsDeletedChanging(global::System.Boolean value);
         partial void OnIsDeletedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte CategoryType
+        {
+            get
+            {
+                return _CategoryType;
+            }
+            set
+            {
+                OnCategoryTypeChanging(value);
+                ReportPropertyChanging("CategoryType");
+                _CategoryType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CategoryType");
+                OnCategoryTypeChanged();
+            }
+        }
+        private global::System.Byte _CategoryType;
+        partial void OnCategoryTypeChanging(global::System.Byte value);
+        partial void OnCategoryTypeChanged();
 
         #endregion
     

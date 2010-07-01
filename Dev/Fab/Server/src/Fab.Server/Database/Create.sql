@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 06/26/2010 02:37:37
+-- Date Created: 07/01/2010 21:44:30
 -- Generated from EDMX file: B:\Workspace\Dev\Fab\Server\src\Fab.Server\Core\Model.edmx
 -- --------------------------------------------------
 
@@ -32,11 +32,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_DeletedJournals]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DeletedJournals] DROP CONSTRAINT [FK_DeletedJournals];
 GO
-IF OBJECT_ID(N'[dbo].[FK_DeletedJournals]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[DeletedJournals] DROP CONSTRAINT [FK_OriginalJournals];
-GO
 IF OBJECT_ID(N'[dbo].[FK_JournalPosting]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_JournalPosting];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OriginalJournals]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DeletedJournals] DROP CONSTRAINT [FK_OriginalJournals];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PostingAssetType]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Postings] DROP CONSTRAINT [FK_PostingAssetType];
@@ -104,6 +104,7 @@ CREATE TABLE [dbo].[Categories] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(50)  NOT NULL,
     [IsDeleted] bit  NOT NULL  DEFAULT (0),
+    [CategoryType] tinyint  NOT NULL,
     [User_Id] uniqueidentifier  NOT NULL
 );
 GO

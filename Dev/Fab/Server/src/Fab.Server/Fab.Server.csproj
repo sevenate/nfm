@@ -91,6 +91,7 @@
     <Compile Include="Core\DTO\AccountDTO.cs" />
     <Compile Include="Core\DTO\AssetTypeDTO.cs" />
     <Compile Include="Core\DTO\CategoryDTO.cs" />
+    <Compile Include="Core\DTO\CategoryType.cs" />
     <Compile Include="Core\DTO\PostingDTO.cs" />
     <Compile Include="Core\DTO\TransactionDTO.cs" />
     <Compile Include="Core\DTO\UserDTO.cs" />
