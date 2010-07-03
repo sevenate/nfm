@@ -43,6 +43,15 @@ namespace Fab.Server
 				throw new ArgumentException("Account name must not be empty.");
 			}
 
+			// Remove leading and closing spaces
+			string accountName = name.Trim();
+
+			// Check account name max length
+			if (accountName.Length > 50)
+			{
+				throw new Exception("Account name is too long. Maximum length is 50.");
+			}
+
 			using (var mc = new ModelContainer())
 			{
 				User user = ModelHelper.GetUserById(mc, userId);
@@ -50,9 +59,9 @@ namespace Fab.Server
 
 				var account = new Account
 				              	{
-				              		Name = name.Trim(), 
-				              		Created = DateTime.UtcNow, 
-				              		IsDeleted = false, 
+									Name = accountName,
+				              		Created = DateTime.UtcNow,
+				              		IsDeleted = false,
 				              		User = user,
 				              		AssetType = assetType
 				              	};
@@ -197,13 +206,22 @@ namespace Fab.Server
 				throw new ArgumentException("Category name must not be empty.");
 			}
 
+			// Remove leading and closing spaces
+			string categoryName = name.Trim();
+
+			// Check category name max length
+			if (categoryName.Length > 50)
+			{
+				throw new Exception("Category name is too long. Maximum length is 50.");
+			}
+
 			using (var mc = new ModelContainer())
 			{
 				User user = ModelHelper.GetUserById(mc, userId);
 
 				var category = new Category
 				               	{
-				               		Name = name.Trim(),
+									Name = categoryName,
 									CategoryType = categoryType,
 				               		IsDeleted = false,
 				               		User = user
@@ -333,11 +351,32 @@ namespace Fab.Server
 				throw new ArgumentException("User ID must not be empty.");
 			}
 
+			// Remove leading and closing spaces
+			string commentNote = comment.Trim();
+
+			// Check comment max length
+			if (commentNote.Length > 256)
+			{
+				throw new Exception("Comment is too long. Maximum length is 256.");
+			}
+
+			// Check price positiveness
+			if (price < 0)
+			{
+				throw new Exception("Price must not be less then 0.");
+			}
+
+			// Check quantity positiveness
+			if (quantity < 0)
+			{
+				throw new Exception("Quantity must not be less then 0.");
+			}
+
 			var dateTime = operationDate.ToUniversalTime();
 
 			using (var mc = new ModelContainer())
 			{
-				ModelHelper.CreateTransaction(mc, dateTime, accountId, JournalType.Deposit, categoryId, price, quantity, comment);
+				ModelHelper.CreateTransaction(mc, dateTime, accountId, JournalType.Deposit, categoryId, price, quantity, commentNote);
 				mc.SaveChanges();
 			}
 		}
@@ -368,11 +407,32 @@ namespace Fab.Server
 				throw new ArgumentException("User ID must not be empty.");
 			}
 
+			// Remove leading and closing spaces
+			string commentNote = comment.Trim();
+
+			// Check comment max length
+			if (commentNote.Length > 256)
+			{
+				throw new Exception("Comment is too long. Maximum length is 256.");
+			}
+
+			// Check price positiveness
+			if (price < 0)
+			{
+				throw new Exception("Price must not be less then 0.");
+			}
+
+			// Check quantity positiveness
+			if (quantity < 0)
+			{
+				throw new Exception("Quantity must not be less then 0.");
+			}
+
 			var dateTime = operationDate.ToUniversalTime();
 
 			using (var mc = new ModelContainer())
 			{
-				ModelHelper.CreateTransaction(mc, dateTime, accountId, JournalType.Withdrawal, categoryId, price, quantity, comment);
+				ModelHelper.CreateTransaction(mc, dateTime, accountId, JournalType.Withdrawal, categoryId, price, quantity, commentNote);
 				mc.SaveChanges();
 			}
 		}
@@ -407,12 +467,27 @@ namespace Fab.Server
 			{
 				throw new ArgumentException("User2 ID must not be empty.");
 			}
+			
+			// Remove leading and closing spaces
+			string commentNote = comment.Trim();
+
+			// Check comment max length
+			if (commentNote.Length > 256)
+			{
+				throw new Exception("Comment is too long. Maximum length is 256.");
+			}
+
+			// Check amount positiveness
+			if (amount < 0)
+			{
+				throw new Exception("Amount must not be less then 0.");
+			}
 
 			var dateTime = operationDate.ToUniversalTime();
 
 			using (var mc = new ModelContainer())
 			{
-				ModelHelper.CreateTransfer(mc, dateTime, account1Id, account2Id, amount, comment);
+				ModelHelper.CreateTransfer(mc, dateTime, account1Id, account2Id, amount, commentNote);
 				mc.SaveChanges();
 			}
 		}
@@ -503,6 +578,27 @@ namespace Fab.Server
 				throw new ArgumentException("User ID must not be empty.");
 			}
 
+			// Remove leading and closing spaces
+			string commentNote = comment.Trim();
+
+			// Check comment max length
+			if (commentNote.Length > 256)
+			{
+				throw new Exception("Comment is too long. Maximum length is 256.");
+			}
+
+			// Check price positiveness
+			if (price < 0)
+			{
+				throw new Exception("Price must not be less then 0.");
+			}
+
+			// Check quantity positiveness
+			if (quantity < 0)
+			{
+				throw new Exception("Quantity must not be less then 0.");
+			}
+
 			var dateTime = operationDate.ToUniversalTime();
 
 			using (var mc = new ModelContainer())
@@ -529,7 +625,7 @@ namespace Fab.Server
 					categoryId,
 					price,
 					quantity,
-					comment);
+					commentNote);
 				mc.SaveChanges();
 			}
 		}
@@ -572,6 +668,21 @@ namespace Fab.Server
 				throw new ArgumentException("User2 ID must not be empty.");
 			}
 
+			// Remove leading and closing spaces
+			string commentNote = comment.Trim();
+
+			// Check comment max length
+			if (commentNote.Length > 256)
+			{
+				throw new Exception("Comment is too long. Maximum length is 256.");
+			}
+
+			// Check amount positiveness
+			if (amount < 0)
+			{
+				throw new Exception("Amount must not be less then 0.");
+			}
+
 			var dateTime = operationDate.ToUniversalTime();
 
 			using (var mc = new ModelContainer())
@@ -587,7 +698,7 @@ namespace Fab.Server
 				}
 				
 				ModelHelper.DeleteTransaction(mc, transactionId, dateTime);
-				ModelHelper.CreateTransfer(mc, dateTime, account1Id, account2Id, amount, comment);
+				ModelHelper.CreateTransfer(mc, dateTime, account1Id, account2Id, amount, commentNote);
 				mc.SaveChanges();
 			}
 		}
