@@ -419,7 +419,9 @@ namespace Fab.Server.Import
 					                                                   	{
 					                                                   		Date = exp.CreationDate.ToUniversalTime(),
 					                                                   		CategoryId = categoryMap[new KeyValuePair<int, bool>(exp.ExpenseGroupId, true)],
-					                                                   		Comment = string.Format("{0}\n{1}", exp.Name, exp.Memo),
+					                                                   		Comment = string.IsNullOrWhiteSpace(exp.Memo)
+																					? exp.Name
+																					: string.Format("{0}; {1}", exp.Name, exp.Memo),
 					                                                   		Price = exp.Cost,
 					                                                   		Quantity = 1.0m,
 					                                                   		IsWithdrawal = true
@@ -431,7 +433,9 @@ namespace Fab.Server.Import
 					                                                   	{
 					                                                   		Date = rev.CreationDate.ToUniversalTime(),
 					                                                   		CategoryId = categoryMap[new KeyValuePair<int, bool>(rev.RevenueGroupId, false)],
-					                                                   		Comment = string.Format("{0}\n{1}", rev.SourceName, rev.Memo),
+																			Comment = string.IsNullOrWhiteSpace(rev.Memo)
+																					? rev.SourceName
+																					: string.Format("{0}; {1}", rev.SourceName, rev.Memo),
 					                                                   		Price = (decimal) rev.ExchangeRate,
 					                                                   		Quantity = rev.AmountGRN/(decimal) rev.ExchangeRate,
 					                                                   		IsWithdrawal = false
