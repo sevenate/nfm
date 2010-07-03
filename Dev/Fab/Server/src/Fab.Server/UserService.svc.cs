@@ -75,16 +75,28 @@ namespace Fab.Server
 			// Remove leading and closing spaces (user typo)
 			string newLogin = login.Trim();
 
-			// Check login min & max length
-			if (newLogin.Length < 5 || newLogin.Length > 50)
+			// Check login min length
+			if (newLogin.Length < 5)
 			{
-				return Guid.Empty;
+				throw new Exception("Login name is too short. Minimum length is 5.");
 			}
 
-			// Check password min & max length
-			if (password.Length < 5 || password.Length > 256)
+			// Check login max length
+			if (newLogin.Length > 50)
 			{
-				return Guid.Empty;
+				throw new Exception("Login name is too long. Maximum length is 50.");
+			}
+
+			// Check password min length
+			if (password.Length < 5)
+			{
+				throw new Exception("New password is too short. Minimum length is 5.");
+			}
+
+			// Check password max length
+			if (password.Length > 256)
+			{
+				throw new Exception("New password is too long. Maximum length is 256.");
 			}
 
 			using (var mc = new ModelContainer())
@@ -138,13 +150,13 @@ namespace Fab.Server
 			// Check password min length
 			if (newPassword.Length < 5)
 			{
-				throw new Exception("New password is too short.");
+				throw new Exception("New password is too short. Minimum length is 5.");
 			}
 
 			// Check password max length
 			if (newPassword.Length > 256)
 			{
-				throw new Exception("New password is too long.");
+				throw new Exception("New password is too long. Maximum length is 256.");
 			}
 
 			using (var mc = new ModelContainer())
