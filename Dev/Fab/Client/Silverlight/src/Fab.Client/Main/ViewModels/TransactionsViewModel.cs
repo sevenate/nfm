@@ -30,7 +30,7 @@ namespace Fab.Client.Main.ViewModels
 		/// <summary>
 		/// Transactions owner ID.
 		/// </summary>
-		private readonly Guid userId = new Guid("7F06BFA6-B675-483C-9BF3-F59B88230382");
+		private readonly Guid userId = new Guid("DC57BFF0-57A6-4BFC-9104-5F323ABBEDAB"); // 7F06BFA6-B675-483C-9BF3-F59B88230382
 
 		/// <summary>
 		/// Gets or sets <see cref="IAccountsViewModel"/>.
