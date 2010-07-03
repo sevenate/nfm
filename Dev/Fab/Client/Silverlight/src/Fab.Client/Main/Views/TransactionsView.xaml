@@ -24,9 +24,11 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition />
 			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<TextBlock Text="Transactions" />
-		<sdk:DataGrid Grid.Row="1"
+		<sdk:DataGrid x:Name="TransactionsGrid"
+					  Grid.Row="1"
 					  AutoGenerateColumns="False"
 					  ItemsSource="{Binding Path=TransactionRecords}">
 			<sdk:DataGrid.Columns>
@@ -34,33 +36,40 @@
 										IsReadOnly="True"
 										Binding="{Binding Path=TransactionId}"
 										Visibility="Collapsed" />
-				<sdk:DataGridTemplateColumn Header="Date">
+				<sdk:DataGridTemplateColumn Header="Date"
+											MinWidth="75">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding Path=Date, Converter={StaticResource DateTimeUtcToLocalConverter}, StringFormat=d}"
+							<TextBlock VerticalAlignment="Center" 
+									   Text="{Binding Path=Date, Converter={StaticResource DateTimeUtcToLocalConverter}, StringFormat=d}"
 									   ToolTipService.ToolTip="{Binding Path=Date, Converter={StaticResource DateTimeUtcToLocalConverter}, StringFormat=F}" />
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellTemplate>
 					<sdk:DataGridTemplateColumn.CellEditingTemplate>
 						<DataTemplate>
-							<sdk:DatePicker IsTodayHighlighted="True"
+							<sdk:DatePicker VerticalAlignment="Center"
+											IsTodayHighlighted="True"
 											SelectedDateFormat="Long"
 											SelectedDate="{Binding Path=Date, Mode=TwoWay, Converter={StaticResource DateTimeUtcToLocalConverter}}"/>
 						</DataTemplate>
 					</sdk:DataGridTemplateColumn.CellEditingTemplate>
 				</sdk:DataGridTemplateColumn>
 				<sdk:DataGridTextColumn Header="Category"
+										MinWidth="75"
 										Binding="{Binding Path=Category.Name}" />
 				<sdk:DataGridTextColumn Header="Comment"
 										Binding="{Binding Path=Comment}"
 										Width="*" />
 				<sdk:DataGridTextColumn Header="Expense"
+										MinWidth="75"
 										ElementStyle="{StaticResource MoneyText}"
 										Binding="{Binding Path=Expense, Converter={StaticResource ZeroToEmptyStringConverter}, StringFormat=C}" />
 				<sdk:DataGridTextColumn Header="Income"
+										MinWidth="75"
 										ElementStyle="{StaticResource MoneyText}"
 										Binding="{Binding Path=Income, Converter={StaticResource ZeroToEmptyStringConverter}, StringFormat=C}" />
 				<sdk:DataGridTemplateColumn Header="Balance"
+											MinWidth="75"
 											IsReadOnly="True">
 					<sdk:DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
@@ -98,11 +107,15 @@
 				</sdk:DataGridTemplateColumn>
 			</sdk:DataGrid.Columns>
 		</sdk:DataGrid>
-		<Button x:Name="DownloadAllTransactions"
-				Grid.Row="2"
-				Content="Refresh"
-				MinWidth="75"
-				MinHeight="23"
-				HorizontalAlignment="Right" />
+		<StackPanel Grid.Row="2"
+					Orientation="Horizontal"
+					HorizontalAlignment="Right">
+			<TextBlock Text="{Binding Path=TransactionRecords.Count}"
+					   VerticalAlignment="Center" />
+			<Button x:Name="DownloadAllTransactions"
+					Content="Refresh"
+					MinWidth="75"
+					MinHeight="23" />
+		</StackPanel>
 	</Grid>
 </UserControl>
