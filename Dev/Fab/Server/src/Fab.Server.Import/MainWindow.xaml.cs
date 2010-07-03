@@ -6,8 +6,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.EntityClient;
 using System.Diagnostics;
 using System.Linq;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Threading;
 using EmitMapper;
@@ -22,6 +24,27 @@ namespace Fab.Server.Import
 	/// </summary>
 	public partial class MainWindow
 	{
+		#region Constants
+
+		/// <summary>
+		/// Entity Framework Model connection string to old SQL database.
+		/// </summary>
+		private const string ConnectionStringTemplate = "metadata=res://*/Model.csdl|res://*/Model.ssdl|res://*/Model.msl;provider=System.Data.SqlClient;provider connection string=\"{0}\"";
+
+		/// <summary>
+		/// Postfix for user service Uri - "/UserService.svc"
+		/// </summary>
+		private const string UserServiceUrlPostfix = "/UserService.svc";
+
+		/// <summary>
+		/// Postfix for money service Uri - /MoneyService.svc
+		/// </summary>
+		private const string MoneyServiceUrlPostfix = "/MoneyService.svc";
+
+		#endregion
+
+		#region Fields
+
 		/// <summary>
 		/// Maps old two old groups (revenueGroupId and expenseGroupId) to new one (categoryId).
 		/// </summary>
@@ -30,12 +53,12 @@ namespace Fab.Server.Import
 		/// <summary>
 		/// Proxy client for MoneyService.
 		/// </summary>
-		private readonly MoneyServiceClient moneyClient = new MoneyServiceClient();
+		private MoneyServiceClient moneyClient;
 		
 		/// <summary>
 		/// Proxy client for UserService.
 		/// </summary>
-		private readonly UserServiceClient userСlient = new UserServiceClient();
+		private UserServiceClient userСlient;
 
 		/// <summary>
 		/// Created account ID.
@@ -48,12 +71,30 @@ namespace Fab.Server.Import
 		private Guid userId;
 
 		/// <summary>
+		/// Stopwatch timer used to calculate import time.
+		/// </summary>
+		private Stopwatch stopWatch;
+
+		/// <summary>
+		/// Will be <c>True</c> when import cancelation is initiated by user.
+		/// </summary>
+		private bool canselPending;
+
+		#endregion
+
+		#region Ctors
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="MainWindow"/> class.
 		/// </summary>
 		public MainWindow()
 		{
 			InitializeComponent();
 		}
+
+		#endregion
+
+		#region Event Handlers
 
 		/// <summary>
 		/// Generate new unique user login name.
@@ -62,21 +103,29 @@ namespace Fab.Server.Import
 		/// <param name="e">Routed event data.</param>
 		private void GenerateButtonClick(object sender, RoutedEventArgs e)
 		{
-			DisableUI(false);
+			EnableUI(false);
 
 			try
 			{
 				UpdateStatus("Generating unique user login...");
+
+				userСlient = new UserServiceClient(
+									new BasicHttpBinding(),
+									new EndpointAddress(ServiceUrlTextBox.Text.Trim() + UserServiceUrlPostfix));
+
 				UsernameTextBox.Text = userСlient.GenerateUniqueLogin();
 
 				UpdateStatus("Ready");
 			}
 			catch (Exception exception)
 			{
+#if DEBUG
+				throw;
+#endif
 				ShowError(exception);
 			}
 
-			DisableUI(true);
+			EnableUI(true);
 		}
 
 		/// <summary>
@@ -86,111 +135,195 @@ namespace Fab.Server.Import
 		/// <param name="e">Routed event data.</param>
 		private void StartButtonClick(object sender, RoutedEventArgs e)
 		{
-			DisableUI(false);
+			canselPending = false;
+			Clear();
+			EnableUI(false);
 
-			Stopwatch stopWatch = Stopwatch.StartNew();
+			stopWatch = Stopwatch.StartNew();
 
 			try
 			{
+				moneyClient = new MoneyServiceClient(
+					new BasicHttpBinding(),
+					new EndpointAddress(ServiceUrlTextBox.Text.Trim() + MoneyServiceUrlPostfix));
+
+				userСlient = new UserServiceClient(
+					new BasicHttpBinding(),
+					new EndpointAddress(ServiceUrlTextBox.Text.Trim() + UserServiceUrlPostfix));
+
 				UpdateStatus("Registering user \"" + UsernameTextBox.Text.Trim() + "\"...");
-				userСlient.Register(UsernameTextBox.Text.Trim(), PasswordTextBox.Text.Trim());
-				userId = userСlient.GetUserId(UsernameTextBox.Text.Trim());
+				userId = userСlient.Register(UsernameTextBox.Text.Trim(), PasswordTextBox.Text.Trim());
+
+				if (canselPending)
+				{
+					UpdateStatus("Canceled");
+					return;
+				}
 
 				UpdateStatus("Creating account \"" + AccountTextBox.Text.Trim() + "\"...");
-				moneyClient.CreateAccount(userId, AccountTextBox.Text.Trim(), 1); // UAH account by default
-				accountId = moneyClient.GetAllAccounts(userId)[0].Id;
+				accountId = moneyClient.CreateAccount(userId, AccountTextBox.Text.Trim(), 1); // UAH account by default
 
-				using (var context = new ProfitAndExpenseEntities())
+				if (canselPending)
+				{
+					UpdateStatus("Canceled");
+					return;
+				}
+
+				using (var context = new ProfitAndExpenseEntities(new EntityConnection(string.Format(ConnectionStringTemplate, ConnectionStringTextBox.Text.Trim()))))
 				{
 					UpdateStatus("Retrieving expense category list...");
 					List<ExpenseGroup> expenseGroups = context.TblExpenseGroups.OrderBy(expenseGroup => expenseGroup.Id).ToList();
 
+					if (canselPending)
+					{
+						UpdateStatus("Canceled");
+						return;
+					}
+
 					for (int i = 0; i < expenseGroups.Count; i++)
 					{
+						if (canselPending)
+						{
+							break;
+						}
+
 						UpdateStatus("Creating " + i + " / " + expenseGroups.Count + " expense category...");
 						int categoryId = moneyClient.CreateCategory(userId, expenseGroups[i].Name, 1); // withdrawal category
 						categoryMap.Add(new KeyValuePair<int, bool>(expenseGroups[i].Id, true), categoryId);
 					}
 
+					if (canselPending)
+					{
+						UpdateStatus("Canceled");
+						return;
+					}
+
 					UpdateStatus("Retrieving revenue category list...");
 					List<RevenueGroup> revenueGroups = context.TblRevenueGroups.OrderBy(revenueGroup => revenueGroup.Id).ToList();
 
+					if (canselPending)
+					{
+						UpdateStatus("Canceled");
+						return;
+					}
+
 					for (int i = 0; i < revenueGroups.Count; i++)
 					{
+						if (canselPending)
+						{
+							break;
+						}
+
 						UpdateStatus("Creating " + i + " / " + revenueGroups.Count + " revenue category...");
 						int categoryId = moneyClient.CreateCategory(userId, revenueGroups[i].Name, 2); // deposit category
 						categoryMap.Add(new KeyValuePair<int, bool>(revenueGroups[i].Id, false), categoryId);
 					}
 
-					ImportTransactions(context);
+					if (canselPending)
+					{
+						UpdateStatus("Canceled");
+						return;
+					}
+
+					Import(context);
 
 					stopWatch.Stop();
 					UpdateStatus(
 						string.Format(
-						"Done in {0:00}:{1:00}:{2:00}.{3:00}",
-												stopWatch.Elapsed.TotalHours,
-												stopWatch.Elapsed.Minutes,
-												stopWatch.Elapsed.Seconds,
-												stopWatch.Elapsed.Milliseconds));
+							"Done in {0:00}:{1:00}:{2:00}.{3:00}",
+							stopWatch.Elapsed.TotalHours,
+							stopWatch.Elapsed.Minutes,
+							stopWatch.Elapsed.Seconds,
+							stopWatch.Elapsed.Milliseconds));
 				}
 			}
 			catch (Exception exception)
 			{
 				stopWatch.Stop();
-				UpdateStatus("Error");
+#if DEBUG
+				throw;
+#endif
 				ShowError(exception);
 			}
+			finally
+			{
+				stopWatch.Stop();
+				EnableUI(true);
+			}
+		}
 
-			DisableUI(true);
+		/// <summary>
+		/// Cancel long running operation.
+		/// </summary>
+		/// <param name="sender">Cancel button</param>
+		/// <param name="e">Routed event data.</param>
+		private void CancelButtonClick(object sender, RoutedEventArgs e)
+		{
+			CancelButton.IsEnabled = false;
+			UpdateStatus("Cancel pending...");
+			canselPending = true;
+		}
+
+		#endregion
+
+		#region Private Methods
+
+		/// <summary>
+		/// Prepare UI to new import session.
+		/// </summary>
+		private void Clear()
+		{
+			categoryMap.Clear();
+			
+			RevenueProgressBar.Value = 0;
+			RevenueProgressBar.Maximum = 100;
+			RevenueProgressPercentTextBlock.Text = "0.00%";
+			RevenueProgressTextBlock.Text = "0 / 0";
+
+			ExpenseProgressBar.Value = 0;
+			ExpenseProgressBar.Maximum = 100;
+			ExpenseProgressPercentTextBlock.Text = "0.00%";
+			ExpenseProgressTextBlock.Text = "0 / 0";
+
+			UpdateStatus(string.Empty);
+		}
+
+		/// <summary>
+		/// Synchronously update status text on the screen.
+		/// </summary>
+		/// <param name="statusText">New status text.</param>
+		private void UpdateStatus(string statusText)
+		{
+			StatusTextBlock.Text = statusText;
+			StatusTextBlock.ToolTip = statusText;
+			Dispatcher.Invoke(DispatcherPriority.Background, new Action(() => { }));
 		}
 
 		/// <summary>
 		/// Enable or disable UI when long running operation is in progress.
 		/// </summary>
 		/// <param name="isEnabled"><c>True</c> will enable UI and <c>False</c> will disable.</param>
-		private void DisableUI(bool isEnabled)
+		private void EnableUI(bool isEnabled)
 		{
 			GenerateButton.IsEnabled = isEnabled;
 			UsernameTextBox.IsEnabled = isEnabled;
 			PasswordTextBox.IsEnabled = isEnabled;
 			AccountTextBox.IsEnabled = isEnabled;
 			StartButton.IsEnabled = isEnabled;
+			ConnectionStringTextBox.IsEnabled = isEnabled;
+			ServiceUrlTextBox.IsEnabled = isEnabled;
+
+			CancelButton.IsEnabled = !isEnabled;
 		}
 
 		/// <summary>
-		/// Load one expense data from old SQL database.
+		/// Display error message.
 		/// </summary>
-		/// <param name="context">EF context for database.</param>
-		/// <param name="expenseMapper">EmitMapper that maps old expanse data object to new <see cref="TransactionData"/>.</param>
-		/// <param name="skip">How many records to skip from the beginning of the whole "TblExpenseList"  table.</param>
-		/// <returns>New transaction data instance filled with data from record in table "TblExpenseList" of the old SQL database.</returns>
-		private static TransactionData GetExpense(
-			ProfitAndExpenseEntities context,
-		    ObjectsMapper<ExpenseList, TransactionData> expenseMapper,
-			int skip)
+		/// <param name="exception">Exception to display.</param>
+		private void ShowError(Exception exception)
 		{
-			return expenseMapper.Map(context.TblExpenseLists
-			                         	.OrderBy(list => list.CreationDate)
-			                         	.Skip(skip)
-			                         	.First());
-		}
-
-		/// <summary>
-		/// Load one revenue data from old SQL database.
-		/// </summary>
-		/// <param name="context">EF context for database.</param>
-		/// <param name="revenueMapper">EmitMapper that maps old revenue data object to new <see cref="TransactionData"/>.</param>
-		/// <param name="skip">How many records to skip from the beginning of the whole "TblRevenueList" table.</param>
-		/// <returns>New transaction data instance filled with data from record in table "TblRevenueList" of the old SQL database.</returns>
-		private static TransactionData GetRevenue(
-			ProfitAndExpenseEntities context,
-		    ObjectsMapper<RevenueList, TransactionData> revenueMapper,
-			int skip)
-		{
-			return revenueMapper.Map(context.TblRevenueLists
-			                         	.OrderBy(list => list.CreationDate)
-			                         	.Skip(skip)
-			                         	.First());
+			MessageBox.Show(exception.ToString(), "Import error", MessageBoxButton.OK, MessageBoxImage.Error);
+			UpdateStatus("Error: " + exception.Message);
 		}
 
 		/// <summary>
@@ -205,14 +338,14 @@ namespace Fab.Server.Import
 		private int SaveDeposit(
 			ProfitAndExpenseEntities context,
 			int revenuesCount,
-		    ObjectsMapper<RevenueList, TransactionData> revenueMapper,
+			ObjectsMapper<RevenueList, TransactionData> revenueMapper,
 			int revenueIndex,
-		    ref TransactionData revenue)
+			ref TransactionData revenue)
 		{
 			RevenueProgressTextBlock.Text = string.Format("{0} / {1}", revenueIndex + 1, revenuesCount);
 			RevenueProgressBar.Value = revenueIndex + 1;
 			RevenueProgressPercentTextBlock.Text = string.Format("{0:0.00}%", 100*RevenueProgressBar.Value/RevenueProgressBar.Maximum);
-			UpdateStatus("Importing revenue...");
+			UpdateStatus("Importing revenues...");
 
 			moneyClient.Deposit(userId, accountId, revenue.Date, revenue.Price, revenue.Quantity, revenue.Comment, revenue.CategoryId);
 
@@ -241,14 +374,14 @@ namespace Fab.Server.Import
 		private int SaveWithdrawal(
 			ProfitAndExpenseEntities context,
 			int expensesCount,
-		    ObjectsMapper<ExpenseList, TransactionData> expenseMapper,
+			ObjectsMapper<ExpenseList, TransactionData> expenseMapper,
 			int expenseIndex,
-		    ref TransactionData expense)
+			ref TransactionData expense)
 		{
 			ExpenseProgressTextBlock.Text = string.Format("{0} / {1}", expenseIndex + 1, expensesCount);
 			ExpenseProgressBar.Value = expenseIndex + 1;
 			ExpenseProgressPercentTextBlock.Text = string.Format("{0:0.00}%", 100*ExpenseProgressBar.Value/ExpenseProgressBar.Maximum);
-			UpdateStatus("Importing expense...");
+			UpdateStatus("Importing expenses...");
 
 			moneyClient.Withdrawal(userId, accountId, expense.Date, expense.Price, expense.Quantity, expense.Comment, expense.CategoryId);
 
@@ -269,7 +402,7 @@ namespace Fab.Server.Import
 		/// Main method that import revenue and expense data from old database to new one.
 		/// </summary>
 		/// <param name="context">EF context for old database.</param>
-		private void ImportTransactions(ProfitAndExpenseEntities context)
+		private void Import(ProfitAndExpenseEntities context)
 		{
 			UpdateStatus("Estimating import data size...");
 			int expensesCount = context.TblExpenseLists.Count();
@@ -281,28 +414,28 @@ namespace Fab.Server.Import
 			RevenueProgressBar.Maximum = revenuesCount;
 
 			ObjectsMapper<ExpenseList, TransactionData> expenseMapper = ObjectMapperManager.DefaultInstance.GetMapper<ExpenseList, TransactionData>(
-					new DefaultMapConfig()
-						.ConvertUsing<ExpenseList, TransactionData>(exp => new TransactionData
-						                                                   	{
-						                                                   		Date = exp.CreationDate.ToUniversalTime(),
-						                                                   		CategoryId = categoryMap[new KeyValuePair<int, bool>(exp.ExpenseGroupId, true)],
-						                                                   		Comment = string.Format("{0}\n{1}", exp.Name, exp.Memo),
-						                                                   		Price = exp.Cost,
-						                                                   		Quantity = 1.0m,
-						                                                   		IsWithdrawal = true
-						                                                   	}));
+				new DefaultMapConfig()
+					.ConvertUsing<ExpenseList, TransactionData>(exp => new TransactionData
+					                                                   	{
+					                                                   		Date = exp.CreationDate.ToUniversalTime(),
+					                                                   		CategoryId = categoryMap[new KeyValuePair<int, bool>(exp.ExpenseGroupId, true)],
+					                                                   		Comment = string.Format("{0}\n{1}", exp.Name, exp.Memo),
+					                                                   		Price = exp.Cost,
+					                                                   		Quantity = 1.0m,
+					                                                   		IsWithdrawal = true
+					                                                   	}));
 
 			ObjectsMapper<RevenueList, TransactionData> revenueMapper = ObjectMapperManager.DefaultInstance.GetMapper<RevenueList, TransactionData>(
-					new DefaultMapConfig()
-						.ConvertUsing<RevenueList, TransactionData>(rev => new TransactionData
-						                                                   	{
-						                                                   		Date = rev.CreationDate.ToUniversalTime(),
-						                                                   		CategoryId = categoryMap[new KeyValuePair<int, bool>(rev.RevenueGroupId, false)],
-						                                                   		Comment = string.Format("{0}\n{1}", rev.SourceName, rev.Memo),
-						                                                   		Price = (decimal) rev.ExchangeRate,
-						                                                   		Quantity = rev.AmountGRN/(decimal) rev.ExchangeRate,
-						                                                   		IsWithdrawal = false
-						                                                   	}));
+				new DefaultMapConfig()
+					.ConvertUsing<RevenueList, TransactionData>(rev => new TransactionData
+					                                                   	{
+					                                                   		Date = rev.CreationDate.ToUniversalTime(),
+					                                                   		CategoryId = categoryMap[new KeyValuePair<int, bool>(rev.RevenueGroupId, false)],
+					                                                   		Comment = string.Format("{0}\n{1}", rev.SourceName, rev.Memo),
+					                                                   		Price = (decimal) rev.ExchangeRate,
+					                                                   		Quantity = rev.AmountGRN/(decimal) rev.ExchangeRate,
+					                                                   		IsWithdrawal = false
+					                                                   	}));
 
 			int expenseIndex = 0;
 			int revenueIndex = 0;
@@ -332,26 +465,49 @@ namespace Fab.Server.Import
 				{
 					revenueIndex = SaveDeposit(context, revenuesCount, revenueMapper, revenueIndex, ref revenue);
 				}
-			} while (expenseIndex < expensesCount || revenueIndex < revenuesCount);
+			} while ((expenseIndex < expensesCount || revenueIndex < revenuesCount) && !canselPending);
+		}
+
+		#region Static Methods
+
+		/// <summary>
+		/// Load one expense data from old SQL database.
+		/// </summary>
+		/// <param name="context">EF context for database.</param>
+		/// <param name="expenseMapper">EmitMapper that maps old expanse data object to new <see cref="TransactionData"/>.</param>
+		/// <param name="skip">How many records to skip from the beginning of the whole "TblExpenseList"  table.</param>
+		/// <returns>New transaction data instance filled with data from record in table "TblExpenseList" of the old SQL database.</returns>
+		private static TransactionData GetExpense(
+			ProfitAndExpenseEntities context,
+			ObjectsMapper<ExpenseList, TransactionData> expenseMapper,
+			int skip)
+		{
+			return expenseMapper.Map(context.TblExpenseLists
+			                         	.OrderBy(list => list.CreationDate)
+			                         	.Skip(skip)
+			                         	.First());
 		}
 
 		/// <summary>
-		/// Display error message.
+		/// Load one revenue data from old SQL database.
 		/// </summary>
-		/// <param name="exception">Exception to display.</param>
-		private static void ShowError(Exception exception)
+		/// <param name="context">EF context for database.</param>
+		/// <param name="revenueMapper">EmitMapper that maps old revenue data object to new <see cref="TransactionData"/>.</param>
+		/// <param name="skip">How many records to skip from the beginning of the whole "TblRevenueList" table.</param>
+		/// <returns>New transaction data instance filled with data from record in table "TblRevenueList" of the old SQL database.</returns>
+		private static TransactionData GetRevenue(
+			ProfitAndExpenseEntities context,
+			ObjectsMapper<RevenueList, TransactionData> revenueMapper,
+			int skip)
 		{
-			MessageBox.Show(exception.ToString(), "Import error", MessageBoxButton.OK, MessageBoxImage.Error);
+			return revenueMapper.Map(context.TblRevenueLists
+			                         	.OrderBy(list => list.CreationDate)
+			                         	.Skip(skip)
+			                         	.First());
 		}
 
-		/// <summary>
-		/// Synchronously update status text on the screen.
-		/// </summary>
-		/// <param name="statusText">New status text.</param>
-		private void UpdateStatus(string statusText)
-		{
-			StatusTextBlock.Text = statusText;
-			Dispatcher.Invoke(DispatcherPriority.Background, new Action(() => { }));
-		}
+		#endregion
+
+		#endregion
 	}
 }
