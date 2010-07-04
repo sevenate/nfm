@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminService.svc" />
+    <Content Include="Database\Fill Test Data.sql" />
     <Content Include="MoneyService.svc" />
     <None Include="App_Data\Database.mdf" />
     <None Include="App_Data\Database_log.ldf">
