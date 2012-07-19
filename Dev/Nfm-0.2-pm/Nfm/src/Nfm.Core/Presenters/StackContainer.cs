@@ -20,29 +20,6 @@ namespace Nfm.Core.ViewModels
 	/// </summary>
 	public class StackContainer : PanelContainerBase
 	{
-		#region Binding Properties
-
-		/// <summary>
-		/// Orientation for stacked panels.
-		/// </summary>
-		private Orientation orientation;
-
-		/// <summary>
-		/// Gets or sets orientation for stacked panels.
-		/// </summary>
-		public Orientation Orientation
-		{
-			get { return orientation; }
-			set
-			{
-				OnPropertyChanging("Orientation");
-				orientation = value;
-				OnPropertyChanged("Orientation");
-			}
-		}
-
-		#endregion
-
 		#region .Ctors
 
 		/// <summary>
@@ -73,6 +50,28 @@ namespace Nfm.Core.ViewModels
 		public override object Clone()
 		{
 			return new StackContainer(this);
+		}
+
+		#endregion
+
+		#region Binding Properties
+
+		/// <summary>
+		/// Orientation for stacked panels.
+		/// </summary>
+		private Orientation orientation;
+
+		/// <summary>
+		/// Gets or sets orientation for stacked panels.
+		/// </summary>
+		public Orientation Orientation
+		{
+			get { return orientation; }
+			set
+			{
+				orientation = value;
+				NotifyOfPropertyChange("Orientation");
+			}
 		}
 
 		#endregion

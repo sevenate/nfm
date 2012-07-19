@@ -12,6 +12,7 @@
 // <summary>Represent general View Model for <see cref="INode"/>.</summary>
 
 using System;
+using Caliburn.PresentationFramework.ApplicationModel;
 using Nfm.Core.Models;
 
 namespace Nfm.Core.ViewModels
@@ -19,7 +20,7 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Represent general View Model for <see cref="INode"/>.
 	/// </summary>
-	public interface IPanelContent : ICloneable
+	public interface IPanelContent : IPresenter, ICloneable
 	{
 		/// <summary>
 		/// Gets panel header.

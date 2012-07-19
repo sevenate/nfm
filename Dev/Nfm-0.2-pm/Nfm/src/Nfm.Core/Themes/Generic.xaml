@@ -5,9 +5,6 @@
 		<!-- Default Theme -->
 		<ResourceDictionary Source="/Nfm.Core;component/Themes/Dark/DarkTheme.xaml" />
 
-		<!-- All Core Views -->
-		<ResourceDictionary Source="/Nfm.Core;component/Views/AllViews.xaml" />
-
 		<!-- Todo: Module resources should be included from code -->
 		<ResourceDictionary Source="/Nfm.Core;component/Modules/FileSystem/Resources/ModuleResources.xaml" />
 

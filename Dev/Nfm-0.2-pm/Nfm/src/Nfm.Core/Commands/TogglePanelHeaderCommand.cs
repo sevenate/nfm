@@ -12,7 +12,9 @@
 // <summary>Hide or show <see cref="IPanel.Header" /> command.</summary>
 
 using System;
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -20,7 +22,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Hide or show <see cref="IPanel.Header" /> command.
 	/// </summary>
-	public class TogglePanelHeaderCommand
+	[Singleton(typeof(ITogglePanelHeaderCommand))]
+	public class TogglePanelHeaderCommand : ITogglePanelHeaderCommand
 	{
 		/// <summary>
 		/// Toggle header visibility of specific panel.

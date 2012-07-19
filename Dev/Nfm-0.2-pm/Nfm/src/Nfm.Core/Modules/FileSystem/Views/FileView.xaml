@@ -9,6 +9,7 @@
 					xmlns:Icons="clr-namespace:Nfm.Core.ViewModels.FileSystem.Icons"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:Localization="clr-namespace:Nfm.Core.Localization"
+					xmlns:Interfaces="clr-namespace:Nfm.Core.Commands.Interfaces"
 					mc:Ignorable="d">
 
 	<DataTemplate DataType="{x:Type FileSystem:FileVM}">
@@ -73,7 +74,7 @@
 					<cb:Message.Triggers>
 						<cb:RoutedMessageTriggerCollection>
 							<cb:EventMessageTrigger EventName="MouseLeftButtonDown">
-								<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+								<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:INavigateToCurrentNodeCommand}}">
 									<cb:Parameter Value="{Binding Path=DataContext, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
 									<cb:Parameter Value="{Binding Mode=OneWay}" />
 								</cb:CommandMessage>

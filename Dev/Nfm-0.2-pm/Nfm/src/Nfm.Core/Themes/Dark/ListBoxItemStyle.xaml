@@ -5,9 +5,9 @@
 					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:cb="http://www.caliburnproject.org"
+					xmlns:Interfaces="clr-namespace:Nfm.Core.Commands.Interfaces"
 					mc:Ignorable="d">
 
-	<!-- #ListBoxItem Style -->
 	<Style x:Key="{x:Static Themes:Theme.ListBoxItemStyleKey}"
 		   TargetType="{x:Type ListBoxItem}">
 		
@@ -44,7 +44,7 @@
 				<cb:RoutedMessageTriggerCollection>
 					<cb:EventMessageTrigger EventName="MouseDoubleClick">
 						<cb:EventMessageTrigger.Message>
-							<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+							<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:INavigateToCurrentNodeCommand}}">
 								<cb:Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
 								<cb:Parameter Value="{Binding Mode=OneWay}" />
 							</cb:CommandMessage>
@@ -53,7 +53,7 @@
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToCurrentNodeHotKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToCurrentNodeHotKeyModifiers}}">
 						<cb:GestureMessageTrigger.Message>
-							<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+							<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:INavigateToCurrentNodeCommand}}">
 								<cb:Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
 								<cb:Parameter Value="{Binding Mode=OneWay}" />
 							</cb:CommandMessage>

@@ -1,6 +1,6 @@
-﻿<ApplicationModel:CaliburnApplication x:Class="Nfm.Loader.App"
+﻿<cb:CaliburnApplication x:Class="Nfm.Loader.App"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:ApplicationModel="clr-namespace:Caliburn.PresentationFramework.ApplicationModel;assembly=Caliburn.PresentationFramework"
+			 xmlns:cb="http://www.caliburnproject.org"
 			 DispatcherUnhandledException="Application_DispatcherUnhandledException">
-</ApplicationModel:CaliburnApplication>
+</cb:CaliburnApplication>

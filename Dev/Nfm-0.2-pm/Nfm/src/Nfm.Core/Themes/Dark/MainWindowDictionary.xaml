@@ -1,7 +1,12 @@
 ﻿<ResourceDictionary x:Class="Nfm.Core.Themes.Dark.MainWindowDictionary"
 					xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:Themes="clr-namespace:Nfm.Core.Themes">
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:cb="http://www.caliburnproject.org"
+					xmlns:Converters="clr-namespace:Nfm.Core.Converters"
+					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
+					mc:Ignorable="d">
 
 	<Style x:Key="{x:Static Themes:Theme.MainWindowStyleKey}"
 		   TargetType="{x:Type Window}">
@@ -21,11 +26,22 @@
 				Value="200" />
 		<Setter Property="Focusable"
 				Value="False"/>
+		<!--Todo: make main window background transparent -->
 		<Setter Property="Background"
-				Value="Transparent" />
+				Value="Red" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Window}">
+					<ControlTemplate.Resources>
+						<Storyboard x:Key="BluringDown">
+							<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+														   Storyboard.TargetName="LayoutRoot"
+														   Storyboard.TargetProperty="(UIElement.Effect).(BlurEffect.Radius)">
+								<SplineDoubleKeyFrame KeyTime="00:00:00.5000000"
+													  Value="5" />
+							</DoubleAnimationUsingKeyFrames>
+						</Storyboard>
+					</ControlTemplate.Resources>
 					<Border Background="{TemplateBinding Background}"
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
@@ -34,10 +50,32 @@
 							MouseRightButtonDown="Minimize"
 							MouseDown="CloseWindow">
 						<Grid>
-							<AdornerDecorator>
-								<ContentPresenter Margin="{TemplateBinding Padding}" />
-							</AdornerDecorator>
-
+							<Grid x:Name="LayoutRoot">
+								<AdornerDecorator>
+									<ContentPresenter Margin="{TemplateBinding Padding}" />
+								</AdornerDecorator>
+							</Grid>
+							<Grid x:Name="Overlay"
+								  Visibility="{Binding DialogModel, Converter={x:Static Converters:CollapsedWhenNullConverter.Inst}}"
+								  Background="#55555555"
+								  IsHitTestVisible="True">
+								<Grid Margin="2"
+									  VerticalAlignment="Center"
+									  HorizontalAlignment="Center">
+									<Border BorderBrush="Red"
+											BorderThickness="2"
+											CornerRadius="5"
+											Background="White"
+											Margin="0 0 3 3"
+											Padding="4">
+										<Border.Effect>
+											<DropShadowEffect />
+										</Border.Effect>
+										<ContentControl cb:View.Model="{Binding DialogModel}"
+														Focusable="False" />
+									</Border>
+								</Grid>
+							</Grid>
 							<!-- Right -->
 							<Rectangle Width="5"
 									   VerticalAlignment="Stretch"
@@ -123,6 +161,21 @@
 									   MouseMove="Resize" />
 						</Grid>
 					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger SourceName="Overlay"
+								 Property="Visibility"
+								 Value="Visible">
+							<Setter TargetName="LayoutRoot"
+									Property="Effect">
+								<Setter.Value>
+									<BlurEffect Radius="0" />
+								</Setter.Value>
+							</Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard Storyboard="{StaticResource BluringDown}" />
+							</Trigger.EnterActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

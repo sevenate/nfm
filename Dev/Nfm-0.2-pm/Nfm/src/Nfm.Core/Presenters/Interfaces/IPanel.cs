@@ -12,13 +12,14 @@
 // <summary>Represent general info panel.</summary>
 
 using System;
+using Caliburn.PresentationFramework.ApplicationModel;
 
 namespace Nfm.Core.ViewModels
 {
 	/// <summary>
 	/// Represent general info panel.
 	/// </summary>
-	public interface IPanel : ICloneable
+	public interface IPanel : IPresenter, ILifecycleNotifier, ICloneable
 	{
 		/// <summary>
 		/// Gets panel header.
@@ -26,43 +27,8 @@ namespace Nfm.Core.ViewModels
 		IPanelHeader Header { get; }
 
 		/// <summary>
-		/// Gets a value indicating whether a panel can be closed.
-		/// </summary>
-		bool CanClose { get; }
-
-		/// <summary>
-		/// Gets or sets a value indicating whether a panel is selected.
-		/// </summary>
-		bool IsSelected { get; set; }
-
-		/// <summary>
 		/// Gets or sets parent <see cref="IPanel"/>.
 		/// </summary>
 		IPanel Parent { get; set; }
-
-		/// <summary>
-		/// Request close action for panel.
-		/// </summary>
-		void RequestClose();
-
-		/// <summary>
-		/// Rased before panel is closed.
-		/// </summary>
-		event EventHandler<EventArgs> Closing;
-
-		/// <summary>
-		/// Rased after panel is closed.
-		/// </summary>
-		event EventHandler<EventArgs> Closed;
-
-		/// <summary>
-		/// Rased before panel is selected.
-		/// </summary>
-		event Action<IPanel> SelectionChanging;
-
-		/// <summary>
-		/// Rased after panel is selected.
-		/// </summary>
-		event Action<IPanel> SelectionChanged;
 	}
 }

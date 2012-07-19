@@ -139,10 +139,9 @@ namespace Nfm.Core.ViewModels.FileSystem
 			resultList = resultList.Concat(list);
 			// -- TODOEND --
 
-			OnPropertyChanging("Childs");
 			childs.Clear();
 			childs = new ObservableCollection<IViewModel>(resultList);
-			OnPropertyChanged("Childs");
+			NotifyOfPropertyChange("Childs");
 
 			if (CurrentItemIndex == -1 && childs.Count > 0)
 			{
@@ -267,11 +266,10 @@ namespace Nfm.Core.ViewModels.FileSystem
 			get { return currentItemIndex; }
 			set
 			{
-				OnPropertyChanging("CurrentItemIndex");
 				currentItemIndex = 0 <= value && value < childs.Count
 									? value
 									: -1;
-				OnPropertyChanged("CurrentItemIndex");
+				NotifyOfPropertyChange("CurrentItemIndex");
 			}
 		}
 

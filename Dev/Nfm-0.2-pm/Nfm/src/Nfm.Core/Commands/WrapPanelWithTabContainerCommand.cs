@@ -12,7 +12,9 @@
 // <summary>Wrap ane single panel with <see cref="TabContainer"/> .</summary>
 
 using System;
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -20,7 +22,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Wrap <see cref="IPanel"/> with <see cref="TabContainer"/> as parent.
 	/// </summary>
-	public class WrapPanelWithTabContainerCommand
+	[Singleton(typeof(IWrapPanelWithTabContainerCommand))]
+	public class WrapPanelWithTabContainerCommand : IWrapPanelWithTabContainerCommand
 	{
 		/// <summary>
 		/// Wrap <see cref="IPanel"/> with <see cref="TabContainer"/>.
@@ -37,8 +40,8 @@ namespace Nfm.Core.Commands
 			if (panel.Parent is IPanelContainer)
 			{
 				var parentContainer = panel.Parent as IPanelContainer;
-				var panelIndex = parentContainer.Childs.IndexOf(panel);
-				parentContainer.Childs.Remove(panel);
+				var panelIndex = parentContainer.Presenters.IndexOf(panel);
+				parentContainer.Shutdown(panel, b => { });
 
 				var tabContainer = new TabContainer
 				{
@@ -46,11 +49,11 @@ namespace Nfm.Core.Commands
 					         {
 								 Text = "Tab Container"
 					         },
-					IsSelected = true
 				};
+				tabContainer.Activate();
 
-				tabContainer.Childs.Add(panel);
-				parentContainer.Childs.Insert(panelIndex, tabContainer);
+				tabContainer.Presenters.Add(panel);
+				parentContainer.Presenters.Insert(panelIndex, tabContainer);
 			}
 		}
 

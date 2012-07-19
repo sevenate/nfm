@@ -13,6 +13,7 @@
 
 using System.Diagnostics;
 using System.Windows.Media;
+using Caliburn.PresentationFramework.ApplicationModel;
 
 namespace Nfm.Core.ViewModels
 {
@@ -20,7 +21,7 @@ namespace Nfm.Core.ViewModels
 	/// Common <see cref="IPanel"/> header.
 	/// </summary>
 	[DebuggerDisplay("{Text}")]
-	public class PanelHeader : NotificationBase, IPanelHeader
+	public class PanelHeader : Presenter, IPanelHeader
 	{
 		#region .Ctors
 
@@ -83,10 +84,9 @@ namespace Nfm.Core.ViewModels
 			get { return icon; }
 			set
 			{
-				OnPropertyChanging("Icon");
 				icon = value;
 				HasIcon = icon != null;
-				OnPropertyChanged("Icon");
+				NotifyOfPropertyChange("Icon");
 			}
 		}
 
@@ -98,10 +98,9 @@ namespace Nfm.Core.ViewModels
 			get { return text; }
 			set
 			{
-				OnPropertyChanging("Text");
 				text = value;
 				HasText = !string.IsNullOrEmpty(text);
-				OnPropertyChanged("Text");
+				NotifyOfPropertyChange("Text");
 			}
 		}
 
@@ -113,11 +112,9 @@ namespace Nfm.Core.ViewModels
 			get { return isVisible; }
 			set
 			{
-				OnPropertyChanging("IsVisible");
-				OnPropertyChanging("IsHidden");
 				isVisible = value;
-				OnPropertyChanged("IsHidden");
-				OnPropertyChanged("IsVisible");
+				NotifyOfPropertyChange("IsVisible");
+				NotifyOfPropertyChange("IsHidden");
 			}
 		}
 
@@ -151,9 +148,8 @@ namespace Nfm.Core.ViewModels
 			get { return hasIcon; }
 			set
 			{
-				OnPropertyChanging("HasIcon");
 				hasIcon = value;
-				OnPropertyChanged("HasIcon");
+				NotifyOfPropertyChange("HasIcon");
 			}
 		}
 
@@ -165,9 +161,8 @@ namespace Nfm.Core.ViewModels
 			get { return hasText; }
 			set
 			{
-				OnPropertyChanging("HasText");
 				hasText = value;
-				OnPropertyChanged("HasText");
+				NotifyOfPropertyChange("HasText");
 			}
 		}
 

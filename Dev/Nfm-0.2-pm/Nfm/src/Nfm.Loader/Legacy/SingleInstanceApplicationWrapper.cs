@@ -43,7 +43,7 @@ namespace Nfm.Loader.Legacy
 		protected override bool OnStartup(StartupEventArgs eventArgs)
 		{
 			app = new App();
-			app.InitializeComponent();
+//			app.InitializeComponent();
 			app.Run();
 			return false;
 		}

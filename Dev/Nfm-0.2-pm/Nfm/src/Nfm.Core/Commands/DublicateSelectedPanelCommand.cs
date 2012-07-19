@@ -12,7 +12,9 @@
 // <summary>Dublicate selected panel command.</summary>
 
 using System;
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -20,6 +22,7 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Dublicate selected panel command.
 	/// </summary>
+	[Singleton(typeof(IDublicateSelectedPanelCommand))]
 	public class DublicateSelectedPanelCommand
 	{
 		/// <summary>
@@ -39,8 +42,10 @@ namespace Nfm.Core.Commands
 			if (container != null)
 			{
 				// Insert after current panel
-				int targetIndex = container.Childs.IndexOf(panel);
-				container.Childs.Insert(targetIndex + 1, (IPanel) panel.Clone());
+/*
+				int targetIndex = container.Presenters.IndexOf(panel);
+				container.Presenters.Insert(targetIndex + 1, (IPanel)panel.Clone());
+*/
 			}
 		}
 

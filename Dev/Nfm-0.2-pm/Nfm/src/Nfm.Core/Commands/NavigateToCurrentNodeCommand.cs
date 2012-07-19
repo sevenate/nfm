@@ -13,7 +13,9 @@
 
 using System;
 using System.Windows;
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -23,8 +25,9 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Change node in panel to current node command.
 	/// </summary>
+	[Singleton(typeof(INavigateToCurrentNodeCommand))]
 	[Rescue("GeneralRescue")]
-	public class NavigateToCurrentNodeCommand
+	public class NavigateToCurrentNodeCommand : INavigateToCurrentNodeCommand
 	{
 		/// <summary>
 		/// Change node in panel to current node.

@@ -13,13 +13,14 @@
 
 using System;
 using System.Windows.Media;
+using Caliburn.PresentationFramework.ApplicationModel;
 
 namespace Nfm.Core.ViewModels
 {
 	/// <summary>
 	/// Represent general <see cref="IPanel"/> header.
 	/// </summary>
-	public interface IPanelHeader : ICloneable
+	public interface IPanelHeader : IPresenter, ICloneable
 	{
 		/// <summary>
 		/// Gets or sets header icon.

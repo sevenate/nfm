@@ -5,6 +5,7 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 			 xmlns:cb="http://www.caliburnproject.org"
+			 xmlns:Interfaces="clr-namespace:Nfm.Core.Commands.Interfaces"
 			 mc:Ignorable="d"
 			 d:DesignWidth="300"
 			 d:DesignHeight="300">
@@ -54,7 +55,7 @@
 					<cb:Message.Triggers>
 						<cb:RoutedMessageTriggerCollection>
 							<cb:EventMessageTrigger EventName="MouseLeftButtonDown">
-								<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+								<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:INavigateToCurrentNodeCommand}}">
 									<cb:Parameter Value="{Binding Path=DataContext, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
 									<cb:Parameter Value="{Binding Mode=OneWay}" />
 								</cb:CommandMessage>

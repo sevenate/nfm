@@ -9,13 +9,21 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2009-01-08</date>
 // </editor>
-// <summary>WPF Application.</summary>
+// <summary>NFM Application.</summary>
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
+using Caliburn.Core;
+using Caliburn.PresentationFramework;
+using Caliburn.PresentationFramework.ApplicationModel;
+using Microsoft.Practices.ServiceLocation;
 using Nfm.Core.Configuration;
+using Nfm.Core.Models;
+using Nfm.Core.Presenters.Interfaces;
 using Nfm.Core.ViewModels;
 using Nfm.Core.Views;
 using Nfm.Loader.Legacy;
@@ -23,7 +31,7 @@ using Nfm.Loader.Legacy;
 namespace Nfm.Loader
 {
 	/// <summary>
-	/// WPF Application.
+	/// NFM Application.
 	/// </summary>
 	public partial class App
 	{
@@ -33,11 +41,12 @@ namespace Nfm.Loader
 		/// Initializes a new instance of the <see cref="App" /> class.
 		/// </summary>
 		/// <exception cref="T:System.InvalidOperationException">
-		/// More than one instance of the <see cref="T:System.Windows.Application" /> class is created per <see cref="T:System.AppDomain" />.
+		/// More than one instance of the <see cref="T:System.Windows.Application" />
+		/// class is created per <see cref="T:System.AppDomain" />.
 		/// </exception>
 		public App()
 		{
-			ConfigManager.InitializeCaliburn();
+			InitializeComponent();
 		}
 
 		#endregion
@@ -83,10 +92,9 @@ namespace Nfm.Loader
 		/// <param name="e">An <see cref="T:System.Windows.ExitEventArgs" /> that contains the event data.</param>
 		protected override void OnExit(ExitEventArgs e)
 		{
-			base.OnExit(e);
+			//base.OnExit(e);
 
 			//TODO: Add specific application finalization logic here.
-			;
 		}
 
 		/// <summary>
@@ -96,10 +104,9 @@ namespace Nfm.Loader
 		/// <param name="e">A <see cref="T:System.Windows.SessionEndingCancelEventArgs" /> that contains the event data.</param>
 		protected override void OnSessionEnding(SessionEndingCancelEventArgs e)
 		{
-			base.OnSessionEnding(e);
+			//base.OnSessionEnding(e);
 
 			//TODO: Handle OS shutdown here.
-			;
 		}
 
 		/// <summary>
@@ -107,12 +114,11 @@ namespace Nfm.Loader
 		/// Occurs when an application becomes the foreground application.
 		/// </summary>
 		/// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
-		protected override void OnActivated(EventArgs e)
+		protected override void OnActivated(System.EventArgs e)
 		{
-			base.OnActivated(e);
+			//base.OnActivated(e);
 
 			//TODO: Add specific activation logic here.
-			;
 		}
 
 		/// <summary>
@@ -120,12 +126,11 @@ namespace Nfm.Loader
 		/// Occurs when an application stops being the foreground application.
 		/// </summary>
 		/// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
-		protected override void OnDeactivated(EventArgs e)
+		protected override void OnDeactivated(System.EventArgs e)
 		{
-			base.OnDeactivated(e);
+			//base.OnDeactivated(e);
 
 			//TODO: Add specific deactivation logic here.
-			;
 		}
 
 		#endregion
@@ -154,31 +159,32 @@ namespace Nfm.Loader
 		/// </summary>
 		private void ShowNewWindow()
 		{
+/*
 			IPanel rootLayoutPanel = ConfigManager.GetLayout();
 
-			var newWindow = new MainWindow
+			var newWindow = new ShellView
 			                {
 			                	DataContext = rootLayoutPanel
 			                };
 
-			rootLayoutPanel.Closed += (sender, e) => newWindow.Close();
+			rootLayoutPanel.WasShutdown += (sender, e) => newWindow.Close();
 
 			// Select one of remained opened application windows as "main" window.
 			newWindow.Closed += delegate
 			                    {
-			                    	if (MainWindow == null && Windows.Count > 0)
+			                    	if (ShellView == null && Windows.Count > 0)
 			                    	{
-			                    		MainWindow = Windows[0];
+			                    		ShellView = Windows[0];
 			                    		// ReSharper disable PossibleNullReferenceException
-			                    		MainWindow.Show();
+			                    		ShellView.Show();
 			                    		// ReSharper restore PossibleNullReferenceException
-			                    		MainWindow.Activate();
+			                    		ShellView.Activate();
 			                    	}
 			                    };
 
-			if (MainWindow == null)
+			if (ShellView == null)
 			{
-				MainWindow = newWindow;
+				ShellView = newWindow;
 			}
 
 			// Center window on primary display monitor.
@@ -195,7 +201,65 @@ namespace Nfm.Loader
 
 			newWindow.Show();
 			newWindow.Activate();
+*/
 		}
+
+		#endregion
+
+		#region Overrides of CaliburnApplication
+
+		/// <summary>
+		/// Creates the container.
+		/// </summary>
+		/// <returns/>
+		protected override IServiceLocator CreateContainer()
+		{
+			// Todo: consider using "Autofac" or "StructureMap" IoC frameworks.
+			// Todo: write adapter for "Autofac" IoC and send it to Caliburn dev team.
+			return new SimpleContainer();
+		}
+
+		/// <summary>
+		/// Selects the assemblies which Caliburn will be able to inspect for components, views, etc.
+		/// </summary>
+		/// <returns/>
+		protected override Assembly[] SelectAssemblies()
+		{
+			// TODO: Make core assembly file name auto determined
+			return new[] { Assembly.LoadFrom("Nfm.Core.dll") };
+		}
+
+		/// <summary>
+		/// Creates the root application model.
+		/// </summary>
+		/// <returns/>
+		protected override object CreateRootModel()
+		{
+			return Container.GetInstance<IShellPresenter>();
+		}
+
+		/// <summary>
+		/// Executes the shutdown model.
+		/// </summary>
+		/// <param name="subordinate">The subordinate.</param><param name="completed">The completed.</param>
+		protected override void ExecuteShutdownModel(ISubordinate subordinate, Action completed)
+		{
+			var shell = Container.GetInstance<IShellPresenter>();
+			var dialogPresenter = Container.GetInstance<IQuestionPresenter>();
+			var question = (Question)subordinate;
+
+			dialogPresenter.Setup(question, completed);
+			shell.ShowDialog(dialogPresenter);
+		}
+
+		/// <summary>
+		/// Called when shutdown attempted.
+		/// </summary>
+		/// <param name="rootModel">The root model.</param><param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+//		protected override void OnShutdownAttempted(IPresenter rootModel, CancelEventArgs e)
+//		{
+//			;
+//		}
 
 		#endregion
 	}

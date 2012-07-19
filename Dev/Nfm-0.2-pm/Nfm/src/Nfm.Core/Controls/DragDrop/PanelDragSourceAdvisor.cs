@@ -130,15 +130,15 @@ namespace Nfm.Core.Controls.DragDrop
 
 			var panel = (IPanel) ((FrameworkElement) dragElement).DataContext;
 
-			if (parentContainer.Childs.Contains(panel) && panel.Parent != parentContainer)
+			if (parentContainer.Presenters.Contains(panel) && panel.Parent != parentContainer)
 			{
 				// This will also remove handlers from old parent panel container "Closing/Closed" events.
-				parentContainer.Childs.Remove(panel);
+				parentContainer.Shutdown(panel, b => { });
 
 				// Todo: consider to use empty panel containers and make it configurable.
-				if (parentContainer.Childs.Count == 0)
+				if (parentContainer.Presenters.Count == 0)
 				{
-					parentContainer.RequestClose();
+					parentContainer.Shutdown();
 				}
 			}
 		}

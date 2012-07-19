@@ -11,7 +11,9 @@
 // </editor>
 // <summary>Switch current application theme to next from all available.</summary>
 
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.Themes;
 
 namespace Nfm.Core.Commands
@@ -19,7 +21,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Switch current application theme to next from all available.
 	/// </summary>
-	public class SwitchThemeCommand
+	[Singleton(typeof(ISwitchThemeCommand))]
+	public class SwitchThemeCommand : ISwitchThemeCommand
 	{
 		/// <summary>
 		/// Switch application theme to next from available.

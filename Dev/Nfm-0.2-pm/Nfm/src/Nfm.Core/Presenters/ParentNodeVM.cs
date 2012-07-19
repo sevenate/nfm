@@ -13,6 +13,7 @@
 
 using System;
 using System.Diagnostics;
+using Caliburn.PresentationFramework.ApplicationModel;
 
 namespace Nfm.Core.ViewModels
 {
@@ -20,8 +21,37 @@ namespace Nfm.Core.ViewModels
 	/// Parent view model.
 	/// </summary>
 	[DebuggerDisplay("{ParentContent}")]
-	public class ParentNodeVM : NotificationBase, IViewModel
+	public class ParentNodeVM : Presenter, IViewModel
 	{
+		#region .Ctors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ParentNodeVM" /> class.
+		/// </summary>
+		/// <param name="parentContent">Parent content view model.</param>
+		public ParentNodeVM(IPanelContent parentContent)
+		{
+			ParentContent = parentContent;
+			AbsolutePath = string.Empty;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ParentNodeVM"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="ParentNodeVM"/> instance to copy data from.</param>
+		protected ParentNodeVM(ParentNodeVM another)
+		{
+			AbsolutePath = another.AbsolutePath;
+			isSelected = another.IsSelected;
+			
+			if (another.ParentContent != null)
+			{
+				ParentContent = (IPanelContent) another.ParentContent.Clone();
+			}
+		}
+
+		#endregion
+
 		#region Implementation of ICloneable
 
 		/// <summary>
@@ -55,9 +85,8 @@ namespace Nfm.Core.ViewModels
 			get { return isSelected; }
 			set
 			{
-				OnPropertyChanging("IsSelected");
 				isSelected = value;
-				OnPropertyChanged("IsSelected");
+				NotifyOfPropertyChange("IsSelected");
 			}
 		}
 
@@ -133,31 +162,6 @@ namespace Nfm.Core.ViewModels
 		}
 
 		#endregion
-
-		#endregion
-
-		#region .Ctors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ParentNodeVM" /> class.
-		/// </summary>
-		/// <param name="parentContent">Parent content view model.</param>
-		public ParentNodeVM(IPanelContent parentContent)
-		{
-			ParentContent = parentContent;
-			AbsolutePath = string.Empty;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ParentNodeVM"/> class.
-		/// </summary>
-		/// <param name="another">Another <see cref="ParentNodeVM"/> instance to copy data from.</param>
-		protected ParentNodeVM(ParentNodeVM another)
-		{
-			AbsolutePath = another.AbsolutePath;
-			isSelected = another.IsSelected;
-			ParentContent = (IPanelContent) another.ParentContent.Clone();
-		}
 
 		#endregion
 

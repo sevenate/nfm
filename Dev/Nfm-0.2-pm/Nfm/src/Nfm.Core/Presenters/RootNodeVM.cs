@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Caliburn.PresentationFramework.ApplicationModel;
 using Nfm.Core.Models;
 
 namespace Nfm.Core.ViewModels
@@ -22,7 +23,7 @@ namespace Nfm.Core.ViewModels
 	/// <summary>
 	/// Root node view model.
 	/// </summary>
-	public sealed class RootNodeVM : NotificationBase, IViewModelWithChilds, IPanelContent
+	public sealed class RootNodeVM : MultiPresenterManager, IViewModelWithChilds, IPanelContent
 	{
 		/// <summary>
 		/// Child nodes view models.
@@ -111,9 +112,8 @@ namespace Nfm.Core.ViewModels
 			get { return isSelected; }
 			set
 			{
-				OnPropertyChanging("IsSelected");
 				isSelected = value;
-				OnPropertyChanged("IsSelected");
+				NotifyOfPropertyChange("IsSelected");
 			}
 		}
 
@@ -131,10 +131,9 @@ namespace Nfm.Core.ViewModels
 				list.Add(module.Value);
 			}
 
-			OnPropertyChanging("Childs");
 			childs.Clear();
 			childs = new ObservableCollection<IViewModel>(list);
-			OnPropertyChanged("Childs");
+			NotifyOfPropertyChange("Childs");
 
 			if (CurrentItemIndex == -1 && childs.Count > 0)
 			{
@@ -246,11 +245,10 @@ namespace Nfm.Core.ViewModels
 			get { return currentItemIndex; }
 			set
 			{
-				OnPropertyChanging("CurrentItemIndex");
 				currentItemIndex = 0 <= value && value < childs.Count
 									? value
 									: -1;
-				OnPropertyChanged("CurrentItemIndex");
+				NotifyOfPropertyChange("CurrentItemIndex");
 			}
 		}
 

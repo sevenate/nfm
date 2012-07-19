@@ -4,7 +4,8 @@
 					xmlns:Controls="clr-namespace:Nfm.Core.Controls"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:cb="http://www.caliburnproject.org"
-					xmlns:Localization="clr-namespace:Nfm.Core.Localization">
+					xmlns:Localization="clr-namespace:Nfm.Core.Localization"
+					xmlns:Interfaces="clr-namespace:Nfm.Core.Commands.Interfaces">
 
 	<DataTemplate DataType="{x:Type FileSystem:LocalFileSystemModuleVM}">
 		<DataTemplate.Resources>
@@ -79,7 +80,7 @@
 							<cb:RoutedMessageTriggerCollection>
 								<cb:EventMessageTrigger EventName="MouseLeftButtonDown">
 									<cb:EventMessageTrigger.Message>
-										<cb:CommandMessage Command="{cb:Resolve Key=NavigateToCurrentNode}">
+										<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:INavigateToCurrentNodeCommand}}">
 											<cb:Parameter Value="{Binding Mode=OneWay, Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
 											<cb:Parameter Value="{Binding Mode=OneWay}" />
 										</cb:CommandMessage>

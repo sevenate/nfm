@@ -13,6 +13,7 @@
 
 using System;
 using System.Diagnostics;
+using Caliburn.PresentationFramework.ApplicationModel;
 using Nfm.Core.Models.FileSystem;
 
 namespace Nfm.Core.ViewModels.FileSystem
@@ -21,7 +22,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 	/// Logical file system module view model.
 	/// </summary>
 	[DebuggerDisplay("{Name}")]
-	public class LocalFileSystemModuleVM : NotificationBase, IDefaultModuleViewModel
+	public class LocalFileSystemModuleVM : Presenter, IDefaultModuleViewModel
 	{
 		#region Implementation of ICloneable
 
@@ -60,9 +61,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 			get { return isSelected; }
 			set
 			{
-				OnPropertyChanging("IsSelected");
 				isSelected = value;
-				OnPropertyChanged("IsSelected");
+				NotifyOfPropertyChange("IsSelected");
 			}
 		}
 

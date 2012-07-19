@@ -12,13 +12,14 @@
 // <summary>General interface to view model of any node.</summary>
 
 using System;
+using Caliburn.PresentationFramework.ApplicationModel;
 
 namespace Nfm.Core.ViewModels
 {
 	/// <summary>
 	/// General interface to view model of any node.
 	/// </summary>
-	public interface IViewModel : ICloneable
+	public interface IViewModel : IPresenter, ICloneable
 	{
 		/// <summary>
 		/// Gets or sets absolute path.

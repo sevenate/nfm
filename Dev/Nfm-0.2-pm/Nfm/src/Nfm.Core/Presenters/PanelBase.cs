@@ -9,10 +9,10 @@
 // 	<email>alevshoff@hd.com</email>
 // 	<date>2009-04-22</date>
 // </editor>
-// <summary>Base <see cref="INodePanel"/> implementation.</summary>
+// <summary>Base <see cref="IPanel"/> implementation.</summary>
 
-using System;
 using System.Diagnostics;
+using Caliburn.PresentationFramework.ApplicationModel;
 
 namespace Nfm.Core.ViewModels
 {
@@ -21,36 +21,33 @@ namespace Nfm.Core.ViewModels
 	/// </summary>
 	[DebuggerDisplay("{GetType().Name}:"
 					+ " {Header.Text}"
-					+ " {IsSelected}"
 					+ " Parent={Parent.Header.Text}")]
-	public class PanelBase : NotificationBase, IPanelContentHost
+	public class PanelBase : Presenter, IPanelContentHost
 	{
-		#region Implementation of IDisposable
+		#region .Ctors
 
 		/// <summary>
-		/// Forced object distruction.
+		/// Initializes a new instance of the <see cref="PanelBase"/> class.
 		/// </summary>
-		/// <param name="disposing">"True" for manual calls.</param>
-		protected override void Dispose(bool disposing)
+		public PanelBase()
 		{
-			if (disposing)
-			{
-				// Release managed resources.
-			}
-
-			// Release unmanaged resources.
-			// Set large fields to null.
-			// Call Dispose on your base class.
-			base.Dispose(disposing);
 		}
 
-		// The derived class does not have a Finalize method
-		// or a Dispose method with parameters because it inherits
-		// them from the base class.
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PanelBase"/> class.
+		/// </summary>
+		/// <param name="another">Another <see cref="PanelBase"/> instance to copy data from.</param>
+		protected PanelBase(PanelBase another)
+		{
+			if (another.PanelContent != null)
+			{
+				PanelContent = (IPanelContent) another.PanelContent.Clone();
+			}
+		}
 
 		#endregion
 
-		#region ICloneable
+		#region Implementation of ICloneable
 
 		/// <summary>
 		/// Creates a new object that is a deep copy of the current instance.
@@ -66,11 +63,6 @@ namespace Nfm.Core.ViewModels
 		#region Implementation of IPanel
 
 		/// <summary>
-		/// Indicating whether a panel is selected.
-		/// </summary>
-		private bool isSelected;
-
-		/// <summary>
 		/// Gets panel header.
 		/// </summary>
 		public IPanelHeader Header
@@ -79,67 +71,9 @@ namespace Nfm.Core.ViewModels
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether a panel can be closed.
-		/// </summary>
-		public bool CanClose { get; protected set; }
-
-		/// <summary>
-		/// Gets or sets a value indicating whether a panel is selected.
-		/// </summary>
-		public bool IsSelected
-		{
-			get { return isSelected; }
-			set
-			{
-				OnPropertyChanging("IsSelected");
-				OnAction(SelectionChanging, this);
-
-				isSelected = value;
-
-				OnAction(SelectionChanged, this);
-				OnPropertyChanged("IsSelected");
-			}
-		}
-
-		/// <summary>
 		/// Gets or sets parent <see cref="IPanel"/>.
 		/// </summary>
 		public IPanel Parent { get; set; }
-
-		/// <summary>
-		/// Request close action for panel.
-		/// </summary>
-		public void RequestClose()
-		{
-			if (!CanClose)
-			{
-				throw new Exception("This panel can not be closed.");
-			}
-
-			OnEvent(Closing, this);
-			//Dispose(true);
-			OnEvent(Closed, this);
-		}
-
-		/// <summary>
-		/// Rased before panel is closed.
-		/// </summary>
-		public event EventHandler<EventArgs> Closing;
-
-		/// <summary>
-		/// Rased after panel is closed.
-		/// </summary>
-		public event EventHandler<EventArgs> Closed;
-
-		/// <summary>
-		/// Rased before panel is selected.
-		/// </summary>
-		public event Action<IPanel> SelectionChanging;
-
-		/// <summary>
-		/// Rased after panel is selected.
-		/// </summary>
-		public event Action<IPanel> SelectionChanged;
 
 		#endregion
 
@@ -158,50 +92,11 @@ namespace Nfm.Core.ViewModels
 			get { return panelContent; }
 			set
 			{
-				OnPropertyChanging("PanelContent");
-				OnPropertyChanging("Header");
-
 				panelContent = value;
 				panelContent.Host = this;
-
-				OnPropertyChanged("Header");
-				OnPropertyChanged("PanelContent");
+				NotifyOfPropertyChange("Header");
+				NotifyOfPropertyChange("PanelContent");
 			}
-		}
-
-		#endregion
-
-		#region .Ctors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="PanelBase"/> class.
-		/// </summary>
-		public PanelBase()
-		{
-			// Note: for future use
-			CanClose = true;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="PanelBase"/> class.
-		/// </summary>
-		/// <param name="another">Another <see cref="PanelBase"/> instance to copy data from.</param>
-		protected PanelBase(PanelBase another)
-		{
-			CanClose = another.CanClose;
-			isSelected = another.isSelected;
-
-			if (another.PanelContent != null)
-			{
-				PanelContent = (IPanelContent) another.PanelContent.Clone();
-			}
-
-			// Detach from parent panel
-			//	Parent = null;
-
-			// Remove original subscribiters
-			//	Closing = null;	// -= Closing;
-			//	Closed = null;	// -= Closed;
 		}
 
 		#endregion

@@ -8,6 +8,7 @@
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:cb="http://www.caliburnproject.org"
 					xmlns:Localization="clr-namespace:Nfm.Core.Localization"
+					xmlns:Interfaces="clr-namespace:Nfm.Core.Commands.Interfaces"
 					mc:Ignorable="d">
 
 	<!-- #TabItem Style -->
@@ -42,43 +43,43 @@
 				<cb:RoutedMessageTriggerCollection>
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RequestCloseHotKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RequestCloseHotKeyModifiers}}">
-						<cb:CommandMessage Command="{cb:Resolve Key=ClosePanel}">
+						<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:IClosePanelCommand}}">
 							<cb:Parameter Value="{Binding Mode=OneWay}" />
 						</cb:CommandMessage>
 					</cb:GestureMessageTrigger>
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.DuplicateHotKeyModifiers}}">
-						<cb:CommandMessage Command="{cb:Resolve Key=DublicateSelectedPanel}">
+						<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:IDublicateSelectedPanelCommand}}">
 							<cb:Parameter Value="{Binding Mode=OneWay}" />
 						</cb:CommandMessage>
 					</cb:GestureMessageTrigger>
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SwapStackContainerOrientationKey}}"
 											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.SwapStackContainerOrientationModifiers}}">
-						<cb:CommandMessage Command="{cb:Resolve Key=SwapStackContainerOrientation}">
+						<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:ISwapStackContainerOrientationCommand}}">
 							<cb:Parameter Value="{Binding Mode=OneWay}" />
 						</cb:CommandMessage>
 					</cb:GestureMessageTrigger>
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SplitTabContainerCommandKey}}"
 											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.SplitTabContainerCommandModifiers}}">
-						<cb:CommandMessage Command="{cb:Resolve Key=SplitTabContainer}">
+						<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:ISplitTabContainerCommand}}">
 							<cb:Parameter Value="{Binding Mode=OneWay}" />
 						</cb:CommandMessage>
 					</cb:GestureMessageTrigger>
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.WrapPanelWithTabContainerCommandKey}}"
 											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.WrapPanelWithTabContainerCommandModifiers}}">
-						<cb:CommandMessage Command="{cb:Resolve Key=WrapPanelWithTabContainer}">
+						<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:IWrapPanelWithTabContainerCommand}}">
 							<cb:Parameter Value="{Binding Mode=OneWay}" />
 						</cb:CommandMessage>
 					</cb:GestureMessageTrigger>
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.TogglePanelHeaderCommandKey}}"
 											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.TogglePanelHeaderCommandModifiers}}">
-						<cb:CommandMessage Command="{cb:Resolve Key=TogglePanelHeader}">
+						<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:ITogglePanelHeaderCommand}}">
 							<cb:Parameter Value="{Binding Mode=OneWay}" />
 						</cb:CommandMessage>
 					</cb:GestureMessageTrigger>
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.ChangeLocalizationCommandKey}}"
 											  Modifiers="{Binding Source={x:Static Commands:HotKeyManager.ChangeLocalizationCommandModifiers}}">
-						<cb:CommandMessage Command="{cb:Resolve Key=ChangeLocalization}">
+						<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:IChangeLocalizationCommand}}">
 							<cb:Parameter Value="{x:Null}" />
 						</cb:CommandMessage>
 					</cb:GestureMessageTrigger>
@@ -109,7 +110,7 @@
 								<cb:Message.Triggers>
 									<cb:RoutedMessageTriggerCollection>
 										<cb:EventMessageTrigger EventName="Click">
-											<cb:CommandMessage Command="{cb:Resolve Key=ClosePanel}">
+											<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:IClosePanelCommand}}">
 												<cb:Parameter Value="{Binding Mode=OneWay}" />
 											</cb:CommandMessage>
 										</cb:EventMessageTrigger>

@@ -8,6 +8,7 @@
 					xmlns:Localization="clr-namespace:Nfm.Core.Localization"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:cb="http://www.caliburnproject.org"
+					xmlns:Interfaces="clr-namespace:Nfm.Core.Commands.Interfaces"
 					mc:Ignorable="d">
 
 	<Style x:Key="{x:Static Themes:Theme.TabControlStyleKey}"
@@ -71,7 +72,7 @@
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
 													<cb:EventMessageTrigger EventName="Click">
-														<cb:CommandMessage Command="{cb:Resolve Key=DublicateSelectedPanel}">
+														<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:IDublicateSelectedPanelCommand}}">
 															<cb:Parameter Value="{Binding Path=Active, Mode=OneWay}" />
 														</cb:CommandMessage>
 													</cb:EventMessageTrigger>
@@ -91,7 +92,7 @@
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
 													<cb:EventMessageTrigger EventName="Click">
-														<cb:CommandMessage Command="{cb:Resolve Key=ClosePanel}">
+														<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:IClosePanelCommand}}">
 															<cb:Parameter Value="{Binding Mode=OneWay}" />
 														</cb:CommandMessage>
 													</cb:EventMessageTrigger>
@@ -111,7 +112,7 @@
 											<cb:Message.Triggers>
 												<cb:RoutedMessageTriggerCollection>
 													<cb:EventMessageTrigger EventName="Click">
-														<cb:CommandMessage Command="{cb:Resolve Key=TogglePanelHeader}">
+														<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:ITogglePanelHeaderCommand}}">
 															<cb:Parameter Value="{Binding Mode=OneWay}" />
 														</cb:CommandMessage>
 													</cb:EventMessageTrigger>
@@ -175,7 +176,7 @@
 								<cb:Message.Triggers>
 									<cb:RoutedMessageTriggerCollection>
 										<cb:EventMessageTrigger EventName="Click">
-											<cb:CommandMessage Command="{cb:Resolve Key=TogglePanelHeader}">
+											<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:ITogglePanelHeaderCommand}}">
 												<cb:Parameter Value="{Binding Mode=OneWay}" />
 											</cb:CommandMessage>
 										</cb:EventMessageTrigger>

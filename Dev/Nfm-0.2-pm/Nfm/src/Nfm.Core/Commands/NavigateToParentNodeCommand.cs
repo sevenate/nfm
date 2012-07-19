@@ -11,7 +11,9 @@
 // </editor>
 // <summary>Change node in panel to parent node command.</summary>
 
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -19,7 +21,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Change node in panel to parent node command.
 	/// </summary>
-	public class NavigateToParentNodeCommand
+	[Singleton(typeof(INavigateToParentNodeCommand))]
+	public class NavigateToParentNodeCommand : INavigateToParentNodeCommand
 	{
 		/// <summary>
 		/// Change node in panel to parent node.

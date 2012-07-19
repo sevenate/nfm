@@ -106,33 +106,6 @@ namespace Nfm.Core.Configuration
 			}
 		}
 
-		/// <summary>
-		/// Configurate Caliburn Framework.
-		/// <remarks>Should be called from App.cs constructor.</remarks>
-		/// </summary>
-		public static void InitializeCaliburn()
-		{
-			var container = new SimpleContainer();
-
-			CaliburnFramework
-				.ConfigureCore(container)
-				.WithPresentationFramework()
-				.Start();
-
-			// Note: register all application commands here
-			container.RegisterSingleton<ClosePanelCommand>("ClosePanel");
-			container.RegisterSingleton<NavigateToCurrentNodeCommand>("NavigateToCurrentNode");
-			container.RegisterSingleton<NavigateToParentNodeCommand>("NavigateToParentNode");
-			container.RegisterSingleton<RefreshChildNodesCommand>("RefreshChildNodes");
-			container.RegisterSingleton<DublicateSelectedPanelCommand>("DublicateSelectedPanel");
-			container.RegisterSingleton<SwitchThemeCommand>("SwitchTheme");
-			container.RegisterSingleton<SwapStackContainerOrientationCommand>("SwapStackContainerOrientation");
-			container.RegisterSingleton<SplitTabContainerCommand>("SplitTabContainer");
-			container.RegisterSingleton<WrapPanelWithTabContainerCommand>("WrapPanelWithTabContainer");
-			container.RegisterSingleton<TogglePanelHeaderCommand>("TogglePanelHeader");
-			container.RegisterSingleton<ChangeLocalizationCommand>("ChangeLocalization");
-		}
-
 		#endregion
 
 		#region  Layout Generation
@@ -251,7 +224,7 @@ namespace Nfm.Core.Configuration
 			                        	Orientation = Orientation.Vertical
 			                        };
 
-			topStackContainer.Childs.Add(mainTabContainer);
+			topStackContainer.Presenters.Add(mainTabContainer);
 
 			return topStackContainer;
 		}
@@ -288,11 +261,16 @@ namespace Nfm.Core.Configuration
 			for (int i = 0; i < panels.Count; i++)
 			{
 				var panel = (IPanel) panels[i].Clone();
-				panel.IsSelected = i == selectedIndex
-				                   	? true
-				                   	: false;
+				if (i == selectedIndex)
+				{
+					panel.Activate();
+				}
+				else
+				{
+					panel.Deactivate();
+				}
 
-				container.Childs.Add(panel);
+				container.Presenters.Add(panel);
 			}
 
 			return container;
@@ -336,16 +314,16 @@ namespace Nfm.Core.Configuration
 
 				if (wrapUpEachPanelInTabContainer)
 				{
-					newPanel.IsSelected = true;
+					newPanel.Activate();
 
 					var tabContainer = new TabContainer();
-					tabContainer.Childs.Add(newPanel);
+					tabContainer.Presenters.Add(newPanel);
 
-					stackContainer.Childs.Add(tabContainer);
+					stackContainer.Presenters.Add(tabContainer);
 				}
 				else
 				{
-					stackContainer.Childs.Add(newPanel);
+					stackContainer.Presenters.Add(newPanel);
 				}
 			}
 
@@ -369,7 +347,7 @@ namespace Nfm.Core.Configuration
 				workLeftTabContainer, workMiddleTabContainer, workRightStackContainer);
 
 			IPanel enterPanel = GetEnterPanel();
-			enterPanel.IsSelected = true;
+			enterPanel.Activate();
 
 			IPanelContainer subTabContainer1 = GetEnterTopTabContainer();
 			IPanelContainer subTabContainer2 = GetDisksTopTabSubContainer();
@@ -393,8 +371,8 @@ namespace Nfm.Core.Configuration
 			var musicPanel = new PanelBase
 			                 {
 			                 	PanelContent = (IPanelContent) music,
-			                 	IsSelected = true
 			                 };
+			musicPanel.Activate();
 
 			IViewModel driveD = RootNode.Inst.GetNode(@"\{78888951-2516-4e63-AC97-90E9D54351D8}\C:\");
 			driveD.Refresh();
@@ -411,8 +389,8 @@ namespace Nfm.Core.Configuration
 			                           	         	Text = "Left Tab Container"
 			                           	         }
 			                           };
-			workLeftTabContainer.Childs.Add(driveDPanel);
-			workLeftTabContainer.Childs.Add(musicPanel);
+			workLeftTabContainer.Presenters.Add(driveDPanel);
+			workLeftTabContainer.Presenters.Add(musicPanel);
 			return workLeftTabContainer;
 		}
 
@@ -439,7 +417,7 @@ namespace Nfm.Core.Configuration
 			                             	         },
 //											 Orientation = Orientation.Vertical
 			                             };
-			workMiddleTabContainer.Childs.Add(workMiddlePanel);
+			workMiddleTabContainer.Presenters.Add(workMiddlePanel);
 			return workMiddleTabContainer;
 		}
 
@@ -472,7 +450,7 @@ namespace Nfm.Core.Configuration
 			                                  	         	Text = "Work Right Top Tab Container"
 			                                  	         }
 			                                  };
-			workRightPanel1TabContainer.Childs.Add(workRightPanel1);
+			workRightPanel1TabContainer.Presenters.Add(workRightPanel1);
 
 			var workRightPanel2TabContainer = new TabContainer
 			                                  {
@@ -481,7 +459,7 @@ namespace Nfm.Core.Configuration
 			                                  	         	Text = "Work Right Bottom Tab Container"
 			                                  	         }
 			                                  };
-			workRightPanel2TabContainer.Childs.Add(workRightPanel2);
+			workRightPanel2TabContainer.Presenters.Add(workRightPanel2);
 
 			var workRightStackContainer = new StackContainer
 			                              {
@@ -493,8 +471,8 @@ namespace Nfm.Core.Configuration
 			                              };
 			//			workRightStackContainer.Childs.Add(workRightPanel1);
 			//			workRightStackContainer.Childs.Add(workRightPanel2);
-			workRightStackContainer.Childs.Add(workRightPanel1TabContainer);
-			workRightStackContainer.Childs.Add(workRightPanel2TabContainer);
+			workRightStackContainer.Presenters.Add(workRightPanel1TabContainer);
+			workRightStackContainer.Presenters.Add(workRightPanel2TabContainer);
 			return workRightStackContainer;
 		}
 
@@ -515,10 +493,10 @@ namespace Nfm.Core.Configuration
 			                         	         	Text = "Work Stack Container"
 			                         	         }
 			                         };
-			workStackContainer.Childs.Add(workLeftTabContainer);
+			workStackContainer.Presenters.Add(workLeftTabContainer);
 			//			workStackContainer.Childs.Add(workMiddlePanel);
-			workStackContainer.Childs.Add(workMiddleTabContainer);
-			workStackContainer.Childs.Add(workRightStackContainer);
+			workStackContainer.Presenters.Add(workMiddleTabContainer);
+			workStackContainer.Presenters.Add(workRightStackContainer);
 			return workStackContainer;
 		}
 
@@ -571,8 +549,8 @@ namespace Nfm.Core.Configuration
 			var topMusicPanel = new PanelBase
 			                    {
 			                    	PanelContent = (IPanelContent) topMusic,
-			                    	IsSelected = true
 			                    };
+			topMusicPanel.Activate();
 
 			var enterTopTabContainer = new TabContainer
 			                           {
@@ -581,8 +559,8 @@ namespace Nfm.Core.Configuration
 			                           	         	Text = "Enter Container"
 			                           	         }
 			                           };
-			enterTopTabContainer.Childs.Add(topGamesPanel);
-			enterTopTabContainer.Childs.Add(topMusicPanel);
+			enterTopTabContainer.Presenters.Add(topGamesPanel);
+			enterTopTabContainer.Presenters.Add(topMusicPanel);
 			return enterTopTabContainer;
 		}
 
@@ -606,8 +584,8 @@ namespace Nfm.Core.Configuration
 			var topDriveDpanel = new PanelBase
 			                     {
 			                     	PanelContent = (IPanelContent) topDriveD,
-			                     	IsSelected = true
 			                     };
+			topDriveDpanel.Activate();
 
 			var subTabContainer2 = new TabContainer
 			                       {
@@ -615,11 +593,11 @@ namespace Nfm.Core.Configuration
 			                       	         {
 			                       	         	Text = "Disks Container"
 			                       	         },
-			                       	IsSelected = true
 			                       };
+			subTabContainer2.Activate();
 
-			subTabContainer2.Childs.Add(topDriveCpanel);
-			subTabContainer2.Childs.Add(topDriveDpanel);
+			subTabContainer2.Presenters.Add(topDriveCpanel);
+			subTabContainer2.Presenters.Add(topDriveDpanel);
 			return subTabContainer2;
 		}
 
@@ -638,8 +616,8 @@ namespace Nfm.Core.Configuration
 			                      	         	Text = "Top Tab Container"
 			                      	         },
 			                      };
-			topTabContainer.Childs.Add(subTabContainer1);
-			topTabContainer.Childs.Add(subTabContainer2);
+			topTabContainer.Presenters.Add(subTabContainer1);
+			topTabContainer.Presenters.Add(subTabContainer2);
 			return topTabContainer;
 		}
 
@@ -659,9 +637,9 @@ namespace Nfm.Core.Configuration
 			                       	         	Text = "Main Window"
 			                       	         },
 			                       };
-			mainTabContainer.Childs.Add(firstPanel);
-			mainTabContainer.Childs.Add(secondPanel);
-			mainTabContainer.Childs.Add(thirdPanel);
+			mainTabContainer.Presenters.Add(firstPanel);
+			mainTabContainer.Presenters.Add(secondPanel);
+			mainTabContainer.Presenters.Add(thirdPanel);
 
 			var topStackContainer = new StackContainer
 			                        {
@@ -672,7 +650,7 @@ namespace Nfm.Core.Configuration
 			                        	Orientation = Orientation.Vertical
 			                        };
 
-			topStackContainer.Childs.Add(mainTabContainer);
+			topStackContainer.Presenters.Add(mainTabContainer);
 
 			return topStackContainer;
 		}

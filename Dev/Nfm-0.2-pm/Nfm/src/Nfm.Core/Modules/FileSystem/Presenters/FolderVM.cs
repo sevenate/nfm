@@ -15,6 +15,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Caliburn.PresentationFramework.ApplicationModel;
 using Nfm.Core.Models.FileSystem;
 using Nfm.Core.Modules.FileSystem.ViewModels.Icons;
 
@@ -24,7 +25,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 	/// Folder view model.
 	/// </summary>
 	[DebuggerDisplay("{Name}")]
-	public class FolderVM : NotificationBase, IViewModel
+	public class FolderVM : Presenter, IViewModel
 	{
 		#region Implementation of ICloneable
 
@@ -59,9 +60,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 			get { return isSelected; }
 			set
 			{
-				OnPropertyChanging("IsSelected");
 				isSelected = value;
-				OnPropertyChanged("IsSelected");
+				NotifyOfPropertyChange("IsSelected");
 			}
 		}
 
@@ -70,23 +70,15 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public virtual void Refresh()
 		{
-			OnPropertyChanging("Name");
-			OnPropertyChanging("DateCreated");
-			OnPropertyChanging("DateModified");
-			OnPropertyChanging("IsArchive");
-			OnPropertyChanging("IsHidden");
-			OnPropertyChanging("IsReadOnly");
-			OnPropertyChanging("IsSystem");
-
 			Folder = Model.GetFolderInfo(AbsolutePath);
 
-			OnPropertyChanged("Name");
-			OnPropertyChanged("DateCreated");
-			OnPropertyChanged("DateModified");
-			OnPropertyChanged("IsArchive");
-			OnPropertyChanged("IsHidden");
-			OnPropertyChanged("IsReadOnly");
-			OnPropertyChanged("IsSystem");
+			NotifyOfPropertyChange("Name");
+			NotifyOfPropertyChange("DateCreated");
+			NotifyOfPropertyChange("DateModified");
+			NotifyOfPropertyChange("IsArchive");
+			NotifyOfPropertyChange("IsHidden");
+			NotifyOfPropertyChange("IsReadOnly");
+			NotifyOfPropertyChange("IsSystem");
 		}
 
 		#region Execute

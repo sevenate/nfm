@@ -13,7 +13,9 @@
 
 using System;
 using System.Windows.Controls;
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -21,7 +23,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Swap stack container orientation.
 	/// </summary>
-	public class SwapStackContainerOrientationCommand
+	[Singleton(typeof(ISwapStackContainerOrientationCommand))]
+	public class SwapStackContainerOrientationCommand : ISwapStackContainerOrientationCommand
 	{
 		/// <summary>
 		/// Swap panel's parent stack container orientation.

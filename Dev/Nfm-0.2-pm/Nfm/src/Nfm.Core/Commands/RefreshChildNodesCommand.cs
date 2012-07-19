@@ -11,7 +11,9 @@
 // </editor>
 // <summary>Refresh child nodes command.</summary>
 
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -19,7 +21,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Refresh child nodes command.
 	/// </summary>
-	public class RefreshChildNodesCommand
+	[Singleton(typeof(IRefreshChildNodesCommand))]
+	public class RefreshChildNodesCommand : IRefreshChildNodesCommand
 	{
 		/// <summary>
 		/// Refresh child nodes collection in specific parent node.

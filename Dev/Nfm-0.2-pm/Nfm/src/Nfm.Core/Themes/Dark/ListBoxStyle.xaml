@@ -2,9 +2,9 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:Commands="clr-namespace:Nfm.Core.Commands"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
-					xmlns:cb="http://www.caliburnproject.org">
+					xmlns:cb="http://www.caliburnproject.org"
+					xmlns:Interfaces="clr-namespace:Nfm.Core.Commands.Interfaces">
 
-	<!-- #ListBox Style -->
 	<Style x:Key="{x:Static Themes:Theme.ListBoxStyleKey}"
 		   TargetType="{x:Type ListBox}">
 		<Setter Property="BorderThickness"
@@ -62,7 +62,7 @@
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.RefreshChildsHotKeyModifiers}}">
 						<cb:GestureMessageTrigger.Message>
-							<cb:CommandMessage Command="{cb:Resolve Key=RefreshChildNodes}">
+							<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:IRefreshChildNodesCommand}}">
 								<cb:Parameter Value="{Binding Mode=OneWay}" />
 							</cb:CommandMessage>
 						</cb:GestureMessageTrigger.Message>
@@ -70,7 +70,7 @@
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.NavigateToParentHotKeyModifiers}}">
 						<cb:GestureMessageTrigger.Message>
-							<cb:CommandMessage Command="{cb:Resolve Key=NavigateToParentNode}">
+							<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:INavigateToParentNodeCommand}}">
 								<cb:Parameter Value="{Binding Mode=OneWay}" />
 							</cb:CommandMessage>
 						</cb:GestureMessageTrigger.Message>
@@ -78,7 +78,7 @@
 					<cb:GestureMessageTrigger Key="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeKey}}"
 										   Modifiers="{Binding Source={x:Static Commands:HotKeyManager.SwitchThemeModifiers}}">
 						<cb:GestureMessageTrigger.Message>
-							<cb:CommandMessage Command="{cb:Resolve Key=SwitchTheme}" />
+							<cb:CommandMessage Command="{cb:Resolve Type={x:Type Interfaces:ISwitchThemeCommand}}" />
 						</cb:GestureMessageTrigger.Message>
 					</cb:GestureMessageTrigger>
 				</cb:RoutedMessageTriggerCollection>

@@ -16,7 +16,9 @@
 
 using System;
 using System.Windows.Controls;
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -24,7 +26,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Split <see cref="TabContainer"/> horizontally or vertically to two <see cref="TabContainer"/>s.
 	/// </summary>
-	public class SplitTabContainerCommand
+	[Singleton(typeof(ISplitTabContainerCommand))]
+	public class SplitTabContainerCommand : ISplitTabContainerCommand
 	{
 		/// <summary>
 		/// Change <see cref="TabContainer"/> parent panel to <see cref="StackContainer"/>
@@ -47,25 +50,25 @@ namespace Nfm.Core.Commands
 				{
 					var stackContainer = new StackContainer
 					                     {
-											Header = new PanelHeader
-											{
-												Text = "Stack Container"
-											},
+					                     	Header = new PanelHeader
+					                     	         {
+					                     	         	Text = "Stack Container"
+					                     	         },
 					                     	Orientation = FindOptimalStackContainerOrientation(tabContainer)
-					                     	              ?? Orientation.Horizontal,
-											IsSelected = true
+					                     	              ?? Orientation.Horizontal
 					                     };
+					stackContainer.Activate();
 
 					var parentContainer = tabContainer.Parent as IPanelContainer;
-					int tabContainerIndex = parentContainer.Childs.IndexOf(tabContainer);
+					int tabContainerIndex = parentContainer.Presenters.IndexOf(tabContainer);
 					var newTabContainer = (TabContainer) tabContainer.Clone();
 
-					parentContainer.Childs.Remove(tabContainer);
+					parentContainer.Shutdown(tabContainer, b => { });
 
-					stackContainer.Childs.Add(tabContainer);
-					stackContainer.Childs.Add(newTabContainer);
+					stackContainer.Presenters.Add(tabContainer);
+					stackContainer.Presenters.Add(newTabContainer);
 
-					parentContainer.Childs.Insert(tabContainerIndex, stackContainer);
+					parentContainer.Presenters.Insert(tabContainerIndex, stackContainer);
 				}
 			}
 		}

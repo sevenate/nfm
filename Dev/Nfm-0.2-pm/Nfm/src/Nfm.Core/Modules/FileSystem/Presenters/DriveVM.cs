@@ -14,6 +14,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using Caliburn.PresentationFramework.ApplicationModel;
 using Nfm.Core.Models.FileSystem;
 
 namespace Nfm.Core.ViewModels.FileSystem
@@ -22,7 +23,7 @@ namespace Nfm.Core.ViewModels.FileSystem
 	/// Logical drive view model.
 	/// </summary>
 	[DebuggerDisplay("{Name}")]
-	public class DriveVM : NotificationBase, IViewModel
+	public class DriveVM : Presenter, IViewModel
 	{
 		#region Implementation of ICloneable
 
@@ -57,9 +58,8 @@ namespace Nfm.Core.ViewModels.FileSystem
 			get { return isSelected; }
 			set
 			{
-				OnPropertyChanging("IsSelected");
 				isSelected = value;
-				OnPropertyChanged("IsSelected");
+				NotifyOfPropertyChange("IsSelected");
 			}
 		}
 
@@ -68,26 +68,17 @@ namespace Nfm.Core.ViewModels.FileSystem
 		/// </summary>
 		public virtual void Refresh()
 		{
-			OnPropertyChanging("Name");
-			OnPropertyChanging("TotalSize");
-			OnPropertyChanging("TotalFreeSpace");
-			OnPropertyChanging("VolumeLabel");
-			OnPropertyChanging("AvailableFreeSpace");
-			OnPropertyChanging("IsReady");
-			OnPropertyChanging("DriveFormat");
-			OnPropertyChanging("DriveType");
-
 			Drive = Model.GetDriveInfo(AbsolutePath);
 			AbsolutePath = Name.TrimEnd('\\').ToUpperInvariant();
 
-			OnPropertyChanged("Name");
-			OnPropertyChanged("TotalSize");
-			OnPropertyChanged("TotalFreeSpace");
-			OnPropertyChanged("VolumeLabel");
-			OnPropertyChanged("AvailableFreeSpace");
-			OnPropertyChanged("IsReady");
-			OnPropertyChanged("DriveFormat");
-			OnPropertyChanged("DriveType");
+			NotifyOfPropertyChange("Name");
+			NotifyOfPropertyChange("TotalSize");
+			NotifyOfPropertyChange("TotalFreeSpace");
+			NotifyOfPropertyChange("VolumeLabel");
+			NotifyOfPropertyChange("AvailableFreeSpace");
+			NotifyOfPropertyChange("IsReady");
+			NotifyOfPropertyChange("DriveFormat");
+			NotifyOfPropertyChange("DriveType");
 		}
 
 		#region Execute

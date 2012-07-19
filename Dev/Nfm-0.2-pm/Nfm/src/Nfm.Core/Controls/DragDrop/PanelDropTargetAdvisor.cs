@@ -12,6 +12,7 @@
 // <summary><see cref="IPanel"/> target drop area advisor.</summary>
 
 using System.Windows;
+using Caliburn.PresentationFramework.ApplicationModel;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Controls.DragDrop
@@ -42,32 +43,23 @@ namespace Nfm.Core.Controls.DragDrop
 			}
 
 			var sourcePanel = (IPanel) obj.GetData(SupportedFormat.Name);
-			var targetPanel = (IPanel) ((FrameworkElement) dropAreaElement).DataContext;
+
+			// BUG: use casting to IPanel instead of PanelBase
+			var targetPanel = (PanelBase)((FrameworkElement)dropAreaElement).DataContext;
 
 			// Make panel under mouse cursor selected to be able to drop inside it child panels.
-			if (!targetPanel.IsSelected && targetPanel.Parent is IPanelContainer)
+			if (!targetPanel.IsActive && targetPanel.Parent is IPanelContainer)
 			{
-//				var dispatcherTimer = new DispatcherTimer
-//				                      {
-//				                      	Interval = TimeSpan.FromSeconds(1.25),
-////				                      	IsEnabled = true,
-//				                      };
-//
-//				dispatcherTimer.Tick += delegate
-//				                        {
-				foreach (IPanel panel in ((IPanelContainer) targetPanel.Parent).Childs)
+				// BUG: use IPanel instead of Presenter
+				foreach (Presenter panel in ((IPanelContainer)targetPanel.Parent).Presenters)
 				{
-					if (panel.IsSelected)
+					if (panel.IsActive)
 					{
-						panel.IsSelected = false;
+						panel.Deactivate();
 					}
 				}
 
-				targetPanel.IsSelected = true;
-//											dispatcherTimer.Stop();
-//				                        };
-//
-//				dispatcherTimer.Start();
+				targetPanel.Activate();
 			}
 
 			return ! CheckIsTargetPanelIsInsideOfSourcePanel(sourcePanel, targetPanel);
@@ -90,49 +82,60 @@ namespace Nfm.Core.Controls.DragDrop
 				var sourcePanel = (IPanel) obj.GetData(SupportedFormat.Name);
 				double actualDropAreaWidth = ((FrameworkElement) dropAreaElement).ActualWidth;
 				var targetParentContainer = (IPanelContainer) targetPanel.Parent;
-				int targetIndex = targetParentContainer.Childs.IndexOf(targetPanel);
+				int targetIndex = targetParentContainer.Presenters.IndexOf(targetPanel);
 				bool insertBeforeTarget = dropPoint.X < actualDropAreaWidth/2;
 
 				if ((finalEffects & DragDropEffects.Move) == DragDropEffects.Move)
 				{
-					if (!targetParentContainer.Childs.Contains(sourcePanel))
+					if (!targetParentContainer.Presenters.Contains(sourcePanel))
 					{
 						// Bug: Not thread safe operation!
 						// Simultaneously add new item while data binding UI enumerate collection.
 						if (insertBeforeTarget)
 						{
-							targetParentContainer.Childs.Insert(targetIndex, sourcePanel);
+							targetParentContainer.Presenters.Insert(targetIndex, sourcePanel);
 						}
 						else
 						{
-							targetParentContainer.Childs.Insert(targetIndex + 1, sourcePanel);
+							targetParentContainer.Presenters.Insert(targetIndex + 1, sourcePanel);
 						}
 					}
 					else
 					{
-						int oldIndex = targetParentContainer.Childs.IndexOf(sourcePanel);
+						int oldIndex = targetParentContainer.Presenters.IndexOf(sourcePanel);
 
 						if (insertBeforeTarget)
 						{
 							var prev = oldIndex < targetIndex
 							           	? targetIndex - 1
 										: targetIndex;
-							targetParentContainer.Childs.Move(oldIndex, prev);
+							
+							// Note: That was old implementation with ObservableCollection.Move() method
+							// targetParentContainer.Presenters.Move(oldIndex, prev);
+
+							var movedItem = targetParentContainer.Presenters[oldIndex];
+							targetParentContainer.Presenters.Remove(movedItem);
+							targetParentContainer.Presenters.Insert(prev, movedItem);
 						}
 						else
 						{
-							var next = oldIndex < targetIndex 
-										? targetIndex < targetParentContainer.Childs.Count - 1
+							var next = oldIndex < targetIndex
+										? targetIndex < targetParentContainer.Presenters.Count - 1
 											? targetIndex
 											: targetIndex
 										: oldIndex != targetIndex
 											? targetIndex + 1
 											: targetIndex;
-							targetParentContainer.Childs.Move(oldIndex, next);
+							// Note: That was old implementation with ObservableCollection.Move() method
+							// targetParentContainer.Presenters.Move(oldIndex, next);
+
+							var movedItem = targetParentContainer.Presenters[oldIndex];
+							targetParentContainer.Presenters.Remove(movedItem);
+							targetParentContainer.Presenters.Insert(next, movedItem);
 						}
 					}
 
-					sourcePanel.IsSelected = true;
+					sourcePanel.Activate();
 				}
 				else if ((finalEffects & DragDropEffects.Copy) == DragDropEffects.Copy)
 				{
@@ -140,15 +143,15 @@ namespace Nfm.Core.Controls.DragDrop
 					// Simultaneously add new item while data binding UI enumerate collection.
 
 					var newPanel = (IPanel) sourcePanel.Clone();
-					newPanel.IsSelected = true;
+					newPanel.Activate();
 
 					if (insertBeforeTarget)
 					{
-						targetParentContainer.Childs.Insert(targetIndex, newPanel);
+						targetParentContainer.Presenters.Insert(targetIndex, newPanel);
 					}
 					else
 					{
-						targetParentContainer.Childs.Insert(targetIndex + 1, newPanel);
+						targetParentContainer.Presenters.Insert(targetIndex + 1, newPanel);
 					}
 				}
 			}

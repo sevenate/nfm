@@ -12,7 +12,9 @@
 // <summary>Close panel command.</summary>
 
 using System;
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.ViewModels;
 
 namespace Nfm.Core.Commands
@@ -20,7 +22,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Close panel command.
 	/// </summary>
-	public class ClosePanelCommand
+	[Singleton(typeof(IClosePanelCommand))]
+	public class ClosePanelCommand : IClosePanelCommand
 	{
 		/// <summary>
 		/// Close specific panel.
@@ -34,7 +37,7 @@ namespace Nfm.Core.Commands
 				throw new ArgumentNullException("panel");
 			}
 
-			panel.RequestClose();
+			panel.Shutdown();
 		}
 
 		/// <summary>
@@ -44,7 +47,7 @@ namespace Nfm.Core.Commands
 		/// <returns>True, if panel can be closed.</returns>
 		public bool CanExecute(IPanel panel)
 		{
-			return panel != null && panel.CanClose;
+			return panel != null;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="MainWindow.xaml.cs" company="HD">
+﻿// <copyright file="ShellView.xaml.cs" company="HD">
 // 	Copyright (c) 2009 HD. All rights reserved.
 // </copyright>
 // <author name="Andrew Levshoff">
@@ -16,12 +16,12 @@ namespace Nfm.Core.Views
 	/// <summary>
 	/// Main application window.
 	/// </summary>
-	public partial class MainWindow
+	public partial class ShellView
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MainWindow"/> class.
+		/// Initializes a new instance of the <see cref="ShellView"/> class.
 		/// </summary>
-		public MainWindow()
+		public ShellView()
 		{
 			InitializeComponent();
 		}

@@ -12,7 +12,9 @@
 // <summary>Change current localization command.</summary>
 
 using System.Linq;
+using Caliburn.Core.Metadata;
 using Caliburn.PresentationFramework.Filters;
+using Nfm.Core.Commands.Interfaces;
 using Nfm.Core.Localization;
 
 namespace Nfm.Core.Commands
@@ -20,7 +22,8 @@ namespace Nfm.Core.Commands
 	/// <summary>
 	/// Change current localization command.
 	/// </summary>
-	public class ChangeLocalizationCommand
+	[Singleton(typeof(IChangeLocalizationCommand))]
+	public class ChangeLocalizationCommand : IChangeLocalizationCommand
 	{
 		/// <summary>
 		/// Change current application localization.

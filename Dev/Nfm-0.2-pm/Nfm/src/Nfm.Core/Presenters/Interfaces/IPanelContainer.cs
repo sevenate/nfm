@@ -11,23 +11,14 @@
 // </editor>
 // <summary>Represent a container for multiple <see cref="IPanel"/>.</summary>
 
-using System.Collections.ObjectModel;
+using Caliburn.PresentationFramework.ApplicationModel;
 
 namespace Nfm.Core.ViewModels
 {
 	/// <summary>
 	/// Represent a container for multiple <see cref="IPanel"/>.
 	/// </summary>
-	public interface IPanelContainer : IPanel
+	public interface IPanelContainer : IPresenterManager, IPanel
 	{
-		/// <summary>
-		/// Gets all child panels.
-		/// </summary>
-		ObservableCollection<IPanel> Childs { get; }
-
-		/// <summary>
-		/// Gets or sets active child panel.
-		/// </summary>
-		IPanel Active { get; set; }
 	}
 }
