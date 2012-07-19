@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.Core", "src\Nfm.Core\Nfm.Core.csproj", "{0783CA39-53C3-412F-AA6C-B9530288050E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.Loader", "src\Nfm.Loader\Nfm.Loader.csproj", "{ED43A4D0-A8B8-4996-B7C4-16D55CA7310F}"
