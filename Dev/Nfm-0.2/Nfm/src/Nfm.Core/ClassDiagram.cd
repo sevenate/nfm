@@ -1,16 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Nfm.Core.ViewModels.StackContainer" Collapsed="true">
-    <Position X="1.5" Y="6.25" Width="1.5" />
+    <Position X="0.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>ViewModels\StackContainer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Nfm.Core.ViewModels.TabContainer" Collapsed="true">
-    <Position X="3.75" Y="6.25" Width="1.75" />
+    <Position X="2.25" Y="6" Width="1.75" />
+    <InheritanceLine Type="Nfm.Core.ViewModels.PanelContainerBase" ManuallyRouted="true">
+      <Path>
+        <Point X="1.375" Y="5.63" />
+        <Point X="1.375" Y="5.825" />
+        <Point X="3.125" Y="5.825" />
+        <Point X="3.125" Y="6" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAAAAABA=</HashCode>
       <FileName>ViewModels\TabContainer.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -23,7 +31,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Nfm.Core.ViewModels.PanelContainerBase" Collapsed="true">
-    <Position X="2.5" Y="5" Width="1.75" />
+    <Position X="0.5" Y="5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>BAAAAAAQDDAAEIBACACAQAAABAAAAgAgAAAAYACBABA=</HashCode>
       <FileName>ViewModels\PanelContainerBase.cs</FileName>
@@ -31,7 +39,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Nfm.Core.ViewModels.PanelBase" Collapsed="true">
-    <Position X="0.5" Y="5" Width="1.5" />
+    <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAQCCAAEABAAAAAQAAABAAAAgBAAAAAQACAABA=</HashCode>
       <FileName>ViewModels\PanelBase.cs</FileName>
@@ -39,7 +47,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Nfm.Core.ViewModels.PanelHeader" Collapsed="true">
-    <Position X="4.75" Y="5" Width="1.5" />
+    <Position X="2.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAEAAAAFAIAAAAAAAAAAAIAUAICAEAEBA=</HashCode>
       <FileName>ViewModels\PanelHeader.cs</FileName>
@@ -47,7 +55,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Nfm.Core.ViewModels.RootNodeVM" Collapsed="true">
-    <Position X="6.75" Y="5" Width="1.5" />
+    <Position X="8.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAhAYAAhQEIYAAECAAAgAAAAAKAAAAQgAAAAAABA=</HashCode>
       <FileName>ViewModels\RootNodeVM.cs</FileName>
@@ -55,10 +63,34 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Nfm.Core.ViewModels.ParentNodeVM" Collapsed="true">
-    <Position X="8" Y="6" Width="1.5" />
+    <Position X="7.75" Y="5" Width="1.5" />
+    <InheritanceLine Type="Nfm.Core.ViewModels.NotificationBase" ManuallyRouted="true">
+      <Path>
+        <Point X="3.25" Y="4.259" />
+        <Point X="3.25" Y="4.7" />
+        <Point X="8.5" Y="4.7" />
+        <Point X="8.5" Y="5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAgAQAABAEAYAAEAAAAgAAAAAIAAAAQAAAAAACBA=</HashCode>
       <FileName>ViewModels\ParentNodeVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.ToolbarBase" Collapsed="true">
+    <Position X="4.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAIAAAACAAAAAAAAAAAAAAAAAAAAABBA=</HashCode>
+      <FileName>ViewModels\ToolbarBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nfm.Core.ViewModels.ToolbarItemBase" Collapsed="true">
+    <Position X="6" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAIAAAECIAAAAAAAAAAAIAUAIKAEAADA=</HashCode>
+      <FileName>ViewModels\ToolbarItemBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -70,7 +102,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Nfm.Core.ViewModels.IPanelContainer" Collapsed="true">
-    <Position X="0.5" Y="2" Width="1.5" />
+    <Position X="2.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\IPanelContainer.cs</FileName>
@@ -84,38 +116,52 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Nfm.Core.ViewModels.IPanelContentHost" Collapsed="true">
-    <Position X="2.25" Y="2" Width="1.75" />
+    <Position X="0.5" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>ViewModels\IPanelContentHost.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Nfm.Core.ViewModels.IViewModel" Collapsed="true">
-    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Position X="5.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAABAEAYAAEAAAAgAAAAAIAAAAQAAAAAAAAA=</HashCode>
       <FileName>ViewModels\IViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Nfm.Core.ViewModels.IViewModelWithChilds" Collapsed="true">
-    <Position X="5.25" Y="2" Width="1.75" />
+    <Position X="4.25" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgQAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\IViewModelWithChilds.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Nfm.Core.ViewModels.IDefaultModuleViewModel" Collapsed="true">
-    <Position X="7.25" Y="2" Width="2" />
+    <Position X="6.25" Y="1.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\IDefaultModuleViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Nfm.Core.ViewModels.IPanelHeader" Collapsed="true">
-    <Position X="4.75" Y="0.5" Width="1.5" />
+    <Position X="8.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAACAEAAAA=</HashCode>
       <FileName>ViewModels\IPanelHeader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IToolbar" Collapsed="true">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\IToolbar.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Nfm.Core.ViewModels.IToolbarItem" Collapsed="true">
+    <Position X="8.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAKAEAAAA=</HashCode>
+      <FileName>ViewModels\IToolbarItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Tahoma" Size="8.25" />

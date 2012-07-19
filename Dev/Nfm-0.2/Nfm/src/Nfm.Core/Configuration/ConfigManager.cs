@@ -13,6 +13,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
 using Caliburn.Core;
@@ -652,12 +653,19 @@ namespace Nfm.Core.Configuration
 		/// <returns>Main Tab Container.</returns>
 		private static IPanelContainer GetMainTabContainer(IPanel firstPanel, IPanel secondPanel, IPanel thirdPanel)
 		{
+			var mainToolbar = new ToolbarBase();
+			mainToolbar.Childs.Add(new DublicateSelectedPanelCommand
+			                       {
+			                       	Text = "First command"
+			                       });
+
 			var mainTabContainer = new TabContainer
 			                       {
 			                       	Header = new PanelHeader
 			                       	         {
 			                       	         	Text = "Main Window"
 			                       	         },
+									Toolbar = mainToolbar
 			                       };
 			mainTabContainer.Childs.Add(firstPanel);
 			mainTabContainer.Childs.Add(secondPanel);

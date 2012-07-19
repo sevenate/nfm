@@ -4,7 +4,6 @@
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:Controls="clr-namespace:Nfm.Core.Controls"
 					xmlns:Converters="clr-namespace:Nfm.Core.Converters"
-					xmlns:Icons="clr-namespace:Nfm.Core.Resources.Icons"
 					xmlns:Localization="clr-namespace:Nfm.Core.Localization"
 					xmlns:Themes="clr-namespace:Nfm.Core.Themes"
 					xmlns:cb="http://www.caliburnproject.org"
@@ -43,6 +42,15 @@
 									   LastChildFill="True">
 								<Border Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
 										BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+										BorderThickness="0,2,2,0"
+										CornerRadius="5"
+										MinWidth="32"
+										HorizontalAlignment="Stretch"
+										DockPanel.Dock="Right">
+									<ContentControl Content="{Binding Path=Toolbar}" />
+								</Border>
+								<Border Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
+										BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
 										BorderThickness="1,2,1,0"
 										CornerRadius="5">
 									<WrapPanel x:Name="Tabs"
@@ -51,74 +59,6 @@
 											   KeyboardNavigation.DirectionalNavigation="Cycle"
 											   KeyboardNavigation.IsTabStop="False"
 											   IsItemsHost="True" />
-								</Border>
-								<Border Background="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
-										BorderBrush="{DynamicResource {x:Static Themes:Theme.ToolbarBrushKey}}"
-										BorderThickness="0,2,2,0"
-										CornerRadius="5"
-										MinWidth="32"
-										HorizontalAlignment="Stretch">
-									<DockPanel x:Name="Toolbar">
-										<Button x:Name="Add"
-												Width="16"
-												Height="16"
-												ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.DuplicateSelectedTab}}"
-												HorizontalAlignment="Left"
-												VerticalAlignment="Center"
-												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}"
-												Padding="3,3,3,3">
-											<Icons:AddIcon />
-											<cb:Message.Triggers>
-												<cb:RoutedMessageTriggerCollection>
-													<cb:EventMessageTrigger EventName="Click">
-														<cb:CommandMessage Command="{cb:Resolve Key=DublicateSelectedPanel}">
-															<cb:Parameter Value="{Binding Path=Active, Mode=OneWay}" />
-														</cb:CommandMessage>
-													</cb:EventMessageTrigger>
-												</cb:RoutedMessageTriggerCollection>
-											</cb:Message.Triggers>
-										</Button>
-										<Button x:Name="Close"
-												Width="16"
-												Height="16"
-												ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.Close}}"
-												HorizontalAlignment="Right"
-												VerticalAlignment="Center"
-												DockPanel.Dock="Right"
-												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}"
-												Padding="3,3,3,3">
-											<Icons:CloseIcon />
-											<cb:Message.Triggers>
-												<cb:RoutedMessageTriggerCollection>
-													<cb:EventMessageTrigger EventName="Click">
-														<cb:CommandMessage Command="{cb:Resolve Key=ClosePanel}">
-															<cb:Parameter Value="{Binding Mode=OneWay}" />
-														</cb:CommandMessage>
-													</cb:EventMessageTrigger>
-												</cb:RoutedMessageTriggerCollection>
-											</cb:Message.Triggers>
-										</Button>
-										<Button x:Name="Toggle"
-												Width="16"
-												Height="16"
-												ToolTip="{Localization:Translate {x:Static Localization:LocalizationKeys.CollapseHeader}}"
-												HorizontalAlignment="Right"
-												VerticalAlignment="Center"
-												DockPanel.Dock="Right"
-												Style="{DynamicResource {x:Static Themes:Theme.ToolbarButtonStyleKey}}"
-												Padding="3,3,3,3">
-											<Icons:DoubleArrowIcon />
-											<cb:Message.Triggers>
-												<cb:RoutedMessageTriggerCollection>
-													<cb:EventMessageTrigger EventName="Click">
-														<cb:CommandMessage Command="{cb:Resolve Key=TogglePanelHeader}">
-															<cb:Parameter Value="{Binding Mode=OneWay}" />
-														</cb:CommandMessage>
-													</cb:EventMessageTrigger>
-												</cb:RoutedMessageTriggerCollection>
-											</cb:Message.Triggers>
-										</Button>
-									</DockPanel>
 								</Border>
 							</DockPanel>
 							<Button x:Name="ToggleTabs"

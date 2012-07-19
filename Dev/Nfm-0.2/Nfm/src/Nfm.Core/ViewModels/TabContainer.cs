@@ -18,6 +18,29 @@ namespace Nfm.Core.ViewModels
 	/// </summary>
 	public class TabContainer : PanelContainerBase
 	{
+		#region Binding Properties
+
+		/// <summary>
+		/// Operational toolbar.
+		/// </summary>
+		private IToolbar toolbar;
+
+		/// <summary>
+		/// Gets or sets orientation for stacked panels.
+		/// </summary>
+		public IToolbar Toolbar
+		{
+			get { return toolbar; }
+			set
+			{
+				OnPropertyChanging("Toolbar");
+				toolbar = value;
+				OnPropertyChanged("Toolbar");
+			}
+		}
+
+		#endregion
+
 		#region .Ctors
 
 		/// <summary>
@@ -34,6 +57,10 @@ namespace Nfm.Core.ViewModels
 		protected TabContainer(TabContainer another)
 			: base(another)
 		{
+			if (another.Toolbar != null)
+			{
+				Toolbar = (IToolbar) another.Toolbar.Clone();
+			}
 		}
 
 		#endregion
