@@ -1,5 +1,7 @@
 **"NFM"** comes from "**N**ot **F**ile **M**anager" - a WPF-based hierarchical data manager for windows with:
 
+<img align="right" height="128" src="https://github.com/sevenate/nfm/blob/master/nfm-logo-avatar.png">
+
 * modern UI
 * flexible layout system
 * drag-n-drop-able multitabs interface
