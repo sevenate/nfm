@@ -12,4 +12,4 @@ Also application was developed with add-in model in mind and implementation show
 
 Code base was exported from local Perforce v2010 server where I've managed it during somewhere around **2009-2010**.
 
-Currently project is **frozen** since I have no time for it.
+Currently project is **frozen**.
