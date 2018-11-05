@@ -1,7 +1,5 @@
 **"NFM"** comes from "**N**ot **F**ile **M**anager" - a WPF-based hierarchical data manager for windows with:
 
-<img align="right" height="128" src="https://github.com/sevenate/nfm/blob/master/nfm-logo-avatar.png">
-
 * modern UI
 * flexible layout system
 * drag-n-drop-able multitabs interface
@@ -10,6 +8,6 @@
 
 Also application was developed with add-in model in mind and implementation showcase **local file system** add-in.
 
-Code base was exported from local Perforce v2010 server where I've managed it during somewhere around **2009-2010**.
+Code base was imported from local Perforce v2010 server where I've managed it during somewhere around **2009-2010**.
 
-Currently project is **frozen**.
+<img align="right" src="https://github.com/sevenate/nfm/blob/master/nfm-screenshot-01.png">
