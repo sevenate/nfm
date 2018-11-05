@@ -10,4 +10,4 @@ Also application was developed with add-in model in mind and implementation show
 
 Code base was imported from local Perforce v2010 server where I've managed it during somewhere around **2009-2010**.
 
-<img align="right" src="https://github.com/sevenate/nfm/blob/master/nfm-screenshot-01.png">
+<img align="right" src="https://github.com/sevenate/nfm/blob/master/nfm-screenshot.png">
