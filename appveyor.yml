@@ -1,0 +1,22 @@
+# appveyor.yml
+
+configuration:
+- Release
+
+version: "{build}"
+
+environment:
+  matrix:
+    - platform: Win64
+      language: csharp
+      image: Visual Studio 2017
+
+
+# Don't let AppVeyor try to detect tests itself
+test: off
+
+build_script:
+- CALL Main/Nfm/build.cmd
+
+skip_commits:
+  message: /.*\[skip appveyor\].*/
