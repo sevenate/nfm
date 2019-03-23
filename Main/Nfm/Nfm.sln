@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.Core", "src\Nfm.Core\Nfm.Core.csproj", "{0783CA39-53C3-412F-AA6C-B9530288050E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfm.Contract", "src\Nfm.Contract\Nfm.Contract.csproj", "{586B2B8A-76A1-450F-AEB5-5D4B6CB2E5CC}"
@@ -63,5 +65,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC51AA57-8C2B-4223-962A-7F4044E34BDD}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Main/Nfm/.vs/Nfm/v15
+/Main/Nfm/obj
+/Main/Nfm/Backup
+/Main/Nfm/UpgradeLog.htm
+/Main/Nfm/Nfm.sln.DotSettings.user
+/Main/Nfm/test
