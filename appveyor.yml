@@ -7,7 +7,7 @@ version: "{build}"
 
 environment:
   matrix:
-    - platform: x86
+    - platform: Any CPU
       language: csharp
       image: Visual Studio 2017
 
