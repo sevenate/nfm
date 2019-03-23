@@ -1,4 +1,4 @@
-[![](https://tokei.rs/b1/github/sevenate/nfm?category=code)](https://github.com/sevenate/nfm)
+[![Build status](https://ci.appveyor.com/api/projects/status/pswi3pr584ups8gg?svg=true)](https://ci.appveyor.com/project/sevenate/nfm) [![](https://tokei.rs/b1/github/sevenate/nfm?category=code)](https://github.com/sevenate/nfm)
 
 **"NFM"** comes from "**N**ot **F**ile **M**anager" - a WPF-based hierarchical data manager for windows with:
 
